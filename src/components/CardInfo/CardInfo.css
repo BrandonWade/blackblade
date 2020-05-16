@@ -1,0 +1,15 @@
+.card-info {
+    display: grid;
+    grid-template-columns: min-content 25vw 20vw;
+    grid-column-gap: 2rem;
+    justify-content: center;
+    align-items: start;
+    padding: 1.5rem;
+    background-color: var(--color-white);
+}
+
+.card-info__image {
+    height: 100%;
+    width: 30rem;
+    border-radius: 1.5rem;
+}

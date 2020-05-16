@@ -1,0 +1,16 @@
+.card-info__description {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-info__title {
+    padding-bottom: 1rem;
+}
+
+.card-info__mana-cost {
+    margin-left: 1rem;
+}
+
+.card-info__description-block:not(:last-child) {
+    margin-bottom: 1rem;
+}
