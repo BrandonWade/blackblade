@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import CardContext from '../../contexts/CardContext';
 import Card from '../Card';
 import './CardDescription.css';
 
-const CardDescription = ({ card }) => {
+const CardDescription = () => {
+    const card = useContext(CardContext);
+
     const renderText = () => {
         const lines = card.text.split('\n');
         return lines.map((l) => (
-            <p key={l} className='card-info__description-block'>
+            <p key={l} className='card-info__text-block'>
                 {l}
             </p>
         ));

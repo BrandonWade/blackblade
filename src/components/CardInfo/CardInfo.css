@@ -1,6 +1,6 @@
 .card-info {
     display: grid;
-    grid-template-columns: min-content 25vw 20vw;
+    grid-template-columns: max-content 25% 20%;
     grid-column-gap: 2rem;
     justify-content: center;
     align-items: start;

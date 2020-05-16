@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import CardContext from '../../contexts/CardContext';
 import Card from '../Card';
 import './CardSets.css';
 
-const CardSets = ({ card }) => {
+const CardSets = () => {
+    const card = useContext(CardContext);
+    console.log();
+
     return (
         <Card className='card-info__sets'>
             <ul className='card-info__set-list'>

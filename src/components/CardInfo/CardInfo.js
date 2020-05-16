@@ -1,9 +1,21 @@
 import React from 'react';
+import CardContext from '../../contexts/CardContext';
 import CardDescription from '../CardDescription';
 import CardSets from '../CardSets';
 import './CardInfo.css';
 
-const CardInfo = ({ card }) => {
+const card = {
+    title: 'Korlash, Heir to Blackblade',
+    manaCost: '{2}{B}{B}',
+    type: 'Legendary Creature — Zombie Warrior',
+    text:
+        'Korlash, Heir to Blackblade’s power and toughness are each equal to the number of Swamps you control.\n{1}{B}: Regenerate Korlash.\nGrandeur — Discard another card named Korlash, Heir to Blackblade: Search your library for up to two Swamp cards, put them onto the battlefield tapped, then shuffle your library.',
+    stats: '*/*',
+    set: 'Prerelease Events',
+    sets: ['Future Sight', 'Prerelease Events'],
+};
+
+const CardInfo = () => {
     return (
         <section className='card-info'>
             <img
@@ -11,8 +23,10 @@ const CardInfo = ({ card }) => {
                 alt='Card'
                 className='card-info__image'
             />
-            <CardDescription card={card} />
-            <CardSets card={card} />
+            <CardContext.Provider value={card}>
+                <CardDescription />
+                <CardSets />
+            </CardContext.Provider>
         </section>
     );
 };
