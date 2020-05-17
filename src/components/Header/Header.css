@@ -1,0 +1,26 @@
+.header {
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: var(--line);
+    background-color: #efefef;
+}
+
+.header__content {
+    width: 70%;
+}
+
+.header__logo {
+    font-size: 1.5rem;
+    margin-right: 2rem;
+}
+
+.header__search-box {
+    width: 40%;
+    height: 3rem;
+    border-radius: var(--border-radius);
+    border: var(--line);
+    font-size: 1.4rem;
+    padding: 0 0.5rem;
+}

@@ -7,9 +7,3 @@
     padding: 1.5rem;
     background-color: var(--color-white);
 }
-
-.card-info__image {
-    height: 100%;
-    width: 30rem;
-    border-radius: 1.5rem;
-}

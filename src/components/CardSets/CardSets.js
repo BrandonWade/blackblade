@@ -5,7 +5,6 @@ import './CardSets.css';
 
 const CardSets = () => {
     const card = useContext(CardContext);
-    console.log();
 
     return (
         <Card className='card-info__sets'>

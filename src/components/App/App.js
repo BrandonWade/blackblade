@@ -1,9 +1,15 @@
 import React from 'react';
-import CardInfo from '../CardInfo/CardInfo';
+import Header from '../Header';
+import CardInfo from '../CardInfo';
 import './App.css';
 
 const App = () => {
-    return <CardInfo />;
+    return (
+        <>
+            <Header />
+            <CardInfo />
+        </>
+    );
 };
 
 export default App;
