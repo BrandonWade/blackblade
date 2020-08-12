@@ -1,9 +1,0 @@
-.card-info {
-    display: grid;
-    grid-template-columns: max-content 25% 20%;
-    grid-column-gap: 2rem;
-    justify-content: center;
-    align-items: start;
-    padding: 1.5rem;
-    background-color: var(--color-white);
-}

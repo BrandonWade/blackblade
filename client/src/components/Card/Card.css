@@ -1,0 +1,14 @@
+.card {
+  border-radius: var(--border-radius);
+  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.2);
+  border: var(--line);
+  background-color: #fff;
+}
+
+.card__row-item {
+  padding: 1rem;
+}
+
+.card__row-item:not(:last-child) {
+  border-bottom: var(--line);
+}
