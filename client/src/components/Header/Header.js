@@ -1,4 +1,5 @@
 import React from 'react';
+import InputField from '../InputField';
 import './Header.scss';
 
 const Header = () => {
@@ -6,7 +7,7 @@ const Header = () => {
         <div className='Header'>
             <div className='Header-content'>
                 <span className='Header-logo'>Blackblade</span>
-                <input type='text' placeholder='Search' className='Header-searchBox' />
+                <InputField placeholder='Search' className='Header-searchBox' />
             </div>
         </div>
     );

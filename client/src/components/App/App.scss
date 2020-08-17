@@ -1,9 +1,13 @@
 :root {
-    --color-white: #fafafa;
-    --color-black: #111;
+    // --color-primary: #fafafa;
+    // --color-primary-text: #111;
+    --color-primary: #1b1d1e;
+    --color-primary-light: #252829;
+    --color-primary-text: #e8e6e3;
 
     --border-radius: 3px;
-    --line: 1px solid rgba(0, 0, 0, 0.15);
+    --box-shadow: 0 0.1rem 0.3rem rgba(150, 150, 150, 0.2);
+    --line: 1px solid #454b4d;
 }
 
 @font-face {
@@ -17,6 +21,7 @@
     margin: 0;
     padding: 0;
     box-sizing: inherit;
+    color: var(--color-primary-text);
 }
 
 html {
@@ -27,4 +32,11 @@ html {
 
 body {
     box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    background-color: var(--color-primary);
 }
