@@ -1,3 +1,1 @@
-import CardImage from "./CardImage";
-
-export default CardImage;
+export { default } from './CardImage';

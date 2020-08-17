@@ -1,19 +1,15 @@
-import React from "react";
-import "./Header.css";
+import React from 'react';
+import './Header.scss';
 
 const Header = () => {
-  return (
-    <div className="header">
-      <div className="header__content">
-        <span className="header__logo">Blackblade</span>
-        <input
-          type="text"
-          placeholder="Search"
-          className="header__search-box"
-        />
-      </div>
-    </div>
-  );
+    return (
+        <div className='Header'>
+            <div className='Header-content'>
+                <span className='Header-logo'>Blackblade</span>
+                <input type='text' placeholder='Search' className='Header-searchBox' />
+            </div>
+        </div>
+    );
 };
 
 export default Header;

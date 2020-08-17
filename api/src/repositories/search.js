@@ -22,7 +22,7 @@ const getCardsByName = (tokens) => {
         cardsQuery += ' AND name LIKE ?';
     }
 
-    cardsQuery += ` GROUP BY c.id, oracle_id
+    cardsQuery += ` GROUP BY c.oracle_id
         LIMIT 100
     `;
 

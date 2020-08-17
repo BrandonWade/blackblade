@@ -1,3 +1,1 @@
-import CardInfo from "./CardInfo";
-
-export default CardInfo;
+export { default } from './CardInfo';

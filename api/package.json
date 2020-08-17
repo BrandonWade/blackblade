@@ -20,14 +20,6 @@
         "@babel/core": "^7.5.5",
         "@babel/node": "^7.5.5",
         "@babel/preset-env": "^7.5.5",
-        "husky": "^4.2.5",
-        "nodemon": "^2.0.4",
-        "prettier": "2.0.5",
-        "pretty-quick": "^2.0.1"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "pretty-quick --staged"
-        }
+        "nodemon": "^2.0.4"
     }
 }

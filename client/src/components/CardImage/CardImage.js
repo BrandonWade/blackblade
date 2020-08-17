@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import CardContext from "../../contexts/CardContext";
-import "./CardImage.css";
+import React, { useContext } from 'react';
+import CardContext from '../../contexts/CardContext';
+import './CardImage.scss';
 
 const CardImage = () => {
-  const card = useContext(CardContext);
+    const card = useContext(CardContext);
 
-  return <img src={card.image} alt="Card" className="card-info__image" />;
+    return <img src={card.image} alt='Card' className='CardImage' />;
 };
 
 export default CardImage;

@@ -1,0 +1,26 @@
+.Header {
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: var(--line);
+    background-color: #efefef;
+}
+
+.Header-content {
+    width: 70%;
+}
+
+.Header-logo {
+    font-size: 1.5rem;
+    margin-right: 2rem;
+}
+
+.Header-searchBox {
+    width: 40%;
+    height: 3rem;
+    border-radius: var(--border-radius);
+    border: var(--line);
+    font-size: 1.4rem;
+    padding: 0 0.5rem;
+}

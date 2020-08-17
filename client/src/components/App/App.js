@@ -1,15 +1,15 @@
-import React from "react";
-import Header from "../Header";
-import CardInfo from "../CardInfo";
-import "./App.css";
+import React from 'react';
+import Header from '../Header';
+import CardInfo from '../CardInfo';
+import './App.scss';
 
 const App = () => {
-  return (
-    <>
-      <Header />
-      <CardInfo />
-    </>
-  );
+    return (
+        <>
+            <Header />
+            <CardInfo />
+        </>
+    );
 };
 
 export default App;

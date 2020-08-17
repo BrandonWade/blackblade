@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 
 services:
   db:
@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile.dev
       context: ./api/database/
     container_name: blackblade-db
+    command: --sql_mode=""
     volumes:
       - ./api/database:/database
     ports:
@@ -48,3 +49,7 @@ services:
       - ./client:/app
     environment:
       - CI=true
+
+networks:
+  default:
+    name: blackblade_core

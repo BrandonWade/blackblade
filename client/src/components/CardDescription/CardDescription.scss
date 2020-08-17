@@ -1,0 +1,24 @@
+.CardInfo {
+    &-description {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-title {
+        padding-bottom: 1rem;
+    }
+
+    &-type,
+    &-text,
+    &-stats {
+        font-size: 1.3rem;
+    }
+
+    &-manaCost {
+        margin-left: 0.5rem;
+    }
+
+    &-textBlock:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+}

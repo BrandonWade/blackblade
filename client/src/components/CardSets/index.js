@@ -1,3 +1,1 @@
-import CardSets from "./CardSets";
-
-export default CardSets;
+export { default } from './CardSets';

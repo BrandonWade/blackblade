@@ -1,0 +1,30 @@
+:root {
+    --color-white: #fafafa;
+    --color-black: #111;
+
+    --border-radius: 3px;
+    --line: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url(../../fonts/OpenSans-Regular.ttf);
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans';
+}
+
+body {
+    box-sizing: border-box;
+}

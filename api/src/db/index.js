@@ -23,7 +23,7 @@ export const initializeDatabase = () => {
                 `Successfully connected to '${DB_DATABASE}' as '${DB_USERNAME}'`,
             );
         });
-    }, 5000);
+    }, 3000);
 };
 
 export const query = (query, args) =>
