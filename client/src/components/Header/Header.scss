@@ -11,11 +11,6 @@
     width: 70%;
 }
 
-.Header-logo {
-    font-size: 1.5rem;
-    margin-right: 2rem;
-}
-
 .Header-searchBox {
     width: 40%;
     height: 3rem;
@@ -23,4 +18,5 @@
     border: var(--line);
     font-size: 1.4rem;
     padding: 0 0.5rem;
+    margin-left: 2rem;
 }

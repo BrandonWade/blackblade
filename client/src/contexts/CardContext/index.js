@@ -1,3 +1,2 @@
-import CardContext from "./CardContext";
-
-export default CardContext;
+import { initialState } from './CardContext';
+export { default, initialState } from './CardContext';

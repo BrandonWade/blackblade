@@ -1,7 +1,11 @@
 import { query } from '../db';
 
-const getCardsByName = (tokens) => {
-    let cardsQuery = `SELECT
+const getCardsByName = (tokens, limit = 100) => {
+    const params = tokens.map((t) => `+${t}*`).join(' ');
+
+    return query(
+        `SELECT
+        i.uri image,
         c.id,
         c.name,
         c.mana_cost,
@@ -14,21 +18,15 @@ const getCardsByName = (tokens) => {
         c.loyalty,
         c.artist
         FROM cards c
-        WHERE lang = 'en'
-    `;
-
-    // TODO: Use a query builder (dynamic queries only)
-    for (let i = 0; i < tokens.length; i++) {
-        cardsQuery += ' AND name LIKE ?';
-    }
-
-    cardsQuery += ` GROUP BY c.oracle_id
-        LIMIT 100
-    `;
-
-    return query(
-        cardsQuery,
-        tokens.map((token) => `%${token}%`),
+        INNER JOIN card_image_uris i ON c.id = i.card_id
+        WHERE c.lang = 'en'
+        AND i.image_type = 'normal'
+        AND MATCH (c.name)
+        AGAINST (? IN BOOLEAN MODE)
+        GROUP BY c.oracle_id
+        LIMIT ?
+    `,
+        [params, limit],
     );
 };
 

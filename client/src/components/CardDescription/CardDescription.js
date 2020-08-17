@@ -4,10 +4,10 @@ import Card from '../Card';
 import './CardDescription.scss';
 
 const CardDescription = () => {
-    const card = useContext(CardContext);
+    const { card } = useContext(CardContext);
 
     const renderText = () => {
-        const lines = card.text.split('\n');
+        const lines = card.oracle_text.split('\n');
         return lines.map(l => (
             <p key={l} className='CardInfo-textBlock'>
                 {l}
@@ -17,11 +17,11 @@ const CardDescription = () => {
 
     return (
         <Card className='CardInfo-description'>
-            <h2 className='Card-rowItem Card-title'>
-                {card.title}
-                <span className='CardInfo-manaCost'>{card.manaCost}</span>
+            <h2 className='Card-rowItem Card-name'>
+                {card.name}
+                <span className='CardInfo-manaCost'>{card.mana_cost}</span>
             </h2>
-            <div className='Card-rowItem CardInfo-type'>{card.type}</div>
+            <div className='Card-rowItem CardInfo-type'>{card.type_line}</div>
             <div className='Card-rowItem CardInfo-text'>{renderText()}</div>
             <div className='Card-rowItem CardInfo-stats'>{card.stats}</div>
         </Card>

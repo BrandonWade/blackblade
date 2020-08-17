@@ -48,7 +48,8 @@ CREATE TABLE cards (
     is_booster tinyint(1) NOT NULL DEFAULT 0,
     story_spotlight tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    UNIQUE KEY U_scryfall_id (scryfall_id)
+    UNIQUE KEY U_scryfall_id (scryfall_id),
+    FULLTEXT (name)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS card_multiverse_ids;
