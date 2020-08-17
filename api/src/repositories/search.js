@@ -19,8 +19,9 @@ const getCardsByName = (tokens, limit = 100) => {
         c.artist
         FROM cards c
         INNER JOIN card_image_uris i ON c.id = i.card_id
-        WHERE c.lang = 'en'
-        AND i.image_type = 'normal'
+        WHERE i.image_type = 'normal'
+        AND c.lang = 'en'
+        AND c.type_line != 'vanguard'
         AND MATCH (c.name)
         AGAINST (? IN BOOLEAN MODE)
         GROUP BY c.oracle_id

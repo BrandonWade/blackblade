@@ -15,6 +15,17 @@ const CardDescription = () => {
         ));
     };
 
+    const renderStatLine = () => {
+        let statLine;
+        if (card.loyalty) {
+            statLine = `Loyalty: ${card.loyalty}`;
+        } else if (card.power && card.toughness) {
+            statLine = `${card.power} / ${card.toughness}`;
+        }
+
+        return statLine ? <div className='Card-rowItem CardInfo-statLine'>{statLine}</div> : null;
+    };
+
     return (
         <Card className='CardInfo-description'>
             <h2 className='Card-rowItem Card-name'>
@@ -23,7 +34,7 @@ const CardDescription = () => {
             </h2>
             <div className='Card-rowItem CardInfo-type'>{card.type_line}</div>
             <div className='Card-rowItem CardInfo-text'>{renderText()}</div>
-            <div className='Card-rowItem CardInfo-stats'>{card.stats}</div>
+            {renderStatLine()}
         </Card>
     );
 };
