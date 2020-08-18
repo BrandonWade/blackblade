@@ -5,18 +5,22 @@
     align-items: center;
     border-bottom: var(--line);
     background-color: var(--color-primary);
-}
 
-.Header-content {
-    width: 70%;
-}
+    &-content {
+        width: 70%;
+    }
 
-.Header-searchBox {
-    width: 40%;
-    height: 3rem;
-    border-radius: var(--border-radius);
-    border: var(--line);
-    font-size: 1.4rem;
-    padding: 0 0.5rem;
-    margin-left: 2rem;
+    &-searchForm {
+        display: inline-block;
+        width: 40%;
+    }
+
+    &-searchBox {
+        height: 3rem;
+        border-radius: var(--border-radius);
+        border: var(--line);
+        font-size: 1.4rem;
+        padding: 0 0.5rem;
+        margin-left: 2rem;
+    }
 }

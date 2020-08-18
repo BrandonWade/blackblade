@@ -1,6 +1,6 @@
 import { query } from '../db';
 
-const getCardsByName = (tokens, limit = 100) => {
+const getCardsByName = (tokens, limit = 30) => {
     const params = tokens.map((t) => `+${t}*`).join(' ');
 
     return query(

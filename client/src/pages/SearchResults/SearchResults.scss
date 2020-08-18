@@ -1,0 +1,20 @@
+.SearchResults {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+
+    &-content {
+        width: 80vw;
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 1rem;
+        grid-column-gap: 1rem;
+    }
+
+    &-image {
+        border-radius: 1.1rem;
+        width: 100%;
+        box-shadow: var(--box-shadow);
+    }
+}
