@@ -15,7 +15,7 @@ const searchController = async (req, res) => {
     let data = {};
 
     if (query) {
-        const { results } = await SearchService.getCardsByName(query);
+        const { results } = await SearchService.basicSearch(query);
         data = results;
     }
 

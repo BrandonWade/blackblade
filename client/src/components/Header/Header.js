@@ -27,7 +27,7 @@ const Header = () => {
                 history.push(`/cards/${card.id}`);
             } else {
                 setSearchResults(response.results);
-                history.push('/cards');
+                history.push(`/cards/search?q=${query}`);
             }
         }
     };
