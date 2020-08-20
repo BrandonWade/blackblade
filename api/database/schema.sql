@@ -180,3 +180,12 @@ CREATE TABLE card_purchase_uris (
     PRIMARY KEY (id),
     FOREIGN KEY (card_id) REFERENCES cards(id)
 ) CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS card_sets_images;
+CREATE TABLE card_sets_images (
+	id bigint unsigned NOT NULL AUTO_INCREMENT,
+	card_id bigint unsigned NOT NULL DEFAULT 0,
+	sets json NOT NULL DEFAULT '',
+	PRIMARY KEY (id),
+	FOREIGN KEY (card_id) REFERENCES cards(id)
+) CHARSET=utf8mb4;

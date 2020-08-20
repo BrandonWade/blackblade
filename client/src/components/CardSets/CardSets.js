@@ -5,17 +5,16 @@ import './CardSets.scss';
 
 const CardSets = () => {
     const { card } = useContext(CardContext);
+    const cardSets = JSON.parse(card?.sets || '[]');
 
-    // TODO: Return the full list of sets for this card
     return (
         <Card className='CardSets'>
             <ul className='CardSets-list'>
-                {/* {(card.sets).map(set => (
-                    <li key={set} className='Card-rowItem'>
-                        {set}
+                {cardSets.map((set, i) => (
+                    <li key={i} className='Card-rowItem'>
+                        {set.set_name}
                     </li>
-                ))} */}
-                <li className='Card-rowItem'>{card.set_name}</li>
+                ))}
             </ul>
         </Card>
     );

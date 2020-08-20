@@ -16,13 +16,16 @@ const SearchResults = () => {
         history.push(`/cards/${card.id}`);
     };
 
-    // TODO: Return multiple image sizes and use normal here
     return (
         <HeaderPage className='SearchResults'>
             <div className='SearchResults-content'>
-                {searchResults.map((r, i) => (
-                    <img key={r.id} src={r.image} alt='Card' className='SearchResults-image' onClick={() => onSelectResult(i)} />
-                ))}
+                {searchResults.map((r, i) => {
+                    const card = searchResults[i];
+                    const cardSets = JSON.parse(card?.sets || '[]');
+                    const cardSet = cardSets.length > 0 ? cardSets[0] : {};
+
+                    return <img key={r.id} src={cardSet.image} alt='Card' className='SearchResults-image' onClick={() => onSelectResult(i)} />;
+                })}
             </div>
         </HeaderPage>
     );

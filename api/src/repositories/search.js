@@ -5,23 +5,20 @@ const getCardsByName = (tokens, limit = 30) => {
 
     return query(
         `SELECT
-        i.uri image,
         c.id,
         c.name,
         c.mana_cost,
         c.type_line,
         c.oracle_text,
-        c.set_name,
         c.rarity,
         c.power,
         c.toughness,
         c.loyalty,
-        c.artist
+        c.artist,
+        s.sets
         FROM cards c
-        INNER JOIN card_image_uris i ON c.id = i.card_id
-        WHERE i.image_type = 'normal'
-        AND c.lang = 'en'
-        AND c.type_line != 'vanguard'
+        INNER JOIN card_sets_images s ON c.id = s.card_id
+        WHERE c.type_line != 'vanguard'
         AND MATCH (c.name)
         AGAINST (? IN BOOLEAN MODE)
         GROUP BY c.oracle_id
