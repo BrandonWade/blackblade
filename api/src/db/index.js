@@ -9,21 +9,44 @@ const connection = mysql.createConnection({
     database: DB_DATABASE,
 });
 
-export const initializeDatabase = () => {
-    // TODO: Implement graceful reconnection attempts
-    // This is a hack to wait a few seconds before attempting to
-    // connect to MySQL to give it a chance to finish booting up
-    setTimeout(() => {
-        connection.connect((err) => {
-            if (err) {
-                throw err;
-            }
+export const initializeDatabase = async () => {
+    const success = connect();
+    if (success) {
+        return;
+    }
 
+    let retries = 3;
+    while (retries--) {
+        console.log(
+            `Attempting to connect to ${DB_DATABASE}, attempt ${
+                3 - retries
+            }...`,
+        );
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        const success = connect();
+        if (success) {
+            return;
+        }
+    }
+
+    console.error('All attempts to connect to DB failed');
+    process.exit(1);
+};
+
+const connect = async () => {
+    await connection.connect((err) => {
+        if (err) {
+            console.error(err);
+            return false;
+        } else {
             console.log(
                 `Successfully connected to '${DB_DATABASE}' as '${DB_USERNAME}'`,
             );
-        });
-    }, 3000);
+            return true;
+        }
+    });
+
+    return false;
 };
 
 export const query = (query, args) =>
