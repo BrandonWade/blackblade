@@ -1,7 +1,16 @@
 .CardSets {
     font-size: 1.2rem;
-}
 
-.CardSets-list {
-    list-style: none;
+    &-list {
+        list-style: none;
+    }
+
+    &-listItem:hover {
+        background-color: #2f3334;
+        cursor: pointer;
+    }
+
+    &-selectedSet {
+        background-color: #393e3f;
+    }
 }

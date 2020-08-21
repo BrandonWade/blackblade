@@ -1,11 +1,8 @@
-import React, { useContext } from 'react';
-import CardContext from '../../contexts/CardContext';
+import React from 'react';
 import Card from '../Card';
 import './CardDescription.scss';
 
-const CardDescription = () => {
-    const { card } = useContext(CardContext);
-
+const CardDescription = ({ card }) => {
     const renderText = () => {
         const lines = card.oracle_text.split('\n');
         return lines.map(l => (

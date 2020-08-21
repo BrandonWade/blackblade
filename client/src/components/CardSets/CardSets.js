@@ -1,20 +1,28 @@
-import React, { useContext } from 'react';
-import CardContext from '../../contexts/CardContext';
+import React from 'react';
 import Card from '../Card';
 import './CardSets.scss';
 
-const CardSets = () => {
-    const { card } = useContext(CardContext);
-    const cardSets = JSON.parse(card?.sets || '[]');
+const CardSets = ({ cardSets, selectedSetIndex, setSelectedSetIndex }) => {
+    const onSelectSet = index => {
+        setSelectedSetIndex(index);
+    };
 
     return (
         <Card className='CardSets'>
             <ul className='CardSets-list'>
-                {cardSets.map((set, i) => (
-                    <li key={i} className='Card-rowItem'>
-                        {set.set_name}
-                    </li>
-                ))}
+                {cardSets.map((set, i) => {
+                    const selected = i === selectedSetIndex;
+
+                    return (
+                        <li
+                            key={i}
+                            className={`Card-rowItem CardSets-listItem ${selected ? 'CardSets-selectedSet' : ''}`}
+                            onClick={() => onSelectSet(i)}
+                        >
+                            {set.set_name}
+                        </li>
+                    );
+                })}
             </ul>
         </Card>
     );
