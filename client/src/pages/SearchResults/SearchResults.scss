@@ -1,9 +1,8 @@
 .SearchResults {
-    height: calc(100% - 4rem);
     display: flex;
     justify-content: center;
 
-    &-content {
+    &-results {
         width: 80vw;
         padding: 2rem;
         display: grid;

@@ -12,10 +12,11 @@ const basicSearch = async (req, res) => {
     }
 
     const query = req.query['q'];
+    const page = parseInt(req.query['page']);
     let data = {};
 
     if (query) {
-        const { results } = await SearchService.basicSearch(query);
+        const results = await SearchService.basicSearch(query, page);
         data = results;
     }
 

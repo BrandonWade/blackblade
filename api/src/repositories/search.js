@@ -1,8 +1,22 @@
 import { query } from '../db';
 
-const getCardsByName = (tokens, limit = 30) => {
+const getPageCount = (tokens) => {
     const params = tokens.map((t) => `+${t}*`).join(' ');
+    return query(
+        `SELECT
+        COUNT(*) pages
+        FROM cards c
+        INNER JOIN card_sets_images s ON c.id = s.card_id
+        WHERE c.type_line != 'vanguard'
+        AND MATCH (c.name)
+        AGAINST (? IN BOOLEAN MODE)
+    `,
+        [params],
+    );
+};
 
+const getCardsByName = (tokens, page, pageSize) => {
+    const params = tokens.map((t) => `+${t}*`).join(' ');
     return query(
         `SELECT
         c.id,
@@ -22,9 +36,10 @@ const getCardsByName = (tokens, limit = 30) => {
         AND MATCH (c.name)
         AGAINST (? IN BOOLEAN MODE)
         GROUP BY c.oracle_id
-        LIMIT ?
+        ORDER BY c.name
+        LIMIT ?, ?
     `,
-        [params, limit],
+        [params, (page - 1) * pageSize, pageSize],
     );
 };
 
@@ -52,6 +67,7 @@ const getCardByID = (id) => {
 };
 
 export default {
+    getPageCount,
     getCardsByName,
     getCardByID,
 };

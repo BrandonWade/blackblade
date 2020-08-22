@@ -1,9 +1,20 @@
 import SearchRepository from '../repositories/search';
 
-const basicSearch = (query) => {
-    const queryTokens = query.split(/\s+/);
+const pageSize = 60;
 
-    return SearchRepository.getCardsByName(queryTokens);
+const basicSearch = async (query, page) => {
+    const queryTokens = query.split(/\s+/);
+    const pageResults = await SearchRepository.getPageCount(queryTokens);
+    const cardResults = await SearchRepository.getCardsByName(
+        queryTokens,
+        page,
+        pageSize,
+    );
+
+    return {
+        pages: Math.ceil(pageResults.results[0].pages / pageSize),
+        results: cardResults.results,
+    };
 };
 
 const getCardByID = (id) => {

@@ -1,6 +1,6 @@
 const useSearch = (headers = {}) => {
-    const basicSearch = async query => {
-        const response = await fetch(`/api/search?q=${query}`, {
+    const basicSearch = async (query, page = 1) => {
+        const response = await fetch(`/api/search?q=${query}&page=${page}`, {
             headers: {
                 ...headers,
             },
@@ -8,9 +8,11 @@ const useSearch = (headers = {}) => {
 
         switch (response.status) {
             case 200:
+                const data = await response.json();
                 return {
                     success: true,
-                    results: await response.json(),
+                    pages: data.pages,
+                    results: data.results,
                 };
             default:
                 return {

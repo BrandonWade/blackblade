@@ -1,0 +1,79 @@
+.Paginator {
+    display: flex;
+    justify-content: center;
+
+    &-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    &-firstPageIcon,
+    &-previousPageIcon,
+    &-nextPageIcon,
+    &-lastPageIcon {
+        width: 2rem;
+        height: 2rem;
+        display: inline-block;
+        fill: var(--color-primary-text);
+    }
+
+    &-firstPageIcon {
+        margin-right: 1rem;
+    }
+
+    &-previousPageIcon {
+        margin-left: -5px;
+        margin-top: 1px;
+    }
+
+    &-nextPageIcon {
+        margin-right: -5px;
+        margin-top: 2px;
+    }
+
+    &-lastPageIcon {
+        margin-left: 1rem;
+    }
+
+    &-firstButton,
+    &-previousButton,
+    &-nextButton,
+    &-lastButton {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        border: var(--line);
+        border-radius: var(--border-radius);
+        background-color: transparent;
+        padding: 0.75rem;
+        cursor: pointer;
+
+        &:enabled:hover {
+            background-color: var(--color-primary-lighter);
+        }
+    }
+
+    &-previousButton {
+        margin-left: 5rem;
+        margin-right: auto;
+    }
+
+    &-nextButton {
+        margin-right: 5rem;
+        margin-left: auto;
+    }
+
+    &-button:disabled {
+        opacity: 35%;
+        cursor: default;
+    }
+
+    &--top {
+        margin-top: 2.5rem;
+    }
+
+    &--bottom {
+        margin-bottom: 2.5rem;
+    }
+}
