@@ -1,14 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import useSearch from '../../hooks/useSearch';
 import SearchResultContext from '../../contexts/SearchResultsContext';
 import CardContext from '../../contexts/CardContext';
 import HeaderPage from '../../components/HeaderPage';
 import './SearchResults.scss';
 
-const SearchResults = () => {
+const SearchResults = props => {
     const history = useHistory();
-    const { searchResults } = useContext(SearchResultContext);
+    const { searchResults, setSearchResults } = useContext(SearchResultContext);
     const { setCard } = useContext(CardContext);
+    const { basicSearch } = useSearch();
+    const urlParams = new URLSearchParams(props.location.search);
+    const query = urlParams.get('q');
+
+    useEffect(() => {
+        const search = async () => {
+            const response = await basicSearch(query);
+            if (response.success) {
+                if (response?.results.length == 1) {
+                    const card = response.results[0];
+
+                    setCard(card);
+                    history.push(`/cards/${card.id}`);
+                } else {
+                    setSearchResults(response.results);
+                }
+            }
+        };
+        search();
+    }, [query]);
 
     const onSelectResult = index => {
         const card = searchResults[index];

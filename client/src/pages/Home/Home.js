@@ -20,7 +20,7 @@ const Home = () => {
         // TODO: Should this be in a custom hook?
         const response = await basicSearch(query);
         if (response.success) {
-            if (response.results.length == 1) {
+            if (response?.results.length == 1) {
                 const card = response.results[0];
 
                 setCard(card);

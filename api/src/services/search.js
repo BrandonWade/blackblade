@@ -6,6 +6,11 @@ const basicSearch = (query) => {
     return SearchRepository.getCardsByName(queryTokens);
 };
 
+const getCardByID = (id) => {
+    return SearchRepository.getCardByID(id);
+};
+
 export default {
     basicSearch,
+    getCardByID,
 };

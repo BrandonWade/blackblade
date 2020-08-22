@@ -1,3 +1,9 @@
-import { check } from 'express-validator';
+import { check, param } from 'express-validator';
 
-export default [check('q').isLength({ min: 1 })];
+const searchQueryExists = check('q').isLength({ min: 1 });
+const cardIDValidator = param('id').isInt().toInt({ min: 1 });
+
+const basicSearchValidators = [searchQueryExists];
+const cardValidators = [cardIDValidator];
+
+export { basicSearchValidators, cardValidators };

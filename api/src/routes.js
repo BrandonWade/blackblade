@@ -1,9 +1,10 @@
 import express from 'express';
-import searchValidators from './validators/search';
-import searchController from './controllers/search';
+import { basicSearchValidators, cardValidators } from './validators/search';
+import { basicSearch, getCardByID } from './controllers/search';
 
 const router = express.Router();
 
-router.get('/search', searchValidators, searchController);
+router.get('/search', basicSearchValidators, basicSearch);
+router.get('/cards/:id', cardValidators, getCardByID);
 
 export default router;
