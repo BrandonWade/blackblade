@@ -31,7 +31,7 @@ const CardInfo = () => {
             }
         };
         fetchCard();
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         setSelectedSetIndex(0);

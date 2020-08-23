@@ -17,9 +17,6 @@ const SearchResults = props => {
     const urlParams = new URLSearchParams(props.location.search);
     const query = urlParams.get('q');
 
-    // TODO: Should display page in url query params
-    // TODO: Navigating to a later page then returning does not reset currentPage
-
     const fetchResults = async () => {
         const response = await basicSearch(query, currentPage);
         if (response.success) {
@@ -33,14 +30,21 @@ const SearchResults = props => {
             } else {
                 setSearchResults(response.results);
                 setNumPages(response.pages);
+                history.push({
+                    search: `?q=${query}&page=${currentPage}`,
+                });
                 window.scrollTo(0, 0);
             }
         }
     };
 
     useEffect(() => {
+        setCurrentPage(1);
+    }, [query]);
+
+    useEffect(() => {
         fetchResults();
-    }, [query, currentPage]);
+    }, [currentPage]);
 
     const onSelectResult = index => {
         const card = searchResults[index];
