@@ -10,7 +10,7 @@ import './Home.scss';
 const Home = () => {
     const history = useHistory();
     const [query, setQuery] = useState('');
-    const { setCard } = useContext(CardContext);
+    const { setCard, setSecondFace } = useContext(CardContext);
     const { setSearchResults } = useContext(SearchResultsContext);
     const { basicSearch } = useSearch();
 
@@ -20,10 +20,17 @@ const Home = () => {
         // TODO: Should this be in a custom hook?
         const response = await basicSearch(query);
         if (response.success) {
-            if (response?.results.length == 1) {
+            if (response?.results.length === 1) {
                 const card = response.results[0];
 
                 setCard(card);
+                setSecondFace();
+                history.push(`/cards/${card.id}`);
+            } else if (response?.results.length === 2 && response?.results[0].card_id === response?.results[1].card_id) {
+                const card = response.results[0];
+
+                setCard(card);
+                setSecondFace(response.results[1]);
                 history.push(`/cards/${card.id}`);
             } else {
                 setSearchResults(response.results);

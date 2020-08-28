@@ -10,11 +10,12 @@ import './App.scss';
 const App = () => {
     const [searchResults, setSearchResults] = useState(SearchResultsInitialState);
     const [card, setCard] = useState(CardInitialState);
+    const [secondFace, setSecondFace] = useState();
 
     return (
         <>
             <SearchResultsContext.Provider value={{ searchResults, setSearchResults }}>
-                <CardContext.Provider value={{ card, setCard }}>
+                <CardContext.Provider value={{ card, setCard, secondFace, setSecondFace }}>
                     <BrowserRouter>
                         <Switch>
                             <Route path='/' exact component={Home} />

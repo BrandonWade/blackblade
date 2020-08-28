@@ -11,7 +11,7 @@ import './CardInfo.scss';
 const CardInfo = () => {
     const history = useHistory();
     const { id } = useParams();
-    const { card, setCard } = useContext(CardContext);
+    const { card, setCard, secondFace, setSecondFace } = useContext(CardContext);
     const cardSets = JSON.parse(card.set_name_image_json || '[]');
     const [selectedSetIndex, setSelectedSetIndex] = useState(0);
     const selectedSet = cardSets?.[selectedSetIndex] || {};
@@ -21,8 +21,12 @@ const CardInfo = () => {
         const fetchCard = async () => {
             const response = await getCardByID(id);
             if (response.success) {
-                if (response?.results.length == 1) {
+                if (response?.results.length === 1) {
                     setCard(response.results[0]);
+                    setSecondFace();
+                } else if (response?.results.length === 2 && response?.results[0].card_id === response?.results[1].card_id) {
+                    setCard(response.results[0]);
+                    setSecondFace(response.results[1]);
                 } else {
                     history.push('/');
                 }
@@ -39,8 +43,8 @@ const CardInfo = () => {
 
     return (
         <HeaderPage className='CardInfo'>
-            <CardImage image={selectedSet.image} alt={`${selectedSet.set_name} ${card.name}`} />
-            <CardDescription card={card} />
+            <CardImage image={selectedSet.image} alt={card.name} />
+            <CardDescription card={card} secondFace={secondFace} />
             <CardSets cardSets={cardSets} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
         </HeaderPage>
     );
