@@ -4,7 +4,10 @@ const pageSize = 60;
 
 const basicSearch = async (query, page) => {
     const queryTokens = query.split(/\s+/);
-    const pageResults = await SearchRepository.getPageCount(queryTokens);
+    const pageResults = await SearchRepository.getPageCount(
+        queryTokens,
+        pageSize,
+    );
     const cardResults = await SearchRepository.getCardsByName(
         queryTokens,
         page,
@@ -12,7 +15,7 @@ const basicSearch = async (query, page) => {
     );
 
     return {
-        pages: Math.ceil(pageResults.results[0].pages / pageSize),
+        pages: pageResults.results[0].pages,
         results: cardResults.results,
     };
 };

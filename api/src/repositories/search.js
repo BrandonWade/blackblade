@@ -1,17 +1,21 @@
 import { query } from '../db';
 
-const getPageCount = (tokens) => {
+const getPageCount = (tokens, pageSize) => {
     const params = tokens.map((t) => `+${t}*`).join(' ');
     return query(
         `SELECT
-        COUNT(*) pages
-        FROM cards c
-        INNER JOIN card_sets_images s ON c.id = s.card_id
-        WHERE c.type_line != 'vanguard'
-        AND MATCH (c.name)
-        AGAINST (? IN BOOLEAN MODE)
+        CEIL(COUNT(*) / ?) pages
+        FROM (
+          SELECT
+          c.*
+          FROM cards c
+          INNER JOIN card_faces f ON c.id = f.card_id
+          WHERE MATCH(f.name)
+          AGAINST (? IN BOOLEAN MODE)
+          GROUP BY c.oracle_id
+        ) a
     `,
-        [params],
+        [pageSize, params],
     );
 };
 
@@ -20,23 +24,23 @@ const getCardsByName = (tokens, page, pageSize) => {
     return query(
         `SELECT
         c.id,
-        c.name,
-        c.mana_cost,
-        c.type_line,
-        c.oracle_text,
         c.rarity,
-        c.power,
-        c.toughness,
-        c.loyalty,
-        c.artist,
-        s.sets
-        FROM cards c
-        INNER JOIN card_sets_images s ON c.id = s.card_id
-        WHERE c.type_line != 'vanguard'
-        AND MATCH (c.name)
+        c.oracle_id,
+        c.set_name_image_json,
+        f.name,
+        f.mana_cost,
+        f.type_line,
+        f.oracle_text,
+        f.power,
+        f.toughness,
+        f.loyalty,
+        f.artist
+        FROM card_faces f
+        INNER JOIN cards c ON c.id = f.card_id
+        WHERE MATCH (f.name)
         AGAINST (? IN BOOLEAN MODE)
         GROUP BY c.oracle_id
-        ORDER BY c.name
+        ORDER BY f.name
         LIMIT ?, ?
     `,
         [params, (page - 1) * pageSize, pageSize],
@@ -47,20 +51,19 @@ const getCardByID = (id) => {
     return query(
         `SELECT
         c.id,
-        c.name,
-        c.mana_cost,
-        c.type_line,
-        c.oracle_text,
         c.rarity,
-        c.power,
-        c.toughness,
-        c.loyalty,
-        c.artist,
-        s.sets
-        FROM cards c
-        INNER JOIN card_sets_images s ON c.id = s.card_id
-        WHERE c.type_line != 'vanguard'
-        AND c.id = ?
+        c.set_name_image_json,
+        f.name,
+        f.mana_cost,
+        f.type_line,
+        f.oracle_text,
+        f.power,
+        f.toughness,
+        f.loyalty,
+        f.artist
+        FROM card_faces f
+        INNER JOIN cards c ON c.id = f.card_id
+        WHERE c.id = ?
     `,
         [id],
     );

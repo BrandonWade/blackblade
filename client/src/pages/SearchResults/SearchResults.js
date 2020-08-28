@@ -33,7 +33,6 @@ const SearchResults = props => {
                 history.push({
                     search: `?q=${query}&page=${currentPage}`,
                 });
-                window.scrollTo(0, 0);
             }
         }
     };
@@ -46,8 +45,7 @@ const SearchResults = props => {
         fetchResults();
     }, [currentPage]);
 
-    const onSelectResult = index => {
-        const card = searchResults[index];
+    const onSelectResult = card => {
         setCard(card);
         history.push(`/cards/${card.id}`);
     };
@@ -63,12 +61,19 @@ const SearchResults = props => {
                     fetchResults={fetchResults}
                 />
                 <div className='SearchResults-results'>
-                    {searchResults.map((r, i) => {
-                        const card = searchResults[i];
-                        const cardSets = JSON.parse(card?.sets || '[]');
+                    {searchResults.map(card => {
+                        const cardSets = JSON.parse(card.set_name_image_json || '[]');
                         const cardSet = cardSets.length > 0 ? cardSets[0] : {};
 
-                        return <img key={r.id} src={cardSet.image} alt='Card' className='SearchResults-image' onClick={() => onSelectResult(i)} />;
+                        return (
+                            <img
+                                key={card.id}
+                                src={cardSet.image}
+                                alt={card.name}
+                                className='SearchResults-image'
+                                onClick={() => onSelectResult(card)}
+                            />
+                        );
                     })}
                 </div>
                 <Paginator

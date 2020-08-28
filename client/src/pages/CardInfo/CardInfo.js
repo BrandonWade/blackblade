@@ -12,7 +12,7 @@ const CardInfo = () => {
     const history = useHistory();
     const { id } = useParams();
     const { card, setCard } = useContext(CardContext);
-    const cardSets = JSON.parse(card?.sets || '[]');
+    const cardSets = JSON.parse(card.set_name_image_json || '[]');
     const [selectedSetIndex, setSelectedSetIndex] = useState(0);
     const selectedSet = cardSets?.[selectedSetIndex] || {};
     const { getCardByID } = useSearch();
