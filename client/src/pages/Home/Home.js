@@ -26,7 +26,7 @@ const Home = () => {
                 setCard(card);
                 setSecondFace();
                 history.push(`/cards/${card.id}`);
-            } else if (response?.results.length === 2 && response?.results[0].card_id === response?.results[1].card_id) {
+            } else if (response?.results.length === 2 && response?.results[0].id === response?.results[1].id) {
                 const card = response.results[0];
 
                 setCard(card);

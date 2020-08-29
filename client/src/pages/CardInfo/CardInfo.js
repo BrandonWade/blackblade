@@ -24,7 +24,7 @@ const CardInfo = () => {
                 if (response?.results.length === 1) {
                     setCard(response.results[0]);
                     setSecondFace();
-                } else if (response?.results.length === 2 && response?.results[0].card_id === response?.results[1].card_id) {
+                } else if (response?.results.length === 2 && response?.results[0].id === response?.results[1].id) {
                     setCard(response.results[0]);
                     setSecondFace(response.results[1]);
                 } else {

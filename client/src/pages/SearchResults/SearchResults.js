@@ -20,7 +20,7 @@ const SearchResults = props => {
     const fetchResults = async () => {
         const response = await basicSearch(query, currentPage);
         if (response.success) {
-            if (response?.results.length === 1 || (response?.results.length === 2 && response?.results[0].card_id === response?.results[1].card_id)) {
+            if (response?.results.length === 1 || (response?.results.length === 2 && response?.results[0].id === response?.results[1].id)) {
                 const card = response.results[0];
 
                 setCard(card);
