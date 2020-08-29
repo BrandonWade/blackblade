@@ -83,22 +83,14 @@ CREATE TABLE card_faces (
     image_border_crop varchar(256) DEFAULT NULL,
     mana_cost varchar(128) NOT NULL DEFAULT '',
     name varchar(256) NOT NULL DEFAULT '',
-    reverse_name varchar(256) NOT NULL DEFAULT '',
     oracle_text text,
-    reverse_oracle_text text,
     power varchar(8) DEFAULT NULL,
     toughness varchar(8) DEFAULT NULL,
     loyalty varchar(8) DEFAULT NULL,
     type_line varchar(128) NOT NULL DEFAULT '',
     watermark varchar(32) NOT NULL DEFAULT '',
     PRIMARY KEY (id),
-    FOREIGN KEY (card_id) REFERENCES cards(id),
-    FULLTEXT (name),
-    FULLTEXT (reverse_name),
-    FULLTEXT (flavor_name),
-    FULLTEXT (reverse_flavor_name),
-    FULLTEXT (oracle_text),
-    FULLTEXT (reverse_oracle_text)
+    FOREIGN KEY (card_id) REFERENCES cards(id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS card_face_colors;
