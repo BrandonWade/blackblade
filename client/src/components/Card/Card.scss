@@ -11,4 +11,9 @@
             border-bottom: var(--line);
         }
     }
+
+    &-name {
+        display: flex;
+        align-items: center;
+    }
 }

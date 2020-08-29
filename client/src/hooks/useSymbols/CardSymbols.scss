@@ -1,0 +1,14 @@
+.CardSymbol {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: 0.15rem;
+    position: relative;
+
+    &--100 {
+        width: 2.5rem;
+    }
+
+    &--1000000 {
+        width: 7rem;
+    }
+}

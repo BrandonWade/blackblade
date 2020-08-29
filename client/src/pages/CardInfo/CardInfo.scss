@@ -6,4 +6,12 @@
     align-items: start;
     padding: 1.5rem;
     background-color: var(--color-primary);
+
+    & .Card-name .CardSymbol {
+        margin-right: 0.3rem;
+    }
+
+    &-text .CardSymbol {
+        top: 0.3rem;
+    }
 }

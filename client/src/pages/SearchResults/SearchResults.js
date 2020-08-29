@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import SearchResultContext from '../../contexts/SearchResultsContext';
