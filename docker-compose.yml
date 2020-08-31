@@ -1,55 +1,55 @@
-version: "3.5"
+version: '3.5'
 
 services:
-  db:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./api/database/
-    container_name: blackblade-db
-    command: --sql_mode=""
-    volumes:
-      - ./api/database:/database
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=blackblade
-  api:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./api
-    container_name: blackblade-api
-    depends_on:
-      - "db"
-    volumes:
-      - ./api:/usr/src/app
-    ports:
-      - "8000:8000"
-    environment:
-      - API_PORT=8000
-      - DB_HOST=blackblade-db
-      - DB_USERNAME=root
-      - DB_PASSWORD=root
-      - DB_DATABASE=blackblade
-  nginx:
-    restart: always
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./nginx
-    container_name: blackblade-nginx
-    ports:
-      - "8100:80"
-  client:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./client
-    container_name: blackblade-client
-    volumes:
-      - /app/node_modules
-      - ./client:/app
-    environment:
-      - CI=true
+    db:
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./api/database/
+        container_name: blackblade-db
+        command: --sql_mode=""
+        volumes:
+            - ./api/database:/database
+        ports:
+            - '3306:3306'
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=blackblade
+    api:
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./api
+        container_name: blackblade-api
+        depends_on:
+            - 'db'
+        volumes:
+            - ./api:/usr/src/app
+        ports:
+            - '8000:8000'
+        environment:
+            - API_PORT=8000
+            - DB_HOST=blackblade-db
+            - DB_USERNAME=root
+            - DB_PASSWORD=root
+            - DB_DATABASE=blackblade
+    nginx:
+        restart: always
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./nginx
+        container_name: blackblade-nginx
+        ports:
+            - '8100:80'
+    client:
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./client
+        container_name: blackblade-client
+        volumes:
+            - /app/node_modules
+            - ./client:/app
+        environment:
+            - CI=true
 
 networks:
-  default:
-    name: blackblade_core
+    default:
+        name: blackblade_core

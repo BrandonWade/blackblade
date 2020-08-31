@@ -11,7 +11,7 @@ RUN npm run build
 
 
 FROM nginx:1.17
-EXPOSE 8000
+EXPOSE 8200
 
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
 COPY --from=builder /app/build /usr/share/nginx/html
