@@ -8,7 +8,7 @@ jobs:
             - checkout
             - setup_remote_docker
             - run:
-                  name: 'Build & push docker images to Dockerhub'
+                  name: 'Build & push images to Dockerhub'
                   command: |
                       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
                       docker build -t brandonwade/blackblade-db:latest -t brandonwade/blackblade-db:$CIRCLE_SHA1 -f ./api/database/Dockerfile ./api/database
