@@ -20,24 +20,24 @@ jobs:
                       docker push brandonwade/blackblade-api:$CIRCLE_SHA1
                       docker push brandonwade/blackblade-client:latest
                       docker push brandonwade/blackblade-client:$CIRCLE_SHA1
-            # - run:
-            #       name: 'Authenticate with GCP'
-            #       command: |
-            #           openssl aes-256-cbc -d -in service-account.json.enc -out service-account.json -k $SERVICE_ACCOUNT_ENCRYPTION_KEY -md sha256
-            #           gcloud auth activate-service-account --key-file=service-account.json
-            #           gcloud --quiet config set project ${GCP_PROJECT_ID}
-            #           gcloud --quiet config set compute/zone ${GCP_COMPUTE_ZONE}
-            #           gcloud container clusters get-credentials ${GCP_CLUSTER_NAME}
-            # - run:
-            #       name: 'Update Kubernetes with the latest configs'
-            #       command: |
-            #           kubectl apply -f k8s
-            # - run:
-            #       name: 'Update pods with the latest image versions'
-            #       command: |
-            #           kubectl set image deployments/db-deployment blackblade-db=brandonwade/blackblade-db:$CIRCLE_SHA1
-            #           kubectl set image deployments/api-deployment blackblade-api=brandonwade/blackblade-api:$CIRCLE_SHA1
-            #           kubectl set image deployments/client-deployment blackblade-client=brandonwade/blackblade-client:$CIRCLE_SHA1
+            - run:
+                  name: 'Authenticate with GCP'
+                  command: |
+                      openssl aes-256-cbc -d -in service-account.json.enc -out service-account.json -k $SERVICE_ACCOUNT_ENCRYPTION_KEY -md sha256
+                      gcloud auth activate-service-account --key-file=service-account.json
+                      gcloud --quiet config set project ${GCP_PROJECT_ID}
+                      gcloud --quiet config set compute/zone ${GCP_COMPUTE_ZONE}
+                      gcloud container clusters get-credentials ${GCP_CLUSTER_NAME}
+            - run:
+                  name: 'Update Kubernetes with the latest configs'
+                  command: |
+                      kubectl apply -f k8s
+            - run:
+                  name: 'Update pods with the latest image versions'
+                  command: |
+                      kubectl set image deployments/db-deployment blackblade-db=brandonwade/blackblade-db:$CIRCLE_SHA1
+                      kubectl set image deployments/api-deployment blackblade-api=brandonwade/blackblade-api:$CIRCLE_SHA1
+                      kubectl set image deployments/client-deployment blackblade-client=brandonwade/blackblade-client:$CIRCLE_SHA1
 workflows:
     version: 2.1
     build_and_deploy:

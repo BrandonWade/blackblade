@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: api-deployment
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            component: api
+    template:
+        metadata:
+            labels:
+                component: api
+        spec:
+            containers:
+                - name: blackblade-api
+                  image: brandonwade/blackblade-api:latest
+                  ports:
+                      - containerPort: 8000
+                  env:
+                      - name: API_PORT
+                        value: '8000'
+                      - name: DB_HOST
+                        value: db-cluster-ip-service
+                      - name: DB_USERNAME
+                        value: blackblade
+                      - name: DB_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: mysqlpassword
+                                key: MYSQL_PASSWORD
+                      - name: DB_DATABASE
+                        value: blackblade
+            imagePullSecrets:
+                - name: regcred

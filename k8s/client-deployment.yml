@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: client-deployment
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            component: client
+    template:
+        metadata:
+            labels:
+                component: client
+        spec:
+            containers:
+                - name: blackblade-client
+                  image: brandonwade/blackblade-client:latest
+                  ports:
+                      - containerPort: 8200
+            imagePullSecrets:
+                - name: regcred
