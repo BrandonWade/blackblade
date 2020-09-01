@@ -5,16 +5,16 @@ metadata:
     annotations:
         kubernetes.io/ingress.class: nginx
         nginx.ingress.kubernetes.io/rewrite-target: /$1
-        # cert-manager.k8s.io/cluster-issuer: 'letsencrypt-prod'
-        # nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+        cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+        nginx.ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
-    # tls:
-    #     - hosts:
-    #           - blackblade.ca
-    #       secretName: blackblade-ca
+    tls:
+        - hosts:
+              - blackblade.ca
+          secretName: blackblade-ca
     rules:
-        # - host: blackblade.ca
-        - http:
+        - host: blackblade.ca
+          http:
               paths:
                   - path: /?(.*)
                     backend:
