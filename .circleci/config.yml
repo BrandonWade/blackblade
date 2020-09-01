@@ -23,7 +23,7 @@ jobs:
             - run:
                   name: 'Authenticate with GCP'
                   command: |
-                      openssl aes-256-cbc -d -in service-account.json.enc -out service-account.json -k $SERVICE_ACCOUNT_ENCRYPTION_KEY
+                      openssl aes-256-cbc -d -md sha256 -in service-account.json.enc -out service-account.json -pass pass:$SERVICE_ACCOUNT_ENCRYPTION_KEY
                       gcloud auth activate-service-account --key-file=service-account.json
                       gcloud --quiet config set project ${GCP_PROJECT_ID}
                       gcloud --quiet config set compute/zone ${GCP_COMPUTE_ZONE}
