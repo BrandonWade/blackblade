@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import CardContext, { initialState as CardInitialState } from '../../contexts/CardContext';
+import CardFaceContext, { initialState as CardFaceInitialState } from '../../contexts/CardFaceContext';
 import SearchResultsContext, { initialState as SearchResultsInitialState } from '../../contexts/SearchResultsContext';
 import Home from '../../pages/Home';
 import SearchResults from '../../pages/SearchResults';
@@ -9,13 +9,13 @@ import './App.scss';
 
 const App = () => {
     const [searchResults, setSearchResults] = useState(SearchResultsInitialState);
-    const [card, setCard] = useState(CardInitialState);
-    const [secondFace, setSecondFace] = useState();
+    const [cardFace, setCardFace] = useState(CardFaceInitialState);
+    const [secondCardFace, setSecondCardFace] = useState();
 
     return (
         <>
             <SearchResultsContext.Provider value={{ searchResults, setSearchResults }}>
-                <CardContext.Provider value={{ card, setCard, secondFace, setSecondFace }}>
+                <CardFaceContext.Provider value={{ cardFace, setCardFace, secondCardFace, setSecondCardFace }}>
                     <BrowserRouter>
                         <Switch>
                             <Route path='/' exact component={Home} />
@@ -24,7 +24,7 @@ const App = () => {
                             <Redirect to='/' />
                         </Switch>
                     </BrowserRouter>
-                </CardContext.Provider>
+                </CardFaceContext.Provider>
             </SearchResultsContext.Provider>
         </>
     );

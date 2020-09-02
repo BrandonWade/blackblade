@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import CardContext from '../../contexts/CardContext';
+import CardFaceContext from '../../contexts/CardFaceContext';
 import SearchResultsContext from '../../contexts/SearchResultsContext';
 import useSearch from '../../hooks/useSearch';
 import Logo from '../../components/Logo';
@@ -10,7 +10,7 @@ import './Header.scss';
 const Header = () => {
     const history = useHistory();
     const [query, setQuery] = useState('');
-    const { setCard, setSecondFace } = useContext(CardContext);
+    const { setCardFace, setSecondCardFace } = useContext(CardFaceContext);
     const { setSearchResults } = useContext(SearchResultsContext);
     const { basicSearch } = useSearch();
 
@@ -23,14 +23,14 @@ const Header = () => {
             if (response?.results.length === 1) {
                 const card = response.results[0];
 
-                setCard(card);
-                setSecondFace();
+                setCardFace(card);
+                setSecondCardFace();
                 history.push(`/cards/${card.id}`);
             } else if (response?.results.length === 2 && response?.results[0].id === response?.results[1].id) {
                 const card = response.results[0];
 
-                setCard(card);
-                setSecondFace(response.results[1]);
+                setCardFace(card);
+                setSecondCardFace(response.results[1]);
                 history.push(`/cards/${card.id}`);
             } else {
                 setSearchResults(response.results);

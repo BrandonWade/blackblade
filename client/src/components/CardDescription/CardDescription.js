@@ -3,9 +3,9 @@ import Card from '../Card';
 import useSymbols from '../../hooks/useSymbols';
 import './CardDescription.scss';
 
-const CardDescription = ({ card = {}, secondFace = null }) => {
-    const secondFaceManaCost = useSymbols(secondFace?.mana_cost || '');
-    const secondFaceText = useSymbols(secondFace?.oracle_text || '');
+const CardDescription = ({ cardFace = {}, secondCardFace = null }) => {
+    const secondCardFaceManaCost = useSymbols(secondCardFace?.mana_cost || '');
+    const secondCardFaceText = useSymbols(secondCardFace?.oracle_text || '');
     const renderText = line =>
         line
             .split('\n')
@@ -27,22 +27,22 @@ const CardDescription = ({ card = {}, secondFace = null }) => {
         <div>
             <Card className='CardInfo-description'>
                 <h2 className='Card-rowItem Card-name'>
-                    {card.name}
-                    <span className='CardInfo-manaCost' dangerouslySetInnerHTML={{ __html: useSymbols(card.mana_cost) }} />
+                    {cardFace.name}
+                    <span className='CardInfo-manaCost' dangerouslySetInnerHTML={{ __html: useSymbols(cardFace.mana_cost) }} />
                 </h2>
-                <div className='Card-rowItem CardInfo-type'>{card.type_line}</div>
-                <div className='Card-rowItem CardInfo-text' dangerouslySetInnerHTML={{ __html: renderText(useSymbols(card.oracle_text)) }} />
-                {renderStatLine(card)}
+                <div className='Card-rowItem CardInfo-type'>{cardFace.type_line}</div>
+                <div className='Card-rowItem CardInfo-text' dangerouslySetInnerHTML={{ __html: renderText(useSymbols(cardFace.oracle_text)) }} />
+                {renderStatLine(cardFace)}
             </Card>
-            {secondFace ? (
-                <Card className='CardInfo-description CardInfo-secondFace'>
+            {secondCardFace ? (
+                <Card className='CardInfo-description CardInfo-secondCardFace'>
                     <h2 className='Card-rowItem Card-name'>
-                        {secondFace.name}
-                        <span className='CardInfo-manaCost' dangerouslySetInnerHTML={{ __html: secondFaceManaCost }} />
+                        {secondCardFace.name}
+                        <span className='CardInfo-manaCost' dangerouslySetInnerHTML={{ __html: secondCardFaceManaCost }} />
                     </h2>
-                    <div className='Card-rowItem CardInfo-type'>{secondFace.type_line}</div>
-                    <div className='Card-rowItem CardInfo-text' dangerouslySetInnerHTML={{ __html: renderText(secondFaceText) }} />
-                    {renderStatLine(secondFace)}
+                    <div className='Card-rowItem CardInfo-type'>{secondCardFace.type_line}</div>
+                    <div className='Card-rowItem CardInfo-text' dangerouslySetInnerHTML={{ __html: renderText(secondCardFaceText) }} />
+                    {renderStatLine(secondCardFace)}
                 </Card>
             ) : null}
         </div>
