@@ -16,8 +16,8 @@ export const initialState = {
 };
 
 export default createContext({
-    card: initialState,
-    setCard: () => {},
-    secondFace: {},
-    setSecondFace: () => {},
+    cardFace: initialState,
+    setCardFace: () => {},
+    secondCardFace: {},
+    setSecondCardFace: () => {},
 });
