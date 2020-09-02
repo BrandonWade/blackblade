@@ -4,7 +4,7 @@ import CardFaceContext from '../../contexts/CardFaceContext';
 import SearchResultsContext from '../../contexts/SearchResultsContext';
 import useSearch from '../../hooks/useSearch';
 import Logo from '../../components/Logo';
-import InputField from '../InputField';
+import Input from '../Input';
 import './Header.scss';
 
 const Header = () => {
@@ -48,7 +48,7 @@ const Header = () => {
             <div className='Header-content'>
                 <Logo />
                 <form className='Header-searchForm' onSubmit={onSubmit}>
-                    <InputField placeholder='Search' className='Header-searchBox' value={query} onChange={onChange} />
+                    <Input placeholder='Search' className='Header-searchBox' value={query} onChange={onChange} />
                 </form>
             </div>
         </div>

@@ -36,24 +36,6 @@
         margin-left: 1rem;
     }
 
-    &-firstButton,
-    &-previousButton,
-    &-nextButton,
-    &-lastButton {
-        display: flex;
-        align-items: center;
-        font-size: 1.5rem;
-        border: var(--line);
-        border-radius: var(--border-radius);
-        background-color: transparent;
-        padding: 0.75rem;
-        cursor: pointer;
-
-        &:enabled:hover {
-            background-color: var(--color-primary-lighter);
-        }
-    }
-
     &-previousButton {
         margin-left: 5rem;
         margin-right: auto;
@@ -62,11 +44,6 @@
     &-nextButton {
         margin-right: 5rem;
         margin-left: auto;
-    }
-
-    &-button:disabled {
-        opacity: 0.35;
-        cursor: default;
     }
 
     &--top {
