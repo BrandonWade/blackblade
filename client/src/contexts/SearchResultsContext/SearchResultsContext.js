@@ -1,8 +1,12 @@
 import { createContext } from 'react';
 
-export const initialState = [];
-
 export default createContext({
-    searchResults: initialState,
+    query: '',
+    setQuery: () => {},
+    searchResults: [],
     setSearchResults: () => {},
+    numberOfPages: 1,
+    setNumberOfPages: () => {},
+    currentPage: 1,
+    setCurrentPage: () => {},
 });

@@ -1,5 +1,5 @@
 const useSearch = (headers = {}) => {
-    const basicSearch = async (query, page = 1) => {
+    const basicSearch = async (query = '', page = 1) => {
         const response = await fetch(`/api/search?q=${query}&page=${page}`, {
             headers: {
                 ...headers,
