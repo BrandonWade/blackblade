@@ -4,7 +4,7 @@ import CardFaceContext from '../../contexts/CardFaceContext';
 import SearchResultsContext from '../../contexts/SearchResultsContext';
 import useSearch from '../../hooks/useSearch';
 import Logo from '../../components/Logo';
-import InputField from '../../components/InputField';
+import Input from '../../components/Input';
 import './Home.scss';
 
 const Home = () => {
@@ -48,7 +48,7 @@ const Home = () => {
             <div className='Home-content'>
                 <Logo size='large' />
                 <form className='Home-searchForm' onSubmit={onSubmit}>
-                    <InputField className='Home-searchBox' value={query} onChange={onChange} />
+                    <Input className='Home-searchBox' value={query} onChange={onChange} />
                 </form>
             </div>
         </div>

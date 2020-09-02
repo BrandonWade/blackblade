@@ -5,9 +5,13 @@
         list-style: none;
     }
 
-    &-listItem:hover {
-        background-color: #2f3334;
-        cursor: pointer;
+    &-listItem {
+        transition: all 0.2s;
+
+        &:hover {
+            background-color: #2f3334;
+            cursor: pointer;
+        }
     }
 
     &-selectedSet {

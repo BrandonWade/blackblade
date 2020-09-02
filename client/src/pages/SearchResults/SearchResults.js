@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import SearchResultContext from '../../contexts/SearchResultsContext';
@@ -53,13 +53,7 @@ const SearchResults = props => {
     return (
         <HeaderPage className='SearchResults'>
             <div className='SearchResults-content'>
-                <Paginator
-                    className='Paginator--top'
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                    numPages={numPages}
-                    fetchResults={fetchResults}
-                />
+                <Paginator className='Paginator--top' currentPage={currentPage} setCurrentPage={setCurrentPage} numPages={numPages} />
                 <div className='SearchResults-results'>
                     {searchResults.map(card => {
                         const cardSets = JSON.parse(card.set_name_image_json || '[]');
@@ -76,13 +70,7 @@ const SearchResults = props => {
                         );
                     })}
                 </div>
-                <Paginator
-                    className='Paginator--bottom'
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                    numPages={numPages}
-                    fetchResults={fetchResults}
-                />
+                <Paginator className='Paginator--bottom' currentPage={currentPage} setCurrentPage={setCurrentPage} numPages={numPages} />
             </div>
         </HeaderPage>
     );
