@@ -1,1 +1,1 @@
-export { default, initialState } from './SearchResultsContext';
+export { default } from './SearchResultsContext';

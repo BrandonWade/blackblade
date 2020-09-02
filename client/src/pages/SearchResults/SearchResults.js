@@ -1,6 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
+import useDisplayResults from '../../hooks/useDisplayResults/useDisplayResults';
 import SearchResultContext from '../../contexts/SearchResultsContext';
 import CardFaceContext from '../../contexts/CardFaceContext';
 import HeaderPage from '../../components/HeaderPage';
@@ -9,51 +10,41 @@ import './SearchResults.scss';
 
 const SearchResults = props => {
     const history = useHistory();
-    const [currentPage, setCurrentPage] = useState(1);
-    const [numPages, setNumPages] = useState(1);
-    const { searchResults, setSearchResults } = useContext(SearchResultContext);
-    const { setCardFace } = useContext(CardFaceContext);
+    const { query, setQuery, searchResults, setCurrentPage } = useContext(SearchResultContext);
+    const { setPrimaryCardFace } = useContext(CardFaceContext);
     const { basicSearch } = useSearch();
-    const urlParams = new URLSearchParams(props.location.search);
-    const query = urlParams.get('q');
+    const { displayResults } = useDisplayResults();
 
-    const fetchResults = async () => {
+    // If the page is loaded directly, use the query and page from the URL params
+    useEffect(() => {
+        const urlParams = new URLSearchParams(props?.location?.search);
+        const query = urlParams.get('q') || '';
+        const currentPage = parseInt(urlParams.get('page')) || 1;
+        setQuery(query);
+        setCurrentPage(currentPage);
+        fetchResults(query, currentPage);
+    }, []);
+
+    // TODO: Handle case where &page > max pages (e.g. ?q=dragon&page=6)
+    const fetchResults = async (query = '', currentPage = 1) => {
         const response = await basicSearch(query, currentPage);
-        if (response.success) {
-            if (response?.results.length === 1 || (response?.results.length === 2 && response?.results[0].id === response?.results[1].id)) {
-                const card = response.results[0];
-
-                setCardFace(card);
-                setCurrentPage(1);
-                setNumPages(1);
-                history.push(`/cards/${card.id}`);
-            } else {
-                setSearchResults(response.results);
-                setNumPages(response.pages);
-                history.push({
-                    search: `?q=${query}&page=${currentPage}`,
-                });
-            }
-        }
+        displayResults(response, query, currentPage);
     };
 
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [query]);
+    const onPageChange = currentPage => {
+        setCurrentPage(currentPage);
+        fetchResults(query, currentPage);
+    };
 
-    useEffect(() => {
-        fetchResults();
-    }, [currentPage]);
-
-    const onSelectResult = card => {
-        setCardFace(card);
-        history.push(`/cards/${card.id}`);
+    const onSelectResult = cardFace => {
+        setPrimaryCardFace(cardFace);
+        history.push(`/cards/${cardFace.id}`);
     };
 
     return (
         <HeaderPage className='SearchResults'>
             <div className='SearchResults-content'>
-                <Paginator className='Paginator--top' currentPage={currentPage} setCurrentPage={setCurrentPage} numPages={numPages} />
+                <Paginator className='Paginator--top' onPageChange={onPageChange} />
                 <div className='SearchResults-results'>
                     {searchResults.map(card => {
                         const cardSets = JSON.parse(card.set_name_image_json || '[]');
@@ -70,7 +61,7 @@ const SearchResults = props => {
                         );
                     })}
                 </div>
-                <Paginator className='Paginator--bottom' currentPage={currentPage} setCurrentPage={setCurrentPage} numPages={numPages} />
+                <Paginator className='Paginator--bottom' onPageChange={onPageChange} />
             </div>
         </HeaderPage>
     );
