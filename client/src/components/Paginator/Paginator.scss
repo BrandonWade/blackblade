@@ -1,6 +1,7 @@
 .Paginator {
     display: flex;
     justify-content: center;
+    width: 100%;
 
     &-content {
         display: flex;
@@ -44,13 +45,5 @@
     &-nextButton {
         margin-right: 5rem;
         margin-left: auto;
-    }
-
-    &--top {
-        margin-top: 2.5rem;
-    }
-
-    &--bottom {
-        margin-bottom: 2.5rem;
     }
 }
