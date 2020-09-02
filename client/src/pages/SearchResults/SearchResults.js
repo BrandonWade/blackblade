@@ -44,7 +44,7 @@ const SearchResults = props => {
     return (
         <HeaderPage className='SearchResults'>
             <div className='SearchResults-content'>
-                <Paginator className='Paginator--top' onPageChange={onPageChange} />
+                <Paginator className='SearchResults-paginator' onPageChange={onPageChange} />
                 <div className='SearchResults-results'>
                     {searchResults.map(card => {
                         const cardSets = JSON.parse(card.set_name_image_json || '[]');
@@ -61,7 +61,6 @@ const SearchResults = props => {
                         );
                     })}
                 </div>
-                <Paginator className='Paginator--bottom' onPageChange={onPageChange} />
             </div>
         </HeaderPage>
     );
