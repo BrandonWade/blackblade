@@ -9,6 +9,7 @@ import './App.scss';
 
 const App = () => {
     const [query, setQuery] = useState('');
+    const [totalResults, setTotalResults] = useState(0);
     const [searchResults, setSearchResults] = useState([]);
     const [numberOfPages, setNumberOfPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +19,18 @@ const App = () => {
     return (
         <>
             <SearchResultsContext.Provider
-                value={{ query, setQuery, searchResults, setSearchResults, numberOfPages, setNumberOfPages, currentPage, setCurrentPage }}
+                value={{
+                    query,
+                    setQuery,
+                    totalResults,
+                    setTotalResults,
+                    searchResults,
+                    setSearchResults,
+                    numberOfPages,
+                    setNumberOfPages,
+                    currentPage,
+                    setCurrentPage,
+                }}
             >
                 <CardFaceContext.Provider value={{ primaryCardFace, setPrimaryCardFace, secondaryCardFace, setSecondaryCardFace }}>
                     <BrowserRouter>

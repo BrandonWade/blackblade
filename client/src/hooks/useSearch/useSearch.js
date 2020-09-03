@@ -11,6 +11,7 @@ const useSearch = (headers = {}) => {
                 const data = await response.json();
                 return {
                     success: true,
+                    totalResults: data.total_results,
                     pages: data.pages,
                     results: data.results,
                 };

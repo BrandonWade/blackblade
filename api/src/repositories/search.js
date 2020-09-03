@@ -1,10 +1,10 @@
 import { query } from '../db';
 
-const getPageCount = (tokens, pageSize) => {
+const getTotalResults = (tokens) => {
     const params = tokens.map(() => 'f.name LIKE ?').join(' AND ');
     return query(
         `SELECT
-        CEIL(COUNT(*) / ?) pages
+        COUNT(*) total_results
         FROM (
           SELECT
           c.*
@@ -14,7 +14,7 @@ const getPageCount = (tokens, pageSize) => {
           GROUP BY c.oracle_id
         ) a;
     `,
-        [pageSize, ...tokens.map((token) => `%${token}%`)],
+        tokens.map((token) => `%${token}%`),
     );
 };
 
@@ -72,7 +72,7 @@ const getCardByID = (id) => {
 };
 
 export default {
-    getPageCount,
+    getTotalResults,
     getCardsByName,
     getCardByID,
 };

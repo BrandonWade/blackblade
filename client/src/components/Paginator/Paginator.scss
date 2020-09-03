@@ -5,14 +5,20 @@
 
     &-content {
         display: flex;
+        justify-content: space-between;
         align-items: center;
         width: 100%;
     }
 
-    &-firstPageIcon,
-    &-previousPageIcon,
-    &-nextPageIcon,
-    &-lastPageIcon {
+    &-buttonGroup {
+        display: flex;
+
+        .Button:not(:last-child) {
+            margin-right: 3rem;
+        }
+    }
+
+    &-icon {
         width: 2rem;
         height: 2rem;
         display: inline-block;
@@ -24,26 +30,25 @@
     }
 
     &-previousPageIcon {
-        margin-left: -5px;
-        margin-top: 1px;
+        margin-left: -0.5rem;
+        margin-top: 0.2rem;
     }
 
     &-nextPageIcon {
-        margin-right: -5px;
-        margin-top: 2px;
+        margin-right: -0.5rem;
+        margin-top: 0.2rem;
     }
 
     &-lastPageIcon {
         margin-left: 1rem;
     }
 
-    &-previousButton {
-        margin-left: 5rem;
-        margin-right: auto;
+    &-info {
+        display: flex;
+        font-size: 1.4rem;
     }
 
-    &-nextButton {
-        margin-right: 5rem;
-        margin-left: auto;
+    &-infoBlock:not(:last-child) {
+        margin-right: 4rem;
     }
 }
