@@ -20,7 +20,7 @@ const useDisplayResults = () => {
         const results = response.results || [];
         if (results.length === 1 || (results.length === 2 && results[0].id === results[1].id)) {
             const primaryCardFace = results[0];
-            const secondaryCardFace = results?.[1] || null;
+            const secondaryCardFace = results?.[1] || {};
 
             setPrimaryCardFace(primaryCardFace);
             setSecondaryCardFace(secondaryCardFace);
