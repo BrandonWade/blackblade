@@ -1,7 +1,11 @@
-.CardInfo {
+.CardDescription {
     &-description {
         display: flex;
         flex-direction: column;
+
+        &:not(:last-child) {
+            margin-bottom: 2rem;
+        }
     }
 
     &-name {
@@ -24,7 +28,11 @@
         margin-bottom: 1rem;
     }
 
-    &-secondaryCardFace {
+    &-text > *:not(:first-child) {
         margin-top: 2rem;
+    }
+
+    &-flavorText {
+        font-style: italic;
     }
 }
