@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '../Card';
 import './CardSets.scss';
 
-const CardSets = ({ cardSets, selectedSetIndex, setSelectedSetIndex }) => {
+const CardSets = ({ cardSets = [], selectedSetIndex = 0, setSelectedSetIndex = () => {} }) => {
     const onSelectSet = index => {
         setSelectedSetIndex(index);
     };
