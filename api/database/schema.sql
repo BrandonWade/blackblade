@@ -112,3 +112,25 @@ CREATE TABLE card_face_color_indicators (
     FOREIGN KEY (card_face_id) REFERENCES card_faces(id),
     UNIQUE KEY U_card_face_id_color_indicator (card_face_id, color_indicator)
 ) CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS decks;
+CREATE TABLE decks (
+    id bigint unsigned NOT NULL AUTO_INCREMENT,
+    public_id char(16) NOT NULL DEFAULT '',
+    account_id bigint unsigned NOT NULL DEFAULT 0,
+    name varchar(64) NOT NULL DEFAULT '',
+    PRIMARY KEY (id),
+    UNIQUE KEY U_public_id (public_id)
+    -- FOREIGN KEY (account_id) REFERENCES accounts(id)
+) CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS deck_cards;
+CREATE TABLE deck_cards (
+    id bigint unsigned NOT NULL AUTO_INCREMENT,
+    deck_id bigint unsigned NOT NULL DEFAULT 0,
+    card_id bigint unsigned NOT NULL DEFAULT 0,
+    count int unsigned NOT NULL DEFAULT 0,
+    PRIMARY KEY (id),
+    FOREIGN KEY (deck_id) REFERENCES decks(id),
+    FOREIGN KEY (card_id) REFERENCES cards(id)
+) CHARSET=utf8mb4;

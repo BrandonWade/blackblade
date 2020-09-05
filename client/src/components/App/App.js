@@ -5,6 +5,8 @@ import SearchResultsContext from '../../contexts/SearchResultsContext';
 import Home from '../../pages/Home';
 import SearchResults from '../../pages/SearchResults';
 import CardInfo from '../../pages/CardInfo';
+import DeckCreation from '../../pages/DeckCreation';
+import DeckBuilder from '../../pages/DeckBuilder';
 import './App.scss';
 
 const App = () => {
@@ -38,6 +40,8 @@ const App = () => {
                             <Route path='/' exact component={Home} />
                             <Route path='/cards/search' exact component={SearchResults} />
                             <Route path='/cards/:id' component={CardInfo} />
+                            <Route path='/decks' exact component={DeckCreation} />
+                            <Route path='/decks/:id' component={DeckBuilder} />
                             <Redirect to='/' />
                         </Switch>
                     </BrowserRouter>
