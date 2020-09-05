@@ -1,0 +1,25 @@
+.DeckCreation {
+    height: calc(100% - 4rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-form {
+        width: 30vw;
+        height: 20vh;
+        padding: 2rem;
+        border: var(--line);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        position: relative;
+        top: -15vh;
+    }
+
+    &-deckName {
+        font-size: 1.4rem;
+        padding: 0 0.5rem;
+        height: 3rem;
+    }
+}
