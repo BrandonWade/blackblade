@@ -25,8 +25,31 @@ const useDeck = (headers = {}) => {
         }
     };
 
+    const getCardsByPublicID = async (publicID = '') => {
+        const response = await fetch(`/api/decks/${publicID}`, {
+            headers: {
+                ...headers,
+            },
+        });
+
+        switch (response.status) {
+            case 200:
+                const data = await response.json();
+                return {
+                    success: true,
+                    cards: data.cards,
+                };
+            default:
+                return {
+                    success: false,
+                    errors: await response.json(),
+                };
+        }
+    };
+
     return {
         createDeck,
+        getCardsByPublicID,
     };
 };
 

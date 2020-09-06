@@ -1,0 +1,51 @@
+.DeckTable {
+    &-cardRow {
+        border-bottom: var(--line);
+        background-color: var(--color-primary-dark);
+    }
+
+    &-deck {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--color-primary);
+    }
+
+    &-count {
+        padding: 0.25rem;
+        width: 4rem;
+    }
+
+    &-input {
+        line-height: 2;
+        text-align: center;
+    }
+
+    &-manaCost {
+        text-align: right;
+    }
+
+    &-name {
+        font-size: 1.3rem;
+        max-width: 30rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    &-manaCost,
+    &-name {
+        padding: 0.5rem;
+    }
+
+    &-remove {
+        width: 3rem;
+        font-size: 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+            background-color: var(--color-primary-lighter);
+        }
+    }
+}

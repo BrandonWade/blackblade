@@ -8,7 +8,7 @@ const createDeck = async (accountID, name) => {
         return;
     }
 
-    const deckResult = await DeckRepository.getDeckByID(deckID, accountID);
+    const deckResult = await DeckRepository.getDeckByID(deckID);
     const deckPublicID = deckResult?.results?.[0]?.public_id;
     if (!deckPublicID) {
         console.error('error getting deck id'); // TODO: Handle
@@ -20,6 +20,15 @@ const createDeck = async (accountID, name) => {
     };
 };
 
+const getCardsByPublicID = async (publicID) => {
+    const result = await DeckRepository.getCardsByPublicID(publicID);
+
+    return {
+        cards: result?.results || [],
+    };
+};
+
 export default {
     createDeck,
+    getCardsByPublicID,
 };
