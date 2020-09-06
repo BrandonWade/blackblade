@@ -1,4 +1,4 @@
-.CardDescription {
+.CardFace {
     &-description {
         display: flex;
         flex-direction: column;
@@ -28,8 +28,14 @@
         margin-bottom: 1rem;
     }
 
-    &-text > *:not(:first-child) {
-        margin-top: 2rem;
+    &-text {
+        & .CardSymbol {
+            top: 0.3rem;
+        }
+
+        & > *:not(:first-child) {
+            margin-top: 2rem;
+        }
     }
 
     &-flavorText {

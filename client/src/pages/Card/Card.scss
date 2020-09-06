@@ -1,4 +1,4 @@
-.CardInfo {
+.Card {
     display: grid;
     grid-template-columns: max-content 25% 20%;
     grid-column-gap: 2rem;
@@ -7,7 +7,7 @@
     padding: 1.5rem;
     background-color: var(--color-primary);
 
-    & .Card-name .CardSymbol {
+    &-name .CardSymbol {
         margin-right: 0.3rem;
     }
 

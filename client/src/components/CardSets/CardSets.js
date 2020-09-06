@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '../Card';
+import CardSection from '../CardSection';
 import './CardSets.scss';
 
 const CardSets = ({ cardSets = [], selectedSetIndex = 0, setSelectedSetIndex = () => {} }) => {
@@ -8,7 +8,7 @@ const CardSets = ({ cardSets = [], selectedSetIndex = 0, setSelectedSetIndex = (
     };
 
     return (
-        <Card className='CardSets'>
+        <CardSection className='CardSets'>
             <ul className='CardSets-list'>
                 {cardSets.map((set, i) => {
                     const selected = i === selectedSetIndex;
@@ -16,7 +16,7 @@ const CardSets = ({ cardSets = [], selectedSetIndex = 0, setSelectedSetIndex = (
                     return (
                         <li
                             key={i}
-                            className={`Card-rowItem CardSets-listItem ${selected ? 'CardSets-selectedSet' : ''}`}
+                            className={`CardSection-rowItem CardSets-listItem ${selected ? 'CardSets-selectedSet' : ''}`}
                             onClick={() => onSelectSet(i)}
                         >
                             {set.set_name}
@@ -24,7 +24,7 @@ const CardSets = ({ cardSets = [], selectedSetIndex = 0, setSelectedSetIndex = (
                     );
                 })}
             </ul>
-        </Card>
+        </CardSection>
     );
 };
 

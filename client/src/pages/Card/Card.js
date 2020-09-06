@@ -6,11 +6,11 @@ import SearchResultsContext from '../../contexts/SearchResultsContext';
 import CardFaceContext from '../../contexts/CardFaceContext';
 import HeaderPage from '../../components/HeaderPage';
 import CardImage from '../../components/CardImage';
-import CardDescription from '../../components/CardDescription';
+import CardFace from '../../components/CardFace';
 import CardSets from '../../components/CardSets';
-import './CardInfo.scss';
+import './Card.scss';
 
-const CardInfo = () => {
+const Card = () => {
     const { id } = useParams();
     const { query } = useContext(SearchResultsContext);
     const { primaryCardFace, secondaryCardFace } = useContext(CardFaceContext);
@@ -19,6 +19,7 @@ const CardInfo = () => {
     const selectedSet = cardSets?.[selectedSetIndex] || {};
     const { getCardByID } = useSearch();
     const { displayResults } = useDisplayResults();
+    const cardFaces = [primaryCardFace, secondaryCardFace].filter(face => face?.id !== undefined);
 
     // TODO: Handle case where id in route is invalid (e.g. /cards/99999)
     const fetchCard = async () => {
@@ -35,12 +36,16 @@ const CardInfo = () => {
     }, [primaryCardFace]);
 
     return (
-        <HeaderPage className='CardInfo'>
+        <HeaderPage className='Card'>
             <CardImage image={selectedSet.image} alt={primaryCardFace.name} />
-            <CardDescription primaryCardFace={primaryCardFace} secondaryCardFace={secondaryCardFace} />
+            <div>
+                {cardFaces.map(face => {
+                    return <CardFace key={face.face_id} face={face} />;
+                })}
+            </div>
             <CardSets cardSets={cardSets} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
         </HeaderPage>
     );
 };
 
-export default CardInfo;
+export default Card;
