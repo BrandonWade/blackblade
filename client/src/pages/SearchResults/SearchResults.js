@@ -1,17 +1,13 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults/useDisplayResults';
 import SearchResultContext from '../../contexts/SearchResultsContext';
-import CardFaceContext from '../../contexts/CardFaceContext';
 import HeaderPage from '../../components/HeaderPage';
-import Paginator from '../../components/Paginator';
+import PaginatedResults from '../../components/PaginatedResults';
 import './SearchResults.scss';
 
 const SearchResults = props => {
-    const history = useHistory();
-    const { query, setQuery, searchResults, setCurrentPage } = useContext(SearchResultContext);
-    const { setPrimaryCardFace } = useContext(CardFaceContext);
+    const { setQuery, setCurrentPage } = useContext(SearchResultContext);
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
 
@@ -31,37 +27,9 @@ const SearchResults = props => {
         displayResults(response, query, currentPage);
     };
 
-    const onPageChange = currentPage => {
-        setCurrentPage(currentPage);
-        fetchResults(query, currentPage);
-    };
-
-    const onSelectResult = cardFace => {
-        setPrimaryCardFace(cardFace);
-        history.push(`/cards/${cardFace.id}`);
-    };
-
     return (
         <HeaderPage className='SearchResults'>
-            <div className='SearchResults-content'>
-                <Paginator className='SearchResults-paginator' onPageChange={onPageChange} />
-                <div className='SearchResults-results'>
-                    {searchResults.map(card => {
-                        const cardSets = JSON.parse(card.set_name_image_json || '[]');
-                        const cardSet = cardSets.length > 0 ? cardSets[0] : {};
-
-                        return (
-                            <img
-                                key={card.id}
-                                src={cardSet.image}
-                                alt={card.name}
-                                className='SearchResults-image'
-                                onClick={() => onSelectResult(card)}
-                            />
-                        );
-                    })}
-                </div>
-            </div>
+            <PaginatedResults />
         </HeaderPage>
     );
 };

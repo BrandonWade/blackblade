@@ -1,9 +1,22 @@
 .DeckBuilderSearch {
     padding: 2rem;
     height: 100%;
+    overflow: scroll;
 
     &-searchBar {
         font-size: 2rem;
         padding: 0.75rem 1.5rem;
+    }
+
+    &-results {
+        & > .PaginatedResults-paginator {
+            padding: 1rem 0.75rem;
+            top: -2rem;
+        }
+
+        & > .PaginatedResults-results {
+            width: 95%;
+            grid-template-columns: repeat(4, 1fr);
+        }
     }
 }
