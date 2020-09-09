@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import useResultsRedirect from '../../hooks/useResultsRedirect';
 import CardFaceContext from '../../contexts/CardFaceContext';
 import SearchResultsContext from '../../contexts/SearchResultsContext';
 import HeaderPage from '../../components/HeaderPage';
@@ -15,7 +14,6 @@ const SearchResults = props => {
     const { setPrimaryCardFace } = useContext(CardFaceContext);
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
-    const { resultsRedirect } = useResultsRedirect();
 
     // If the page is loaded directly, use the query and page from the URL params
     useEffect(() => {
@@ -30,8 +28,7 @@ const SearchResults = props => {
     // TODO: Handle case where &page > max pages (e.g. ?q=dragon&page=6)
     const fetchResults = async (query = '', currentPage = 1) => {
         const response = await basicSearch(query, currentPage);
-        displayResults(response, currentPage);
-        resultsRedirect(response);
+        displayResults(response, query, currentPage, true);
     };
 
     const onSelectResult = cardFace => {
