@@ -12,16 +12,31 @@ const DeckBuilderSearch = () => {
     const { displayResults } = useDisplayResults();
     const { query, setQuery } = useContext(SearchResultsContext);
     const { deckCards, setDeckCards } = useContext(DeckBuilderContext);
+    const redirect = false;
+    const redirectForSingleResult = false;
 
     const onSubmit = async e => {
         e.preventDefault();
 
         const response = await basicSearch(query);
-        displayResults(response, 1, false);
+        displayResults(response, query, 1, redirect, redirectForSingleResult);
     };
 
     const onSelectResult = card => {
-        setDeckCards([...deckCards, card]);
+        const exists = deckCards.some(c => c.card_id === card.card_id);
+        if (!exists) {
+            const cards = [
+                ...deckCards,
+                {
+                    ...card,
+                    count: 1,
+                },
+            ];
+
+            // TODO: Order by CMC
+
+            setDeckCards(cards);
+        }
     };
 
     return (
@@ -29,7 +44,12 @@ const DeckBuilderSearch = () => {
             <form onSubmit={onSubmit}>
                 <Input className='DeckBuilderSearch-searchBar' value={query} placeholder='Search' onChange={e => setQuery(e.target.value)} />
             </form>
-            <PaginatedResults className='DeckBuilderSearch-results' redirectForSingleResult={false} onSelectResult={onSelectResult} />
+            <PaginatedResults
+                className='DeckBuilderSearch-results'
+                redirect={redirect}
+                redirectForSingleResult={redirectForSingleResult}
+                onSelectResult={onSelectResult}
+            />
         </div>
     );
 };

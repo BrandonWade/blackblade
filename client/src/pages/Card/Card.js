@@ -22,7 +22,7 @@ const Card = () => {
     // TODO: Handle case where id in route is invalid (e.g. /cards/99999)
     const fetchCard = async () => {
         const response = await getCardByID(id);
-        displayResults(response);
+        displayResults(response, '', 1, true);
     };
 
     useEffect(() => {

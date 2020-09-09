@@ -1,31 +1,20 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchResultsContext from '../../contexts/SearchResultsContext';
 import Paginator from '../../components/Paginator';
 import './PaginatedResults.scss';
 
-const PaginatedResults = ({ location = {}, className = '', onSelectResult = () => {}, redirectForSingleResult = true }) => {
-    const { query, setQuery, searchResults, setCurrentPage } = useContext(SearchResultsContext);
+const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect = true, redirectForSingleResult = true }) => {
+    const { query, searchResults, setCurrentPage } = useContext(SearchResultsContext);
 
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
 
-    // If the page is loaded directly, use the query and page from the URL params
-    useEffect(() => {
-        const urlParams = new URLSearchParams(location?.search);
-        const query = urlParams.get('q') || '';
-        const currentPage = parseInt(urlParams.get('page')) || 1;
-        setQuery(query);
-        setCurrentPage(currentPage);
-        fetchResults(query, currentPage);
-    }, []);
-
     // TODO: Handle case where &page > max pages (e.g. ?q=dragon&page=6)
     const fetchResults = async (query = '', currentPage = 1) => {
         const response = await basicSearch(query, currentPage);
-        displayResults(response, currentPage, redirectForSingleResult);
-        // resultsRedirect(response?.results, query, currentPage);
+        displayResults(response, query, currentPage, redirect, redirectForSingleResult);
     };
 
     const onPageChange = currentPage => {
