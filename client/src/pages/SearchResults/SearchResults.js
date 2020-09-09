@@ -1,15 +1,21 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
-import useDisplayResults from '../../hooks/useDisplayResults/useDisplayResults';
-import SearchResultContext from '../../contexts/SearchResultsContext';
+import useDisplayResults from '../../hooks/useDisplayResults';
+import useResultsRedirect from '../../hooks/useResultsRedirect';
+import CardFaceContext from '../../contexts/CardFaceContext';
+import SearchResultsContext from '../../contexts/SearchResultsContext';
 import HeaderPage from '../../components/HeaderPage';
 import PaginatedResults from '../../components/PaginatedResults';
 import './SearchResults.scss';
 
 const SearchResults = props => {
-    const { setQuery, setCurrentPage } = useContext(SearchResultContext);
+    const history = useHistory();
+    const { setQuery, setCurrentPage } = useContext(SearchResultsContext);
+    const { setPrimaryCardFace } = useContext(CardFaceContext);
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
+    const { resultsRedirect } = useResultsRedirect();
 
     // If the page is loaded directly, use the query and page from the URL params
     useEffect(() => {
@@ -24,12 +30,18 @@ const SearchResults = props => {
     // TODO: Handle case where &page > max pages (e.g. ?q=dragon&page=6)
     const fetchResults = async (query = '', currentPage = 1) => {
         const response = await basicSearch(query, currentPage);
-        displayResults(response, query, currentPage);
+        displayResults(response, currentPage);
+        resultsRedirect(response);
+    };
+
+    const onSelectResult = cardFace => {
+        setPrimaryCardFace(cardFace);
+        history.push(`/cards/${cardFace.card_id}`);
     };
 
     return (
         <HeaderPage className='SearchResults'>
-            <PaginatedResults />
+            <PaginatedResults onSelectResult={onSelectResult} />
         </HeaderPage>
     );
 };
