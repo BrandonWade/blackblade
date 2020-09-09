@@ -1,16 +1,13 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
-import useDisplayResults from '../../hooks/useDisplayResults/useDisplayResults';
-import SearchResultContext from '../../contexts/SearchResultsContext';
-import CardFaceContext from '../../contexts/CardFaceContext';
+import useDisplayResults from '../../hooks/useDisplayResults';
+import SearchResultsContext from '../../contexts/SearchResultsContext';
 import Paginator from '../../components/Paginator';
 import './PaginatedResults.scss';
 
-const PaginatedResults = ({ location = {}, className = '' }) => {
-    const history = useHistory();
-    const { query, setQuery, searchResults, setCurrentPage } = useContext(SearchResultContext);
-    const { setPrimaryCardFace } = useContext(CardFaceContext);
+const PaginatedResults = ({ location = {}, className = '', onSelectResult = () => {}, redirectForSingleResult = true }) => {
+    const { query, setQuery, searchResults, setCurrentPage } = useContext(SearchResultsContext);
+
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
 
@@ -27,17 +24,13 @@ const PaginatedResults = ({ location = {}, className = '' }) => {
     // TODO: Handle case where &page > max pages (e.g. ?q=dragon&page=6)
     const fetchResults = async (query = '', currentPage = 1) => {
         const response = await basicSearch(query, currentPage);
-        displayResults(response, query, currentPage);
+        displayResults(response, currentPage, redirectForSingleResult);
+        // resultsRedirect(response?.results, query, currentPage);
     };
 
     const onPageChange = currentPage => {
         setCurrentPage(currentPage);
         fetchResults(query, currentPage);
-    };
-
-    const onSelectResult = cardFace => {
-        setPrimaryCardFace(cardFace);
-        history.push(`/cards/${cardFace.id}`);
     };
 
     return (
@@ -50,7 +43,7 @@ const PaginatedResults = ({ location = {}, className = '' }) => {
 
                     return (
                         <img
-                            key={card.id}
+                            key={card.card_id}
                             src={cardSet.image}
                             alt={card.name}
                             className='PaginatedResults-image'

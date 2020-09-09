@@ -14,7 +14,6 @@ const DeckTable = ({ deckCards = [], setDeckCards }) => {
             ...deckCards.slice(index + 1),
         ];
         setDeckCards(cards);
-        console.log(cards);
     };
 
     const removeCard = cardID => {

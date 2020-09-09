@@ -22,7 +22,7 @@ const getCardsByName = (tokens, page, pageSize) => {
     const params = tokens.map(() => 'f.name LIKE ?').join(' AND ');
     return query(
         `SELECT
-        c.id,
+        c.id card_id,
         c.rarity,
         c.oracle_id,
         c.set_name_image_json,
@@ -54,7 +54,7 @@ const getCardsByName = (tokens, page, pageSize) => {
 const getCardByID = (id) => {
     return query(
         `SELECT
-        c.id,
+        c.id card_id,
         c.rarity,
         c.set_name_image_json,
         f.id face_id,

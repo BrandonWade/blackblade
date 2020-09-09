@@ -1,5 +1,6 @@
 const useSearch = (headers = {}) => {
     const basicSearch = async (query = '', page = 1) => {
+        console.log('TRIGGER BASIC SEARCH', query);
         const response = await fetch(`/api/search?q=${query}&page=${page}`, {
             headers: {
                 ...headers,
@@ -24,6 +25,7 @@ const useSearch = (headers = {}) => {
     };
 
     const getCardByID = async id => {
+        console.log('TRIGGER GET CARD BY ID', id);
         const response = await fetch(`/api/cards/${id}`, {
             headers: {
                 ...headers,
