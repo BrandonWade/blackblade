@@ -10,25 +10,33 @@ import './DeckBuilder.scss';
 
 const DeckBuilder = () => {
     const { publicID } = useParams();
-    const { getCardsByPublicID } = useDeck();
+    const { saveDeck, getDeck } = useDeck();
     const { deckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards } = useContext(DeckBuilderContext);
     const unmodified = isEqual(deckCards, unmodifiedDeckCards);
 
     useEffect(() => {
         const fetchDeckCards = async () => {
-            const result = await getCardsByPublicID(publicID);
+            const result = await getDeck(publicID);
             if (!result.success) {
                 console.error(result.errors); // TODO: Handle
                 return;
             }
+
             setDeckCards(result.cards);
             setUnmodifiedDeckCards(result.cards);
         };
         fetchDeckCards();
     }, []);
 
-    const onSaveDeck = () => {
-        console.log('TODO: Implement');
+    const onSaveDeck = async () => {
+        const result = await saveDeck(publicID, deckCards);
+        if (!result.success) {
+            console.error(result.errors); // TODO: Handle
+            return;
+        }
+
+        // Once changes to the deck have been saved, update the unmodified state
+        setUnmodifiedDeckCards(deckCards);
     };
 
     return (

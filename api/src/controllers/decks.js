@@ -15,10 +15,15 @@ const createDeck = async (req, res) => {
     res.status(HttpStatus.OK).json(result);
 };
 
-const getCardsByPublicID = async (req, res) => {
+// TODO: Implement
+const saveDeck = async (req, res) => {
+    res.status(HttpStatus.OK).send();
+};
+
+const getDeck = async (req, res) => {
     const publicID = req.params['publicID'];
-    const cards = await DeckService.getCardsByPublicID(publicID);
+    const cards = await DeckService.getDeck(publicID);
     res.status(HttpStatus.OK).json(cards);
 };
 
-export { createDeck, getCardsByPublicID };
+export { createDeck, saveDeck, getDeck };
