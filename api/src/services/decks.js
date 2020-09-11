@@ -20,7 +20,16 @@ const createDeck = async (accountID, name) => {
     };
 };
 
-const getCardsByPublicID = async (publicID) => {
+const saveDeck = async (accountID, deck) => {
+    const result = await DeckRepository.saveDeck(accountID, deck);
+    if (!result?.results) {
+        // TODO: Handle
+    }
+
+    return;
+};
+
+const getDeck = async (publicID) => {
     const result = await DeckRepository.getCardsByPublicID(publicID);
 
     return {
@@ -30,5 +39,6 @@ const getCardsByPublicID = async (publicID) => {
 
 export default {
     createDeck,
-    getCardsByPublicID,
+    saveDeck,
+    getDeck,
 };

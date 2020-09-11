@@ -25,7 +25,29 @@ const useDeck = (headers = {}) => {
         }
     };
 
-    const getCardsByPublicID = async (publicID = '') => {
+    const saveDeck = async (publicID = '', deck = []) => {
+        const response = await fetch(`/api/decks/${publicID}`, {
+            method: 'PUT',
+            headers: {
+                ...headers,
+            },
+            body: JSON.stringify(deck),
+        });
+
+        switch (response.status) {
+            case 200:
+                return {
+                    success: true,
+                };
+            default:
+                return {
+                    success: false,
+                    errors: await response.json(),
+                };
+        }
+    };
+
+    const getDeck = async (publicID = '') => {
         const response = await fetch(`/api/decks/${publicID}`, {
             headers: {
                 ...headers,
@@ -49,7 +71,8 @@ const useDeck = (headers = {}) => {
 
     return {
         createDeck,
-        getCardsByPublicID,
+        saveDeck,
+        getDeck,
     };
 };
 

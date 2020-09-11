@@ -26,6 +26,11 @@ const getDeckByID = (deckID) => {
     );
 };
 
+// TODO: Implement
+const saveDeck = (accountID, deck) => {
+    return;
+};
+
 const getCardsByPublicID = (publicID) => {
     return query(
         `SELECT
@@ -47,5 +52,6 @@ const getCardsByPublicID = (publicID) => {
 export default {
     createDeck,
     getDeckByID,
+    saveDeck,
     getCardsByPublicID,
 };
