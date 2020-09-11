@@ -9,15 +9,38 @@
     &-deckPanel {
         flex: 1.5;
         height: 100%;
+        max-width: 30vw;
         background-color: var(--color-primary-light);
         border-left: var(--line);
     }
 
-    &-name {
-        padding: 0.75rem;
-        font-size: 1.75rem;
-        text-align: center;
+    &-nameBar {
+        padding: 1rem;
+        font-size: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background-color: var(--color-primary-dark);
         border-bottom: var(--line);
+    }
+
+    &-name {
+        max-width: 65%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &-saveButton {
+        position: absolute;
+        right: 1rem;
+        background-color: #8067de;
+        border: 1px solid #7256db;
+        padding: 0.6rem 1.5rem;
+
+        &:enabled:hover {
+            background-color: #937de2;
+            border: 1px solid #876fe0;
+        }
     }
 }

@@ -1,15 +1,18 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { isEqual } from 'lodash';
 import useDeck from '../../hooks/useDeck';
 import DeckBuilderContext from '../../contexts/DeckBuilderContext';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
 import DeckTable from '../../components/DeckList/DeckTable';
+import Button from '../../components/Button';
 import './DeckBuilder.scss';
 
 const DeckBuilder = () => {
     const { publicID } = useParams();
     const { getCardsByPublicID } = useDeck();
-    const { deckName, deckCards, setDeckCards } = useContext(DeckBuilderContext);
+    const { deckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards } = useContext(DeckBuilderContext);
+    const unmodified = isEqual(deckCards, unmodifiedDeckCards);
 
     useEffect(() => {
         const fetchDeckCards = async () => {
@@ -19,9 +22,14 @@ const DeckBuilder = () => {
                 return;
             }
             setDeckCards(result.cards);
+            setUnmodifiedDeckCards(result.cards);
         };
         fetchDeckCards();
     }, []);
+
+    const onSaveDeck = () => {
+        console.log('TODO: Implement');
+    };
 
     return (
         <div className='DeckBuilder'>
@@ -29,7 +37,12 @@ const DeckBuilder = () => {
                 <DeckBuilderSearch />
             </div>
             <div className='DeckBuilder-deckPanel'>
-                <div className='DeckBuilder-name'>{deckName}</div>
+                <div className='DeckBuilder-nameBar'>
+                    <div className='DeckBuilder-name'>{deckName}</div>
+                    <Button className={`DeckBuilder-saveButton ${unmodified ? 'u-hidden' : ''}`} onClick={onSaveDeck}>
+                        Save
+                    </Button>
+                </div>
                 <DeckTable deckCards={deckCards} setDeckCards={setDeckCards} />
             </div>
         </div>

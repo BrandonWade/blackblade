@@ -5,4 +5,6 @@ export default createContext({
     setDeckName: () => {},
     deckCards: [],
     setDeckCards: () => {},
+    unmodifiedDeckCards: [],
+    setUnmodifiedDeckCards: () => {},
 });

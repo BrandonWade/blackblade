@@ -20,9 +20,10 @@ const App = () => {
     const [secondaryCardFace, setSecondaryCardFace] = useState();
     const [deckName, setDeckName] = useState('Untitled Deck');
     const [deckCards, setDeckCards] = useState([]);
+    const [unmodifiedDeckCards, setUnmodifiedDeckCards] = useState([]);
 
     return (
-        <DeckBuilderContext.Provider value={{ deckName, setDeckName, deckCards, setDeckCards }}>
+        <DeckBuilderContext.Provider value={{ deckName, setDeckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards }}>
             <SearchResultsContext.Provider
                 value={{
                     query,
