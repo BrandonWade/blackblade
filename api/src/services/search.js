@@ -12,9 +12,9 @@ const basicSearch = async (query, page) => {
     );
 
     return {
-        total_results: totalResults.results[0].total_results,
-        pages: Math.ceil(totalResults.results[0].total_results / pageSize),
-        results: cardResults.results,
+        total_results: totalResults[0].total_results,
+        pages: Math.ceil(totalResults[0].total_results / pageSize),
+        results: cardResults,
     };
 };
 

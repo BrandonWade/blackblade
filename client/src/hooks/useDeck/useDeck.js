@@ -30,6 +30,7 @@ const useDeck = (headers = {}) => {
             method: 'PUT',
             headers: {
                 ...headers,
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(deck),
         });

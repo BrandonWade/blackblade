@@ -1,4 +1,5 @@
 import mysql from 'mysql';
+import util from 'util';
 
 const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
 
@@ -49,13 +50,8 @@ const connect = async () => {
     return false;
 };
 
-export const query = (query, args) =>
-    new Promise((resolve, reject) => {
-        connection.query(query, args, (err, results, fields) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({ results, fields });
-            }
-        });
-    });
+export const query = util.promisify(connection.query).bind(connection);
+export const transaction = util
+    .promisify(connection.beginTransaction)
+    .bind(connection);
+export const commit = util.promisify(connection.commit).bind(connection);

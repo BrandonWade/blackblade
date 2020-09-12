@@ -1,4 +1,4 @@
-import { query } from '../db';
+import { query, transaction, commit } from '../db';
 
 const createDeck = (accountID, name) => {
     return query(
@@ -16,7 +16,7 @@ const createDeck = (accountID, name) => {
     );
 };
 
-const getDeckByID = (deckID) => {
+const getPublicIDByID = (deckID) => {
     return query(
         `SELECT public_id
         FROM decks
@@ -26,9 +26,41 @@ const getDeckByID = (deckID) => {
     );
 };
 
-// TODO: Implement
-const saveDeck = (accountID, deck) => {
-    return;
+const saveDeck = async (deckID, deck) => {
+    // const rows = deck.map((c) => [deckID, c.card_id, c.count]);
+    // await transaction();
+    // const deleteResults = await query(
+    //     `DELETE
+    //     FROM deck_cards
+    //     WHERE deck_id = ?
+    // `,
+    //     [deckID],
+    // );
+    // if (!deleteResults) {
+    //     console.error('save deck: error deleting existing cards');
+    //     return;
+    // }
+    // const insertResults = await query(
+    //     `INSERT INTO deck_cards (deck_id, card_id, count)
+    //     VALUES ?
+    // `,
+    //     [rows],
+    // );
+    // if (!insertResults) {
+    //     console.error('save deck: error inserting new cards');
+    //     return;
+    // }
+    // await commit((err) => console.error('something terrible happened', err));
+};
+
+const getIDByPublicID = (publicID) => {
+    return query(
+        `SELECT id
+        FROM decks
+        WHERE public_id = ?
+    `,
+        [publicID],
+    );
 };
 
 const getCardsByPublicID = (publicID) => {
@@ -51,7 +83,8 @@ const getCardsByPublicID = (publicID) => {
 
 export default {
     createDeck,
-    getDeckByID,
+    getPublicIDByID,
     saveDeck,
+    getIDByPublicID,
     getCardsByPublicID,
 };
