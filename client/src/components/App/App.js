@@ -18,7 +18,7 @@ const App = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [primaryCardFace, setPrimaryCardFace] = useState({});
     const [secondaryCardFace, setSecondaryCardFace] = useState();
-    const [deckName, setDeckName] = useState('Untitled Deck');
+    const [deckName, setDeckName] = useState('');
     const [deckCards, setDeckCards] = useState([]);
     const [unmodifiedDeckCards, setUnmodifiedDeckCards] = useState([]);
 

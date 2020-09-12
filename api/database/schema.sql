@@ -131,6 +131,7 @@ CREATE TABLE deck_cards (
     card_id bigint unsigned NOT NULL DEFAULT 0,
     count int unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
+    UNIQUE KEY U_deck_id_card_id (deck_id, card_id),
     FOREIGN KEY (deck_id) REFERENCES decks(id),
     FOREIGN KEY (card_id) REFERENCES cards(id)
 ) CHARSET=utf8mb4;

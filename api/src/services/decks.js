@@ -21,26 +21,28 @@ const createDeck = async (accountID, name) => {
 };
 
 const saveDeck = async (publicID, deck) => {
-    const [deckIDResult] = await DeckRepository.getIDByPublicID(publicID);
+    const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
     const deckID = deckIDResult?.[0].id || 0;
     if (!deckID) {
         console.error('save deck: error getting deck id'); // TODO: Handle
         return;
     }
 
-    // const saveResult = await DeckRepository.saveDeck(deckID, deck);
-    // if (saveResult.affectedRows === 0) {
-    //     console.error('save deck: error saving deck'); // TODO: Handle
-    //     return;
-    // }
+    const saveResult = await DeckRepository.saveDeck(deckID, deck);
+    if (!saveResult) {
+        console.error('save deck: error saving deck'); // TODO: Handle
+        return;
+    }
 
     return;
 };
 
 const getDeck = async (publicID) => {
-    const [cards] = await DeckRepository.getCardsByPublicID(publicID);
+    const [deck] = await DeckRepository.getDeckByPublicID(publicID);
+    const [cards] = await DeckRepository.getDeckCardsByPublicID(publicID);
 
     return {
+        name: deck?.[0].name || '',
         cards,
     };
 };

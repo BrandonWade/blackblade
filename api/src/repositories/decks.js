@@ -27,35 +27,45 @@ const getPublicIDByID = async (deckID) => {
 };
 
 const saveDeck = async (deckID, deck) => {
-    // const rows = deck.map((c) => [deckID, c.card_id, c.count]);
-    // await transaction();
-    // const deleteResults = await query(
-    //     `DELETE
-    //     FROM deck_cards
-    //     WHERE deck_id = ?
-    // `,
-    //     [deckID],
-    // );
-    // if (!deleteResults) {
-    //     console.error('save deck: error deleting existing cards');
-    //     return;
-    // }
-    // const insertResults = await query(
-    //     `INSERT INTO deck_cards (deck_id, card_id, count)
-    //     VALUES ?
-    // `,
-    //     [rows],
-    // );
-    // if (!insertResults) {
-    //     console.error('save deck: error inserting new cards');
-    //     return;
-    // }
-    // await commit((err) => console.error('something terrible happened', err));
+    const conn = await connection.getConnection();
+    await conn.beginTransaction();
+
+    try {
+        // Only run if there are any cards in the deck to save
+        if (deck.length) {
+            await conn.query(
+                `INSERT IGNORE INTO deck_cards(
+                    deck_id,
+                    card_id,
+                    count
+                ) VALUES ?
+            `,
+                [deck.map((c) => [deckID, c.card_id, c.count])],
+            );
+        }
+
+        // Delete any cards that used to be in the deck that were removed
+        await conn.query(
+            `DELETE
+            FROM deck_cards
+            WHERE deck_id = ?
+            ${deck.length > 0 ? 'AND card_id NOT IN (?)' : ''}
+        `,
+            [deckID, deck.map((c) => c.card_id)],
+        );
+        await conn.commit();
+    } catch (e) {
+        console.error(e); // TODO: Handle
+    }
+
+    await conn.release();
+
+    return true;
 };
 
-const getIDByPublicID = async (publicID) => {
+const getDeckByPublicID = async (publicID) => {
     return connection.query(
-        `SELECT id
+        `SELECT *
         FROM decks
         WHERE public_id = ?
     `,
@@ -63,7 +73,7 @@ const getIDByPublicID = async (publicID) => {
     );
 };
 
-const getCardsByPublicID = async (publicID) => {
+const getDeckCardsByPublicID = async (publicID) => {
     return connection.query(
         `SELECT
         k.id deck_card_id,
@@ -85,6 +95,6 @@ export default {
     createDeck,
     getPublicIDByID,
     saveDeck,
-    getIDByPublicID,
-    getCardsByPublicID,
+    getDeckByPublicID,
+    getDeckCardsByPublicID,
 };

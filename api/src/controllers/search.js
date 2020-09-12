@@ -35,7 +35,7 @@ const getCardByID = async (req, res) => {
     const id = req.params['id'];
     const results = await SearchService.getCardByID(id);
     if (results.length === 0) {
-        return res.status(HttpStatus.NOT_FOUND).json({});
+        return res.status(HttpStatus.NOT_FOUND).send();
     } else {
         return res.status(HttpStatus.OK).json(results);
     }
