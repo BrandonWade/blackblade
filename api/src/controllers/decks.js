@@ -17,6 +17,11 @@ const createDeck = async (req, res) => {
 
 // TODO: Implement
 const saveDeck = async (req, res) => {
+    const publicID = req.params['publicID'];
+    const cards = req.body || [];
+
+    const result = await DeckService.saveDeck(publicID, cards);
+
     res.status(HttpStatus.OK).send();
 };
 
