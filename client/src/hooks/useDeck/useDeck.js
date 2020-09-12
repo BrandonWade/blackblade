@@ -4,10 +4,9 @@ const useDeck = (headers = {}) => {
             method: 'POST',
             headers: {
                 ...headers,
+                'Content-Type': 'application/json',
             },
-            body: {
-                name,
-            },
+            body: JSON.stringify({ name }),
         });
 
         switch (response.status) {
@@ -60,6 +59,7 @@ const useDeck = (headers = {}) => {
                 const data = await response.json();
                 return {
                     success: true,
+                    name: data.name,
                     cards: data.cards,
                 };
             default:

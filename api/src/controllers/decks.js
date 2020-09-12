@@ -3,7 +3,7 @@ import DeckService from '../services/decks';
 
 const createDeck = async (req, res) => {
     const accountID = 0; // TODO: Get from session
-    const name = 'New Deck'; // TODO: Get from request
+    const name = req.body.name || 'Untitled Deck';
 
     const result = await DeckService.createDeck(accountID, name);
     if (!result.deck_uri) {
@@ -15,12 +15,11 @@ const createDeck = async (req, res) => {
     res.status(HttpStatus.OK).json(result);
 };
 
-// TODO: Implement
 const saveDeck = async (req, res) => {
     const publicID = req.params['publicID'];
     const cards = req.body || [];
 
-    const result = await DeckService.saveDeck(publicID, cards);
+    await DeckService.saveDeck(publicID, cards);
 
     res.status(HttpStatus.OK).send();
 };

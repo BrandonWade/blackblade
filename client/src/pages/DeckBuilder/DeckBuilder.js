@@ -11,7 +11,7 @@ import './DeckBuilder.scss';
 const DeckBuilder = () => {
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDeck();
-    const { deckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards } = useContext(DeckBuilderContext);
+    const { deckName, setDeckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards } = useContext(DeckBuilderContext);
     const unmodified = isEqual(deckCards, unmodifiedDeckCards);
 
     useEffect(() => {
@@ -22,6 +22,7 @@ const DeckBuilder = () => {
                 return;
             }
 
+            setDeckName(result.name);
             setDeckCards(result.cards);
             setUnmodifiedDeckCards(result.cards);
         };

@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 export default createContext({
-    deckName: 'Untitled Deck',
+    deckName: '',
     setDeckName: () => {},
     deckCards: [],
     setDeckCards: () => {},
