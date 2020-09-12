@@ -1,8 +1,8 @@
-import { query } from '../db';
+import { connection } from '../db';
 
-const getTotalResults = (tokens) => {
+const getTotalResults = async (tokens) => {
     const params = tokens.map(() => 'f.name LIKE ?').join(' AND ');
-    return query(
+    return await connection.query(
         `SELECT
         COUNT(*) total_results
         FROM (
@@ -18,9 +18,9 @@ const getTotalResults = (tokens) => {
     );
 };
 
-const getCardsByName = (tokens, page, pageSize) => {
+const getCardsByName = async (tokens, page, pageSize) => {
     const params = tokens.map(() => 'f.name LIKE ?').join(' AND ');
-    return query(
+    return await connection.query(
         `SELECT
         c.id card_id,
         c.rarity,
@@ -51,8 +51,8 @@ const getCardsByName = (tokens, page, pageSize) => {
     );
 };
 
-const getCardByID = (id) => {
-    return query(
+const getCardByID = async (id) => {
+    return await connection.query(
         `SELECT
         c.id card_id,
         c.rarity,

@@ -6,10 +6,6 @@
 import app from '../app';
 import debugLib from 'debug';
 import http from 'http';
-import { initializeDatabase } from '../db';
-
-// Initialize the MySQL connection
-initializeDatabase();
 
 const debug = debugLib('blackblade-api:server');
 

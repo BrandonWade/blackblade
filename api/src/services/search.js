@@ -4,8 +4,8 @@ const pageSize = 60;
 
 const basicSearch = async (query, page) => {
     const queryTokens = query.split(/\s+/);
-    const totalResults = await SearchRepository.getTotalResults(queryTokens);
-    const cardResults = await SearchRepository.getCardsByName(
+    const [totalResults] = await SearchRepository.getTotalResults(queryTokens);
+    const [cardResults] = await SearchRepository.getCardsByName(
         queryTokens,
         page,
         pageSize,
@@ -18,8 +18,9 @@ const basicSearch = async (query, page) => {
     };
 };
 
-const getCardByID = (id) => {
-    return SearchRepository.getCardByID(id);
+const getCardByID = async (id) => {
+    const [result] = await SearchRepository.getCardByID(id);
+    return result;
 };
 
 export default {

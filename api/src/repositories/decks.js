@@ -1,7 +1,7 @@
-import { query, transaction, commit } from '../db';
+import { connection } from '../db';
 
-const createDeck = (accountID, name) => {
-    return query(
+const createDeck = async (accountID, name) => {
+    return connection.query(
         `INSERT INTO decks (
             public_id,
             account_id,
@@ -16,8 +16,8 @@ const createDeck = (accountID, name) => {
     );
 };
 
-const getPublicIDByID = (deckID) => {
-    return query(
+const getPublicIDByID = async (deckID) => {
+    return connection.query(
         `SELECT public_id
         FROM decks
         WHERE id = ?
@@ -53,8 +53,8 @@ const saveDeck = async (deckID, deck) => {
     // await commit((err) => console.error('something terrible happened', err));
 };
 
-const getIDByPublicID = (publicID) => {
-    return query(
+const getIDByPublicID = async (publicID) => {
+    return connection.query(
         `SELECT id
         FROM decks
         WHERE public_id = ?
@@ -63,8 +63,8 @@ const getIDByPublicID = (publicID) => {
     );
 };
 
-const getCardsByPublicID = (publicID) => {
-    return query(
+const getCardsByPublicID = async (publicID) => {
+    return connection.query(
         `SELECT
         k.id deck_card_id,
         k.count,

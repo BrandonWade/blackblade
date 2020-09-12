@@ -33,7 +33,7 @@ const getCardByID = async (req, res) => {
     }
 
     const id = req.params['id'];
-    const { results } = await SearchService.getCardByID(id);
+    const results = await SearchService.getCardByID(id);
     if (results.length === 0) {
         return res.status(HttpStatus.NOT_FOUND).json({});
     } else {
