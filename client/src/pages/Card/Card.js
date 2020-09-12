@@ -12,9 +12,8 @@ import './Card.scss';
 const Card = () => {
     const { id } = useParams();
     const { primaryCardFace, secondaryCardFace } = useContext(CardFaceContext);
-    const cardSets = JSON.parse(primaryCardFace.set_name_image_json || '[]');
     const [selectedSetIndex, setSelectedSetIndex] = useState(0);
-    const selectedSet = cardSets?.[selectedSetIndex] || {};
+    const selectedSet = primaryCardFace.set_name_image_json?.[selectedSetIndex] || {};
     const { getCardByID } = useSearch();
     const { displayResults } = useDisplayResults();
     const cardFaces = [primaryCardFace, secondaryCardFace].filter(face => face?.card_id !== undefined);
@@ -41,7 +40,7 @@ const Card = () => {
                     return <CardFace key={face.face_id} face={face} />;
                 })}
             </div>
-            <CardSets cardSets={cardSets} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
+            <CardSets cardSets={primaryCardFace.set_name_image_json} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
         </HeaderPage>
     );
 };

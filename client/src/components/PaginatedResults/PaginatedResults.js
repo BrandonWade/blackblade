@@ -27,8 +27,7 @@ const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect 
             <Paginator className='PaginatedResults-paginator' onPageChange={onPageChange} />
             <div className='PaginatedResults-results'>
                 {searchResults.map(card => {
-                    const cardSets = JSON.parse(card.set_name_image_json || '[]');
-                    const cardSet = cardSets.length > 0 ? cardSets[0] : {};
+                    const cardSet = card.set_name_image_json.length > 0 ? card.set_name_image_json[0] : {};
 
                     return (
                         <img
