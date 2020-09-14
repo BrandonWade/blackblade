@@ -41,9 +41,9 @@ CREATE TABLE card_multiverse_ids (
     card_id bigint unsigned NOT NULL DEFAULT 0,
     multiverse_id bigint NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    FOREIGN KEY (card_id) REFERENCES cards(id),
     UNIQUE KEY U_multiverse_id (multiverse_id),
-    UNIQUE KEY U_card_id_multiverse_id (card_id, multiverse_id)
+    UNIQUE KEY U_card_id_multiverse_id (card_id, multiverse_id),
+    FOREIGN KEY (card_id) REFERENCES cards(id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS card_frame_effects;
@@ -52,8 +52,8 @@ CREATE TABLE card_frame_effects (
     card_id bigint unsigned NOT NULL DEFAULT 0,
     frame_effect varchar(32) NOT NULL DEFAULT '',
     PRIMARY KEY (id),
-    FOREIGN KEY (card_id) REFERENCES cards(id),
-    UNIQUE KEY U_card_id_frame_effect (card_id, frame_effect)
+    UNIQUE KEY U_card_id_frame_effect (card_id, frame_effect),
+    FOREIGN KEY (card_id) REFERENCES cards(id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS card_prices;
@@ -65,6 +65,7 @@ CREATE TABLE card_prices (
     eur varchar(16) NOT NULL DEFAULT '',
     tix varchar(16) NOT NULL DEFAULT '',
     PRIMARY KEY (id),
+    UNIQUE KEY U_card_id (card_id),
     FOREIGN KEY (card_id) REFERENCES cards(id)
 ) CHARSET=utf8mb4;
 
@@ -72,6 +73,7 @@ DROP TABLE IF EXISTS card_faces;
 CREATE TABLE card_faces (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
     card_id bigint unsigned NOT NULL DEFAULT 0,
+    face_index tinyint unsigned NOT NULL DEFAULT 0,
     artist varchar(64) DEFAULT NULL,
     flavor_text varchar(512) DEFAULT NULL,
     illustration_id char(36) NOT NULL DEFAULT '',
@@ -90,6 +92,7 @@ CREATE TABLE card_faces (
     type_line varchar(128) NOT NULL DEFAULT '',
     watermark varchar(32) NOT NULL DEFAULT '',
     PRIMARY KEY (id),
+    UNIQUE KEY U_card_id_face_index (card_id, face_index),
     FOREIGN KEY (card_id) REFERENCES cards(id)
 ) CHARSET=utf8mb4;
 
@@ -99,8 +102,8 @@ CREATE TABLE card_face_colors (
     card_face_id bigint unsigned NOT NULL DEFAULT 0,
     color enum('B', 'G', 'R', 'U', 'W'),
     PRIMARY KEY (id),
-    FOREIGN KEY (card_face_id) REFERENCES card_faces(id),
-    UNIQUE KEY U_card_face_id_color (card_face_id, color)
+    UNIQUE KEY U_card_face_id_color (card_face_id, color),
+    FOREIGN KEY (card_face_id) REFERENCES card_faces(id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS card_face_color_indicators;
@@ -109,8 +112,8 @@ CREATE TABLE card_face_color_indicators (
     card_face_id bigint unsigned NOT NULL DEFAULT 0,
     color_indicator enum('B', 'G', 'R', 'U', 'W'),
     PRIMARY KEY (id),
-    FOREIGN KEY (card_face_id) REFERENCES card_faces(id),
-    UNIQUE KEY U_card_face_id_color_indicator (card_face_id, color_indicator)
+    UNIQUE KEY U_card_face_id_color_indicator (card_face_id, color_indicator),
+    FOREIGN KEY (card_face_id) REFERENCES card_faces(id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS decks;
@@ -121,7 +124,6 @@ CREATE TABLE decks (
     name varchar(64) NOT NULL DEFAULT '',
     PRIMARY KEY (id),
     UNIQUE KEY U_public_id (public_id)
-    -- FOREIGN KEY (account_id) REFERENCES accounts(id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS deck_cards;
