@@ -2,7 +2,7 @@ import React from 'react';
 import DeckRow from './DeckRow';
 import './DeckTable.scss';
 
-const DeckTable = ({ deckCards = [], setDeckCards }) => {
+const DeckTable = ({ deckCards = [], setDeckCards = () => {} }) => {
     const updateCount = (cardID, count) => {
         const index = deckCards.findIndex(c => c.card_id === cardID);
         const cards = [

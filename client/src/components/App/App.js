@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import CardFaceContext from '../../contexts/CardFaceContext';
+import CardContext from '../../contexts/CardContext';
 import SearchResultsContext from '../../contexts/SearchResultsContext';
 import DeckBuilderContext from '../../contexts/DeckBuilderContext';
 import Home from '../../pages/Home';
@@ -16,8 +16,7 @@ const App = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [numberOfPages, setNumberOfPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-    const [primaryCardFace, setPrimaryCardFace] = useState({});
-    const [secondaryCardFace, setSecondaryCardFace] = useState();
+    const [card, setCard] = useState({});
     const [deckName, setDeckName] = useState('');
     const [deckCards, setDeckCards] = useState([]);
     const [unmodifiedDeckCards, setUnmodifiedDeckCards] = useState([]);
@@ -38,7 +37,7 @@ const App = () => {
                     setCurrentPage,
                 }}
             >
-                <CardFaceContext.Provider value={{ primaryCardFace, setPrimaryCardFace, secondaryCardFace, setSecondaryCardFace }}>
+                <CardContext.Provider value={{ card, setCard }}>
                     <BrowserRouter>
                         <Switch>
                             <Route path='/' exact component={Home} />
@@ -49,7 +48,7 @@ const App = () => {
                             <Redirect to='/' />
                         </Switch>
                     </BrowserRouter>
-                </CardFaceContext.Provider>
+                </CardContext.Provider>
             </SearchResultsContext.Provider>
         </DeckBuilderContext.Provider>
     );

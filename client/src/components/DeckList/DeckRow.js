@@ -4,7 +4,8 @@ import useSymbols from '../../hooks/useSymbols';
 import Input from '../../components/Input';
 
 const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) => {
-    const manaCost = useSymbols(card.mana_cost);
+    const cardFace = card?.faces_json?.[0];
+    const manaCost = useSymbols(cardFace?.mana_cost || '');
     const [count, setCount] = useState(card.count);
 
     const onCountChange = e => {
@@ -23,7 +24,7 @@ const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) =
             </td>
             <td className='DeckTable-manaCost' dangerouslySetInnerHTML={{ __html: manaCost }} />
             <td className='DeckTable-name'>
-                <Link to={`/cards/${card.card_id}`}>{card.name}</Link>
+                <Link to={`/cards/${card.card_id}`}>{cardFace?.name}</Link>
             </td>
             <td className='DeckTable-remove' onClick={onRemoveCard}>
                 &#10799;

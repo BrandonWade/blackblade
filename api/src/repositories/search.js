@@ -23,26 +23,15 @@ const getCardsByName = async (tokens, page, pageSize) => {
     return await connection.query(
         `SELECT
         c.id card_id,
-        c.rarity,
-        c.oracle_id,
-        c.set_name_image_json,
-        f.id face_id,
-        f.name,
-        f.mana_cost,
-        f.type_line,
-        f.oracle_text,
-        f.flavor_text,
-        f.power,
-        f.toughness,
-        f.loyalty,
-        f.artist
+        c.faces_json,
+        c.sets_json
         FROM card_faces f
         INNER JOIN cards c ON c.id = f.card_id
         WHERE ${params}
         GROUP BY c.oracle_id
         ORDER BY f.name
         LIMIT ?, ?;
-        `,
+    `,
         [
             ...tokens.map((token) => `%${token}%`),
             (page - 1) * pageSize,
@@ -56,19 +45,9 @@ const getCardByID = async (id) => {
         `SELECT
         c.id card_id,
         c.rarity,
-        c.set_name_image_json,
-        f.id face_id,
-        f.name,
-        f.mana_cost,
-        f.type_line,
-        f.oracle_text,
-        f.flavor_text,
-        f.power,
-        f.toughness,
-        f.loyalty,
-        f.artist
-        FROM card_faces f
-        INNER JOIN cards c ON c.id = f.card_id
+        c.layout,
+        c.sets_json
+        FROM cards c
         WHERE c.id = ?;
     `,
         [id],

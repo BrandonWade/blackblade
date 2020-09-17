@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import CardFaceContext from '../../contexts/CardFaceContext';
+import CardContext from '../../contexts/CardContext';
 import SearchResultsContext from '../../contexts/SearchResultsContext';
 import HeaderPage from '../../components/HeaderPage';
 import PaginatedResults from '../../components/PaginatedResults';
@@ -11,7 +11,7 @@ import './SearchResults.scss';
 const SearchResults = props => {
     const history = useHistory();
     const { setQuery, setCurrentPage } = useContext(SearchResultsContext);
-    const { setPrimaryCardFace } = useContext(CardFaceContext);
+    const { setCard } = useContext(CardContext);
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
 
@@ -31,9 +31,9 @@ const SearchResults = props => {
         displayResults(response, query, currentPage, true);
     };
 
-    const onSelectResult = cardFace => {
-        setPrimaryCardFace(cardFace);
-        history.push(`/cards/${cardFace.card_id}`);
+    const onSelectResult = card => {
+        setCard(card);
+        history.push(`/cards/${card.card_id}`);
     };
 
     return (
