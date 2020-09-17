@@ -77,14 +77,12 @@ const getDeckCardsByPublicID = async (publicID) => {
     return connection.query(
         `SELECT
         k.id deck_card_id,
+        k.card_id,
         k.count,
-        f.card_id,
-        f.name,
-        f.mana_cost,
-        f.type_line
+        c.faces_json
         FROM deck_cards k
         INNER JOIN decks d ON d.id = k.deck_id
-        INNER JOIN card_faces f ON f.card_id = k.card_id
+        INNER JOIN cards c ON c.id = k.card_id
         WHERE d.public_id = ?
     `,
         [publicID],

@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import CardFaceContext from '../../contexts/CardFaceContext';
+import CardContext from '../../contexts/CardContext';
 import SearchResultsContext from '../../contexts/SearchResultsContext';
 
 const useDisplayResults = () => {
     const history = useHistory();
-    const { setPrimaryCardFace, setSecondaryCardFace } = useContext(CardFaceContext);
+    const { setCard } = useContext(CardContext);
     const { setTotalResults, setSearchResults, setNumberOfPages, setCurrentPage } = useContext(SearchResultsContext);
 
     const displayResults = (response = {}, query = '', currentPage = 1, redirect = true, redirectForSingleResult = true) => {
@@ -19,14 +19,10 @@ const useDisplayResults = () => {
         const numberOfPages = response.pages || 1;
         const totalResults = response.totalResults || 0;
         const results = response.results || [];
-        const singleResult = results.length === 1 || (results.length === 2 && results[0].card_id === results[1].card_id);
+        const singleResult = results.length === 1; // || (results.length === 2 && results[0].card_id === results[1].card_id);
         if (redirectForSingleResult && singleResult) {
-            const primaryCardFace = results[0];
-            const secondaryCardFace = results?.[1] || {};
-
-            setPrimaryCardFace(primaryCardFace);
-            setSecondaryCardFace(secondaryCardFace);
-            route = `/cards/${primaryCardFace.card_id}`;
+            setCard(results[0]);
+            route = `/cards/${results[0].card_id}`;
         } else {
             setSearchResults(results);
             route = `/cards/search?q=${query}&page=${currentPage}`;
