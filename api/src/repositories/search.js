@@ -24,9 +24,10 @@ const getCardsByName = async (tokens, page, pageSize) => {
         `SELECT
         c.id card_id,
         c.faces_json,
-        c.sets_json
+        s.sets_json
         FROM card_faces f
         INNER JOIN cards c ON c.id = f.card_id
+        INNER JOIN card_sets_list s ON s.id = c.card_sets_list_id
         WHERE ${params}
         GROUP BY c.oracle_id
         ORDER BY f.name
@@ -46,8 +47,9 @@ const getCardByID = async (id) => {
         c.id card_id,
         c.rarity,
         c.layout,
-        c.sets_json
+        s.sets_json
         FROM cards c
+        INNER JOIN card_sets_list s ON s.id = c.card_sets_list_id
         WHERE c.id = ?;
     `,
         [id],
