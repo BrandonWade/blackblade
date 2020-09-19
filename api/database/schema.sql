@@ -1,6 +1,14 @@
 CREATE DATABASE IF NOT EXISTS blackblade;
 USE blackblade;
 
+DROP TABLE IF EXISTS card_sets_list;
+CREATE TABLE card_sets_list (
+    id bigint unsigned NOT NULL AUTO_INCREMENT,
+    oracle_id char(36) DEFAULT NULL,
+    sets_json json DEFAULT NULL,
+    PRIMARY KEY (id)
+) CHARSET=utf8mb4;
+
 DROP TABLE IF EXISTS cards;
 CREATE TABLE cards (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
@@ -8,10 +16,10 @@ CREATE TABLE cards (
     oracle_id char(36) NOT NULL DEFAULT '',
     tcgplayer_id bigint unsigned DEFAULT NULL,
     card_back_id char(36) NOT NULL DEFAULT '',
+    card_sets_list_id bigint unsigned DEFAULT NULL,
     `set` varchar(8) NOT NULL DEFAULT '',
     set_name varchar(64) NOT NULL DEFAULT '',
     faces_json json DEFAULT NULL,
-    sets_json json DEFAULT NULL,
     rarity enum('common', 'uncommon', 'rare', 'mythic'),
     layout enum('normal', 'split', 'flip', 'transform', 'meld', 'leveler', 'saga', 'adventure', 'token', 'double_faced_token', 'emblem', 'augment', 'host'),
     border_color enum('black', 'borderless', 'gold', 'silver', 'white'),
@@ -31,6 +39,7 @@ CREATE TABLE cards (
     scryfall_uri text NOT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY U_scryfall_id (scryfall_id),
+    FOREIGN KEY (card_sets_list_id) REFERENCES card_sets_list(id),
     KEY K_oracle_id (oracle_id),
     KEY K_tcgplayer_id (tcgplayer_id),
     KEY K_card_back_id (card_back_id)
