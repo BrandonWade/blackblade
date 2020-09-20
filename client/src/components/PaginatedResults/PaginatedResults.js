@@ -26,11 +26,12 @@ const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect 
             <Paginator className='PaginatedResults-paginator' onPageChange={onPageChange} />
             <div className='PaginatedResults-results'>
                 {searchResults.map(card => {
+                    const cardFace = card?.sets_json?.[0]?.card_faces?.[0];
                     return (
                         <img
                             key={card.card_id}
-                            src={card?.faces_json[0]?.image}
-                            alt={card?.faces_json[0]?.name}
+                            src={cardFace?.image}
+                            alt={cardFace?.name}
                             className='PaginatedResults-image'
                             onClick={() => onSelectResult(card)}
                         />
