@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import CardContext from '../../contexts/CardContext';
@@ -25,12 +26,10 @@ const Card = () => {
     };
 
     useEffect(() => {
-        fetchCard();
-    }, [id]);
-
-    useEffect(() => {
-        setSelectedSetIndex(0);
-    }, [card]);
+        if (isEmpty(card) && id) {
+            fetchCard();
+        }
+    }, []);
 
     return (
         <HeaderPage className='Card'>

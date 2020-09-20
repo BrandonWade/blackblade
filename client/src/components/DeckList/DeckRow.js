@@ -4,7 +4,7 @@ import useSymbols from '../../hooks/useSymbols';
 import Input from '../../components/Input';
 
 const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) => {
-    const cardFace = card?.faces_json?.[0];
+    const cardFace = card?.sets_json?.[0]?.card_faces?.[0];
     const manaCost = useSymbols(cardFace?.mana_cost || '');
     const [count, setCount] = useState(card.count);
 
