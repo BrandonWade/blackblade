@@ -30,8 +30,8 @@ const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect 
                     return (
                         <img
                             key={card.card_id}
-                            src={cardFace?.image}
-                            alt={cardFace?.name}
+                            src={cardFace.image || ''}
+                            alt={cardFace.name || ''}
                             className='PaginatedResults-image'
                             onClick={() => onSelectResult(card)}
                         />

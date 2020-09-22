@@ -10,20 +10,32 @@ import './SearchResults.scss';
 
 const SearchResults = props => {
     const history = useHistory();
-    const { setQuery, setCurrentPage } = useContext(SearchResultsContext);
+    const { query, setQuery, currentPage, setCurrentPage } = useContext(SearchResultsContext);
     const { setCard } = useContext(CardContext);
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
+    const urlParams = new URLSearchParams(props?.location?.search);
+    const urlQuery = urlParams.get('q') || '';
+    const urlCurrentPage = parseInt(urlParams.get('page')) || 1;
 
     // If the page is loaded directly, use the query and page from the URL params
     useEffect(() => {
-        const urlParams = new URLSearchParams(props?.location?.search);
-        const query = urlParams.get('q') || '';
-        const currentPage = parseInt(urlParams.get('page')) || 1;
-        setQuery(query);
-        setCurrentPage(currentPage);
-        fetchResults(query, currentPage);
-    }, []);
+        let updated = false;
+
+        if (query !== urlQuery) {
+            setQuery(urlQuery);
+            updated = true;
+        }
+
+        if (currentPage !== urlCurrentPage) {
+            setCurrentPage(urlCurrentPage);
+            updated = true;
+        }
+
+        if (updated) {
+            fetchResults(urlQuery, urlCurrentPage);
+        }
+    }, [urlQuery, urlCurrentPage]);
 
     // TODO: Handle case where &page > max pages (e.g. ?q=dragon&page=6)
     const fetchResults = async (query = '', currentPage = 1) => {
