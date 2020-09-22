@@ -38,9 +38,9 @@ const SearchResults = props => {
     }, [urlQuery, urlCurrentPage]);
 
     // TODO: Handle case where &page > max pages (e.g. ?q=dragon&page=6)
-    const fetchResults = async (query = '', currentPage = 1) => {
+    const fetchResults = async (query = '', currentPage = 1, redirect = false) => {
         const response = await basicSearch(query, currentPage);
-        displayResults(response, query, currentPage, true);
+        displayResults(response, query, currentPage, redirect);
     };
 
     const onSelectResult = card => {
