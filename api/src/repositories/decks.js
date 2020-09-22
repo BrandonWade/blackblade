@@ -78,10 +78,12 @@ const getDeckCardsByPublicID = async (publicID) => {
         `SELECT
         k.id deck_card_id,
         k.card_id,
-        k.count
+        k.count,
+        s.sets_json
         FROM deck_cards k
         INNER JOIN decks d ON d.id = k.deck_id
         INNER JOIN cards c ON c.id = k.card_id
+        INNER JOIN card_sets_list s ON s.id = c.card_sets_list_id
         WHERE d.public_id = ?
     `,
         [publicID],
