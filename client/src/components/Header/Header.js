@@ -5,6 +5,8 @@ import SearchResultsContext from '../../contexts/SearchResultsContext';
 import Logo from '../../components/Logo';
 import Input from '../Input';
 import './Header.scss';
+import Button from '../Button';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const { query, setQuery } = useContext(SearchResultsContext);
@@ -30,6 +32,9 @@ const Header = () => {
                     <Input placeholder='Search' className='Header-searchBox' value={query} onChange={onChange} />
                 </form>
             </div>
+            <Link to='/decks'>
+                <Button className='Header-link'>Deck Builder</Button>
+            </Link>
         </div>
     );
 };
