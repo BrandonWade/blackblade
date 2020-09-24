@@ -8,6 +8,10 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
+
+        @media only screen and (max-width: 37.5em) {
+            flex-wrap: wrap;
+        }
     }
 
     &-buttonGroup {
@@ -15,6 +19,20 @@
 
         .Button:not(:last-child) {
             margin-right: 3rem;
+
+            @media only screen and (max-width: 37.5em) {
+                margin-right: 1rem;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 37.5em) {
+        &-buttonGroup:nth-of-type(1) {
+            order: 2;
+        }
+
+        &-buttonGroup:nth-last-of-type(1) {
+            order: 3;
         }
     }
 
@@ -45,10 +63,22 @@
 
     &-info {
         display: flex;
+        justify-content: space-between;
         font-size: 1.4rem;
+
+        @media only screen and (max-width: 37.5em) {
+            order: 1;
+            width: 100%;
+            text-align: center;
+            padding: 0.5rem;
+        }
     }
 
     &-infoBlock:not(:last-child) {
         margin-right: 4rem;
+
+        @media only screen and (max-width: 37.5em) {
+            margin-right: 0;
+        }
     }
 }
