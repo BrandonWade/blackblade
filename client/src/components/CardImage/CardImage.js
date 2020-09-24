@@ -1,6 +1,10 @@
 import React from 'react';
 import './CardImage.scss';
 
-const CardImage = ({ image, alt }) => <img src={image} alt={alt} className='CardImage' />;
+const CardImage = ({ image, alt }) => (
+    <div className='CardImage'>
+        <img className='CardImage-image' src={image} alt={alt} />
+    </div>
+);
 
 export default CardImage;

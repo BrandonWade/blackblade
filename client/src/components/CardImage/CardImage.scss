@@ -1,5 +1,10 @@
 .CardImage {
-    height: 45rem;
-    border-radius: 1.5rem;
-    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: center;
+
+    &-image {
+        height: 45rem;
+        border-radius: 1.5rem;
+        box-shadow: var(--box-shadow);
+    }
 }

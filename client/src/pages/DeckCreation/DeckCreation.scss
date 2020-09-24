@@ -15,11 +15,20 @@
         position: relative;
         top: -15vh;
         background-color: var(--color-primary-dark);
+
+        @media only screen and (max-width: 37.5em) {
+            width: 90vw;
+            height: 30vh;
+        }
     }
 
     &-deckName {
         font-size: 1.4rem;
         padding: 0 0.5rem;
         height: 3rem;
+    }
+
+    &-createButton {
+        margin-top: 1rem;
     }
 }
