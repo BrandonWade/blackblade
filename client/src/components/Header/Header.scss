@@ -8,11 +8,25 @@
 
     &-content {
         width: 70%;
+
+        @media only screen and (max-width: 37.5em) {
+            width: 100%;
+        }
+    }
+
+    &-logo {
+        @media only screen and (max-width: 37.5em) {
+            display: none;
+        }
     }
 
     &-searchForm {
         display: inline-block;
         width: 40%;
+
+        @media only screen and (max-width: 37.5em) {
+            width: 80%;
+        }
     }
 
     &-searchBox {
@@ -22,6 +36,10 @@
         font-size: 1.4rem;
         padding: 0 0.5rem;
         margin-left: 2rem;
+
+        @media only screen and (max-width: 37.5em) {
+            margin-left: 0.5rem;
+        }
     }
 
     &-link {

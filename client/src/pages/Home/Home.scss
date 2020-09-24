@@ -11,6 +11,10 @@
         align-items: center;
         position: relative;
         top: -9vh;
+
+        @media only screen and (max-width: 37.5em) {
+            width: 80%;
+        }
     }
 
     &-searchForm {
