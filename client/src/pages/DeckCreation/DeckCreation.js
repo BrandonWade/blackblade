@@ -32,7 +32,7 @@ const DeckCreation = () => {
         <HeaderPage className='DeckCreation'>
             <form className='DeckCreation-form' onSubmit={onSubmit}>
                 <Input className='DeckCreation-deckName' placeholder='Deck Name (optional)' value={deckName} onChange={onChange} />
-                <Button>Create</Button>
+                <Button className='DeckCreation-createButton'>Create</Button>
             </form>
         </HeaderPage>
     );

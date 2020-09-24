@@ -7,6 +7,12 @@
     padding: 1.5rem;
     background-color: var(--color-primary);
 
+    @media only screen and (max-width: 37.5em) {
+        height: auto;
+        grid-template-columns: none;
+        grid-row-gap: 2rem;
+    }
+
     &-name .CardSymbol {
         margin-right: 0.3rem;
     }
