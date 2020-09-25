@@ -52,7 +52,9 @@ const DeckBuilder = () => {
                         Save
                     </Button>
                 </div>
-                <DeckTable deckCards={deckCards} setDeckCards={setDeckCards} />
+                <div className='DeckBuilder-tableContainer'>
+                    <DeckTable deckCards={deckCards} setDeckCards={setDeckCards} />
+                </div>
             </div>
         </div>
     );

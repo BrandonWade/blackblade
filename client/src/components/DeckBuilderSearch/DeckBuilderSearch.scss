@@ -3,21 +3,47 @@
     height: 100%;
     overflow: scroll;
 
+    @media only screen and (max-width: 37.5em) {
+        padding: 0;
+    }
+
+    &-searchForm {
+        display: flex;
+        justify-content: center;
+    }
+
     &-searchBar {
-        font-size: 2rem;
+        font-size: 1.4rem;
         padding: 0.75rem 1.5rem;
+        margin: 0.5rem;
+
+        @media only screen and (max-width: 37.5em) {
+            font-size: 1.4rem;
+            padding: 0.5rem 1rem;
+        }
     }
 
     &-results {
         & > .PaginatedResults-paginator {
             padding: 1rem 0.75rem;
             top: -2rem;
+
+            @media only screen and (max-width: 37.5em) {
+                padding: 0 0.25rem 0.5rem;
+                top: 0;
+            }
         }
 
         & > .PaginatedResults-results {
             width: 95%;
             padding: 0;
             grid-template-columns: repeat(4, 1fr);
+
+            @media only screen and (max-width: 37.5em) {
+                width: 100%;
+                padding: 0.25rem;
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     }
 }

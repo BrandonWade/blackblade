@@ -2,8 +2,18 @@
     height: 100%;
     display: flex;
 
+    @media only screen and (max-width: 37.5em) {
+        flex-direction: column;
+    }
+
     &-searchPanel {
         flex: 3.5;
+
+        @media only screen and (max-width: 37.5em) {
+            flex: 1;
+            overflow-y: scroll;
+            height: 70vh;
+        }
     }
 
     &-deckPanel {
@@ -12,6 +22,16 @@
         max-width: 30vw;
         background-color: var(--color-primary-light);
         border-left: var(--line);
+
+        @media only screen and (max-width: 37.5em) {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            max-width: none;
+            max-height: 30vh;
+            height: 30vh;
+            border-left: none;
+        }
     }
 
     &-nameBar {
@@ -22,6 +42,12 @@
         align-items: center;
         background-color: var(--color-primary-dark);
         border-bottom: var(--line);
+
+        @media only screen and (max-width: 37.5em) {
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border-top: var(--line);
+        }
     }
 
     &-name {
@@ -38,9 +64,18 @@
         border: 1px solid #7256db;
         padding: 0.6rem 1.5rem;
 
+        @media only screen and (max-width: 37.5em) {
+            padding: 0.2rem 1.25rem;
+            line-height: 1.3;
+        }
+
         &:enabled:hover {
             background-color: #937de2;
             border: 1px solid #876fe0;
         }
+    }
+
+    &-tableContainer {
+        overflow-y: scroll;
     }
 }
