@@ -41,7 +41,7 @@ const DeckBuilderSearch = () => {
 
     return (
         <div className='DeckBuilderSearch'>
-            <form onSubmit={onSubmit}>
+            <form className='DeckBuilderSearch-searchForm' onSubmit={onSubmit}>
                 <Input className='DeckBuilderSearch-searchBar' value={query} placeholder='Search' onChange={e => setQuery(e.target.value)} />
             </form>
             <PaginatedResults

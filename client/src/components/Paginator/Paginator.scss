@@ -17,6 +17,13 @@
     &-buttonGroup {
         display: flex;
 
+        .Button {
+            @media only screen and (max-width: 37.5em) {
+                font-size: 1.35rem;
+                padding: 0.5rem;
+            }
+        }
+
         .Button:not(:last-child) {
             margin-right: 3rem;
 
@@ -41,6 +48,11 @@
         height: 2rem;
         display: inline-block;
         fill: var(--color-primary-text);
+
+        @media only screen and (max-width: 37.5em) {
+            width: 1.75rem;
+            height: 1.75rem;
+        }
     }
 
     &-firstPageIcon {
@@ -71,6 +83,7 @@
             width: 100%;
             text-align: center;
             padding: 0.5rem;
+            font-size: 1.2rem;
         }
     }
 

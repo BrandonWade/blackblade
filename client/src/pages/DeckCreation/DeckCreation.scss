@@ -16,6 +16,11 @@
         top: -15vh;
         background-color: var(--color-primary-dark);
 
+        @media only screen and (max-width: 75em) {
+            width: 50vw;
+            height: 40vh;
+        }
+
         @media only screen and (max-width: 37.5em) {
             width: 90vw;
             height: 30vh;
