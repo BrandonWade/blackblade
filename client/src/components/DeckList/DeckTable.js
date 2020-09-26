@@ -9,7 +9,7 @@ const DeckTable = ({ deckCards = [], setDeckCards = () => {} }) => {
             ...deckCards.slice(0, index),
             {
                 ...deckCards[index],
-                count,
+                count: parseInt(count) || 1,
             },
             ...deckCards.slice(index + 1),
         ];

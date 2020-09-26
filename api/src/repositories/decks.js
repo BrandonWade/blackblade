@@ -34,11 +34,13 @@ const saveDeck = async (deckID, deck) => {
         // Only run if there are any cards in the deck to save
         if (deck.length) {
             await conn.query(
-                `INSERT IGNORE INTO deck_cards(
+                `INSERT INTO deck_cards(
                     deck_id,
                     card_id,
                     count
                 ) VALUES ?
+                ON DUPLICATE KEY UPDATE
+                    count = VALUES(count)
             `,
                 [deck.map((c) => [deckID, c.card_id, c.count])],
             );
