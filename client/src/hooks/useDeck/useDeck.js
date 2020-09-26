@@ -31,7 +31,11 @@ const useDeck = (headers = {}) => {
                 ...headers,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(deck),
+            body: JSON.stringify(
+                deck.map(card => {
+                    return { count: card.count, card_id: card.card_id };
+                })
+            ),
         });
 
         switch (response.status) {
