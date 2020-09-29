@@ -4,6 +4,7 @@ import { isEqual } from 'lodash';
 import useDeck from '../../hooks/useDeck';
 import DeckBuilderContext from '../../contexts/DeckBuilderContext';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
+import DeckStats from '../../components/DeckStats';
 import DeckTable from '../../components/DeckList/DeckTable';
 import Button from '../../components/Button';
 import './DeckBuilder.scss';
@@ -51,6 +52,9 @@ const DeckBuilder = () => {
                     <Button className={`DeckBuilder-saveButton ${unmodified ? 'u-hidden' : ''}`} onClick={onSaveDeck}>
                         Save
                     </Button>
+                </div>
+                <div>
+                    <DeckStats deck={deckCards} />
                 </div>
                 <div className='DeckBuilder-tableContainer'>
                     <DeckTable deckCards={deckCards} setDeckCards={setDeckCards} />
