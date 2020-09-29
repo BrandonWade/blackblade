@@ -1,0 +1,24 @@
+.DeckStats {
+    border-bottom: var(--line);
+    background-color: var(--color-primary-dark);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    font-size: 1.4rem;
+    padding: 1rem;
+
+    &-statBlock {
+        display: flex;
+        padding: 0.5rem;
+    }
+
+    &-statLabel {
+        flex: 2;
+        text-align: right;
+        margin-right: 1rem;
+    }
+
+    &-statValue {
+        flex: 1;
+        text-align: left;
+    }
+}
