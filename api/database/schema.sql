@@ -6,7 +6,8 @@ CREATE TABLE card_sets_list (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
     oracle_id char(36) DEFAULT NULL,
     sets_json json DEFAULT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE KEY U_oracle_id (oracle_id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS cards;
@@ -39,10 +40,10 @@ CREATE TABLE cards (
     scryfall_uri text NOT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY U_scryfall_id (scryfall_id),
-    FOREIGN KEY (card_sets_list_id) REFERENCES card_sets_list(id),
     KEY K_oracle_id (oracle_id),
     KEY K_tcgplayer_id (tcgplayer_id),
-    KEY K_card_back_id (card_back_id)
+    KEY K_card_back_id (card_back_id),
+    KEY K_card_sets_list_id (card_sets_list_id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS card_multiverse_ids;
