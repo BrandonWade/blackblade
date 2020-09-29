@@ -11,11 +11,7 @@ const DeckStats = ({ deck = [] }) => {
     };
 
     const averageCMC = () => {
-        const costSum = sumBy(deck, card => {
-            const count = card.count || 0;
-            const faces = card?.sets_json?.[0]?.card_faces || [];
-            return sumBy(faces, face => (face.cmc || 0) * count);
-        });
+        const costSum = sumBy(deck, card => parseFloat(card.cmc) * card.count);
         const nonLandCount = sumBy(deck, card => {
             const count = card.count || 0;
             const faces = card?.sets_json?.[0]?.card_faces || [];
@@ -27,40 +23,36 @@ const DeckStats = ({ deck = [] }) => {
         stats = stats.concat({ label: 'Avg Cost', value: isNaN(total) ? 0 : total });
     };
 
-    const totalOfType = type => {
+    const totalOfTypes = types => {
         return sumBy(deck, card => {
             const count = card.count || 0;
             const faces = card?.sets_json?.[0]?.card_faces || [];
-            const anyFacesOfType = faces.some(face => face.derived_type === type);
-            return anyFacesOfType ? count : 0;
+            const anyFacesOfTypes = faces.some(face => types.includes(face.derived_type));
+            return anyFacesOfTypes ? count : 0;
         });
     };
 
     const totalCreatures = () => {
-        const total = totalOfType('creature');
-
+        const types = ['creature'];
+        const total = totalOfTypes(types);
         if (total > 0) {
             stats = stats.concat({ label: 'Total Creatures', value: total });
         }
     };
 
     const totalSpells = () => {
-        const total = sumBy(deck, card => {
-            const count = card.count || 0;
-            const faces = card?.sets_json?.[0]?.card_faces || [];
-            const anySpellFaces = faces.some(face => face.derived_type !== 'creature' && face.derived_type !== 'land');
-            return anySpellFaces ? count : 0;
-        });
-
+        const types = ['instant', 'sorcery', 'artifact', 'enchantment', 'planeswalker'];
+        const total = totalOfTypes(types);
         if (total > 0) {
             stats = stats.concat({ label: 'Total Spells', value: total });
         }
     };
 
     const totalLands = () => {
-        const total = totalOfType('land');
+        const types = ['land'];
+        const total = totalOfTypes(types);
         if (total > 0) {
-            stats = stats.concat({ label: 'Total Spells', value: total });
+            stats = stats.concat({ label: 'Total Lands', value: total });
         }
     };
 
@@ -157,7 +149,7 @@ const DeckStats = ({ deck = [] }) => {
         <div className='DeckStats'>
             {stats.map(stat => {
                 return (
-                    <div className='DeckStats-statBlock'>
+                    <div key={stat.label} className='DeckStats-statBlock'>
                         <div className='DeckStats-statLabel'>{stat.label}:</div>
                         <div className='DeckStats-statValue'>{stat.value}</div>
                     </div>
