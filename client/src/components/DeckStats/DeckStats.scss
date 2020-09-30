@@ -6,9 +6,18 @@
     font-size: 1.4rem;
     padding: 1rem;
 
+    @media only screen and (max-width: 37.5em) {
+        font-size: 1.1rem;
+        padding: 0.25rem;
+    }
+
     &-statBlock {
         display: flex;
         padding: 0.5rem;
+
+        @media only screen and (max-width: 37.5em) {
+            padding: 0.25rem;
+        }
     }
 
     &-statLabel {
