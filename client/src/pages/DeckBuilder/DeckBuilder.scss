@@ -20,6 +20,8 @@
         flex: 1.5;
         height: 100%;
         max-width: 30vw;
+        max-height: 100vh;
+        overflow-y: scroll;
         background-color: var(--color-primary-light);
         border-left: var(--line);
 
