@@ -13,6 +13,7 @@
     &-count {
         padding: 0.25rem;
         width: 4rem;
+        min-width: 4rem;
     }
 
     &-input {
@@ -20,11 +21,11 @@
         text-align: center;
     }
 
-    &-manaCost {
+    &-manaCosts {
         text-align: right;
     }
 
-    &-name {
+    &-names {
         font-size: 1.3rem;
         max-width: 30rem;
         text-overflow: ellipsis;
@@ -36,12 +37,26 @@
         }
     }
 
-    &-manaCost,
-    &-name {
+    &-subRow {
+        height: 2rem;
+        display: flex;
+        align-items: center;
+
+        @media only screen and (max-width: 37.5em) {
+            height: 1.75rem;
+        }
+    }
+
+    &-manaSubRow {
+        justify-content: flex-end;
+    }
+
+    &-manaCosts,
+    &-names {
         padding: 0.5rem;
 
         @media only screen and (max-width: 37.5em) {
-            padding: 0 0.5rem;
+            padding: 0 0.25rem;
         }
     }
 
