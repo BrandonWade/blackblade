@@ -53,10 +53,8 @@ const DeckBuilder = () => {
                         Save
                     </Button>
                 </div>
-                <div>
-                    <DeckStats deck={deckCards} />
-                </div>
                 <div className='DeckBuilder-tableContainer'>
+                    <DeckStats deck={deckCards} />
                     <DeckTable deckCards={deckCards} setDeckCards={setDeckCards} />
                 </div>
             </div>
