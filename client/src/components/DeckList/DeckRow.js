@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import CardContext from '../../contexts/CardContext';
 import DeckRowManaCost from './DeckRowManaCost';
 import Input from '../../components/Input';
 
 const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) => {
+    const history = useHistory();
+    const { setCard } = useContext(CardContext);
     const cardFaces = card?.sets_json?.[0]?.card_faces;
     const [count, setCount] = useState(card.count);
 
     const onCountChange = e => {
         setCount(e.target.value);
         updateCount(card.card_id, e.target.value);
+    };
+
+    const onLinkClick = () => {
+        setCard(card);
+        history.push(`/cards/${card.card_id}`);
     };
 
     const onRemoveCard = () => {
@@ -29,7 +37,9 @@ const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) =
             <td className='DeckTable-names'>
                 {cardFaces.map((face, i) => (
                     <div key={i} className='DeckTable-subRow'>
-                        <Link to={`/cards/${card.card_id}`}>{face.name}</Link>
+                        <span className='DeckTable-cardLink' onClick={onLinkClick}>
+                            {face.name}
+                        </span>
                     </div>
                 ))}
             </td>
