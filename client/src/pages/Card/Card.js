@@ -33,7 +33,7 @@ const Card = () => {
 
     return (
         <HeaderPage className='Card'>
-            <CardImage image={selectedSet?.card_faces?.[0]?.image} alt={cardFaces?.[0]?.name} />
+            <CardImage cardFaces={selectedSet.card_faces} layout={card.layout} />
             <div>
                 {cardFaces?.map(face => {
                     return <CardFace key={face.face_id} face={face} />;

@@ -1,10 +1,21 @@
 .CardImage {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     &-image {
+        transition: all 0.2s;
         height: 45rem;
         border-radius: 1.5rem;
         box-shadow: var(--box-shadow);
+
+        &--flipped {
+            transform: rotate(180deg);
+        }
+    }
+
+    &-transformButton {
+        margin-top: 2rem;
     }
 }
