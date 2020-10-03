@@ -3,19 +3,48 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 
-    &-image {
-        transition: all 0.2s;
+    &-imageFront,
+    &-imageBack {
+        transition: all 0.4s cubic-bezier(0.37, 0, 0.63, 1);
         height: 45rem;
         border-radius: 1.5rem;
         box-shadow: var(--box-shadow);
+        backface-visibility: hidden;
+    }
 
+    &-imageFront {
         &--flipped {
             transform: rotate(180deg);
+            box-shadow: 0 -0.1rem 0.3rem rgba(150, 150, 150, 0.2);
+        }
+
+        &--rotated {
+            transform: rotate(90deg) scale(0.7) translateX(-30%);
+            box-shadow: 0.1rem 0 0.3rem rgba(150, 150, 150, 0.2);
+
+            @media only screen and (max-width: 37.5em) {
+                transform: rotate(90deg) scale(0.7);
+            }
+        }
+
+        &--transformed {
+            transform: rotateY(-180deg);
         }
     }
 
-    &-transformButton {
+    &-imageBack {
+        position: absolute;
+        top: 0;
+        transform: rotateY(180deg);
+
+        &--transformed {
+            transform: rotateY(0deg);
+        }
+    }
+
+    &-button {
         margin-top: 2rem;
     }
 }
