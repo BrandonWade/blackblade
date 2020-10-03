@@ -24,6 +24,8 @@ const getCardsByName = async (tokens, page, pageSize) => {
         `SELECT
         c.id card_id,
         c.cmc,
+        c.rarity,
+        c.layout,
         s.sets_json
         FROM card_faces f
         INNER JOIN cards c ON c.id = f.card_id
@@ -45,6 +47,7 @@ const getCardByID = async (id) => {
     return await connection.query(
         `SELECT
         c.id card_id,
+        c.cmc,
         c.rarity,
         c.layout,
         s.sets_json
