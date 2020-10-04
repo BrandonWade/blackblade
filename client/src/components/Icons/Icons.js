@@ -44,3 +44,69 @@ export const ChevronCircleRight = ({ className = '', onClick = () => {} }) => {
         </span>
     );
 };
+
+export const ChevronThinRight = ({ className = '', onClick = () => {} }) => {
+    return (
+        <span className={`Icon ${className}`} onClick={onClick}>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
+                <title>chevron-thin-right</title>
+                <path d='M13.25 10l-7.141-7.42c-0.268-0.27-0.268-0.707 0-0.979 0.268-0.27 0.701-0.27 0.969 0l7.83 7.908c0.268 0.271 0.268 0.709 0 0.979l-7.83 7.908c-0.268 0.271-0.701 0.27-0.969 0s-0.268-0.707 0-0.979l7.141-7.417z'></path>
+            </svg>
+        </span>
+    );
+};
+
+export const ChevronThinDown = ({ className = '', onClick = () => {} }) => {
+    return (
+        <span className={`Icon ${className}`} onClick={onClick}>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
+                <title>chevron-thin-down</title>
+                <path d='M17.418 6.109c0.272-0.268 0.709-0.268 0.979 0s0.271 0.701 0 0.969l-7.908 7.83c-0.27 0.268-0.707 0.268-0.979 0l-7.908-7.83c-0.27-0.268-0.27-0.701 0-0.969s0.709-0.268 0.979 0l7.419 7.141 7.418-7.141z'></path>
+            </svg>
+        </span>
+    );
+};
+
+export const RotateCCW = ({ className = '', onClick = () => {} }) => {
+    return (
+        <span className={`Icon ${className}`} onClick={onClick}>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
+                <title>rotate-ccw</title>
+                <path d='M0.685 10h2.372v-0.205c0.108-4.434 3.724-7.996 8.169-7.996 4.515 0 8.174 3.672 8.174 8.201s-3.659 8.199-8.174 8.199c-1.898 0-3.645-0.65-5.033-1.738l1.406-1.504c1.016 0.748 2.27 1.193 3.627 1.193 3.386 0 6.131-2.754 6.131-6.15s-2.745-6.15-6.131-6.15c-3.317 0-6.018 2.643-6.125 5.945v0.205h2.672l-3.494 3.894-3.594-3.894z'></path>
+            </svg>
+        </span>
+    );
+};
+
+export const RotateCW = ({ className = '', onClick = () => {} }) => {
+    return (
+        <span className={`Icon ${className}`} onClick={onClick}>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
+                <title>rotate-cw</title>
+                <path d='M19.315 10h-2.372v-0.205c-0.108-4.434-3.724-7.996-8.169-7.996-4.515 0-8.174 3.672-8.174 8.201s3.659 8.199 8.174 8.199c1.898 0 3.645-0.65 5.033-1.738l-1.406-1.504c-1.016 0.748-2.27 1.193-3.627 1.193-3.386 0-6.131-2.754-6.131-6.15s2.745-6.15 6.131-6.15c3.317 0 6.018 2.643 6.125 5.945v0.205h-2.672l3.494 3.894 3.594-3.894z'></path>
+            </svg>
+        </span>
+    );
+};
+
+export const Rotate = ({ className = '', onClick = () => {} }) => {
+    return (
+        <span className={`Icon ${className}`} onClick={onClick}>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
+                <title>rotate</title>
+                <path d='M5 13v-5h2l-3.5-4-3.5 4h2v6c0 1.104 0.895 2 2 2h9.482l-2.638-3h-5.844zM9.156 7l-2.638-3h9.482c1.104 0 2 0.897 2 2v6h2l-3.5 4-3.5-4h2v-5h-5.844z'></path>
+            </svg>
+        </span>
+    );
+};
+
+export const Flip = ({ className = '', onClick = () => {} }) => {
+    return (
+        <span className={`Icon ${className}`} onClick={onClick}>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
+                <title>flip</title>
+                <path d='M5.516 14.224c-2.262-2.432-2.222-6.244 0.128-8.611 0.962-0.969 2.164-1.547 3.414-1.736l-0.069-2.077c-1.755 0.213-3.452 0.996-4.797 2.351-3.149 3.17-3.187 8.289-0.123 11.531l-1.741 1.752 5.51 0.301-0.015-5.834-2.307 2.323zM12.163 2.265l0.015 5.834 2.307-2.322c2.262 2.434 2.222 6.246-0.128 8.611-0.961 0.969-2.164 1.547-3.414 1.736l0.069 2.076c1.755-0.213 3.452-0.996 4.798-2.35 3.148-3.172 3.186-8.291 0.122-11.531l1.741-1.754-5.51-0.3z'></path>
+            </svg>
+        </span>
+    );
+};

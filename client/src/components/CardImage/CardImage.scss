@@ -7,11 +7,22 @@
 
     &-imageFront,
     &-imageBack {
-        transition: all 0.4s cubic-bezier(0.37, 0, 0.63, 1);
         height: 45rem;
         border-radius: 1.5rem;
         box-shadow: var(--box-shadow);
         backface-visibility: hidden;
+    }
+
+    &--canFlip {
+        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &--canRotate {
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    &--canTransform {
+        transition: all 1.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     &-imageFront {
@@ -26,6 +37,10 @@
 
             @media only screen and (max-width: 37.5em) {
                 transform: rotate(90deg) scale(0.7);
+            }
+
+            &:hover {
+                transform: rotate(90deg) scale(1);
             }
         }
 
@@ -46,5 +61,12 @@
 
     &-button {
         margin-top: 2rem;
+    }
+
+    &-buttonIcon {
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-right: 0.5rem;
+        fill: var(--color-primary-text);
     }
 }
