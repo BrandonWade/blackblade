@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../Button';
-import { RotateCW, Rotate, Flip } from '../Icons';
+import { RotateCW, RotateCCW, FlipRotate } from '../Icons';
 import './CardImage.scss';
 
 const CardImage = ({ cardFaces = [], layout = '' }) => {
     const [flipped, setFlipped] = useState(false);
-    const [rotated, setRotated] = useState(false);
+    const [rotatedCW, setRotatedCW] = useState(false);
+    const [rotatedCCW, setRotatedCCW] = useState(false);
     const [transformed, setTransformed] = useState(false);
     const canFlip = layout === 'flip';
-    const canRotate = layout === 'split';
+    const canRotateCW = layout === 'split';
+    const canRotateCCW = layout === 'aftermath';
     const canTransform = layout === 'transform' || layout === 'double_faced_token';
     const flipClassName = `${canFlip ? 'CardImage--canFlip' : ''} ${flipped ? 'CardImage-imageFront--flipped' : ''}`;
-    const rotateClassName = `${canRotate ? 'CardImage--canRotate' : ''} ${rotated ? 'CardImage-imageFront--rotated' : ''}`;
+    const rotateCWClassName = `${canRotateCW ? 'CardImage--canRotate' : ''} ${rotatedCW ? 'CardImage-imageFront--rotatedCW' : ''}`;
+    const rotateCCWClassName = `${canRotateCCW ? 'CardImage--canRotate' : ''} ${rotatedCCW ? 'CardImage-imageFront--rotatedCCW' : ''}`;
     const transformClassName = `${canTransform ? 'CardImage--canTransform' : ''} ${transformed ? 'CardImage-imageFront--transformed' : ''}`;
     const transformBackClassName = `CardImage--canTransform ${transformed ? 'CardImage-imageBack--transformed' : ''}`;
 
     useEffect(() => {
         setFlipped(false);
-        setRotated(false);
+        setRotatedCW(false);
+        setRotatedCCW(false);
         setTransformed(false);
     }, [cardFaces]);
 
@@ -25,21 +29,28 @@ const CardImage = ({ cardFaces = [], layout = '' }) => {
         if (canFlip) {
             return (
                 <Button className='CardImage-button' onClick={() => setFlipped(!flipped)}>
-                    <Flip className='CardImage-buttonIcon' />
+                    <FlipRotate className='CardImage-buttonIcon' />
                     Flip
                 </Button>
             );
-        } else if (canRotate) {
+        } else if (canRotateCW) {
             return (
-                <Button className='CardImage-button' onClick={() => setRotated(!rotated)}>
+                <Button className='CardImage-button' onClick={() => setRotatedCW(!rotatedCW)}>
                     <RotateCW className='CardImage-buttonIcon' />
+                    Rotate
+                </Button>
+            );
+        } else if (canRotateCCW) {
+            return (
+                <Button className='CardImage-button' onClick={() => setRotatedCCW(!rotatedCCW)}>
+                    <RotateCCW className='CardImage-buttonIcon' />
                     Rotate
                 </Button>
             );
         } else if (canTransform) {
             return (
                 <Button className='CardImage-button' onClick={() => setTransformed(!transformed)}>
-                    <Rotate className='CardImage-buttonIcon' />
+                    <FlipRotate className='CardImage-buttonIcon' />
                     Transform
                 </Button>
             );
@@ -51,12 +62,12 @@ const CardImage = ({ cardFaces = [], layout = '' }) => {
     return (
         <div className='CardImage'>
             <img
-                className={`CardImage-imageFront ${flipClassName} ${rotateClassName} ${transformClassName}`}
-                src={cardFaces?.[0]?.image}
-                alt={cardFaces?.[0]?.name}
+                className={`CardImage-imageFront ${flipClassName} ${rotateCWClassName} ${rotateCCWClassName} ${transformClassName}`}
+                src={cardFaces?.[0]?.image || ''}
+                alt={cardFaces?.[0]?.name || ''}
             />
             {canTransform && (
-                <img className={`CardImage-imageBack ${transformBackClassName}`} src={cardFaces?.[1]?.image} alt={cardFaces?.[1]?.name} />
+                <img className={`CardImage-imageBack ${transformBackClassName}`} src={cardFaces?.[1]?.image || ''} alt={cardFaces?.[1]?.name || ''} />
             )}
             {renderButton()}
         </div>
