@@ -67,17 +67,6 @@ export const ChevronThinDown = ({ className = '', onClick = () => {} }) => {
     );
 };
 
-export const RotateCCW = ({ className = '', onClick = () => {} }) => {
-    return (
-        <span className={`Icon ${className}`} onClick={onClick}>
-            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
-                <title>rotate-ccw</title>
-                <path d='M0.685 10h2.372v-0.205c0.108-4.434 3.724-7.996 8.169-7.996 4.515 0 8.174 3.672 8.174 8.201s-3.659 8.199-8.174 8.199c-1.898 0-3.645-0.65-5.033-1.738l1.406-1.504c1.016 0.748 2.27 1.193 3.627 1.193 3.386 0 6.131-2.754 6.131-6.15s-2.745-6.15-6.131-6.15c-3.317 0-6.018 2.643-6.125 5.945v0.205h2.672l-3.494 3.894-3.594-3.894z'></path>
-            </svg>
-        </span>
-    );
-};
-
 export const RotateCW = ({ className = '', onClick = () => {} }) => {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
@@ -89,18 +78,18 @@ export const RotateCW = ({ className = '', onClick = () => {} }) => {
     );
 };
 
-export const Rotate = ({ className = '', onClick = () => {} }) => {
+export const RotateCCW = ({ className = '', onClick = () => {} }) => {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
-                <title>rotate</title>
-                <path d='M5 13v-5h2l-3.5-4-3.5 4h2v6c0 1.104 0.895 2 2 2h9.482l-2.638-3h-5.844zM9.156 7l-2.638-3h9.482c1.104 0 2 0.897 2 2v6h2l-3.5 4-3.5-4h2v-5h-5.844z'></path>
+                <title>rotate-ccw</title>
+                <path d='M0.685 10h2.372v-0.205c0.108-4.434 3.724-7.996 8.169-7.996 4.515 0 8.174 3.672 8.174 8.201s-3.659 8.199-8.174 8.199c-1.898 0-3.645-0.65-5.033-1.738l1.406-1.504c1.016 0.748 2.27 1.193 3.627 1.193 3.386 0 6.131-2.754 6.131-6.15s-2.745-6.15-6.131-6.15c-3.317 0-6.018 2.643-6.125 5.945v0.205h2.672l-3.494 3.894-3.594-3.894z'></path>
             </svg>
         </span>
     );
 };
 
-export const Flip = ({ className = '', onClick = () => {} }) => {
+export const FlipRotate = ({ className = '', onClick = () => {} }) => {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
