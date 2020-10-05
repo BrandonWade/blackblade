@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { isEmpty } from 'lodash';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import CardContext from '../../contexts/CardContext';
@@ -22,14 +21,14 @@ const Card = () => {
     // TODO: Handle case where id in route is invalid (e.g. /cards/99999)
     const fetchCard = async () => {
         const response = await getCardByID(id);
-        displayResults(response, '', 1, true);
+        displayResults(response, '', 1, false);
     };
 
     useEffect(() => {
-        if (isEmpty(card) && id) {
+        if (card.card_id !== parseInt(id)) {
             fetchCard();
         }
-    }, []);
+    }, [id]);
 
     return (
         <HeaderPage className='Card'>
