@@ -1,0 +1,48 @@
+.AdvancedSearch {
+    display: flex;
+    justify-content: center;
+    padding: 8vh 2rem;
+
+    &-content {
+        width: 80%;
+    }
+
+    &-formRow {
+        display: flex;
+        align-items: center;
+
+        &:not(:last-child) {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: var(--line-transparent);
+        }
+    }
+
+    &-rowLabel {
+        width: 10%;
+        font-size: 1.6rem;
+        margin-right: 2rem;
+    }
+
+    &-fieldLabel {
+        font-size: 1.4rem;
+    }
+
+    &-input {
+        max-width: 50rem;
+        font-size: 1.6rem;
+        padding: 1rem 0.75rem;
+    }
+
+    &-colorBoxes {
+        width: 100%;
+        max-width: 50rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-colorCheckbox {
+        width: auto;
+        margin-right: 1rem;
+    }
+}
