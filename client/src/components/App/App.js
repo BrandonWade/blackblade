@@ -3,7 +3,9 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import CardContext from '../../contexts/CardContext';
 import SearchResultsContext from '../../contexts/SearchResultsContext';
 import DeckBuilderContext from '../../contexts/DeckBuilderContext';
+import AdvancedSearchContext, { colorInitialState } from '../../contexts/AdvancedSearchContext';
 import Home from '../../pages/Home';
+import AdvancedSearch from '../../pages/AdvancedSearch';
 import SearchResults from '../../pages/SearchResults';
 import Card from '../../pages/Card';
 import DeckCreation from '../../pages/DeckCreation';
@@ -20,37 +22,45 @@ const App = () => {
     const [deckName, setDeckName] = useState('');
     const [deckCards, setDeckCards] = useState([]);
     const [unmodifiedDeckCards, setUnmodifiedDeckCards] = useState([]);
+    const [name, setName] = useState('');
+    const [text, setText] = useState('');
+    const [type, setType] = useState('');
+    const [colors, setColors] = useState(colorInitialState);
+    const [manaCost, setManaCost] = useState('');
 
     return (
-        <DeckBuilderContext.Provider value={{ deckName, setDeckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards }}>
-            <SearchResultsContext.Provider
-                value={{
-                    query,
-                    setQuery,
-                    totalResults,
-                    setTotalResults,
-                    searchResults,
-                    setSearchResults,
-                    numberOfPages,
-                    setNumberOfPages,
-                    currentPage,
-                    setCurrentPage,
-                }}
-            >
-                <CardContext.Provider value={{ card, setCard }}>
-                    <BrowserRouter>
-                        <Switch>
-                            <Route path='/' exact component={Home} />
-                            <Route path='/cards/search' exact component={SearchResults} />
-                            <Route path='/cards/:id' component={Card} />
-                            <Route path='/decks' exact component={DeckCreation} />
-                            <Route path='/decks/:publicID' component={DeckBuilder} />
-                            <Redirect to='/' />
-                        </Switch>
-                    </BrowserRouter>
-                </CardContext.Provider>
-            </SearchResultsContext.Provider>
-        </DeckBuilderContext.Provider>
+        <AdvancedSearchContext.Provider value={{ name, setName, text, setText, type, setType, colors, setColors, manaCost, setManaCost }}>
+            <DeckBuilderContext.Provider value={{ deckName, setDeckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards }}>
+                <SearchResultsContext.Provider
+                    value={{
+                        query,
+                        setQuery,
+                        totalResults,
+                        setTotalResults,
+                        searchResults,
+                        setSearchResults,
+                        numberOfPages,
+                        setNumberOfPages,
+                        currentPage,
+                        setCurrentPage,
+                    }}
+                >
+                    <CardContext.Provider value={{ card, setCard }}>
+                        <BrowserRouter>
+                            <Switch>
+                                <Route path='/' exact component={Home} />
+                                <Route path='/advanced' exact component={AdvancedSearch} />
+                                <Route path='/cards/search' exact component={SearchResults} />
+                                <Route path='/cards/:id' component={Card} />
+                                <Route path='/decks' exact component={DeckCreation} />
+                                <Route path='/decks/:publicID' component={DeckBuilder} />
+                                <Redirect to='/' />
+                            </Switch>
+                        </BrowserRouter>
+                    </CardContext.Provider>
+                </SearchResultsContext.Provider>
+            </DeckBuilderContext.Provider>
+        </AdvancedSearchContext.Provider>
     );
 };
 
