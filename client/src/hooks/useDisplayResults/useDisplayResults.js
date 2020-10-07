@@ -25,7 +25,7 @@ const useDisplayResults = () => {
             route = `/cards/${results[0].card_id}`;
         } else {
             setSearchResults(results);
-            route = `/cards/search?q=${query}&page=${currentPage}`;
+            route = `/cards/search?name=${query}&page=${currentPage}`;
         }
 
         setCurrentPage(currentPage);

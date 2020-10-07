@@ -10,7 +10,7 @@ const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect 
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
 
-    // TODO: Handle case where &page > max pages (e.g. ?q=dragon&page=6)
+    // TODO: Handle case where &page > max pages (e.g. ?name=dragon&page=6)
     const fetchResults = async (query = '', currentPage = 1) => {
         const response = await basicSearch(query, currentPage);
         displayResults(response, query, currentPage, redirect, redirectForSingleResult);

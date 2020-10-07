@@ -1,16 +1,23 @@
 import React, { useContext } from 'react';
+import useSearch from '../../hooks/useSearch';
 import AdvancedSearchContext from '../../contexts/AdvancedSearchContext';
 import HeaderPage from '../../components/HeaderPage';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 import './AdvancedSearch.scss';
 
 const AdvancedSearch = () => {
+    const { advancedSearch } = useSearch();
     const { name, setName, text, setText, type, setType, colors, setColors, manaCost, setManaCost } = useContext(AdvancedSearchContext);
+
+    const fetchResults = async () => {
+        const criteria = { name, text, type, colors, manaCost };
+        await advancedSearch(criteria);
+    };
 
     const onSubmit = e => {
         e.preventDefault();
-
-        // TODO: Implement
+        fetchResults();
     };
 
     const onChangeColors = color => {
@@ -104,6 +111,11 @@ const AdvancedSearch = () => {
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Mana Cost</label>
                         <Input className='AdvancedSearch-input' value={manaCost} onChange={e => setManaCost(e.target.value)} />
+                    </div>
+                    <div className='AdvancedSearch-formRow'>
+                        <Button className='AdvancedSearch-submitButton' onClick={onSubmit}>
+                            Submit
+                        </Button>
                     </div>
                 </form>
             </div>

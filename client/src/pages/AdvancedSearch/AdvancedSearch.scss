@@ -1,7 +1,7 @@
 .AdvancedSearch {
     display: flex;
     justify-content: center;
-    padding: 8vh 2rem;
+    padding: 4rem 2rem;
 
     &-content {
         width: 80%;
@@ -44,5 +44,9 @@
     &-colorCheckbox {
         width: auto;
         margin-right: 1rem;
+    }
+
+    &-submitButton {
+        margin-top: 3rem;
     }
 }
