@@ -11,7 +11,7 @@ const basicSearch = async (req, res) => {
         });
     }
 
-    const query = req.query['q'];
+    const query = req.query['name'];
     const page = parseInt(req.query['page']);
     let data = {};
 

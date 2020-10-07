@@ -15,7 +15,7 @@ const SearchResults = props => {
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
     const urlParams = new URLSearchParams(props?.location?.search);
-    const urlQuery = urlParams.get('q') || '';
+    const urlQuery = urlParams.get('name') || '';
     const urlCurrentPage = parseInt(urlParams.get('page')) || 1;
 
     // If the page is loaded directly, use the query and page from the URL params
@@ -37,7 +37,7 @@ const SearchResults = props => {
         }
     }, [urlQuery, urlCurrentPage]);
 
-    // TODO: Handle case where &page > max pages (e.g. ?q=dragon&page=6)
+    // TODO: Handle case where &page > max pages (e.g. ?name=dragon&page=6)
     const fetchResults = async (query = '', currentPage = 1, redirect = false) => {
         const response = await basicSearch(query, currentPage);
         displayResults(response, query, currentPage, redirect);
