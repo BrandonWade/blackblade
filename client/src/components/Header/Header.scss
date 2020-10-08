@@ -43,9 +43,14 @@
         }
     }
 
+    &-linksContainer > a:not(:last-child) {
+        margin-right: 1.5rem;
+    }
+
     &-link {
         border: none;
         font-size: 1.3rem;
+        display: inline-block;
 
         @media only screen and (max-width: 37.5em) {
             white-space: nowrap;

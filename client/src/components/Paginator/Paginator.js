@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
-import SearchResultsContext from '../../contexts/SearchResultsContext';
+import SearchContext from '../../contexts/SearchContext';
 import { ChevronLeft, ChevronRight, ChevronCircleLeft, ChevronCircleRight } from '../Icons';
 import Button from '../Button';
 import './Paginator.scss';
 
 const Paginator = ({ className = '', onPageChange = () => {} }) => {
-    const { totalResults, numberOfPages, currentPage } = useContext(SearchResultsContext);
-    const firstEnabled = currentPage > 1;
-    const previousEnabled = currentPage > 1;
-    const nextEnabled = currentPage < numberOfPages;
-    const lastEnabled = currentPage < numberOfPages;
+    const { totalResults, numberOfPages, page } = useContext(SearchContext);
+    const firstEnabled = page > 1;
+    const previousEnabled = page > 1;
+    const nextEnabled = page < numberOfPages;
+    const lastEnabled = page < numberOfPages;
 
     return (
         <div className={`Paginator ${className}`}>
@@ -19,17 +19,17 @@ const Paginator = ({ className = '', onPageChange = () => {} }) => {
                         <ChevronCircleLeft className='Paginator-icon Paginator-firstPageIcon' />
                         First
                     </Button>
-                    <Button onClick={() => onPageChange(currentPage - 1)} disabled={!previousEnabled}>
+                    <Button onClick={() => onPageChange(page - 1)} disabled={!previousEnabled}>
                         <ChevronLeft className='Paginator-icon Paginator-previousPageIcon' />
                         Previous
                     </Button>
                 </div>
                 <div className='Paginator-info'>
-                    <div className='Paginator-infoBlock'>{`Page ${currentPage} of ${numberOfPages}`}</div>
+                    <div className='Paginator-infoBlock'>{`Page ${page} of ${numberOfPages}`}</div>
                     <div className='Paginator-infoBlock'>{`${totalResults} results total`}</div>
                 </div>
                 <div className='Paginator-buttonGroup'>
-                    <Button onClick={() => onPageChange(currentPage + 1)} disabled={!nextEnabled}>
+                    <Button onClick={() => onPageChange(page + 1)} disabled={!nextEnabled}>
                         Next
                         <ChevronRight className='Paginator-icon Paginator-nextPageIcon' />
                     </Button>

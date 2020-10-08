@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import useSearch from '../../hooks/useSearch';
-import AdvancedSearchContext from '../../contexts/AdvancedSearchContext';
+import useDisplayResults from '../../hooks/useDisplayResults';
+import SearchContext from '../../contexts/SearchContext';
 import HeaderPage from '../../components/HeaderPage';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -8,11 +9,13 @@ import './AdvancedSearch.scss';
 
 const AdvancedSearch = () => {
     const { advancedSearch } = useSearch();
-    const { name, setName, text, setText, type, setType, colors, setColors, manaCost, setManaCost } = useContext(AdvancedSearchContext);
+    const { displayResults } = useDisplayResults();
+    const { name, setName, text, setText, type, setType, colors, setColors, manaCost, setManaCost, page } = useContext(SearchContext);
 
     const fetchResults = async () => {
-        const criteria = { name, text, type, colors, manaCost };
-        await advancedSearch(criteria);
+        const criteria = { name, text, type, colors, manaCost, page };
+        const response = await advancedSearch(criteria);
+        displayResults(response, page, true);
     };
 
     const onSubmit = e => {
