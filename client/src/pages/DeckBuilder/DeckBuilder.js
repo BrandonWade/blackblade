@@ -27,7 +27,10 @@ const DeckBuilder = () => {
             setDeckCards(result.cards);
             setUnmodifiedDeckCards(result.cards);
         };
-        fetchDeckCards();
+
+        if (unmodified) {
+            fetchDeckCards();
+        }
     }, []);
 
     const onSaveDeck = async () => {
