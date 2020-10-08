@@ -15,7 +15,7 @@ const AdvancedSearch = () => {
     const fetchResults = async () => {
         const criteria = { name, text, type, colors, manaCost, page };
         const response = await advancedSearch(criteria);
-        displayResults(response, page, true);
+        displayResults(response, name, page, true);
     };
 
     const onSubmit = e => {

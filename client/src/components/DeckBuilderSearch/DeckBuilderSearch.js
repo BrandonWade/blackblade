@@ -18,7 +18,7 @@ const DeckBuilderSearch = () => {
         e.preventDefault();
 
         const response = await basicSearch(name);
-        displayResults(response, 1, redirect);
+        displayResults(response, name, 1, redirect);
     };
 
     const onSelectResult = card => {
