@@ -8,9 +8,9 @@ const useDisplayResults = () => {
     const history = useHistory();
     const { getParamString } = useSearch();
     const { setCard } = useContext(CardContext);
-    const { name, text, type, colors, manaCost, setTotalResults, setSearchResults, setNumberOfPages } = useContext(SearchContext);
+    const { text, type, colors, manaCost, setTotalResults, setSearchResults, setNumberOfPages } = useContext(SearchContext);
 
-    const displayResults = (response = {}, page = 1, redirect = true) => {
+    const displayResults = (response = {}, name = '', page = 1, redirect = true) => {
         if (!response.success) {
             // TODO: Implement proper error handling
             console.error(response.errors);

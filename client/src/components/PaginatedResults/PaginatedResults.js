@@ -13,7 +13,7 @@ const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect 
     // TODO: Handle case where &page > max pages (e.g. ?name=dragon&page=6)
     const fetchResults = async (name = '', page = 1) => {
         const response = await basicSearch(name, page);
-        displayResults(response, page, redirect);
+        displayResults(response, name, page, redirect);
     };
 
     const onPageChange = page => {

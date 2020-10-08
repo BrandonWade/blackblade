@@ -17,7 +17,7 @@ const Home = () => {
         e.preventDefault();
 
         const response = await basicSearch(name);
-        displayResults(response, 1, true);
+        displayResults(response, name, 1, true);
     };
 
     const onChange = e => {
