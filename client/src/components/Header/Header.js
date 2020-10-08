@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import SearchResultsContext from '../../contexts/SearchResultsContext';
+import SearchContext from '../../contexts/SearchContext';
 import Logo from '../../components/Logo';
 import Input from '../Input';
 import './Header.scss';
@@ -9,19 +9,19 @@ import Button from '../Button';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-    const { query, setQuery } = useContext(SearchResultsContext);
+    const { name, setName } = useContext(SearchContext);
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
 
     const onSubmit = async e => {
         e.preventDefault();
 
-        const response = await basicSearch(query);
-        displayResults(response, query, 1, true);
+        const response = await basicSearch(name);
+        displayResults(response, 1, true);
     };
 
     const onChange = e => {
-        setQuery(e.target.value);
+        setName(e.target.value);
     };
 
     return (
@@ -29,12 +29,17 @@ const Header = () => {
             <div className='Header-content'>
                 <Logo className='Header-logo' />
                 <form className='Header-searchForm' onSubmit={onSubmit}>
-                    <Input placeholder='Search' className='Header-searchBox' value={query} onChange={onChange} />
+                    <Input placeholder='Search' className='Header-searchBox' value={name} onChange={onChange} />
                 </form>
             </div>
-            <Link to='/decks'>
-                <Button className='Header-link'>Deck Builder</Button>
-            </Link>
+            <div className='Header-linksContainer'>
+                {/* <Link to='/advanced'>
+                    <Button className='Header-link'>Advanced Search</Button>
+                </Link> */}
+                <Link to='/decks'>
+                    <Button className='Header-link'>Deck Builder</Button>
+                </Link>
+            </div>
         </div>
     );
 };

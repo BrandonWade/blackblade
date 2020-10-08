@@ -3,44 +3,44 @@ import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import CardContext from '../../contexts/CardContext';
-import SearchResultsContext from '../../contexts/SearchResultsContext';
+import SearchContext from '../../contexts/SearchContext';
 import HeaderPage from '../../components/HeaderPage';
 import PaginatedResults from '../../components/PaginatedResults';
 import './SearchResults.scss';
 
 const SearchResults = props => {
     const history = useHistory();
-    const { query, setQuery, currentPage, setCurrentPage } = useContext(SearchResultsContext);
+    const { name, setName, page, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
     const urlParams = new URLSearchParams(props?.location?.search);
-    const urlQuery = urlParams.get('name') || '';
-    const urlCurrentPage = parseInt(urlParams.get('page')) || 1;
+    const urlName = urlParams.get('name') || '';
+    const urlPage = parseInt(urlParams.get('page')) || 1;
 
-    // If the page is loaded directly, use the query and page from the URL params
+    // If the page is loaded directly, use the name and page from the URL params
     useEffect(() => {
         let updated = false;
 
-        if (query !== urlQuery) {
-            setQuery(urlQuery);
+        if (name !== urlName) {
+            setName(urlName);
             updated = true;
         }
 
-        if (currentPage !== urlCurrentPage) {
-            setCurrentPage(urlCurrentPage);
+        if (page !== urlPage) {
+            setPage(urlPage);
             updated = true;
         }
 
         if (updated) {
-            fetchResults(urlQuery, urlCurrentPage);
+            fetchResults(urlName, urlPage);
         }
-    }, [urlQuery, urlCurrentPage]);
+    }, [urlName, urlPage]);
 
     // TODO: Handle case where &page > max pages (e.g. ?name=dragon&page=6)
-    const fetchResults = async (query = '', currentPage = 1, redirect = false) => {
-        const response = await basicSearch(query, currentPage);
-        displayResults(response, query, currentPage, redirect);
+    const fetchResults = async (name = '', page = 1) => {
+        const response = await basicSearch(name, page);
+        displayResults(response, page);
     };
 
     const onSelectResult = card => {

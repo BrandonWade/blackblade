@@ -1,24 +1,24 @@
 import React, { useContext } from 'react';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import SearchResultsContext from '../../contexts/SearchResultsContext';
+import SearchContext from '../../contexts/SearchContext';
 import Paginator from '../../components/Paginator';
 import './PaginatedResults.scss';
 
-const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect = true, redirectForSingleResult = true }) => {
-    const { query, searchResults, setCurrentPage } = useContext(SearchResultsContext);
+const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect = true }) => {
+    const { name, searchResults, setPage } = useContext(SearchContext);
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
 
     // TODO: Handle case where &page > max pages (e.g. ?name=dragon&page=6)
-    const fetchResults = async (query = '', currentPage = 1) => {
-        const response = await basicSearch(query, currentPage);
-        displayResults(response, query, currentPage, redirect, redirectForSingleResult);
+    const fetchResults = async (name = '', page = 1) => {
+        const response = await basicSearch(name, page);
+        displayResults(response, page, redirect);
     };
 
-    const onPageChange = currentPage => {
-        setCurrentPage(currentPage);
-        fetchResults(query, currentPage);
+    const onPageChange = page => {
+        setPage(page);
+        fetchResults(name, page);
     };
 
     return (
