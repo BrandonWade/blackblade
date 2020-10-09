@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/SearchContext';
 import Logo from '../../components/Logo';
 import Input from '../Input';
-import './Header.scss';
 import Button from '../Button';
-import { Link } from 'react-router-dom';
+import './Header.scss';
 
 const Header = () => {
     const { name, setName } = useContext(SearchContext);
@@ -33,9 +33,6 @@ const Header = () => {
                 </form>
             </div>
             <div className='Header-linksContainer'>
-                {/* <Link to='/advanced'>
-                    <Button className='Header-link'>Advanced Search</Button>
-                </Link> */}
                 <Link to='/decks'>
                     <Button className='Header-link'>Deck Builder</Button>
                 </Link>
