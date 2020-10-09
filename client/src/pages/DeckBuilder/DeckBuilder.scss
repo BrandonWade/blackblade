@@ -11,7 +11,7 @@
 
         @media only screen and (max-width: 37.5em) {
             flex: 1;
-            overflow-y: scroll;
+            overflow-y: auto;
             height: 70vh;
         }
     }
@@ -21,7 +21,7 @@
         height: 100%;
         max-width: 30vw;
         max-height: 100vh;
-        overflow-y: scroll;
+        overflow-y: auto;
         background-color: var(--color-primary-light);
         border-left: var(--line);
 
@@ -37,6 +37,7 @@
     }
 
     &-nameBar {
+        position: relative;
         padding: 1rem;
         font-size: 2rem;
         display: flex;
@@ -79,7 +80,7 @@
 
     &-tableContainer {
         @media only screen and (max-width: 37.5em) {
-            overflow-y: scroll;
+            overflow-y: auto;
         }
     }
 }
