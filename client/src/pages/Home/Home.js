@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/SearchContext';
-import Button from '../../components/Button';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 import './Home.scss';
 
 const Home = () => {
@@ -32,9 +32,6 @@ const Home = () => {
                     <Input className='Home-searchBox' value={name} onChange={onChange} />
                 </form>
                 <div className='Home-linksContainer'>
-                    {/* <Link to='/advanced'>
-                        <Button className='Home-link'>Advanced Search</Button>
-                    </Link> */}
                     <Link to='/decks'>
                         <Button className='Home-link'>Deck Builder</Button>
                     </Link>

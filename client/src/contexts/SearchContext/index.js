@@ -1,1 +1,1 @@
-export { default, colorInitialState } from './SearchContext';
+export { default } from './SearchContext';

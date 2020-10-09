@@ -13,12 +13,13 @@ const DeckBuilderSearch = () => {
     const { name, setName } = useContext(SearchContext);
     const { deckCards, setDeckCards } = useContext(DeckBuilderContext);
     const redirect = false;
+    const redirectForSingleResult = false;
 
     const onSubmit = async e => {
         e.preventDefault();
 
         const response = await basicSearch(name);
-        displayResults(response, name, 1, redirect);
+        displayResults(response, name, 1, redirect, redirectForSingleResult);
     };
 
     const onSelectResult = card => {
@@ -43,7 +44,12 @@ const DeckBuilderSearch = () => {
             <form className='DeckBuilderSearch-searchForm' onSubmit={onSubmit}>
                 <Input className='DeckBuilderSearch-searchBar' value={name} placeholder='Search' onChange={e => setName(e.target.value)} />
             </form>
-            <PaginatedResults className='DeckBuilderSearch-results' redirect={redirect} onSelectResult={onSelectResult} />
+            <PaginatedResults
+                className='DeckBuilderSearch-results'
+                redirect={redirect}
+                redirectForSingleResult={redirectForSingleResult}
+                onSelectResult={onSelectResult}
+            />
         </div>
     );
 };

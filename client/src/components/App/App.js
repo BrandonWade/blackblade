@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import CardContext from '../../contexts/CardContext';
-import SearchContext, { colorInitialState } from '../../contexts/SearchContext';
+import SearchContext from '../../contexts/SearchContext';
 import DeckBuilderContext from '../../contexts/DeckBuilderContext';
 import Home from '../../pages/Home';
-import AdvancedSearch from '../../pages/AdvancedSearch';
 import SearchResults from '../../pages/SearchResults';
 import Card from '../../pages/Card';
 import DeckCreation from '../../pages/DeckCreation';
@@ -13,10 +12,6 @@ import './App.scss';
 
 const App = () => {
     const [name, setName] = useState('');
-    const [text, setText] = useState('');
-    const [type, setType] = useState('');
-    const [colors, setColors] = useState(colorInitialState);
-    const [manaCost, setManaCost] = useState('');
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
     const [searchResults, setSearchResults] = useState([]);
@@ -32,14 +27,6 @@ const App = () => {
                 value={{
                     name,
                     setName,
-                    text,
-                    setText,
-                    type,
-                    setType,
-                    colors,
-                    setColors,
-                    manaCost,
-                    setManaCost,
                     page,
                     setPage,
                     totalResults,
@@ -54,7 +41,6 @@ const App = () => {
                     <BrowserRouter>
                         <Switch>
                             <Route path='/' exact component={Home} />
-                            <Route path='/advanced' exact component={AdvancedSearch} />
                             <Route path='/cards/search' exact component={SearchResults} />
                             <Route path='/cards/:id' component={Card} />
                             <Route path='/decks' exact component={DeckCreation} />

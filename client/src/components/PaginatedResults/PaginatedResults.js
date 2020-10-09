@@ -5,7 +5,7 @@ import SearchContext from '../../contexts/SearchContext';
 import Paginator from '../../components/Paginator';
 import './PaginatedResults.scss';
 
-const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect = true }) => {
+const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect = true, redirectForSingleResult = true }) => {
     const { name, searchResults, setPage } = useContext(SearchContext);
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
@@ -13,7 +13,7 @@ const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect 
     // TODO: Handle case where &page > max pages (e.g. ?name=dragon&page=6)
     const fetchResults = async (name = '', page = 1) => {
         const response = await basicSearch(name, page);
-        displayResults(response, name, page, redirect);
+        displayResults(response, name, page, redirect, redirectForSingleResult);
     };
 
     const onPageChange = page => {
