@@ -11,12 +11,13 @@ const basicSearch = async (req, res) => {
         });
     }
 
-    const query = req.query['name'];
+    const name = req.query['name'];
+    const text = req.query['text'];
     const page = parseInt(req.query['page']);
     let data = {};
 
-    if (query) {
-        const results = await SearchService.basicSearch(query, page);
+    if (name || text) {
+        const results = await SearchService.basicSearch({ name, text, page });
         data = results;
     }
 

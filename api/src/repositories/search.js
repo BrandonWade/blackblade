@@ -1,7 +1,10 @@
 import { connection } from '../db';
 
-const getTotalResults = async (tokens) => {
-    const params = tokens.map(() => 'f.name LIKE ?').join(' AND ');
+const getTotalResults = async (nameTokens, textTokens) => {
+    const nameParams = nameTokens.map(() => 'f.name LIKE ?');
+    const textParams = textTokens.map(() => 'f.oracle_text LIKE ?');
+    const conditions = [...nameParams, ...textParams].join(' AND ');
+
     return await connection.query(
         `SELECT
         COUNT(*) total_results
@@ -10,16 +13,22 @@ const getTotalResults = async (tokens) => {
           c.*
           FROM cards c
           INNER JOIN card_faces f ON c.id = f.card_id
-          WHERE ${params}
+          WHERE ${conditions}
           GROUP BY c.oracle_id
         ) a;
     `,
-        tokens.map((token) => `%${token}%`),
+        [
+            ...nameTokens.map((token) => `%${token}%`),
+            ...textTokens.map((token) => `%${token}%`),
+        ],
     );
 };
 
-const getCardsByName = async (tokens, page, pageSize) => {
-    const params = tokens.map(() => 'f.name LIKE ?').join(' AND ');
+const getCardsByName = async (nameTokens, textTokens, page, pageSize) => {
+    const nameParams = nameTokens.map(() => 'f.name LIKE ?');
+    const textParams = textTokens.map(() => 'f.oracle_text LIKE ?');
+    const conditions = [...nameParams, ...textParams].join(' AND ');
+
     return await connection.query(
         `SELECT
         c.id card_id,
@@ -30,13 +39,14 @@ const getCardsByName = async (tokens, page, pageSize) => {
         FROM card_faces f
         INNER JOIN cards c ON c.id = f.card_id
         INNER JOIN card_sets_list s ON s.id = c.card_sets_list_id
-        WHERE ${params}
+        WHERE ${conditions}
         GROUP BY c.oracle_id
         ORDER BY f.name
         LIMIT ?, ?;
     `,
         [
-            ...tokens.map((token) => `%${token}%`),
+            ...nameTokens.map((token) => `%${token}%`),
+            ...textTokens.map((token) => `%${token}%`),
             (page - 1) * pageSize,
             pageSize,
         ],

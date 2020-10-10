@@ -1,10 +1,14 @@
-import { check, param } from 'express-validator';
+import { check, param, oneOf } from 'express-validator';
 
 const searchQueryExists = check('name').isLength({ min: 1 });
+const textQueryExists = check('text').isLength({ min: 1 });
 const pageExists = check('page').isInt({ min: 1 });
 const cardIDValidator = param('id').isInt().toInt({ min: 1 });
 
-const basicSearchValidators = [searchQueryExists, pageExists];
+const basicSearchValidators = [
+    oneOf([searchQueryExists, textQueryExists]),
+    pageExists,
+];
 const cardValidators = [cardIDValidator];
 
 export { basicSearchValidators, cardValidators };

@@ -17,7 +17,7 @@ const Home = () => {
         e.preventDefault();
 
         const response = await basicSearch(name);
-        displayResults(response, name, 1, true);
+        displayResults(response, { name, page: 1 }, true);
     };
 
     const onChange = e => {
@@ -32,6 +32,9 @@ const Home = () => {
                     <Input className='Home-searchBox' value={name} onChange={onChange} />
                 </form>
                 <div className='Home-linksContainer'>
+                    <Link to='/advanced'>
+                        <Button className='Home-link'>Advanced Search</Button>
+                    </Link>
                     <Link to='/decks'>
                         <Button className='Home-link'>Deck Builder</Button>
                     </Link>

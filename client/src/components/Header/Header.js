@@ -17,7 +17,7 @@ const Header = () => {
         e.preventDefault();
 
         const response = await basicSearch(name);
-        displayResults(response, name, 1, true);
+        displayResults(response, { name, page: 1 }, true);
     };
 
     const onChange = e => {
@@ -33,6 +33,9 @@ const Header = () => {
                 </form>
             </div>
             <div className='Header-linksContainer'>
+                <Link to='/advanced'>
+                    <Button className='Header-link'>Advanced Search</Button>
+                </Link>
                 <Link to='/decks'>
                     <Button className='Header-link'>Deck Builder</Button>
                 </Link>

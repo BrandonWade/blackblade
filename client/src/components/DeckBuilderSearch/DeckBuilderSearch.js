@@ -19,7 +19,7 @@ const DeckBuilderSearch = () => {
         e.preventDefault();
 
         const response = await basicSearch(name);
-        displayResults(response, name, 1, redirect, redirectForSingleResult);
+        displayResults(response, { name, page: 1 }, redirect, redirectForSingleResult);
     };
 
     const onSelectResult = card => {
