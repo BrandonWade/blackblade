@@ -10,12 +10,13 @@ import './SearchResults.scss';
 
 const SearchResults = props => {
     const history = useHistory();
-    const { name, setName, page, setPage } = useContext(SearchContext);
+    const { name, setName, text, setText, page, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
-    const { basicSearch } = useSearch();
+    const { advancedSearch } = useSearch();
     const { displayResults } = useDisplayResults();
     const urlParams = new URLSearchParams(props?.location?.search);
     const urlName = urlParams.get('name') || '';
+    const urlText = urlParams.get('text') || '';
     const urlPage = parseInt(urlParams.get('page')) || 1;
 
     // If the page is loaded directly, use the name and page from the URL params
@@ -27,20 +28,25 @@ const SearchResults = props => {
             updated = true;
         }
 
+        if (text !== urlText) {
+            setText(urlText);
+            updated = true;
+        }
+
         if (page !== urlPage) {
             setPage(urlPage);
             updated = true;
         }
 
         if (updated) {
-            fetchResults(urlName, urlPage);
+            fetchResults({ name: urlName, text: urlText, page: urlPage });
         }
-    }, [urlName, urlPage]);
+    }, [urlName, urlText, urlPage]);
 
     // TODO: Handle case where &page > max pages (e.g. ?name=dragon&page=6)
-    const fetchResults = async (name = '', page = 1) => {
-        const response = await basicSearch(name, page);
-        displayResults(response, name, page, false);
+    const fetchResults = async (params = {}) => {
+        const response = await advancedSearch(params);
+        displayResults(response, params, false);
     };
 
     const onSelectResult = card => {

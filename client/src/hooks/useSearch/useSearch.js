@@ -1,6 +1,11 @@
 const useSearch = (headers = {}) => {
     const basicSearch = async (name = '', page = 1) => {
-        const response = await fetch(`/api/search?name=${name}&page=${page}`, {
+        return advancedSearch({ name, page });
+    };
+
+    const advancedSearch = async (params = {}) => {
+        const paramString = getParamString(params);
+        const response = await fetch(`/api/search?${paramString}`, {
             headers: {
                 ...headers,
             },
@@ -21,6 +26,42 @@ const useSearch = (headers = {}) => {
                     errors: await response.json(),
                 };
         }
+    };
+
+    const getParamString = (params = {}) => {
+        let pairs = [];
+
+        if (params?.name) {
+            pairs = pairs.concat(`name=${params.name}`);
+        }
+
+        if (params?.text) {
+            pairs = pairs.concat(`text=${params.text}`);
+        }
+
+        if (params?.type) {
+            pairs = pairs.concat(`type=${params.type}`);
+        }
+
+        if (params?.colors) {
+            Object.keys(params?.colors).forEach(color => {
+                if (params?.colors[color]) {
+                    pairs = pairs.concat(`${[color]}=${params.colors[color]}`);
+                }
+            });
+        }
+
+        if (params?.manaCost) {
+            pairs = pairs.concat(`mana_cost=${params.manaCost}`);
+        }
+
+        pairs = pairs.concat(`page=${params?.page || 1}`);
+
+        if (pairs.length === 0) {
+            return;
+        }
+
+        return pairs.join('&');
     };
 
     const getCardByID = async id => {
@@ -56,6 +97,8 @@ const useSearch = (headers = {}) => {
 
     return {
         basicSearch,
+        advancedSearch,
+        getParamString,
         getCardByID,
     };
 };
