@@ -51,10 +51,6 @@ const useSearch = (headers = {}) => {
             });
         }
 
-        if (params?.manaCost) {
-            pairs = pairs.concat(`mana_cost=${params.manaCost}`);
-        }
-
         pairs = pairs.concat(`page=${params?.page || 1}`);
 
         if (pairs.length === 0) {

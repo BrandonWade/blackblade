@@ -1,5 +1,13 @@
 import { createContext } from 'react';
 
+export const colorInitialState = {
+    white: false,
+    blue: false,
+    black: false,
+    red: false,
+    green: false,
+};
+
 export default createContext({
     name: '',
     setName: () => {},
@@ -7,6 +15,8 @@ export default createContext({
     setText: () => {},
     type: '',
     setType: () => {},
+    colors: colorInitialState,
+    setColors: () => {},
     page: 1,
     setPage: () => {},
     totalResults: 0,

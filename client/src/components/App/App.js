@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import CardContext from '../../contexts/CardContext';
-import SearchContext from '../../contexts/SearchContext';
+import SearchContext, { colorInitialState } from '../../contexts/SearchContext';
 import DeckBuilderContext from '../../contexts/DeckBuilderContext';
 import Home from '../../pages/Home';
 import AdvancedSearch from '../../pages/AdvancedSearch';
@@ -15,6 +15,7 @@ const App = () => {
     const [name, setName] = useState('');
     const [text, setText] = useState('');
     const [type, setType] = useState('');
+    const [colors, setColors] = useState(colorInitialState);
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
     const [searchResults, setSearchResults] = useState([]);
@@ -34,6 +35,8 @@ const App = () => {
                     setText,
                     type,
                     setType,
+                    colors,
+                    setColors,
                     page,
                     setPage,
                     totalResults,

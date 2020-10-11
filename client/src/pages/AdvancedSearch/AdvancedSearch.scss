@@ -34,6 +34,25 @@
         padding: 1rem 0.75rem;
     }
 
+    &-colorBoxes {
+        width: 100%;
+        max-width: 60rem;
+        line-height: 2.5rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-colorCheckbox {
+        width: auto;
+        margin-right: 0.75rem;
+    }
+
+    &-manaSymbol {
+        position: relative;
+        top: 0.3rem;
+        margin-right: 0.5rem;
+    }
+
     &-searchButton {
         margin-top: 5rem;
     }
