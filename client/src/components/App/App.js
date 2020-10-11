@@ -14,6 +14,7 @@ import './App.scss';
 const App = () => {
     const [name, setName] = useState('');
     const [text, setText] = useState('');
+    const [type, setType] = useState('');
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
     const [searchResults, setSearchResults] = useState([]);
@@ -31,6 +32,8 @@ const App = () => {
                     setName,
                     text,
                     setText,
+                    type,
+                    setType,
                     page,
                     setPage,
                     totalResults,

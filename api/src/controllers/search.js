@@ -13,11 +13,17 @@ const basicSearch = async (req, res) => {
 
     const name = req.query['name'];
     const text = req.query['text'];
+    const type = req.query['type'];
     const page = parseInt(req.query['page']);
     let data = {};
 
-    if (name || text) {
-        const results = await SearchService.basicSearch({ name, text, page });
+    if (name || text || type) {
+        const results = await SearchService.basicSearch({
+            name,
+            text,
+            type,
+            page,
+        });
         data = results;
     }
 
