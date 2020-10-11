@@ -1,9 +1,12 @@
 import { connection } from '../db';
 
-const getTotalResults = async (nameTokens, textTokens) => {
+const getTotalResults = async (nameTokens, textTokens, typeTokens) => {
     const nameParams = nameTokens.map(() => 'f.name LIKE ?');
     const textParams = textTokens.map(() => 'f.oracle_text LIKE ?');
-    const conditions = [...nameParams, ...textParams].join(' AND ');
+    const typeParams = typeTokens.map(() => 'f.type_line LIKE ?');
+    const conditions = [...nameParams, ...textParams, ...typeParams].join(
+        ' AND ',
+    );
 
     return await connection.query(
         `SELECT
@@ -20,14 +23,24 @@ const getTotalResults = async (nameTokens, textTokens) => {
         [
             ...nameTokens.map((token) => `%${token}%`),
             ...textTokens.map((token) => `%${token}%`),
+            ...typeTokens.map((token) => `%${token}%`),
         ],
     );
 };
 
-const getCardsByName = async (nameTokens, textTokens, page, pageSize) => {
+const getCardsByName = async (
+    nameTokens,
+    textTokens,
+    typeTokens,
+    page,
+    pageSize,
+) => {
     const nameParams = nameTokens.map(() => 'f.name LIKE ?');
     const textParams = textTokens.map(() => 'f.oracle_text LIKE ?');
-    const conditions = [...nameParams, ...textParams].join(' AND ');
+    const typeParams = typeTokens.map(() => 'f.type_line LIKE ?');
+    const conditions = [...nameParams, ...textParams, ...typeParams].join(
+        ' AND ',
+    );
 
     return await connection.query(
         `SELECT
@@ -47,6 +60,7 @@ const getCardsByName = async (nameTokens, textTokens, page, pageSize) => {
         [
             ...nameTokens.map((token) => `%${token}%`),
             ...textTokens.map((token) => `%${token}%`),
+            ...typeTokens.map((token) => `%${token}%`),
             (page - 1) * pageSize,
             pageSize,
         ],

@@ -10,13 +10,14 @@ import './SearchResults.scss';
 
 const SearchResults = props => {
     const history = useHistory();
-    const { name, setName, text, setText, page, setPage } = useContext(SearchContext);
+    const { name, setName, text, setText, type, setType, page, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
     const { advancedSearch } = useSearch();
     const { displayResults } = useDisplayResults();
     const urlParams = new URLSearchParams(props?.location?.search);
     const urlName = urlParams.get('name') || '';
     const urlText = urlParams.get('text') || '';
+    const urlType = urlParams.get('type') || '';
     const urlPage = parseInt(urlParams.get('page')) || 1;
 
     // If the page is loaded directly, use the name and page from the URL params
@@ -33,15 +34,20 @@ const SearchResults = props => {
             updated = true;
         }
 
+        if (type !== urlType) {
+            setType(urlType);
+            updated = true;
+        }
+
         if (page !== urlPage) {
             setPage(urlPage);
             updated = true;
         }
 
         if (updated) {
-            fetchResults({ name: urlName, text: urlText, page: urlPage });
+            fetchResults({ name: urlName, text: urlText, type: urlType, page: urlPage });
         }
-    }, [urlName, urlText, urlPage]);
+    }, [urlName, urlText, urlType, urlPage]);
 
     // TODO: Handle case where &page > max pages (e.g. ?name=dragon&page=6)
     const fetchResults = async (params = {}) => {

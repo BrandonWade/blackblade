@@ -5,6 +5,8 @@ export default createContext({
     setName: () => {},
     text: '',
     setText: () => {},
+    type: '',
+    setType: () => {},
     page: 1,
     setPage: () => {},
     totalResults: 0,
