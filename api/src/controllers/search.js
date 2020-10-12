@@ -2,7 +2,7 @@ import { validationResult } from 'express-validator';
 import * as HttpStatus from 'http-status-codes';
 import SearchService from '../services/search';
 
-const basicSearch = async (req, res) => {
+const search = async (req, res) => {
     // TODO: Should be handled in middleware
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -18,7 +18,7 @@ const basicSearch = async (req, res) => {
     let data = {};
 
     if (name || text || type) {
-        const results = await SearchService.basicSearch({
+        const results = await SearchService.search({
             name,
             text,
             type,
@@ -48,4 +48,4 @@ const getCardByID = async (req, res) => {
     }
 };
 
-export { basicSearch, getCardByID };
+export { search, getCardByID };

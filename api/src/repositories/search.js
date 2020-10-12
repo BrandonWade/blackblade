@@ -1,70 +1,43 @@
-import { connection } from '../db';
+import { connection, builder } from '../db';
+import { addLikeCondition } from './helpers';
 
-const getTotalResults = async (nameTokens, textTokens, typeTokens) => {
-    const nameParams = nameTokens.map(() => 'f.name LIKE ?');
-    const textParams = textTokens.map(() => 'f.oracle_text LIKE ?');
-    const typeParams = typeTokens.map(() => 'f.type_line LIKE ?');
-    const conditions = [...nameParams, ...textParams, ...typeParams].join(
-        ' AND ',
-    );
+const getTotalResults = (nameTokens, textTokens, typeTokens) => {
+    const subquery = builder
+        .select('c.*')
+        .from('cards AS c')
+        .innerJoin('card_faces AS f', 'c.id', 'f.card_id')
+        .groupBy('c.oracle_id')
+        .as('a');
 
-    return await connection.query(
-        `SELECT
-        COUNT(*) total_results
-        FROM (
-          SELECT
-          c.*
-          FROM cards c
-          INNER JOIN card_faces f ON c.id = f.card_id
-          WHERE ${conditions}
-          GROUP BY c.oracle_id
-        ) a;
-    `,
-        [
-            ...nameTokens.map((token) => `%${token}%`),
-            ...textTokens.map((token) => `%${token}%`),
-            ...typeTokens.map((token) => `%${token}%`),
-        ],
-    );
+    addLikeCondition(subquery, nameTokens, 'f.name');
+    addLikeCondition(subquery, textTokens, 'f.oracle_text');
+    addLikeCondition(subquery, typeTokens, 'f.type_line');
+
+    return builder.count('* AS total_results').from(subquery);
 };
 
-const getCardsByName = async (
-    nameTokens,
-    textTokens,
-    typeTokens,
-    page,
-    pageSize,
-) => {
-    const nameParams = nameTokens.map(() => 'f.name LIKE ?');
-    const textParams = textTokens.map(() => 'f.oracle_text LIKE ?');
-    const typeParams = typeTokens.map(() => 'f.type_line LIKE ?');
-    const conditions = [...nameParams, ...textParams, ...typeParams].join(
-        ' AND ',
-    );
+const getCardsByName = (nameTokens, textTokens, typeTokens, page, pageSize) => {
+    const query = builder
+        .select(
+            'c.id AS card_id',
+            'c.cmc',
+            'c.rarity',
+            'c.layout',
+            's.sets_json',
+        )
+        .from('card_faces AS f')
+        .innerJoin('cards AS c', 'c.id', 'f.card_id')
+        .innerJoin('card_sets_list AS s', 's.id', 'c.card_sets_list_id')
+        .groupBy('c.oracle_id')
+        .orderBy('f.name')
+        .limit(pageSize)
+        .offset((page - 1) * pageSize);
 
-    return await connection.query(
-        `SELECT
-        c.id card_id,
-        c.cmc,
-        c.rarity,
-        c.layout,
-        s.sets_json
-        FROM card_faces f
-        INNER JOIN cards c ON c.id = f.card_id
-        INNER JOIN card_sets_list s ON s.id = c.card_sets_list_id
-        WHERE ${conditions}
-        GROUP BY c.oracle_id
-        ORDER BY f.name
-        LIMIT ?, ?;
-    `,
-        [
-            ...nameTokens.map((token) => `%${token}%`),
-            ...textTokens.map((token) => `%${token}%`),
-            ...typeTokens.map((token) => `%${token}%`),
-            (page - 1) * pageSize,
-            pageSize,
-        ],
-    );
+    addLikeCondition(query, nameTokens, 'f.name');
+    addLikeCondition(query, textTokens, 'f.oracle_text');
+    addLikeCondition(query, typeTokens, 'f.type_line');
+
+    return query;
 };
 
 const getCardByID = async (id) => {

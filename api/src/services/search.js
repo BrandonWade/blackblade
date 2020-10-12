@@ -2,16 +2,17 @@ import SearchRepository from '../repositories/search';
 
 const pageSize = 60;
 
-const basicSearch = async (params = {}) => {
+const search = async (params = {}) => {
     const nameTokens = params?.name?.split(/\s+/) || [];
     const textTokens = params?.text?.split(/\s+/) || [];
     const typeTokens = params?.type?.split(/\s+/) || [];
-    const [totalResults] = await SearchRepository.getTotalResults(
+    const totalResults = await SearchRepository.getTotalResults(
         nameTokens,
         textTokens,
         typeTokens,
     );
-    const [cardResults] = await SearchRepository.getCardsByName(
+
+    const cardResults = await SearchRepository.getCardsByName(
         nameTokens,
         textTokens,
         typeTokens,
@@ -32,6 +33,6 @@ const getCardByID = async (id) => {
 };
 
 export default {
-    basicSearch,
+    search,
     getCardByID,
 };
