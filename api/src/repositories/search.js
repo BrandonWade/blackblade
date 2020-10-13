@@ -1,7 +1,7 @@
 import { connection, builder } from '../db';
-import { addLikeCondition } from './helpers';
+import { addLikeCondition, addColourCondition } from './helpers';
 
-const getTotalResults = (nameTokens, textTokens, typeTokens) => {
+const getTotalResults = (nameTokens, textTokens, typeTokens, colours) => {
     const subquery = builder
         .select('c.*')
         .from('cards AS c')
@@ -12,11 +12,19 @@ const getTotalResults = (nameTokens, textTokens, typeTokens) => {
     addLikeCondition(subquery, nameTokens, 'f.name');
     addLikeCondition(subquery, textTokens, 'f.oracle_text');
     addLikeCondition(subquery, typeTokens, 'f.type_line');
+    addColourCondition(subquery, colours, 'l.color');
 
     return builder.count('* AS total_results').from(subquery);
 };
 
-const getCardsByName = (nameTokens, textTokens, typeTokens, page, pageSize) => {
+const getCardsByName = (
+    nameTokens,
+    textTokens,
+    typeTokens,
+    colours,
+    page,
+    pageSize,
+) => {
     const query = builder
         .select(
             'c.id AS card_id',
@@ -36,6 +44,7 @@ const getCardsByName = (nameTokens, textTokens, typeTokens, page, pageSize) => {
     addLikeCondition(query, nameTokens, 'f.name');
     addLikeCondition(query, textTokens, 'f.oracle_text');
     addLikeCondition(query, typeTokens, 'f.type_line');
+    addColourCondition(query, colours, 'l.color');
 
     return query;
 };

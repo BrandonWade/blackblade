@@ -14,20 +14,22 @@ const search = async (req, res) => {
     const name = req.query['name'];
     const text = req.query['text'];
     const type = req.query['type'];
+    const white = req.query['white'];
+    const blue = req.query['blue'];
+    const black = req.query['black'];
+    const red = req.query['red'];
+    const green = req.query['green'];
     const page = parseInt(req.query['page']);
-    let data = {};
 
-    if (name || text || type) {
-        const results = await SearchService.search({
-            name,
-            text,
-            type,
-            page,
-        });
-        data = results;
-    }
+    const results = await SearchService.search({
+        name,
+        text,
+        type,
+        colours: { W: white, U: blue, B: black, R: red, G: green },
+        page,
+    });
 
-    res.status(HttpStatus.OK).json(data);
+    res.status(HttpStatus.OK).json(results);
 };
 
 const getCardByID = async (req, res) => {
