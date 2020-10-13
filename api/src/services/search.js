@@ -6,16 +6,21 @@ const search = async (params = {}) => {
     const nameTokens = params?.name?.split(/\s+/) || [];
     const textTokens = params?.text?.split(/\s+/) || [];
     const typeTokens = params?.type?.split(/\s+/) || [];
+    const colours = Object.keys(params?.colours).filter(
+        (c) => params?.colours[c],
+    );
     const totalResults = await SearchRepository.getTotalResults(
         nameTokens,
         textTokens,
         typeTokens,
+        colours,
     );
 
     const cardResults = await SearchRepository.getCardsByName(
         nameTokens,
         textTokens,
         typeTokens,
+        colours,
         params?.page,
         pageSize,
     );

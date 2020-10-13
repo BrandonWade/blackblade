@@ -10,7 +10,7 @@ import './SearchResults.scss';
 
 const SearchResults = props => {
     const history = useHistory();
-    const { name, setName, text, setText, type, setType, page, setPage } = useContext(SearchContext);
+    const { name, setName, text, setText, type, setType, colors, setColors, page, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
     const { advancedSearch } = useSearch();
     const { displayResults } = useDisplayResults();
@@ -18,6 +18,11 @@ const SearchResults = props => {
     const urlName = urlParams.get('name') || '';
     const urlText = urlParams.get('text') || '';
     const urlType = urlParams.get('type') || '';
+    const urlWhite = urlParams.get('white') || '';
+    const urlBlue = urlParams.get('blue') || '';
+    const urlBlack = urlParams.get('black') || '';
+    const urlRed = urlParams.get('red') || '';
+    const urlGreen = urlParams.get('green') || '';
     const urlPage = parseInt(urlParams.get('page')) || 1;
 
     // If the page is loaded directly, use the name and page from the URL params
@@ -39,15 +44,56 @@ const SearchResults = props => {
             updated = true;
         }
 
+        if (colors?.white !== urlWhite) {
+            setColors({
+                ...colors,
+                white: urlWhite,
+            });
+            updated = true;
+        }
+
+        if (colors?.blue !== urlBlue) {
+            setColors({
+                ...colors,
+                blue: urlBlue,
+            });
+            updated = true;
+        }
+
+        if (colors?.black !== urlBlack) {
+            setColors({
+                ...colors,
+                black: urlBlack,
+            });
+            updated = true;
+        }
+
+        if (colors?.red !== urlRed) {
+            setColors({
+                ...colors,
+                red: urlRed,
+            });
+            updated = true;
+        }
+
+        if (colors?.green !== urlGreen) {
+            setColors({
+                ...colors,
+                green: urlGreen,
+            });
+            updated = true;
+        }
+
         if (page !== urlPage) {
             setPage(urlPage);
             updated = true;
         }
 
         if (updated) {
-            fetchResults({ name: urlName, text: urlText, type: urlType, page: urlPage });
+            const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen };
+            fetchResults({ name: urlName, text: urlText, type: urlType, colors: urlColors, page: urlPage });
         }
-    }, [urlName, urlText, urlType, urlPage]);
+    }, [urlName, urlText, urlType, urlWhite, urlBlue, urlBlack, urlRed, urlGreen, urlPage]);
 
     // TODO: Handle case where &page > max pages (e.g. ?name=dragon&page=6)
     const fetchResults = async (params = {}) => {

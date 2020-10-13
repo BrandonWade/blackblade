@@ -24,8 +24,8 @@ const AdvancedSearch = () => {
     const onSubmit = async e => {
         e.preventDefault();
 
-        const response = await advancedSearch({ name, text, type });
-        displayResults(response, { name, text, type, page: 1 }, true);
+        const response = await advancedSearch({ name, text, type, colors });
+        displayResults(response, { name, text, type, colors, page: 1 }, true);
     };
 
     return (
