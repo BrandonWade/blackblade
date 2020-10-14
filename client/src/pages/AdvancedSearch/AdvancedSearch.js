@@ -31,7 +31,7 @@ const AdvancedSearch = () => {
     return (
         <HeaderPage className='AdvancedSearch'>
             <div className='AdvancedSearch-content'>
-                <form onSubmit={onSubmit}>
+                <form className='AdvancedSearch-form' onSubmit={onSubmit}>
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Name</label>
                         <Input className='AdvancedSearch-input' value={name} onChange={e => setName(e.target.value)} />
