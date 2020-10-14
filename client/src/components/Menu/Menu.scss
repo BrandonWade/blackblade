@@ -1,0 +1,46 @@
+.MenuButton {
+    @media only screen and (max-width: 37.5em) {
+        padding: 0.5rem;
+        border: none;
+    }
+}
+
+.Menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background-color: var(--color-primary);
+
+    &-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    &-links {
+        list-style: none;
+        position: relative;
+        top: -12vh;
+    }
+
+    &-link {
+        text-align: center;
+        font-size: 1.9rem;
+        padding: 1.5rem;
+
+        a {
+            display: block;
+        }
+
+        &:not(:last-child) {
+            border-bottom: var(--line);
+        }
+    }
+}

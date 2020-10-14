@@ -3,18 +3,43 @@
     justify-content: center;
     padding: 4rem 2rem;
 
+    @media only screen and (max-width: 37.5em) {
+        padding: 1.5rem;
+    }
+
     &-content {
         width: 80%;
+
+        @media only screen and (max-width: 37.5em) {
+            width: 100%;
+        }
+    }
+
+    &-form {
+        @media only screen and (max-width: 37.5em) {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
     }
 
     &-formRow {
         display: flex;
         align-items: center;
 
+        @media only screen and (max-width: 37.5em) {
+            display: block;
+        }
+
         &:not(:last-of-type) {
             margin-bottom: 2rem;
             padding-bottom: 2rem;
             border-bottom: var(--line-transparent);
+
+            @media only screen and (max-width: 37.5em) {
+                margin-bottom: 0;
+                border-bottom: none;
+            }
         }
     }
 
@@ -22,16 +47,22 @@
         width: 10%;
         font-size: 1.6rem;
         margin-right: 2rem;
-    }
 
-    &-fieldLabel {
-        font-size: 1.4rem;
+        @media only screen and (max-width: 37.5em) {
+            font-size: 1.4rem;
+        }
     }
 
     &-input {
         max-width: 50rem;
         font-size: 1.6rem;
         padding: 1rem 0.75rem;
+
+        @media only screen and (max-width: 37.5em) {
+            margin-top: 0.5rem;
+            font-size: 1.4rem;
+            padding: 0.75rem;
+        }
     }
 
     &-colorBoxes {
@@ -40,20 +71,44 @@
         line-height: 2.5rem;
         display: flex;
         justify-content: space-between;
+
+        @media only screen and (max-width: 37.5em) {
+            flex-direction: column;
+            margin-top: 0.5rem;
+            align-items: flex-start;
+        }
     }
 
     &-colorCheckbox {
         width: auto;
         margin-right: 0.75rem;
+
+        @media only screen and (max-width: 37.5em) {
+            margin-top: 0.5rem;
+        }
     }
 
     &-manaSymbol {
         position: relative;
         top: 0.3rem;
         margin-right: 0.5rem;
+
+        @media only screen and (max-width: 37.5em) {
+            margin-right: 0.75rem;
+
+            & > .CardSymbol {
+                width: 1.65rem;
+                height: 1.65rem;
+            }
+        }
     }
 
     &-searchButton {
         margin-top: 5rem;
+
+        @media only screen and (max-width: 37.5em) {
+            display: flex;
+            justify-content: center;
+        }
     }
 }
