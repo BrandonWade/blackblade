@@ -3,15 +3,20 @@ import { Link } from 'react-router-dom';
 import Button from '../Button';
 import './Menu.scss';
 
-const Menu = () => {
+const Menu = ({ menuOpen = false, setMenuOpen = () => {} }) => {
     return (
         <>
-            <Button className='Menu-button'>Menu</Button>
-            <div className='Menu'>
-                <div className='Menu-close'>
+            <Button className='Menu-openButton' onClick={() => setMenuOpen(true)}>
+                <span className='Menu-openIcon' />
+            </Button>
+            <div className={`Menu ${menuOpen ? '' : 'Menu--closed'}`}>
+                <Button className='Menu-closeButton' onClick={() => setMenuOpen(false)}>
                     <span className='Menu-closeIcon'></span>
-                </div>
+                </Button>
                 <ul className='Menu-links'>
+                    <li className='Menu-link'>
+                        <Link to='/'>Home</Link>
+                    </li>
                     <li className='Menu-link'>
                         <Link to='/advanced'>Advanced Search</Link>
                     </li>
