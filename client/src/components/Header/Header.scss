@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 1rem;
     border-bottom: var(--line);
     background-color: var(--color-primary-dark);
 
@@ -11,7 +12,9 @@
     }
 
     &-content {
-        width: 70%;
+        flex: 1;
+        display: flex;
+        align-items: center;
 
         @media only screen and (max-width: 37.5em) {
             width: 100%;
@@ -26,10 +29,13 @@
     }
 
     &-searchForm {
-        display: inline-block;
-        width: 40%;
+        flex: 1;
+        padding: 0 1.5rem;
+        max-width: 50rem;
 
         @media only screen and (max-width: 37.5em) {
+            padding: 0;
+            max-width: none;
             width: 100%;
         }
     }
@@ -40,15 +46,20 @@
         border: var(--line);
         font-size: 1.4rem;
         padding: 0 0.5rem;
-        margin-left: 2rem;
 
         @media only screen and (max-width: 37.5em) {
             margin-left: 0;
         }
     }
 
-    &-linksContainer > a:not(:last-child) {
-        margin-right: 1.5rem;
+    &-linksContainer {
+        @media only screen and (max-width: 37.5em) {
+            display: none;
+        }
+
+        & > a:not(:last-child) {
+            margin-right: 1.5rem;
+        }
     }
 
     &-link {
