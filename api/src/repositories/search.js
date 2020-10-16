@@ -44,7 +44,7 @@ const getCardsByName = (
     addLikeCondition(query, nameTokens, 'f.name');
     addLikeCondition(query, textTokens, 'f.oracle_text');
     addLikeCondition(query, typeTokens, 'f.type_line');
-    addColourCondition(query, colours, 'l.color');
+    addColourCondition(query, colours, 'color');
 
     return query;
 };

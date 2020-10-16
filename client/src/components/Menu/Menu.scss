@@ -9,7 +9,8 @@
     width: 100vw;
     height: 100vh;
     z-index: 1;
-    background-color: var(--color-primary);
+    background-color: var(--color-primary-dark);
+    opacity: 0.98;
 
     &-openButton {
         display: none;
@@ -93,6 +94,7 @@
         list-style: none;
         position: relative;
         top: -12vh;
+        animation: fadeIn 0.25s ease-out, slideUp 0.25s ease-out;
     }
 
     &-link {

@@ -14,13 +14,13 @@ const Menu = ({ menuOpen = false, setMenuOpen = () => {} }) => {
                     <span className='Menu-closeIcon'></span>
                 </Button>
                 <ul className='Menu-links'>
-                    <li className='Menu-link'>
+                    <li className='Menu-link' onClick={() => setMenuOpen(false)}>
                         <Link to='/'>Home</Link>
                     </li>
-                    <li className='Menu-link'>
+                    <li className='Menu-link' onClick={() => setMenuOpen(false)}>
                         <Link to='/advanced'>Advanced Search</Link>
                     </li>
-                    <li className='Menu-link'>
+                    <li className='Menu-link' onClick={() => setMenuOpen(false)}>
                         <Link to='/decks'>Deck Builder</Link>
                     </li>
                 </ul>
