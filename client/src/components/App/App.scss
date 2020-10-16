@@ -25,7 +25,6 @@
     padding: 0;
     box-sizing: inherit;
     color: var(--color-primary-text);
-    user-select: none;
 }
 
 html {
@@ -51,4 +50,24 @@ a {
 
 .u-hidden {
     display: none;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        top: -10vh;
+    }
+
+    100% {
+        top: -12vh;
+    }
 }

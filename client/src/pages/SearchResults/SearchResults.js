@@ -18,14 +18,14 @@ const SearchResults = props => {
     const urlName = urlParams.get('name') || '';
     const urlText = urlParams.get('text') || '';
     const urlType = urlParams.get('type') || '';
-    const urlWhite = urlParams.get('white') || '';
-    const urlBlue = urlParams.get('blue') || '';
-    const urlBlack = urlParams.get('black') || '';
-    const urlRed = urlParams.get('red') || '';
-    const urlGreen = urlParams.get('green') || '';
+    const urlWhite = urlParams.get('white') === 'true';
+    const urlBlue = urlParams.get('blue') === 'true';
+    const urlBlack = urlParams.get('black') === 'true';
+    const urlRed = urlParams.get('red') === 'true';
+    const urlGreen = urlParams.get('green') === 'true';
     const urlPage = parseInt(urlParams.get('page')) || 1;
 
-    // If the page is loaded directly, use the name and page from the URL params
+    // If the page is loaded directly, use the values from the URL params
     useEffect(() => {
         let updated = false;
 
