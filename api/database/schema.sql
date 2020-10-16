@@ -98,6 +98,11 @@ CREATE TABLE card_faces (
     mana_cost varchar(128) NOT NULL DEFAULT '',
     name varchar(256) NOT NULL DEFAULT '',
     oracle_text text,
+    is_white tinyint unsigned NOT NULL DEFAULT 0,
+    is_blue tinyint unsigned NOT NULL DEFAULT 0,
+    is_black tinyint unsigned NOT NULL DEFAULT 0,
+    is_red tinyint unsigned NOT NULL DEFAULT 0,
+    is_green tinyint unsigned NOT NULL DEFAULT 0,
     power varchar(8) DEFAULT NULL,
     toughness varchar(8) DEFAULT NULL,
     loyalty varchar(8) DEFAULT NULL,
@@ -107,16 +112,6 @@ CREATE TABLE card_faces (
     PRIMARY KEY (id),
     UNIQUE KEY U_card_id_face_index (card_id, face_index),
     FOREIGN KEY (card_id) REFERENCES cards(id)
-) CHARSET=utf8mb4;
-
-DROP TABLE IF EXISTS card_face_colors;
-CREATE TABLE card_face_colors (
-    id bigint unsigned NOT NULL AUTO_INCREMENT,
-    card_face_id bigint unsigned NOT NULL DEFAULT 0,
-    color enum('B', 'G', 'R', 'U', 'W'),
-    PRIMARY KEY (id),
-    UNIQUE KEY U_card_face_id_color (card_face_id, color),
-    FOREIGN KEY (card_face_id) REFERENCES card_faces(id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS card_face_color_indicators;
