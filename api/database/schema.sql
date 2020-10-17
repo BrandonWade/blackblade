@@ -19,7 +19,12 @@ CREATE TABLE cards (
     card_back_id char(36) NOT NULL DEFAULT '',
     card_sets_list_id bigint unsigned DEFAULT NULL,
     cmc decimal(10, 2) NOT NULL DEFAULT 0,
-    `set` varchar(8) NOT NULL DEFAULT '',
+    is_white tinyint unsigned NOT NULL DEFAULT 0,
+    is_blue tinyint unsigned NOT NULL DEFAULT 0,
+    is_black tinyint unsigned NOT NULL DEFAULT 0,
+    is_red tinyint unsigned NOT NULL DEFAULT 0,
+    is_green tinyint unsigned NOT NULL DEFAULT 0,
+    set_code varchar(8) NOT NULL DEFAULT '',
     set_name varchar(64) NOT NULL DEFAULT '',
     faces_json json DEFAULT NULL,
     rarity enum('common', 'uncommon', 'rare', 'mythic'),
@@ -98,11 +103,6 @@ CREATE TABLE card_faces (
     mana_cost varchar(128) NOT NULL DEFAULT '',
     name varchar(256) NOT NULL DEFAULT '',
     oracle_text text,
-    is_white tinyint unsigned NOT NULL DEFAULT 0,
-    is_blue tinyint unsigned NOT NULL DEFAULT 0,
-    is_black tinyint unsigned NOT NULL DEFAULT 0,
-    is_red tinyint unsigned NOT NULL DEFAULT 0,
-    is_green tinyint unsigned NOT NULL DEFAULT 0,
     power varchar(8) DEFAULT NULL,
     toughness varchar(8) DEFAULT NULL,
     loyalty varchar(8) DEFAULT NULL,
@@ -112,16 +112,6 @@ CREATE TABLE card_faces (
     PRIMARY KEY (id),
     UNIQUE KEY U_card_id_face_index (card_id, face_index),
     FOREIGN KEY (card_id) REFERENCES cards(id)
-) CHARSET=utf8mb4;
-
-DROP TABLE IF EXISTS card_face_color_indicators;
-CREATE TABLE card_face_color_indicators (
-    id bigint unsigned NOT NULL AUTO_INCREMENT,
-    card_face_id bigint unsigned NOT NULL DEFAULT 0,
-    color_indicator enum('B', 'G', 'R', 'U', 'W'),
-    PRIMARY KEY (id),
-    UNIQUE KEY U_card_face_id_color_indicator (card_face_id, color_indicator),
-    FOREIGN KEY (card_face_id) REFERENCES card_faces(id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS decks;

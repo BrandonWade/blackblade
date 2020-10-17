@@ -12,7 +12,7 @@ const getTotalResults = (nameTokens, textTokens, typeTokens, colours) => {
     addLikeCondition(subquery, nameTokens, 'f.name');
     addLikeCondition(subquery, textTokens, 'f.oracle_text');
     addLikeCondition(subquery, typeTokens, 'f.type_line');
-    addColourCondition(subquery, colours, 'l.color');
+    addColourCondition(subquery, colours);
 
     return builder.count('* AS total_results').from(subquery);
 };
@@ -44,7 +44,7 @@ const getCardsByName = (
     addLikeCondition(query, nameTokens, 'f.name');
     addLikeCondition(query, textTokens, 'f.oracle_text');
     addLikeCondition(query, typeTokens, 'f.type_line');
-    addColourCondition(query, colours, 'color');
+    addColourCondition(query, colours);
 
     return query;
 };
