@@ -19,7 +19,8 @@ const CardSets = ({ cardSets = [], selectedSetIndex = 0, setSelectedSetIndex = (
                             className={`CardSection-rowItem CardSets-listItem ${selected ? 'CardSets-selectedSet' : ''}`}
                             onClick={() => onSelectSet(i)}
                         >
-                            {set.set_name}
+                            <span>{set.set_name}</span>
+                            <span>{set.price ? `$${set.price}`: null}</span>
                         </li>
                     );
                 })}
