@@ -8,6 +8,8 @@
     }
 
     &-listItem {
+        display: flex;
+        justify-content: space-between;
         transition: all 0.2s;
 
         &:hover {
