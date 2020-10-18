@@ -19,9 +19,9 @@ const useDisplayResults = () => {
 
         let route;
         const numberOfPages = response.pages || 1;
-        const totalResults = response.totalResults || 1;
+        const totalResults = response.totalResults || 0;
         const results = response.results || [];
-        const singleResult = results.length === 1 && totalResults === 1;
+        const singleResult = results.length === 1 && totalResults <= 1;
         if (redirectForSingleResult && singleResult) {
             setCard(results[0]);
             route = `/cards/${results[0].card_id}`;
