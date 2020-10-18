@@ -11,7 +11,7 @@ const CardImage = ({ cardFaces = [], layout = '' }) => {
     const canFlip = layout === 'flip';
     const canRotateCW = layout === 'split';
     const canRotateCCW = layout === 'aftermath';
-    const canTransform = layout === 'transform' || layout === 'double_faced_token';
+    const canTransform = layout === 'transform' || layout === 'double_faced_token' || layout === 'modal_dfc';
     const flipClassName = `${canFlip ? 'CardImage--canFlip' : ''} ${flipped ? 'CardImage-imageFront--flipped' : ''}`;
     const rotateCWClassName = `${canRotateCW ? 'CardImage--canRotate' : ''} ${rotatedCW ? 'CardImage-imageFront--rotatedCW' : ''}`;
     const rotateCCWClassName = `${canRotateCCW ? 'CardImage--canRotate' : ''} ${rotatedCCW ? 'CardImage-imageFront--rotatedCCW' : ''}`;
