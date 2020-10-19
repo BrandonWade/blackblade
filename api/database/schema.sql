@@ -1,6 +1,18 @@
 CREATE DATABASE IF NOT EXISTS blackblade;
 USE blackblade;
 
+DROP TABLE IF EXISTS card_rulings;
+CREATE TABLE card_rulings (
+    id bigint unsigned NOT NULL AUTO_INCREMENT,
+    oracle_id char(36) DEFAULT NULL,
+    comment_hash char(32) DEFAULT NULL,
+    source varchar(16) DEFAULT NULL,
+    published_at date DEFAULT NULL,
+    comment text DEFAULT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY U_oracle_id_comment_hash (oracle_id, comment_hash)
+) CHARSET=utf8mb4;
+
 DROP TABLE IF EXISTS card_sets_list;
 CREATE TABLE card_sets_list (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
