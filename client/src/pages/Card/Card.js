@@ -7,6 +7,7 @@ import HeaderPage from '../../components/HeaderPage';
 import CardImage from '../../components/CardImage';
 import CardFace from '../../components/CardFace';
 import CardSets from '../../components/CardSets';
+import CardRulings from '../../components/CardRulings';
 import './Card.scss';
 
 const Card = () => {
@@ -39,6 +40,9 @@ const Card = () => {
                 })}
             </div>
             <CardSets cardSets={card.sets_json} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
+            <div className='Card-rulings'>
+                <CardRulings />
+            </div>
         </HeaderPage>
     );
 };

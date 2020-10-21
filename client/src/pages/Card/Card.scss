@@ -20,4 +20,8 @@
     &-textBlock .CardSymbol {
         top: 0.3rem;
     }
+
+    &-rulings {
+        grid-column: 1 / 4;
+    }
 }
