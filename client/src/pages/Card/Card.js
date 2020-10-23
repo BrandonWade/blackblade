@@ -33,16 +33,16 @@ const Card = () => {
 
     return (
         <HeaderPage className='Card'>
-            <CardImage cardFaces={selectedSet.card_faces} layout={card.layout} />
-            <div>
-                {cardFaces?.map(face => {
-                    return <CardFace key={face.face_id} face={face} />;
-                })}
+            <div className='Card-mainContent'>
+                <CardImage cardFaces={selectedSet.card_faces} layout={card.layout} />
+                <div>
+                    {cardFaces?.map(face => {
+                        return <CardFace key={face.face_id} face={face} />;
+                    })}
+                </div>
+                <CardSets cardSets={card.sets_json} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
             </div>
-            <CardSets cardSets={card.sets_json} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
-            <div className='Card-rulings'>
-                <CardRulings />
-            </div>
+            <CardRulings />
         </HeaderPage>
     );
 };

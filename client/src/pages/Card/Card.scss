@@ -1,16 +1,18 @@
 .Card {
-    display: grid;
-    grid-template-columns: max-content 25% 20%;
-    grid-column-gap: 2rem;
-    justify-content: center;
-    align-items: start;
-    padding: 1.5rem;
-    background-color: var(--color-primary);
+    &-mainContent {
+        display: grid;
+        grid-template-columns: max-content 25% 20%;
+        grid-column-gap: 2rem;
+        justify-content: center;
+        align-items: start;
+        padding: 1.5rem;
+        background-color: var(--color-primary);
 
-    @media only screen and (max-width: 37.5em) {
-        height: auto;
-        grid-template-columns: none;
-        grid-row-gap: 2rem;
+        @media only screen and (max-width: 37.5em) {
+            height: auto;
+            grid-template-columns: none;
+            grid-row-gap: 2rem;
+        }
     }
 
     &-name .CardSymbol {
@@ -19,9 +21,5 @@
 
     &-textBlock .CardSymbol {
         top: 0.3rem;
-    }
-
-    &-rulings {
-        grid-column: 1 / 4;
     }
 }
