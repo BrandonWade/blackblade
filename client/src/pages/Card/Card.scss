@@ -22,4 +22,9 @@
     &-textBlock .CardSymbol {
         top: 0.3rem;
     }
+
+    &-secondaryContent {
+        display: flex;
+        justify-content: center;
+    }
 }

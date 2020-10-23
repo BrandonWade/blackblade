@@ -42,7 +42,9 @@ const Card = () => {
                 </div>
                 <CardSets cardSets={card.sets_json} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
             </div>
-            <CardRulings />
+            <div className='Card-secondaryContent'>
+                <CardRulings />
+            </div>
         </HeaderPage>
     );
 };
