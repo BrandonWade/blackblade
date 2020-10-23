@@ -1,6 +1,24 @@
 .CardRulings {
+    width: 70%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-row-gap: 1.5rem;
     grid-column-gap: 1.5rem;
+    border-top: var(--line-transparent);
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+
+    &-ruling {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-comment {
+        flex: 1;
+        font-size: 1.3rem;
+    }
+
+    &-publishedAt {
+        font-size: 1.2rem;
+    }
 }
