@@ -13,6 +13,15 @@ CREATE TABLE card_rulings (
     UNIQUE KEY U_oracle_id_comment_hash (oracle_id, comment_hash)
 ) CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS card_rulings_list;
+CREATE TABLE card_rulings_list (
+    id bigint unsigned NOT NULL AUTO_INCREMENT,
+    oracle_id char(36) DEFAULT NULL,
+    rulings_json json DEFAULT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY U_oracle_id (oracle_id)
+) CHARSET=utf8mb4;
+
 DROP TABLE IF EXISTS card_sets_list;
 CREATE TABLE card_sets_list (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
@@ -30,6 +39,7 @@ CREATE TABLE cards (
     tcgplayer_id bigint unsigned DEFAULT NULL,
     card_back_id char(36) NOT NULL DEFAULT '',
     card_sets_list_id bigint unsigned DEFAULT NULL,
+    card_rulings_list_id bigint unsigned DEFAULT NULL,
     cmc decimal(10, 2) NOT NULL DEFAULT 0,
     is_white tinyint unsigned NOT NULL DEFAULT 0,
     is_blue tinyint unsigned NOT NULL DEFAULT 0,
@@ -61,7 +71,8 @@ CREATE TABLE cards (
     KEY K_oracle_id (oracle_id),
     KEY K_tcgplayer_id (tcgplayer_id),
     KEY K_card_back_id (card_back_id),
-    KEY K_card_sets_list_id (card_sets_list_id)
+    KEY K_card_sets_list_id (card_sets_list_id),
+    KEY K_card_rulings_list_id (card_rulings_list_id)
 ) CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS card_multiverse_ids;

@@ -32,10 +32,12 @@ const getCardsByName = (
             'c.rarity',
             'c.layout',
             's.sets_json',
+            'r.rulings_json',
         )
         .from('card_faces AS f')
         .innerJoin('cards AS c', 'c.id', 'f.card_id')
         .innerJoin('card_sets_list AS s', 's.id', 'c.card_sets_list_id')
+        .leftJoin('card_rulings_list AS r', 'r.id', 'c.card_rulings_list_id')
         .groupBy('c.oracle_id')
         .orderBy('f.name')
         .limit(pageSize)
@@ -56,9 +58,11 @@ const getCardByID = async (id) => {
         c.cmc,
         c.rarity,
         c.layout,
-        s.sets_json
+        s.sets_json,
+        r.rulings_json
         FROM cards c
         INNER JOIN card_sets_list s ON s.id = c.card_sets_list_id
+        LEFT JOIN card_rulings_list r ON r.id = c.card_rulings_list_id
         WHERE c.id = ?;
     `,
         [id],
