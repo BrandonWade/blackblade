@@ -14,6 +14,11 @@ const DeckBuilder = () => {
     const { saveDeck, getDeck } = useDeck();
     const { deckName, setDeckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards } = useContext(DeckBuilderContext);
     const unmodified = isEqual(deckCards, unmodifiedDeckCards);
+    const creatures = deckCards.filter(card => card.sets_json[0].card_faces.some(face => face.derived_type === 'creature'));
+    const spells = deckCards.filter(card =>
+        card.sets_json[0].card_faces.some(face => face.derived_type !== 'creature' && face.derived_type !== 'land')
+    );
+    const lands = deckCards.filter(card => card.sets_json[0].card_faces.some(face => face.derived_type === 'land'));
 
     useEffect(() => {
         const fetchDeckCards = async () => {
@@ -58,7 +63,9 @@ const DeckBuilder = () => {
                 </div>
                 <div className='DeckBuilder-tableContainer'>
                     <DeckStats deck={deckCards} />
-                    <DeckTable deckCards={deckCards} setDeckCards={setDeckCards} />
+                    {creatures.length > 0 ? <DeckTable deckCards={creatures} setDeckCards={setDeckCards} /> : null}
+                    {spells.length > 0 ? <DeckTable deckCards={spells} setDeckCards={setDeckCards} /> : null}
+                    {lands.length > 0 ? <DeckTable deckCards={lands} setDeckCards={setDeckCards} /> : null}
                 </div>
             </div>
         </div>
