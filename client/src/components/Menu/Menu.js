@@ -23,6 +23,9 @@ const Menu = ({ menuOpen = false, setMenuOpen = () => {} }) => {
                     <li className='Menu-link' onClick={() => setMenuOpen(false)}>
                         <Link to='/decks'>Deck Builder</Link>
                     </li>
+                    <li className='Menu-link' onClick={() => setMenuOpen(false)}>
+                        <Link to='/About'>About</Link>
+                    </li>
                 </ul>
             </div>
         </>

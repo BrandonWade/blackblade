@@ -41,6 +41,9 @@ const Header = () => {
                 <Link to='/decks'>
                     <Button className='Header-link'>Deck Builder</Button>
                 </Link>
+                <Link to='/about'>
+                    <Button className='Header-link'>About</Button>
+                </Link>
             </div>
             <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         </div>
