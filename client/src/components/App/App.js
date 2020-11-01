@@ -9,6 +9,7 @@ import SearchResults from '../../pages/SearchResults';
 import Card from '../../pages/Card';
 import DeckCreation from '../../pages/DeckCreation';
 import DeckBuilder from '../../pages/DeckBuilder';
+import About from '../../pages/About';
 import './App.scss';
 
 const App = () => {
@@ -51,6 +52,7 @@ const App = () => {
                     <BrowserRouter>
                         <Switch>
                             <Route path='/' exact component={Home} />
+                            <Route path='/' component={About} />
                             <Route path='/advanced' component={AdvancedSearch} />
                             <Route path='/cards/search' exact component={SearchResults} />
                             <Route path='/cards/:id' component={Card} />
