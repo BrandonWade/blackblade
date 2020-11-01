@@ -1,0 +1,28 @@
+.About {
+    display: flex;
+    justify-content: center;
+
+    &-content {
+        width: 60vw;
+        padding: 2rem;
+        font-size: 1.4rem;
+        line-height: 1.9rem;
+
+        @media only screen and (max-width: 37.5em) {
+            width: 100vw;
+        }
+    }
+
+    &-section {
+        margin-bottom: 3rem;
+    }
+
+    &-sectionHeading {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+
+    & a {
+        color: var(--color-highlight);
+    }
+}
