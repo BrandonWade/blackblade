@@ -4,8 +4,8 @@ import DeckRow from './DeckRow';
 const DeckSection = ({ deckCards = [], heading = '', updateCount = () => {}, removeCard = () => {} }) => {
     return deckCards.length > 0 ? (
         <tbody className='DeckTable-section'>
-            <tr>
-                <th colspan='100%'>{heading}</th>
+            <tr className='DeckTable-headingRow'>
+                <th colSpan='100%'>{heading}</th>
             </tr>
             {deckCards.map(card => (
                 <DeckRow key={card.card_id} card={card} updateCount={updateCount} removeCard={removeCard} />
