@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { sortBy } from 'lodash';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/SearchContext';
@@ -34,7 +33,7 @@ const DeckBuilderSearch = () => {
                 },
             ];
 
-            setDeckCards(sortBy(cards, ['cmc']));
+            setDeckCards(cards);
         }
     };
 
