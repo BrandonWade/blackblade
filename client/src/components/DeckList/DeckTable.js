@@ -1,11 +1,13 @@
 import React from 'react';
+import { sortBy } from 'lodash';
 import DeckSection from './DeckSection';
 import './DeckTable.scss';
 
 const DeckTable = ({ deckCards = [], setDeckCards = () => {} }) => {
-    const creatures = deckCards.filter(card => ['creature'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
-    const spells = deckCards.filter(card => ['creature', 'land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === false);
-    const land = deckCards.filter(card => ['land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
+    const cards = sortBy(deckCards, ['cmc']);
+    const creatures = cards.filter(card => ['creature'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
+    const spells = cards.filter(card => ['creature', 'land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === false);
+    const land = cards.filter(card => ['land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
 
     const updateCount = (cardID, count) => {
         const index = deckCards.findIndex(c => c.card_id === cardID);
@@ -26,9 +28,9 @@ const DeckTable = ({ deckCards = [], setDeckCards = () => {} }) => {
 
     return (
         <table className='DeckTable-deck'>
-            <DeckSection deckCards={creatures} heading='Creatures' updateCount={updateCount} removeCard={removeCard} />
-            <DeckSection deckCards={spells} heading='Spells' updateCount={updateCount} removeCard={removeCard} />
-            <DeckSection deckCards={land} heading='Land' updateCount={updateCount} removeCard={removeCard} />
+            <DeckSection cards={creatures} heading='Creatures' updateCount={updateCount} removeCard={removeCard} />
+            <DeckSection cards={spells} heading='Spells' updateCount={updateCount} removeCard={removeCard} />
+            <DeckSection cards={land} heading='Land' updateCount={updateCount} removeCard={removeCard} />
         </table>
     );
 };
