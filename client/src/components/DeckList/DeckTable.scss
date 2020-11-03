@@ -1,4 +1,11 @@
 .DeckTable {
+    &-headingRow {
+        height: 3rem;
+        font-size: 1.4rem;
+        border-bottom: var(--line);
+        background-color: var(--color-primary-light);
+    }
+
     &-cardRow {
         border-bottom: var(--line);
         background-color: var(--color-primary-dark);
