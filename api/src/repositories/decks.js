@@ -81,12 +81,17 @@ const getDeckCardsByPublicID = async (publicID) => {
         k.id deck_card_id,
         k.card_id,
         k.count,
+        c.id card_id,
         c.cmc,
-        s.sets_json
+        c.rarity,
+        c.layout,
+        s.sets_json,
+        r.rulings_json
         FROM deck_cards k
         INNER JOIN decks d ON d.id = k.deck_id
         INNER JOIN cards c ON c.id = k.card_id
         INNER JOIN card_sets_list s ON s.id = c.card_sets_list_id
+        LEFT JOIN card_rulings_list r ON r.id = c.card_rulings_list_id
         WHERE d.public_id = ?
     `,
         [publicID],
