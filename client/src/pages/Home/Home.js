@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
+import useRandomCard from '../../hooks/useRandomCard';
 import SearchContext from '../../contexts/SearchContext';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
@@ -12,6 +13,7 @@ const Home = () => {
     const { name, setName } = useContext(SearchContext);
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
+    const { displayRandomCard } = useRandomCard();
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -38,6 +40,9 @@ const Home = () => {
                     <Link to='/decks'>
                         <Button className='Home-link'>Deck Builder</Button>
                     </Link>
+                    <Button className='Home-link' onClick={() => displayRandomCard()}>
+                        Random Card
+                    </Button>
                 </div>
             </div>
         </div>

@@ -91,11 +91,35 @@ const useSearch = (headers = {}) => {
         }
     };
 
+    const getRandomCard = async () => {
+        const response = await fetch('/api/cards/random', {
+            headers: {
+                ...headers,
+            },
+        });
+
+        switch (response.status) {
+            case 200:
+                const results = await response.json();
+                return {
+                    success: true,
+                    redirect: `/cards/${results.card_id}`,
+                    results,
+                };
+            default:
+                return {
+                    success: false,
+                    errors: await response.json(),
+                };
+        }
+    };
+
     return {
         basicSearch,
         advancedSearch,
         getParamString,
         getCardByID,
+        getRandomCard,
     };
 };
 
