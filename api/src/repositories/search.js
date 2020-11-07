@@ -69,8 +69,37 @@ const getCardByID = async (id) => {
     );
 };
 
+const getRandomCard = async () => {
+    return await connection.query(
+        `SELECT
+        a.card_id,
+        a.cmc,
+        a.rarity,
+        a.layout,
+        s.sets_json,
+        r.rulings_json
+        FROM (
+            SELECT
+            c.id card_id,
+            c.cmc,
+            c.rarity,
+            c.layout,
+            c.card_sets_list_id,
+            c.card_rulings_list_id
+            FROM cards c
+            ORDER BY RAND()
+            LIMIT 1
+        ) a
+        INNER JOIN card_sets_list s ON s.id = a.card_sets_list_id
+        LEFT JOIN card_rulings_list r ON r.id = a.card_rulings_list_id;
+    `,
+        [],
+    );
+};
+
 export default {
     getTotalResults,
     getCardsByName,
     getCardByID,
+    getRandomCard,
 };

@@ -50,4 +50,9 @@ const getCardByID = async (req, res) => {
     }
 };
 
-export { search, getCardByID };
+const getRandomCard = async (_, res) => {
+    const results = await SearchService.getRandomCard();
+    res.status(HttpStatus.OK).json(results);
+};
+
+export { search, getCardByID, getRandomCard };

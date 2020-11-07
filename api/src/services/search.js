@@ -37,7 +37,13 @@ const getCardByID = async (id) => {
     return result;
 };
 
+const getRandomCard = async () => {
+    const [result] = await SearchRepository.getRandomCard();
+    return result;
+};
+
 export default {
     search,
     getCardByID,
+    getRandomCard,
 };
