@@ -39,7 +39,7 @@ const getCardByID = async (id) => {
 
 const getRandomCard = async () => {
     const [result] = await SearchRepository.getRandomCard();
-    return result;
+    return result[0];
 };
 
 export default {
