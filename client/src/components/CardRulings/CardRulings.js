@@ -1,5 +1,5 @@
 import React from 'react';
-import CardSection from '../CardSection';
+import CardRuling from './CardRuling';
 import './CardRulings.scss';
 
 const CardRulings = props => {
@@ -8,12 +8,7 @@ const CardRulings = props => {
     return rulings.length > 0 ? (
         <div className='CardRulings'>
             {rulings.map(ruling => {
-                return (
-                    <CardSection key={ruling.id} className='CardRulings-ruling'>
-                        <div className='CardSection-rowItem CardRulings-comment'>{ruling.comment}</div>
-                        <div className='CardSection-rowItem CardRulings-publishedAt'>{ruling.published_at}</div>
-                    </CardSection>
-                );
+                return <CardRuling key={ruling.id} comment={ruling.comment} publishedAt={ruling.published_at} />;
             })}
         </div>
     ) : null;
