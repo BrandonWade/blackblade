@@ -8,8 +8,14 @@
     margin-top: 4rem;
     padding: 2.5rem 0;
 
-    @media only screen and (max-width: 37.5em) {
+    @media only screen and (max-width: 75em) {
         width: 100%;
+        padding: 1.5rem;
+        margin-top: 0rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media only screen and (max-width: 37.5em) {
         padding: 1.5rem;
         margin-top: 0rem;
         grid-template-columns: repeat(1, 1fr);
