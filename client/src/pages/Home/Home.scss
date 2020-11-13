@@ -5,7 +5,9 @@
     background-color: var(--color-primary);
 
     &-content {
-        width: 35vw;
+        width: 50%;
+        max-width: 50rem;
+        min-width: 35rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -14,6 +16,7 @@
 
         @media only screen and (max-width: 37.5em) {
             width: 80%;
+            min-width: 0;
             top: 0;
         }
     }

@@ -5,7 +5,10 @@
 
     &-form {
         width: 30vw;
+        max-width: 40rem;
         height: 20vh;
+        min-height: 12rem;
+        max-height: 20rem;
         padding: 2rem;
         border: var(--line);
         display: flex;
@@ -21,6 +24,12 @@
             height: 40vh;
         }
 
+        @media only screen and (max-width: 56.25em) {
+            top: 0;
+            width: 50vw;
+            height: 30vh;
+        }
+
         @media only screen and (max-width: 37.5em) {
             width: 90vw;
             height: 30vh;
@@ -31,6 +40,7 @@
         font-size: 1.4rem;
         padding: 0 0.5rem;
         height: 3rem;
+        min-height: 3rem;
     }
 
     &-createButton {
