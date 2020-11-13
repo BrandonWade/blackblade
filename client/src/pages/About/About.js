@@ -19,7 +19,8 @@ const About = () => {
                     <h3 className='About-sectionHeading'>Scryfall</h3>
                     <p className='About-sectionText'>
                         Blackblade uses <a href='https://scryfall.com/'>Scryfall</a> as the source of it's data and images. Blackblade is in no way
-                        approved, endorsed, or related to Scryfall. Please go and support them - this website cannot exist without Scryfall.
+                        approved by, endorsed by, or related to Scryfall. Please go and support them and the work they do - this website cannot exist
+                        without them.
                     </p>
                 </section>
                 <section className='About-section'>

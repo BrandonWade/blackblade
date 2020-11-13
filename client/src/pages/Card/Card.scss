@@ -8,7 +8,11 @@
         padding: 1.5rem;
         background-color: var(--color-primary);
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 75em) {
+            grid-template-columns: max-content 35% 25%;
+        }
+
+        @media only screen and (max-width: 56.25em) {
             height: auto;
             grid-template-columns: none;
             grid-row-gap: 2rem;
