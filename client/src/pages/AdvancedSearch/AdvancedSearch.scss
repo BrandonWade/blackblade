@@ -3,20 +3,22 @@
     justify-content: center;
     padding: 4rem 2rem;
 
-    @media only screen and (max-width: 37.5em) {
+    @media only screen and (max-width: 52.125em) {
         padding: 1.5rem;
     }
 
     &-content {
         width: 80%;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 52.125em) {
             width: 100%;
         }
     }
 
     &-form {
-        @media only screen and (max-width: 37.5em) {
+        margin-bottom: 3rem;
+
+        @media only screen and (max-width: 52.125em) {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -27,7 +29,7 @@
         display: flex;
         align-items: center;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 52.125em) {
             display: block;
         }
 
@@ -36,7 +38,7 @@
             padding-bottom: 2rem;
             border-bottom: var(--line-transparent);
 
-            @media only screen and (max-width: 37.5em) {
+            @media only screen and (max-width: 52.125em) {
                 margin-bottom: 0;
                 border-bottom: none;
             }
@@ -48,7 +50,8 @@
         font-size: 1.6rem;
         margin-right: 2rem;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 52.125em) {
+            display: block;
             font-size: 1.4rem;
         }
     }
@@ -58,10 +61,11 @@
         font-size: 1.6rem;
         padding: 1rem 0.75rem;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 52.125em) {
             margin-top: 0.5rem;
             font-size: 1.4rem;
             padding: 0.75rem;
+            max-width: none;
         }
     }
 
@@ -72,7 +76,7 @@
         display: flex;
         justify-content: space-between;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 52.125em) {
             flex-direction: column;
             margin-top: 0.5rem;
             align-items: flex-start;
@@ -83,7 +87,7 @@
         width: auto;
         margin-right: 0.75rem;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 52.125em) {
             margin-top: 0.5rem;
         }
     }
@@ -93,7 +97,7 @@
         top: 0.3rem;
         margin-right: 0.5rem;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 52.125em) {
             margin-right: 0.75rem;
 
             & > .CardSymbol {
@@ -106,7 +110,7 @@
     &-searchButton {
         margin-top: 5rem;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 52.125em) {
             display: flex;
             justify-content: center;
         }
