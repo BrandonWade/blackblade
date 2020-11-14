@@ -39,9 +39,11 @@
             padding: 0;
             grid-template-columns: repeat(4, 1fr);
 
+            @media only screen and (max-width: 52.125em) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
             @media only screen and (max-width: 37.5em) {
-                width: 100%;
-                padding: 0.25rem;
                 grid-template-columns: repeat(2, 1fr);
             }
         }
