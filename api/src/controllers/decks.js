@@ -7,8 +7,10 @@ const createDeck = async (req, res) => {
 
     const result = await DeckService.createDeck(accountID, name);
     if (!result.deck_uri) {
-        console.error('error getting deck id'); // TODO: Handle
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+            errors: { msg: 'error creating new deck' },
+        });
+
         return;
     }
 

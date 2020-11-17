@@ -22,8 +22,4 @@ export const addColourCondition = (builder, colours) => {
     diffColours.forEach((colour) =>
         builder.where(colourMap[colour], '=', false),
     );
-
-    console.log('COLOURS', colours);
-    console.log('DIFF COLOURS', diffColours);
-    console.log(builder.toString());
 };
