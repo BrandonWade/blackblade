@@ -57,7 +57,7 @@ const saveDeck = async (deckID, deck) => {
         );
         await conn.commit();
     } catch (e) {
-        console.error(e); // TODO: Handle
+        console.error('error saving deck:', e);
     }
 
     await conn.release();

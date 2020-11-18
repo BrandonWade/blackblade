@@ -5,25 +5,28 @@ const createDeck = async (req, res) => {
     const accountID = 0; // TODO: Get from session
     const name = req.body.name || 'Untitled Deck';
 
-    const result = await DeckService.createDeck(accountID, name);
-    if (!result.deck_uri) {
+    try {
+        const result = await DeckService.createDeck(accountID, name);
+        res.status(HttpStatus.OK).json(result);
+    } catch (e) {
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-            errors: { msg: 'error creating new deck' },
+            errors: [{ msg: 'error creating new deck' }],
         });
-
-        return;
     }
-
-    res.status(HttpStatus.OK).json(result);
 };
 
 const saveDeck = async (req, res) => {
     const publicID = req.params['publicID'];
     const cards = req.body || [];
 
-    await DeckService.saveDeck(publicID, cards);
-
-    res.status(HttpStatus.OK).send();
+    try {
+        await DeckService.saveDeck(publicID, cards);
+        res.status(HttpStatus.OK).send();
+    } catch (e) {
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+            errors: [{ msg: 'error saving deck' }],
+        });
+    }
 };
 
 const getDeck = async (req, res) => {
