@@ -4,15 +4,17 @@ const createDeck = async (accountID, name) => {
     const [createResult] = await DeckRepository.createDeck(accountID, name);
     const deckID = createResult.insertId || 0;
     if (!deckID) {
-        console.error('create deck: error creating deck'); // TODO: Handle
-        return;
+        const err = 'create deck: error creating deck';
+        console.error(err);
+        throw err;
     }
 
     const [deckResult] = await DeckRepository.getPublicIDByID(deckID);
     const deckPublicID = deckResult?.[0].public_id || 0;
     if (!deckPublicID) {
-        console.error('create deck: error getting public id'); // TODO: Handle
-        return;
+        const err = 'create deck: error getting public id';
+        console.error(err);
+        throw err;
     }
 
     return {
@@ -24,14 +26,16 @@ const saveDeck = async (publicID, deck) => {
     const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
     const deckID = deckIDResult?.[0].id || 0;
     if (!deckID) {
-        console.error('save deck: error getting deck id'); // TODO: Handle
-        return;
+        const err = 'save deck: error getting deck id';
+        console.error(err);
+        throw err;
     }
 
     const saveResult = await DeckRepository.saveDeck(deckID, deck);
     if (!saveResult) {
-        console.error('save deck: error saving deck'); // TODO: Handle
-        return;
+        const err = 'save deck: error saving deck';
+        console.error(err);
+        throw err;
     }
 
     return;
