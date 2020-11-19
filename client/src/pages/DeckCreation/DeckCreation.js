@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import useDeck from '../../hooks/useDeck';
+import useErrors from '../../hooks/useErrors';
 import DeckBuilderContext from '../../contexts/DeckBuilderContext';
 import HeaderPage from '../../components/HeaderPage';
 import Input from '../../components/Input';
@@ -10,6 +11,7 @@ import './DeckCreation.scss';
 const DeckCreation = () => {
     const history = useHistory();
     const { createDeck } = useDeck();
+    const { addErrors } = useErrors();
     const { deckName, setDeckName } = useContext(DeckBuilderContext);
 
     const onChange = e => {
@@ -21,7 +23,7 @@ const DeckCreation = () => {
 
         const response = await createDeck(deckName);
         if (!response.success) {
-            console.error(response.errors); // TODO: Handle
+            addErrors(response.errors);
             return;
         }
 

@@ -1,19 +1,20 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import useSearch from '../../hooks/useSearch';
+import useSearch from '../useSearch';
+import useErrors from '../useErrors';
 import CardContext from '../../contexts/CardContext';
 import SearchContext from '../../contexts/SearchContext';
 
 const useDisplayResults = () => {
     const history = useHistory();
     const { getParamString } = useSearch();
+    const { addErrors } = useErrors();
     const { setCard } = useContext(CardContext);
     const { setTotalResults, setSearchResults, setNumberOfPages } = useContext(SearchContext);
 
     const displayResults = (response = {}, params = {}, redirect = true, redirectForSingleResult = true) => {
         if (!response.success) {
-            // TODO: Implement proper error handling
-            console.error(response.errors);
+            addErrors(response.errors);
             return;
         }
 
