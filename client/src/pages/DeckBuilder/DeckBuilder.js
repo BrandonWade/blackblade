@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import useDeck from '../../hooks/useDeck';
+import useErrors from '../../hooks/useErrors';
 import DeckBuilderContext from '../../contexts/DeckBuilderContext';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
 import DeckStats from '../../components/DeckStats';
@@ -12,6 +13,7 @@ import './DeckBuilder.scss';
 const DeckBuilder = () => {
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDeck();
+    const { addErrors } = useErrors();
     const { deckName, setDeckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards } = useContext(DeckBuilderContext);
     const unmodified = isEqual(deckCards, unmodifiedDeckCards);
 
@@ -19,7 +21,7 @@ const DeckBuilder = () => {
         const fetchDeckCards = async () => {
             const result = await getDeck(publicID);
             if (!result.success) {
-                console.error(result.errors); // TODO: Handle
+                addErrors(result.errors);
                 return;
             }
 
@@ -36,7 +38,7 @@ const DeckBuilder = () => {
     const onSaveDeck = async () => {
         const result = await saveDeck(publicID, deckCards);
         if (!result.success) {
-            console.error(result.errors); // TODO: Handle
+            addErrors(result.errors);
             return;
         }
 
