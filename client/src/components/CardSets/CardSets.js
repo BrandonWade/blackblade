@@ -7,7 +7,7 @@ const CardSets = ({ cardSets = [], selectedSetIndex = 0, setSelectedSetIndex = (
         setSelectedSetIndex(index);
     };
 
-    return (
+    return cardSets.length > 0 ? (
         <CardSection className='CardSets'>
             <ul className='CardSets-list'>
                 {cardSets.map((set, i) => {
@@ -20,13 +20,13 @@ const CardSets = ({ cardSets = [], selectedSetIndex = 0, setSelectedSetIndex = (
                             onClick={() => onSelectSet(i)}
                         >
                             <span>{set.set_name}</span>
-                            <span>{set.price ? `$${set.price}`: null}</span>
+                            <span>{set.price ? `$${set.price}` : null}</span>
                         </li>
                     );
                 })}
             </ul>
         </CardSection>
-    );
+    ) : null;
 };
 
 export default CardSets;
