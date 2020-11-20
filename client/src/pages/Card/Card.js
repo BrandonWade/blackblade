@@ -4,6 +4,7 @@ import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import CardContext from '../../contexts/CardContext';
 import HeaderPage from '../../components/HeaderPage';
+import NoResults from '../../components/NoResults';
 import CardImage from '../../components/CardImage';
 import CardFace from '../../components/CardFace';
 import CardSets from '../../components/CardSets';
@@ -12,17 +13,18 @@ import './Card.scss';
 
 const Card = () => {
     const { id } = useParams();
+    const { getCardByID } = useSearch();
+    const { displayResults } = useDisplayResults();
     const { card } = useContext(CardContext);
+    const [displayNotFound, setDisplayNotFound] = useState(false);
     const [selectedSetIndex, setSelectedSetIndex] = useState(0);
     const selectedSet = card?.sets_json?.[selectedSetIndex] || {};
     const cardFaces = selectedSet?.card_faces || [];
-    const { getCardByID } = useSearch();
-    const { displayResults } = useDisplayResults();
 
-    // TODO: Handle case where id in route is invalid (e.g. /cards/99999)
     const fetchCard = async () => {
         const response = await getCardByID(id);
         displayResults(response, {}, false);
+        setDisplayNotFound(response.results.length === 0);
     };
 
     useEffect(() => {
@@ -33,18 +35,24 @@ const Card = () => {
 
     return (
         <HeaderPage className='Card'>
-            <div className='Card-mainContent'>
-                <CardImage cardFaces={selectedSet.card_faces} layout={card.layout} />
-                <div>
-                    {cardFaces?.map(face => {
-                        return <CardFace key={face.face_id} face={face} />;
-                    })}
-                </div>
-                <CardSets cardSets={card.sets_json} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
-            </div>
-            <div className='Card-secondaryContent'>
-                <CardRulings rulings={card.rulings_json} />
-            </div>
+            {displayNotFound ? (
+                <NoResults />
+            ) : (
+                <>
+                    <div className='Card-mainContent'>
+                        <CardImage cardFaces={selectedSet.card_faces} layout={card.layout} />
+                        <div>
+                            {cardFaces?.map(face => {
+                                return <CardFace key={face.face_id} face={face} />;
+                            })}
+                        </div>
+                        <CardSets cardSets={card.sets_json} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
+                    </div>
+                    <div className='Card-secondaryContent'>
+                        <CardRulings rulings={card.rulings_json} />
+                    </div>
+                </>
+            )}
         </HeaderPage>
     );
 };

@@ -1,0 +1,40 @@
+.NoResults {
+    display: flex;
+    justify-content: center;
+
+    &-content {
+        margin-top: 15rem;
+        opacity: 0.35;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &-icon {
+        fill: #fff;
+        display: block;
+        width: 20rem;
+        height: 20rem;
+
+        @media only screen and (max-width: 37.5em) {
+            width: 15rem;
+            height: 15rem;
+        }
+    }
+
+    &-primaryLabel,
+    &-secondaryLabel {
+        text-align: center;
+    }
+
+    &-primaryLabel {
+        margin-top: 2rem;
+        font-size: 2.75rem;
+        font-weight: 700;
+    }
+
+    &-secondaryLabel {
+        margin-top: 0.5rem;
+        font-size: 1.5rem;
+    }
+}
