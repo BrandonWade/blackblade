@@ -95,7 +95,6 @@ const SearchResults = props => {
         }
     }, [urlName, urlText, urlType, urlWhite, urlBlue, urlBlack, urlRed, urlGreen, urlPage]);
 
-    // TODO: Handle case where &page > max pages (e.g. ?name=dragon&page=6)
     const fetchResults = async (params = {}) => {
         const response = await advancedSearch(params);
         displayResults(response, params, false);
