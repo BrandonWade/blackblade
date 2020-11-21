@@ -8,6 +8,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        @media only screen and (max-width: 37.5em) {
+            margin-top: 10rem;
+        }
     }
 
     &-icon {
