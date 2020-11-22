@@ -24,9 +24,7 @@ const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect 
     return (
         <div className={`PaginatedResults-content ${className}`}>
             <Paginator className='PaginatedResults-paginator' onPageChange={onPageChange} />
-            {searchResults.length === 0 ? (
-                <NoResults />
-            ) : (
+            <NoResults showMessage={searchResults.length === 0}>
                 <div className='PaginatedResults-results'>
                     {searchResults.map(card => {
                         const cardFace = card?.sets_json?.[0]?.card_faces?.[0];
@@ -41,7 +39,7 @@ const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect 
                         );
                     })}
                 </div>
-            )}
+            </NoResults>
         </div>
     );
 };
