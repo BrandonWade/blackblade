@@ -5,6 +5,7 @@ import useDeck from '../../hooks/useDeck';
 import useErrors from '../../hooks/useErrors';
 import DeckBuilderContext from '../../contexts/DeckBuilderContext';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
+import DeckActions from '../../components/DeckActions';
 import DeckStats from '../../components/DeckStats';
 import DeckTable from '../../components/DeckList/DeckTable';
 import Button from '../../components/Button';
@@ -58,6 +59,7 @@ const DeckBuilder = () => {
                         Save
                     </Button>
                 </div>
+                <DeckActions />
                 <div className='DeckBuilder-tableContainer'>
                     <DeckStats deck={deckCards} />
                     <DeckTable deckCards={deckCards} setDeckCards={setDeckCards} />

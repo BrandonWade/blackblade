@@ -1,0 +1,47 @@
+.DeckActions {
+    display: flex;
+    padding: 0 0.5rem 0.5rem;
+    font-size: 1.4rem;
+    background-color: var(--color-primary-dark);
+    border-bottom: var(--line);
+
+    @media only screen and (max-width: 37.5em) {
+        border-top: var(--line);
+        padding: 0.25rem 0.5rem;
+        font-size: 1.2rem;
+    }
+
+    &-button {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: 0.2s all;
+
+        @media only screen and (max-width: 37.5em) {
+            padding: 0.25rem 0.5rem;
+        }
+
+        &:hover {
+            background-color: var(--color-primary-lighter);
+        }
+
+        &:not(:last-child) {
+            margin-right: 2rem;
+        }
+
+        & > .Icon {
+            width: 1.6rem;
+            height: 1.6rem;
+        }
+    }
+
+    &-renameDeck {
+        fill: var(--color-primary-text);
+    }
+
+    &-buttonLabel {
+        margin-left: 0.5rem;
+    }
+}
