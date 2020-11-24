@@ -37,7 +37,7 @@ const DeckBuilder = () => {
     }, []);
 
     const onSaveDeck = async () => {
-        const result = await saveDeck(publicID, deckCards);
+        const result = await saveDeck(publicID, deckName, deckCards);
         if (!result.success) {
             addErrors(result.errors);
             return;

@@ -17,10 +17,11 @@ const createDeck = async (req, res) => {
 
 const saveDeck = async (req, res) => {
     const publicID = req.params['publicID'];
-    const cards = req.body || [];
+    const name = req.body?.name || '';
+    const cards = req.body?.cards || [];
 
     try {
-        await DeckService.saveDeck(publicID, cards);
+        await DeckService.saveDeck(publicID, name, cards);
         res.status(HttpStatus.OK).send();
     } catch (e) {
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

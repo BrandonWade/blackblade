@@ -24,18 +24,18 @@ const useDeck = (headers = {}) => {
         }
     };
 
-    const saveDeck = async (publicID = '', deck = []) => {
+    const saveDeck = async (publicID = '', name = '', deck = []) => {
+        const cards = deck.map(card => ({ count: card.count, card_id: card.card_id }));
         const response = await fetch(`/api/decks/${publicID}`, {
             method: 'PUT',
             headers: {
                 ...headers,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(
-                deck.map(card => {
-                    return { count: card.count, card_id: card.card_id };
-                })
-            ),
+            body: JSON.stringify({
+                name,
+                cards,
+            }),
         });
 
         switch (response.status) {

@@ -55,6 +55,16 @@ const saveDeck = async (deckID, deck) => {
         `,
             [deckID, deck.map((c) => c.card_id)],
         );
+
+        // Update the deck name
+        await conn.query(
+            `UPDATE decks
+            SET name = ?
+            WHERE deck_id = ?
+        `,
+            [name, deckID],
+        );
+
         await conn.commit();
     } catch (e) {
         console.error('error saving deck:', e);

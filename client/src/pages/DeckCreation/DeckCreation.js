@@ -8,7 +8,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import './DeckCreation.scss';
 
-const DeckCreation = () => {
+const DeckCreation = ({ editing = false }) => {
     const history = useHistory();
     const { createDeck } = useDeck();
     const { addErrors } = useErrors();
@@ -21,10 +21,14 @@ const DeckCreation = () => {
     const onSubmit = async e => {
         e.preventDefault();
 
-        const response = await createDeck(deckName);
-        if (!response.success) {
-            addErrors(response.errors);
-            return;
+        if (!editing) {
+            const response = await createDeck(deckName);
+            if (!response.success) {
+                addErrors(response.errors);
+                return;
+            }
+        } else {
+            // TODO: Implement
         }
 
         history.push(response.deckURI);

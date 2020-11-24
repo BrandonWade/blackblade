@@ -59,7 +59,7 @@ const App = () => {
                                 <Route path='/advanced' component={AdvancedSearch} />
                                 <Route path='/cards/search' exact component={SearchResults} />
                                 <Route path='/cards/:id' component={Card} />
-                                <Route path='/decks' exact component={DeckCreation} />
+                                <Route path='/decks' exact render={props => <DeckCreation {...props} />} />
                                 <Route path='/decks/:publicID' component={DeckBuilder} />
                                 <Redirect to='/' />
                             </Switch>
