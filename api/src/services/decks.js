@@ -22,7 +22,7 @@ const createDeck = async (accountID, name) => {
     };
 };
 
-const saveDeck = async (publicID, deck) => {
+const saveDeck = async (publicID, name, deck) => {
     const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
     const deckID = deckIDResult?.[0].id || 0;
     if (!deckID) {
@@ -31,7 +31,7 @@ const saveDeck = async (publicID, deck) => {
         throw err;
     }
 
-    const saveResult = await DeckRepository.saveDeck(deckID, deck);
+    const saveResult = await DeckRepository.saveDeck(deckID, name, deck);
     if (!saveResult) {
         const err = 'save deck: error saving deck';
         console.error(err);
