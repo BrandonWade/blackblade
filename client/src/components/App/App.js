@@ -25,12 +25,24 @@ const App = () => {
     const [card, setCard] = useState({});
     const [deckName, setDeckName] = useState('');
     const [deckCards, setDeckCards] = useState([]);
+    const [unmodifiedDeckName, setUnmodifiedDeckName] = useState('');
     const [unmodifiedDeckCards, setUnmodifiedDeckCards] = useState([]);
     const [errors, setErrors] = useState([]);
 
     return (
         <ErrorContext.Provider value={{ errors, setErrors }}>
-            <DeckBuilderContext.Provider value={{ deckName, setDeckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards }}>
+            <DeckBuilderContext.Provider
+                value={{
+                    deckName,
+                    setDeckName,
+                    deckCards,
+                    setDeckCards,
+                    unmodifiedDeckName,
+                    setUnmodifiedDeckName,
+                    unmodifiedDeckCards,
+                    setUnmodifiedDeckCards,
+                }}
+            >
                 <SearchContext.Provider
                     value={{
                         name,
@@ -59,8 +71,9 @@ const App = () => {
                                 <Route path='/advanced' component={AdvancedSearch} />
                                 <Route path='/cards/search' exact component={SearchResults} />
                                 <Route path='/cards/:id' component={Card} />
-                                <Route path='/decks' exact render={props => <DeckCreation {...props} />} />
-                                <Route path='/decks/:publicID' component={DeckBuilder} />
+                                <Route path='/decks' exact render={props => <DeckCreation {...props} editing={false} />} />
+                                <Route path='/decks/:publicID' exact component={DeckBuilder} />
+                                <Route path='/decks/:publicID/edit' exact render={props => <DeckCreation {...props} editing={true} />} />
                                 <Redirect to='/' />
                             </Switch>
                         </BrowserRouter>

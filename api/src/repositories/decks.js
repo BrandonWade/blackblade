@@ -26,7 +26,7 @@ const getPublicIDByID = async (deckID) => {
     );
 };
 
-const saveDeck = async (deckID, deck) => {
+const saveDeck = async (deckID, name, deck) => {
     const conn = await connection.getConnection();
     await conn.beginTransaction();
 
@@ -60,7 +60,7 @@ const saveDeck = async (deckID, deck) => {
         await conn.query(
             `UPDATE decks
             SET name = ?
-            WHERE deck_id = ?
+            WHERE id = ?
         `,
             [name, deckID],
         );
