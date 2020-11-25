@@ -15,11 +15,20 @@ const DeckBuilder = () => {
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDeck();
     const { addErrors } = useErrors();
-    const { deckName, setDeckName, deckCards, setDeckCards, unmodifiedDeckCards, setUnmodifiedDeckCards } = useContext(DeckBuilderContext);
-    const unmodified = isEqual(deckCards, unmodifiedDeckCards);
+    const {
+        deckName,
+        setDeckName,
+        deckCards,
+        setDeckCards,
+        unmodifiedDeckName,
+        setUnmodifiedDeckName,
+        unmodifiedDeckCards,
+        setUnmodifiedDeckCards,
+    } = useContext(DeckBuilderContext);
+    const unmodified = isEqual(deckCards, unmodifiedDeckCards) && isEqual(deckName, unmodifiedDeckName);
 
     useEffect(() => {
-        const fetchDeckCards = async () => {
+        const fetchDeck = async () => {
             const result = await getDeck(publicID);
             if (!result.success) {
                 addErrors(result.errors);
@@ -28,11 +37,12 @@ const DeckBuilder = () => {
 
             setDeckName(result.name);
             setDeckCards(result.cards);
+            setUnmodifiedDeckName(result.name);
             setUnmodifiedDeckCards(result.cards);
         };
 
         if (unmodified) {
-            fetchDeckCards();
+            fetchDeck();
         }
     }, []);
 
@@ -44,6 +54,7 @@ const DeckBuilder = () => {
         }
 
         // Once changes to the deck have been saved, update the unmodified state
+        setUnmodifiedDeckName(deckName);
         setUnmodifiedDeckCards(deckCards);
     };
 

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import useDeck from '../../hooks/useDeck';
 import useErrors from '../../hooks/useErrors';
 import DeckBuilderContext from '../../contexts/DeckBuilderContext';
@@ -10,6 +10,7 @@ import './DeckCreation.scss';
 
 const DeckCreation = ({ editing = false }) => {
     const history = useHistory();
+    const { publicID } = useParams();
     const { createDeck } = useDeck();
     const { addErrors } = useErrors();
     const { deckName, setDeckName } = useContext(DeckBuilderContext);
@@ -21,24 +22,30 @@ const DeckCreation = ({ editing = false }) => {
     const onSubmit = async e => {
         e.preventDefault();
 
+        let redirect = '/';
+
         if (!editing) {
             const response = await createDeck(deckName);
             if (!response.success) {
                 addErrors(response.errors);
                 return;
             }
+
+            redirect = response.deckURI;
         } else {
             // TODO: Implement
+
+            redirect = `/decks/${publicID}`;
         }
 
-        history.push(response.deckURI);
+        history.push(redirect);
     };
 
     return (
         <HeaderPage className='DeckCreation'>
             <form className='DeckCreation-form' onSubmit={onSubmit}>
                 <Input className='DeckCreation-deckName' placeholder='Deck Name (optional)' value={deckName} onChange={onChange} />
-                <Button className='DeckCreation-createButton'>Create</Button>
+                <Button className='DeckCreation-createButton'>{`${editing ? 'Update' : 'Create'}`}</Button>
             </form>
         </HeaderPage>
     );
