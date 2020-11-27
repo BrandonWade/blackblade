@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import CardContext from '../../contexts/CardContext';
 import DeckRowManaCost from './DeckRowManaCost';
 import Input from '../../components/Input';
+import { Images } from '../Icons';
 
 const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) => {
     const history = useHistory();
@@ -13,6 +14,10 @@ const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) =
     const onCountChange = e => {
         setCount(e.target.value);
         updateCount(card.card_id, e.target.value);
+    };
+
+    const onSelectArt = e => {
+        // TODO: Implement
     };
 
     const onLinkClick = () => {
@@ -28,6 +33,9 @@ const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) =
         <tr key={card.card_id} className='DeckTable-cardRow'>
             <td className='DeckTable-count'>
                 <Input className='DeckTable-input' value={count} onChange={onCountChange} />
+            </td>
+            <td className='DeckTable-selectArt' onClick={onSelectArt}>
+                <Images className='DeckTable-selectArtIcon' />
             </td>
             <td className='DeckTable-manaCosts'>
                 {cardFaces.map((face, i) => (

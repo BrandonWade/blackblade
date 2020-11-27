@@ -28,6 +28,26 @@
         text-align: center;
     }
 
+    &-selectArt {
+        width: 4rem;
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background-color: var(--color-primary-lighter);
+        }
+    }
+
+    &-selectArtIcon {
+        fill: var(--color-primary-text);
+        opacity: 0.5;
+        display: block;
+        width: 2rem;
+        height: 2rem;
+    }
+
     &-manaCosts {
         text-align: right;
     }
