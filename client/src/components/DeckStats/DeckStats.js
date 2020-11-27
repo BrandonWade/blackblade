@@ -1,9 +1,17 @@
 import React from 'react';
-import { sumBy, sum } from 'lodash';
+import { sumBy, sum, head, sortBy } from 'lodash';
 import './DeckStats.scss';
 
 const DeckStats = ({ deck = [] }) => {
     let stats = [];
+
+    const estimatedPrice = () => {
+        const price = sumBy(deck, card => {
+            const lowest = head(sortBy(card.sets_json, set => set.price));
+            return parseFloat(lowest.price) || 0;
+        });
+        stats = stats.concat({ label: 'Estimated Price', value: `$${price.toFixed(2)}` });
+    };
 
     const totalCards = () => {
         const total = sumBy(deck, card => card.count || 0);
@@ -138,6 +146,7 @@ const DeckStats = ({ deck = [] }) => {
         }
     };
 
+    estimatedPrice();
     totalCards();
     averageCMC();
     totalCreatures();
