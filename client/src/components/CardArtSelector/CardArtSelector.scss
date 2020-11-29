@@ -1,0 +1,17 @@
+.CardArtSelector {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    &-content {
+        width: calc(100% - 8rem);
+        height: calc(100% - 8rem);
+        margin: 4rem;
+        background-color: var(--color-primary-dark);
+    }
+}
