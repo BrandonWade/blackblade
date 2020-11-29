@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import CardContext from '../../contexts/CardContext';
+import CardArtSelectorContext from '../../contexts/CardArtSelectorContext';
 import DeckRowManaCost from './DeckRowManaCost';
 import Input from '../../components/Input';
 import { Images } from '../Icons';
@@ -8,6 +9,7 @@ import { Images } from '../Icons';
 const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) => {
     const history = useHistory();
     const { setCard } = useContext(CardContext);
+    const { setArtSelectorVisible } = useContext(CardArtSelectorContext);
     const cardFaces = card?.sets_json?.[0]?.card_faces;
     const [count, setCount] = useState(card.count);
 
@@ -18,7 +20,7 @@ const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) =
 
     const onSelectArt = e => {
         setCard(card);
-        // TODO: Implement
+        setArtSelectorVisible(true);
     };
 
     const onLinkClick = () => {
