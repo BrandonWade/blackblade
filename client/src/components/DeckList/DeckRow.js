@@ -17,6 +17,7 @@ const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) =
     };
 
     const onSelectArt = e => {
+        setCard(card);
         // TODO: Implement
     };
 
