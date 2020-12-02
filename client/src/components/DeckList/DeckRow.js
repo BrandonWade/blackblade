@@ -37,9 +37,9 @@ const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) =
             <td className='DeckTable-count'>
                 <Input className='DeckTable-input' value={count} onChange={onCountChange} />
             </td>
-            <td className='DeckTable-selectArt' onClick={onSelectArt}>
+            {/* <td className='DeckTable-selectArt' onClick={onSelectArt}>
                 <Images className='DeckTable-selectArtIcon' />
-            </td>
+            </td> */}
             <td className='DeckTable-manaCosts'>
                 {cardFaces.map((face, i) => (
                     <DeckRowManaCost key={i} manaCost={face.mana_cost} />
