@@ -8,7 +8,7 @@ const DeckStats = ({ deck = [] }) => {
     const estimatedPrice = () => {
         const price = sumBy(deck, card => {
             const lowest = head(sortBy(card.sets_json, set => set.price));
-            return parseFloat(lowest.price) || 0;
+            return (parseFloat(lowest.price) || 0) * card.count;
         });
         stats = stats.concat({ label: 'Estimated Price', value: `$${price.toFixed(2)}` });
     };
