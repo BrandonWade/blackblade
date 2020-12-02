@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from '../Button';
 import './Menu.scss';
 
+// TODO: Refactor components to be more generic and reusable
 const Menu = ({ menuOpen = false, setMenuOpen = () => {} }) => {
     return (
         <>
