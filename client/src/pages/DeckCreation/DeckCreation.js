@@ -33,8 +33,6 @@ const DeckCreation = ({ editing = false }) => {
 
             redirect = response.deckURI;
         } else {
-            // TODO: Implement
-
             redirect = `/decks/${publicID}`;
         }
 

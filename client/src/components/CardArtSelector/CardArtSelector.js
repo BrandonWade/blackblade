@@ -4,6 +4,7 @@ import CardContext from '../../contexts/CardContext';
 import Button from '../Button';
 import './CardArtSelector.scss';
 
+// TODO: Refactor to use Overlay component
 const CardArtSelector = () => {
     const { artSelectorVisible, setArtSelectorVisible } = useContext(CardArtSelectorContext);
     const { card } = useContext(CardContext);

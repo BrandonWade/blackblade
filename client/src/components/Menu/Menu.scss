@@ -50,46 +50,6 @@
         position: absolute;
     }
 
-    &--closed {
-        display: none;
-    }
-
-    &-closeButton {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        width: 2.5rem;
-        height: 2.5rem;
-        border: none;
-        background-color: transparent;
-
-        &:enabled:hover {
-            background-color: transparent;
-        }
-    }
-
-    &-closeIcon::before {
-        top: 1.3rem;
-        right: -0.4rem;
-        transform: rotate(45deg);
-    }
-
-    &-closeIcon::after {
-        top: 1.3rem;
-        right: -0.4rem;
-        transform: rotate(-45deg);
-    }
-
-    &-closeIcon::before,
-    &-closeIcon::after {
-        content: '';
-        width: 3.5rem;
-        display: inline-block;
-        background-color: rgba(118, 118, 118, 1);
-        height: 0.2rem;
-        position: absolute;
-    }
-
     &-links {
         list-style: none;
         position: relative;

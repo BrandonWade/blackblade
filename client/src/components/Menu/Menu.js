@@ -1,19 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Overlay from '../Overlay';
 import Button from '../Button';
 import './Menu.scss';
 
-// TODO: Refactor components to be more generic and reusable
 const Menu = ({ menuOpen = false, setMenuOpen = () => {} }) => {
     return (
         <>
             <Button className='Menu-openButton' onClick={() => setMenuOpen(true)}>
                 <span className='Menu-openIcon' />
             </Button>
-            <div className={`Menu ${menuOpen ? '' : 'Menu--closed'}`}>
-                <Button className='Menu-closeButton' onClick={() => setMenuOpen(false)}>
-                    <span className='Menu-closeIcon'></span>
-                </Button>
+            <Overlay visible={menuOpen} setVisible={setMenuOpen}>
                 <ul className='Menu-links'>
                     <li className='Menu-link' onClick={() => setMenuOpen(false)}>
                         <Link to='/'>Home</Link>
@@ -28,7 +25,7 @@ const Menu = ({ menuOpen = false, setMenuOpen = () => {} }) => {
                         <Link to='/About'>About</Link>
                     </li>
                 </ul>
-            </div>
+            </Overlay>
         </>
     );
 };
