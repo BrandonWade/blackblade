@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import CardArtSelectorContext from '../../contexts/CardArtSelectorContext';
 import CardContext from '../../contexts/CardContext';
-import Button from '../Button';
+import Overlay from '../Overlay';
 import './CardArtSelector.scss';
 
-// TODO: Refactor to use Overlay component
 const CardArtSelector = () => {
     const { artSelectorVisible, setArtSelectorVisible } = useContext(CardArtSelectorContext);
     const { card } = useContext(CardContext);
@@ -12,10 +11,7 @@ const CardArtSelector = () => {
 
     return artSelectorVisible ? (
         <div className='CardArtSelector'>
-            <div className='CardArtSelector-content'>
-                <Button className='CardArtSelector-closeButton' onClick={() => setArtSelectorVisible(false)}>
-                    <span className='CardArtSelector-closeIcon'></span>
-                </Button>
+            <Overlay className='CardArtSelector-content' visible={true} setVisible={setArtSelectorVisible}>
                 {sets.map((set, i) => (
                     <img
                         key={i}
@@ -25,7 +21,7 @@ const CardArtSelector = () => {
                         onClick={() => console.log('TODO: Implement', set)}
                     />
                 ))}
-            </div>
+            </Overlay>
         </div>
     ) : null;
 };
