@@ -14,15 +14,6 @@ const CardArtSelector = () => {
         <div className='CardArtSelector'>
             <Overlay className='CardArtSelector-content' visible={true} setVisible={setArtSelectorVisible}>
                 <CardGrid cards={sets} onClick={() => console.log('TODO: Implement')} />
-                {/* {sets.map((set, i) => (
-                    <img
-                        key={i}
-                        src={set.card_faces[0].image}
-                        alt=''
-                        className='CardArtSelector-cardImage'
-                        onClick={}
-                    />
-                ))} */}
             </Overlay>
         </div>
     ) : null;
