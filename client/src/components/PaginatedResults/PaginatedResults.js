@@ -3,7 +3,7 @@ import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/SearchContext';
 import Paginator from '../../components/Paginator';
-import NoResults from '../NoResults';
+import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
 // TODO: Refactor into AJAX and non-AJAX versions
@@ -25,22 +25,7 @@ const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect 
     return (
         <div className={`PaginatedResults-content ${className}`}>
             <Paginator className='PaginatedResults-paginator' onPageChange={onPageChange} />
-            <NoResults showMessage={searchResults.length === 0}>
-                <div className='PaginatedResults-results'>
-                    {searchResults.map(card => {
-                        const cardFace = card?.sets_json?.[0]?.card_faces?.[0];
-                        return (
-                            <img
-                                key={card.card_id}
-                                src={cardFace.image || ''}
-                                alt={cardFace.name || ''}
-                                className='PaginatedResults-image'
-                                onClick={() => onSelectResult(card)}
-                            />
-                        );
-                    })}
-                </div>
-            </NoResults>
+            <CardGrid cards={searchResults} onClick={onSelectResult} />
         </div>
     );
 };

@@ -30,10 +30,6 @@
 
     &-selectArt {
         width: 4rem;
-        height: 3rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
 
         &:hover {
             background-color: var(--color-primary-lighter);
@@ -50,6 +46,8 @@
         display: block;
         width: 2rem;
         height: 2rem;
+        position: relative;
+        margin: 0 auto;
     }
 
     &-manaCosts {

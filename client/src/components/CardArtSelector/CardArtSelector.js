@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import CardArtSelectorContext from '../../contexts/CardArtSelectorContext';
 import CardContext from '../../contexts/CardContext';
 import Overlay from '../Overlay';
+import CardGrid from '../CardGrid';
 import './CardArtSelector.scss';
 
 const CardArtSelector = () => {
@@ -12,15 +13,16 @@ const CardArtSelector = () => {
     return artSelectorVisible ? (
         <div className='CardArtSelector'>
             <Overlay className='CardArtSelector-content' visible={true} setVisible={setArtSelectorVisible}>
-                {sets.map((set, i) => (
+                <CardGrid cards={sets} onClick={() => console.log('TODO: Implement')} />
+                {/* {sets.map((set, i) => (
                     <img
                         key={i}
                         src={set.card_faces[0].image}
                         alt=''
                         className='CardArtSelector-cardImage'
-                        onClick={() => console.log('TODO: Implement', set)}
+                        onClick={}
                     />
-                ))}
+                ))} */}
             </Overlay>
         </div>
     ) : null;

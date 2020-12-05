@@ -3,7 +3,6 @@ import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate } from '../Icons';
 import './CardImage.scss';
 
-// TODO: Refactor to be a simple image? Or possibly offer modes for displaying transform button
 const CardImage = ({ cardFaces = [], layout = '' }) => {
     const [flipped, setFlipped] = useState(false);
     const [rotatedCW, setRotatedCW] = useState(false);
