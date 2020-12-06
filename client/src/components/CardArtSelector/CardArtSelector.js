@@ -13,7 +13,7 @@ const CardArtSelector = () => {
     return artSelectorVisible ? (
         <div className='CardArtSelector'>
             <Overlay className='CardArtSelector-content' visible={true} setVisible={setArtSelectorVisible}>
-                <CardGrid cards={sets} onClick={() => console.log('TODO: Implement')} />
+                <CardGrid className='CardArtSelector-cardGrid' cards={sets} onClick={() => console.log('TODO: Implement')} />
             </Overlay>
         </div>
     ) : null;
