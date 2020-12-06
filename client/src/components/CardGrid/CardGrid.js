@@ -2,12 +2,12 @@ import React from 'react';
 import NoResults from '../NoResults';
 import './CardGrid.scss';
 
-const CardGrid = ({ cards = [], onClick = () => {} }) => {
+const CardGrid = ({ className = '', cards = [], onClick = () => {} }) => {
     return (
         <NoResults showMessage={cards.length === 0}>
-            <div className='CardGrid'>
+            <div className={`CardGrid ${className}`}>
                 {cards.map(card => {
-                    const cardFace = card?.sets_json?.[0]?.card_faces?.[0]; // TODO: Assumes a list of cards is passed in instead of a list of "card shaped images"
+                    const cardFace = card?.sets_json ? card?.sets_json?.[0]?.card_faces?.[0] : card.card_faces?.[0];
                     return (
                         <img
                             key={card.card_id}
