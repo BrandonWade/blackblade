@@ -24,9 +24,12 @@
 
         @media only screen and (max-width: 56.25em) {
             padding: 5rem 1rem;
+        }
 
-            & > .CardGrid {
-                height: 100%;
+        & > .CardGrid {
+            height: 100%;
+
+            @media only screen and (max-width: 56.25em) {
                 padding: 0;
                 grid-row-gap: 0.25rem;
                 grid-column-gap: 0.25rem;
