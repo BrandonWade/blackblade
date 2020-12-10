@@ -2,7 +2,7 @@ import React from 'react';
 import NoResults from '../NoResults';
 import './CardGrid.scss';
 
-const CardGrid = ({ className = '', cards = [], onClick = () => {} }) => {
+const CardGrid = ({ className = '', cards = [], currentCardID = 0, onClick = () => {} }) => {
     return (
         <NoResults showMessage={cards.length === 0}>
             <div className={`CardGrid ${className}`}>
@@ -13,7 +13,7 @@ const CardGrid = ({ className = '', cards = [], onClick = () => {} }) => {
                             key={card.card_id}
                             src={cardFace.image || ''}
                             alt={cardFace.name || ''}
-                            className='CardGrid-image'
+                            className={`CardGrid-image ${card.card_id === currentCardID ? 'CardGrid-selected' : ''}`}
                             onClick={() => onClick(card)}
                         />
                     );
