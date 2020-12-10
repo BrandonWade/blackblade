@@ -1,27 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CardSection from '../CardSection';
 import './CardSets.scss';
 
-const CardSets = ({ cardSets = [], selectedSetIndex = 0, setSelectedSetIndex = () => {} }) => {
-    const onSelectSet = index => {
-        setSelectedSetIndex(index);
-    };
-
+const CardSets = ({ cardSets = [], currentCardID = 0 }) => {
     return cardSets.length > 0 ? (
         <CardSection className='CardSets'>
             <ul className='CardSets-list'>
-                {cardSets.map((set, i) => {
-                    const selected = i === selectedSetIndex;
-
+                {cardSets.map(set => {
                     return (
-                        <li
-                            key={i}
-                            className={`CardSection-rowItem CardSets-listItem ${selected ? 'CardSets-selectedSet' : ''}`}
-                            onClick={() => onSelectSet(i)}
+                        <Link
+                            key={set.card_id}
+                            to={`/cards/${set.card_id}`}
+                            className={`CardSets-listItem CardSection-rowItem ${currentCardID === set.card_id ? 'CardSets-selectedSet' : ''}`}
                         >
-                            <span>{set.set_name}</span>
-                            <span>{set.price ? `$${set.price}` : null}</span>
-                        </li>
+                            <li className={'CardSets-rowContent'}>
+                                <span>{set.set_name}</span>
+                                <span>{set.price ? `$${set.price}` : null}</span>
+                            </li>
+                        </Link>
                     );
                 })}
             </ul>

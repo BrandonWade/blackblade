@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import useSearch from '../../hooks/useSearch';
@@ -14,11 +14,11 @@ import './Card.scss';
 
 const Card = () => {
     const { id } = useParams();
+    const cardID = parseInt(id);
     const { getCardByID } = useSearch();
     const { displayResults } = useDisplayResults();
     const { card } = useContext(CardContext);
-    const [selectedSetIndex, setSelectedSetIndex] = useState(0);
-    const selectedSet = card?.sets_json?.[selectedSetIndex] || {};
+    const selectedSet = card?.sets_json?.find(set => set.card_id === cardID) || {};
     const cardFaces = selectedSet?.card_faces || [];
 
     const fetchCard = async () => {
@@ -27,10 +27,10 @@ const Card = () => {
     };
 
     useEffect(() => {
-        if (card.card_id !== parseInt(id)) {
+        if (card.card_id !== cardID) {
             fetchCard();
         }
-    }, [id]);
+    }, [cardID]);
 
     return (
         <HeaderPage className='Card'>
@@ -42,7 +42,7 @@ const Card = () => {
                             return <CardFace key={face.face_id} face={face} />;
                         })}
                     </div>
-                    <CardSets cardSets={card.sets_json} selectedSetIndex={selectedSetIndex} setSelectedSetIndex={setSelectedSetIndex} />
+                    <CardSets cardSets={card.sets_json} currentCardID={cardID} />
                 </div>
                 <div className='Card-secondaryContent'>
                     <CardRulings rulings={card.rulings_json} />
