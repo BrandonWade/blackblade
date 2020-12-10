@@ -46,8 +46,12 @@
             border: 5px solid transparent;
 
             &:hover {
-                border: 5px solid var(--color-highlight);
+                border: 5px solid var(--color-primary-text);
             }
+        }
+
+        & .CardGrid-selected {
+            border: 5px solid var(--color-highlight);
         }
     }
 }

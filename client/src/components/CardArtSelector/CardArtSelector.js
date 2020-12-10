@@ -27,7 +27,7 @@ const CardArtSelector = () => {
     return artSelectorVisible ? (
         <div className='CardArtSelector'>
             <Overlay className='CardArtSelector-content' visible={true} setVisible={setArtSelectorVisible}>
-                <CardGrid className='CardArtSelector-cardGrid' cards={sets} onClick={onSelectCard} />
+                <CardGrid className='CardArtSelector-cardGrid' cards={sets} currentCardID={card.card_id} onClick={onSelectCard} />
             </Overlay>
         </div>
     ) : null;
