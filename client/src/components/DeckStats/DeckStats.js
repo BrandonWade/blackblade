@@ -7,9 +7,20 @@ const DeckStats = ({ deck = [] }) => {
 
     const estimatedPrice = () => {
         const price = sumBy(deck, card => {
-            const sortedSets = sortBy(card.sets_json, set => parseFloat(set.price) || 0);
-            const lowest = head(sortedSets.filter(set => set.price !== ''));
-            return (parseFloat(lowest.price) || 0) * card.count;
+            let variantPrice;
+
+            if (card.selection_type === 'manual') {
+                // If the variant was specifically selected, use it's price
+                const variant = card.sets_json.find(set => set.card_id === card.card_id);
+                variantPrice = variant.price;
+            } else {
+                // If the variant was selected by default, use the lowest variant price
+                const sortedSets = sortBy(card.sets_json, set => parseFloat(set.price) || 0);
+                const lowest = head(sortedSets.filter(set => set.price !== ''));
+                variantPrice = lowest.price;
+            }
+
+            return (parseFloat(variantPrice) || 0) * card.count;
         });
         stats = stats.concat({ label: 'Estimated Price', value: `$${price.toFixed(2)}` });
     };
