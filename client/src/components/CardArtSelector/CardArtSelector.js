@@ -17,6 +17,7 @@ const CardArtSelector = () => {
         const updatedCard = {
             ...deckCards[index],
             ...cardVariant,
+            selection_type: 'manual',
         };
         const cards = [...deckCards.slice(0, index), updatedCard, ...deckCards.slice(index + 1)];
         setCard(updatedCard);

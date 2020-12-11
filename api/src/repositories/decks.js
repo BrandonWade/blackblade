@@ -27,6 +27,7 @@ const getPublicIDByID = async (deckID) => {
 };
 
 const saveDeck = async (deckID, name, deck) => {
+    console.log(deck);
     const conn = await connection.getConnection();
     await conn.beginTransaction();
 
@@ -34,27 +35,33 @@ const saveDeck = async (deckID, name, deck) => {
         // Only run if there are any cards in the deck to save
         if (deck.length) {
             await conn.query(
+                `DELETE
+                FROM deck_cards
+                WHERE deck_id = ?
+            `,
+                [deckID],
+            );
+
+            await conn.query(
                 `INSERT INTO deck_cards(
                     deck_id,
                     card_id,
-                    count
+                    count,
+                    selection_type
                 ) VALUES ?
                 ON DUPLICATE KEY UPDATE
                     count = VALUES(count)
             `,
-                [deck.map((c) => [deckID, c.card_id, c.count])],
+                [
+                    deck.map((c) => [
+                        deckID,
+                        c.card_id,
+                        c.count,
+                        c.selection_type,
+                    ]),
+                ],
             );
         }
-
-        // Delete any cards that used to be in the deck that were removed
-        await conn.query(
-            `DELETE
-            FROM deck_cards
-            WHERE deck_id = ?
-            ${deck.length > 0 ? 'AND card_id NOT IN (?)' : ''}
-        `,
-            [deckID, deck.map((c) => c.card_id)],
-        );
 
         // Update the deck name
         await conn.query(
@@ -91,6 +98,7 @@ const getDeckCardsByPublicID = async (publicID) => {
         k.id deck_card_id,
         k.card_id,
         k.count,
+        k.selection_type,
         c.id card_id,
         c.cmc,
         c.rarity,

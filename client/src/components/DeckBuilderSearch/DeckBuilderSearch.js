@@ -30,6 +30,7 @@ const DeckBuilderSearch = () => {
                 {
                     ...card,
                     count: 1,
+                    selection_type: 'automatic',
                 },
             ];
 

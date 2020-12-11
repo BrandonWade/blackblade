@@ -153,6 +153,7 @@ CREATE TABLE deck_cards (
     deck_id bigint unsigned NOT NULL DEFAULT 0,
     card_id bigint unsigned NOT NULL DEFAULT 0,
     count int unsigned NOT NULL DEFAULT 0,
+    selection_type enum('automatic', 'manual') NOT NULL DEFAULT 'automatic',
     PRIMARY KEY (id),
     UNIQUE KEY U_deck_id_card_id (deck_id, card_id),
     FOREIGN KEY (deck_id) REFERENCES decks(id),
