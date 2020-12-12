@@ -27,6 +27,11 @@ const SearchResults = props => {
 
     // If the page is loaded directly, use the values from the URL params
     useEffect(() => {
+        const fetchResults = async (params = {}) => {
+            const response = await advancedSearch(params);
+            displayResults(response, params, false);
+        };
+
         let updated = false;
 
         if (name !== urlName) {
@@ -93,12 +98,29 @@ const SearchResults = props => {
             const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen };
             fetchResults({ name: urlName, text: urlText, type: urlType, colors: urlColors, page: urlPage });
         }
-    }, [urlName, urlText, urlType, urlWhite, urlBlue, urlBlack, urlRed, urlGreen, urlPage]);
-
-    const fetchResults = async (params = {}) => {
-        const response = await advancedSearch(params);
-        displayResults(response, params, false);
-    };
+    }, [
+        urlName,
+        urlText,
+        urlType,
+        urlWhite,
+        urlBlue,
+        urlBlack,
+        urlRed,
+        urlGreen,
+        urlPage,
+        colors,
+        setColors,
+        name,
+        setName,
+        page,
+        setPage,
+        text,
+        setText,
+        type,
+        setType,
+        advancedSearch,
+        displayResults,
+    ]);
 
     const onSelectResult = card => {
         setCard(card);
