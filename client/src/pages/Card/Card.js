@@ -21,16 +21,16 @@ const Card = () => {
     const selectedSet = card?.sets_json?.find(set => set.card_id === cardID) || {};
     const cardFaces = selectedSet?.card_faces || [];
 
-    useEffect(() => {
-        const fetchCard = async () => {
-            const response = await getCardByID(id);
-            displayResults(response, {}, false);
-        };
+    const fetchCard = async () => {
+        const response = await getCardByID(id);
+        displayResults(response, {}, false);
+    };
 
+    useEffect(() => {
         if (card.card_id !== cardID) {
             fetchCard();
         }
-    }, [card.card_id, cardID, id, displayResults, getCardByID]);
+    }, [cardID]);
 
     return (
         <HeaderPage className='Card'>
