@@ -1,24 +1,21 @@
-import { useContext, useCallback } from 'react';
+import { useContext } from 'react';
 import ErrorContext from '../../contexts/ErrorContext';
 
 const useErrors = () => {
-    const { setErrors } = useContext(ErrorContext);
+    const { errors, setErrors } = useContext(ErrorContext);
 
-    const addErrors = useCallback(
-        (newErrors = []) => {
-            if (Array.isArray(newErrors)) {
-                setErrors(errors => [...errors, ...newErrors]);
-            } else if (typeof newErrors === 'string') {
-                setErrors(errors => [
-                    ...errors,
-                    {
-                        msg: newErrors,
-                    },
-                ]);
-            }
-        },
-        [setErrors]
-    );
+    const addErrors = (newErrors = []) => {
+        if (Array.isArray(newErrors)) {
+            setErrors([...errors, ...newErrors]);
+        } else if (typeof newErrors === 'string') {
+            setErrors([
+                ...errors,
+                {
+                    msg: newErrors,
+                },
+            ]);
+        }
+    };
 
     return {
         addErrors,

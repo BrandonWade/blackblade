@@ -1,8 +1,4 @@
-import { useRef, useCallback } from 'react';
-
-const useDeck = (hdrs = {}) => {
-    const { headers } = useRef(hdrs);
-
+const useDeck = (headers = {}) => {
     const createDeck = async (name = '') => {
         const response = await fetch('/api/decks', {
             method: 'POST',
@@ -55,31 +51,28 @@ const useDeck = (hdrs = {}) => {
         }
     };
 
-    const getDeck = useCallback(
-        async (publicID = '') => {
-            const response = await fetch(`/api/decks/${publicID}`, {
-                headers: {
-                    ...headers,
-                },
-            });
+    const getDeck = async (publicID = '') => {
+        const response = await fetch(`/api/decks/${publicID}`, {
+            headers: {
+                ...headers,
+            },
+        });
 
-            switch (response.status) {
-                case 200:
-                    const data = await response.json();
-                    return {
-                        success: true,
-                        name: data.name,
-                        cards: data.cards,
-                    };
-                default:
-                    return {
-                        success: false,
-                        errors: await response.json(),
-                    };
-            }
-        },
-        [headers]
-    );
+        switch (response.status) {
+            case 200:
+                const data = await response.json();
+                return {
+                    success: true,
+                    name: data.name,
+                    cards: data.cards,
+                };
+            default:
+                return {
+                    success: false,
+                    errors: await response.json(),
+                };
+        }
+    };
 
     return {
         createDeck,
