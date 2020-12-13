@@ -12,12 +12,12 @@ const DeckStats = ({ deck = [] }) => {
             if (card.selection_type === 'manual') {
                 // If the variant was specifically selected, use it's price
                 const variant = card.sets_json.find(set => set.card_id === card.card_id);
-                variantPrice = variant.price;
+                variantPrice = variant?.price || 0;
             } else {
                 // If the variant was selected by default, use the lowest variant price
                 const sortedSets = sortBy(card.sets_json, set => parseFloat(set.price) || 0);
                 const lowest = head(sortedSets.filter(set => set.price !== ''));
-                variantPrice = lowest.price;
+                variantPrice = lowest?.price || 0;
             }
 
             return (parseFloat(variantPrice) || 0) * card.count;
