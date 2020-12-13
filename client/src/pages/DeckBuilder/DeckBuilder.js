@@ -26,7 +26,7 @@ const DeckBuilder = () => {
         unmodifiedDeckCards,
         setUnmodifiedDeckCards,
     } = useContext(DeckBuilderContext);
-    const unmodified = isEqual(deckCards, unmodifiedDeckCards) && isEqual(deckName, unmodifiedDeckName);
+    const isUnmodified = isEqual(deckCards, unmodifiedDeckCards) && isEqual(deckName, unmodifiedDeckName);
 
     useEffect(() => {
         const fetchDeck = async () => {
@@ -42,10 +42,10 @@ const DeckBuilder = () => {
             setUnmodifiedDeckCards(result.cards);
         };
 
-        if (unmodified) {
+        if (isUnmodified) {
             fetchDeck();
         }
-    }, []);
+    }, [addErrors, getDeck, isUnmodified, publicID, setDeckCards, setDeckName, setUnmodifiedDeckCards, setUnmodifiedDeckName]);
 
     const onSaveDeck = async () => {
         const result = await saveDeck(publicID, deckName, deckCards);
@@ -68,7 +68,7 @@ const DeckBuilder = () => {
             <div className='DeckBuilder-deckPanel'>
                 <div className='DeckBuilder-nameBar'>
                     <div className='DeckBuilder-name'>{deckName}</div>
-                    <Button className={`DeckBuilder-saveButton ${unmodified ? 'u-hidden' : ''}`} onClick={onSaveDeck}>
+                    <Button className={`DeckBuilder-saveButton ${isUnmodified ? 'u-hidden' : ''}`} onClick={onSaveDeck}>
                         Save
                     </Button>
                 </div>
