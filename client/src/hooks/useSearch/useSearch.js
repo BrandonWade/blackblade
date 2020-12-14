@@ -1,34 +1,9 @@
-const useSearch = (headers = {}) => {
-    const basicSearch = async (name = '', page = 1) => {
-        return advancedSearch({ name, page });
-    };
+import { useRef, useCallback } from 'react';
 
-    const advancedSearch = async (params = {}) => {
-        const paramString = getParamString(params);
-        const response = await fetch(`/api/search?${paramString}`, {
-            headers: {
-                ...headers,
-            },
-        });
+const useSearch = (hdrs = {}) => {
+    const headers = useRef(hdrs);
 
-        switch (response.status) {
-            case 200:
-                const data = await response.json();
-                return {
-                    success: true,
-                    totalResults: data.total_results,
-                    pages: data.pages,
-                    results: data.results,
-                };
-            default:
-                return {
-                    success: false,
-                    errors: await response.json(),
-                };
-        }
-    };
-
-    const getParamString = (params = {}) => {
+    const getParamString = useCallback((params = {}) => {
         let pairs = [];
 
         if (params?.name) {
@@ -58,7 +33,7 @@ const useSearch = (headers = {}) => {
         }
 
         return pairs.join('&');
-    };
+    }, []);
 
     const getCardByID = async id => {
         const response = await fetch(`/api/cards/${id}`, {
@@ -114,12 +89,47 @@ const useSearch = (headers = {}) => {
         }
     };
 
+    const advancedSearch = useCallback(
+        async (params = {}) => {
+            const paramString = getParamString(params);
+            const response = await fetch(`/api/search?${paramString}`, {
+                headers: {
+                    ...headers,
+                },
+            });
+
+            switch (response.status) {
+                case 200:
+                    const data = await response.json();
+                    return {
+                        success: true,
+                        totalResults: data.total_results,
+                        pages: data.pages,
+                        results: data.results,
+                    };
+                default:
+                    return {
+                        success: false,
+                        errors: await response.json(),
+                    };
+            }
+        },
+        [getParamString]
+    );
+
+    const basicSearch = useCallback(
+        async (name = '', page = 1) => {
+            return advancedSearch({ name, page });
+        },
+        [advancedSearch]
+    );
+
     return {
-        basicSearch,
-        advancedSearch,
         getParamString,
         getCardByID,
         getRandomCard,
+        advancedSearch,
+        basicSearch,
     };
 };
 

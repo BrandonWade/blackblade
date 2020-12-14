@@ -6,7 +6,6 @@ import Paginator from '../../components/Paginator';
 import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
-// TODO: Refactor into AJAX and non-AJAX versions
 const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect = true, redirectForSingleResult = true }) => {
     const { name, text, type, colors, searchResults, setPage } = useContext(SearchContext);
     const { advancedSearch } = useSearch();
