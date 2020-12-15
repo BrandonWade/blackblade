@@ -4,6 +4,14 @@
         font-size: 1.4rem;
         border-bottom: var(--line);
         background-color: var(--color-primary-light);
+
+        &--active {
+            background-color: var(--color-highlight);
+        }
+    }
+
+    &-maybeboardHeading {
+        cursor: pointer;
     }
 
     &-cardRow {
