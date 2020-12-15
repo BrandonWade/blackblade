@@ -5,8 +5,12 @@ export default createContext({
     setDeckName: () => {},
     deckCards: [],
     setDeckCards: () => {},
+    maybeboardCards: [],
+    setMaybeboardCards: () => {},
     unmodifiedDeckName: '',
     setUnmodifiedDeckName: () => {},
     unmodifiedDeckCards: [],
     setUnmodifiedDeckCards: () => {},
+    maybeboardMode: false,
+    setMaybeboardMode: () => {},
 });

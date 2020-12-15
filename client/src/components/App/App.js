@@ -27,8 +27,10 @@ const App = () => {
     const [artSelectorVisible, setArtSelectorVisible] = useState(false);
     const [deckName, setDeckName] = useState('');
     const [deckCards, setDeckCards] = useState([]);
+    const [maybeboardCards, setMaybeboardCards] = useState([]);
     const [unmodifiedDeckName, setUnmodifiedDeckName] = useState('');
     const [unmodifiedDeckCards, setUnmodifiedDeckCards] = useState([]);
+    const [maybeboardMode, setMaybeboardMode] = useState(false);
     const [errors, setErrors] = useState([]);
 
     return (
@@ -40,10 +42,14 @@ const App = () => {
                         setDeckName,
                         deckCards,
                         setDeckCards,
+                        maybeboardCards,
+                        setMaybeboardCards,
                         unmodifiedDeckName,
                         setUnmodifiedDeckName,
                         unmodifiedDeckCards,
                         setUnmodifiedDeckCards,
+                        maybeboardMode,
+                        setMaybeboardMode,
                     }}
                 >
                     <SearchContext.Provider

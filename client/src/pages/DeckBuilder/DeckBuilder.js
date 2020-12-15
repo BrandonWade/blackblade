@@ -21,10 +21,14 @@ const DeckBuilder = () => {
         setDeckName,
         deckCards,
         setDeckCards,
+        maybeboardCards,
+        setMaybeboardCards,
         unmodifiedDeckName,
         setUnmodifiedDeckName,
         unmodifiedDeckCards,
         setUnmodifiedDeckCards,
+        maybeboardMode,
+        setMaybeboardMode,
     } = useContext(DeckBuilderContext);
     const isUnmodified = isEqual(deckCards, unmodifiedDeckCards) && isEqual(deckName, unmodifiedDeckName);
 
@@ -75,7 +79,14 @@ const DeckBuilder = () => {
                 <DeckActions />
                 <div className='DeckBuilder-tableContainer'>
                     <DeckStats deck={deckCards} />
-                    <DeckTable deckCards={deckCards} setDeckCards={setDeckCards} />
+                    <DeckTable
+                        deckCards={deckCards}
+                        setDeckCards={setDeckCards}
+                        maybeboardCards={maybeboardCards}
+                        setMaybeboardCards={setMaybeboardCards}
+                        maybeboardMode={maybeboardMode}
+                        setMaybeboardMode={setMaybeboardMode}
+                    />
                 </div>
             </div>
         </div>
