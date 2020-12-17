@@ -11,6 +11,8 @@ export default createContext({
     setUnmodifiedDeckName: () => {},
     unmodifiedDeckCards: [],
     setUnmodifiedDeckCards: () => {},
+    unmodifiedMaybeboardCards: [],
+    setUnmodifiedMaybeboardCards: () => {},
     maybeboardMode: false,
     setMaybeboardMode: () => {},
 });

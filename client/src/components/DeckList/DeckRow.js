@@ -15,7 +15,7 @@ const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) =
 
     const onCountChange = e => {
         setCount(e.target.value);
-        updateCount(card.card_id, e.target.value);
+        updateCount(card.card_id, e.target.value, card.location);
     };
 
     const onSelectArt = () => {
@@ -29,7 +29,7 @@ const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) =
     };
 
     const onRemoveCard = () => {
-        removeCard(card.card_id);
+        removeCard(card.card_id, card.location);
     };
 
     return (

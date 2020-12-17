@@ -27,10 +27,15 @@ const DeckBuilder = () => {
         setUnmodifiedDeckName,
         unmodifiedDeckCards,
         setUnmodifiedDeckCards,
+        unmodifiedMaybeboardCards,
+        setUnmodifiedMaybeboardCards,
         maybeboardMode,
         setMaybeboardMode,
     } = useContext(DeckBuilderContext);
-    const isUnmodified = isEqual(deckCards, unmodifiedDeckCards) && isEqual(deckName, unmodifiedDeckName);
+    const deckNotModified = isEqual(deckCards, unmodifiedDeckCards);
+    const maybeboardNotModified = isEqual(maybeboardCards, unmodifiedMaybeboardCards);
+    const nameNotModified = isEqual(deckName, unmodifiedDeckName);
+    const isUnmodified = deckNotModified && maybeboardNotModified && nameNotModified;
 
     useEffect(() => {
         const fetchDeck = async () => {
@@ -40,19 +45,34 @@ const DeckBuilder = () => {
                 return;
             }
 
+            const deck = result.cards.filter(c => c.location === 'deck');
+            const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
             setDeckName(result.name);
-            setDeckCards(result.cards);
+            setDeckCards(deck);
+            setMaybeboardCards(maybeboard);
             setUnmodifiedDeckName(result.name);
-            setUnmodifiedDeckCards(result.cards);
+            setUnmodifiedDeckCards(deck);
+            setUnmodifiedMaybeboardCards(maybeboard);
         };
 
         if (isUnmodified) {
             fetchDeck();
         }
-    }, [addErrors, getDeck, isUnmodified, publicID, setDeckCards, setDeckName, setUnmodifiedDeckCards, setUnmodifiedDeckName]);
+    }, [
+        addErrors,
+        getDeck,
+        isUnmodified,
+        publicID,
+        setDeckCards,
+        setMaybeboardCards,
+        setDeckName,
+        setUnmodifiedDeckCards,
+        setUnmodifiedMaybeboardCards,
+        setUnmodifiedDeckName,
+    ]);
 
     const onSaveDeck = async () => {
-        const result = await saveDeck(publicID, deckName, deckCards);
+        const result = await saveDeck(publicID, deckName, deckCards, maybeboardCards);
         if (!result.success) {
             addErrors(result.errors);
             return;
@@ -61,6 +81,7 @@ const DeckBuilder = () => {
         // Once changes to the deck have been saved, update the unmodified state
         setUnmodifiedDeckName(deckName);
         setUnmodifiedDeckCards(deckCards);
+        setUnmodifiedMaybeboardCards(maybeboardCards);
     };
 
     return (
