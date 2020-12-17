@@ -30,6 +30,7 @@ const App = () => {
     const [maybeboardCards, setMaybeboardCards] = useState([]);
     const [unmodifiedDeckName, setUnmodifiedDeckName] = useState('');
     const [unmodifiedDeckCards, setUnmodifiedDeckCards] = useState([]);
+    const [unmodifiedMaybeboardCards, setUnmodifiedMaybeboardCards] = useState([]);
     const [maybeboardMode, setMaybeboardMode] = useState(false);
     const [errors, setErrors] = useState([]);
 
@@ -48,6 +49,8 @@ const App = () => {
                         setUnmodifiedDeckName,
                         unmodifiedDeckCards,
                         setUnmodifiedDeckCards,
+                        unmodifiedMaybeboardCards,
+                        setUnmodifiedMaybeboardCards,
                         maybeboardMode,
                         setMaybeboardMode,
                     }}

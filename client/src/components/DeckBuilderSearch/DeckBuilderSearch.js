@@ -11,7 +11,7 @@ const DeckBuilderSearch = () => {
     const { basicSearch } = useSearch();
     const { displayResults } = useDisplayResults();
     const { name, setName } = useContext(SearchContext);
-    const { deckCards, setDeckCards } = useContext(DeckBuilderContext);
+    const { deckCards, setDeckCards, maybeboardCards, setMaybeboardCards, maybeboardMode } = useContext(DeckBuilderContext);
     const redirect = false;
     const redirectForSingleResult = false;
 
@@ -23,18 +23,23 @@ const DeckBuilderSearch = () => {
     };
 
     const onSelectResult = card => {
-        const exists = deckCards.some(c => c.card_id === card.card_id);
+        const location = maybeboardMode ? 'maybeboard' : 'deck';
+        const cardList = maybeboardMode ? maybeboardCards : deckCards;
+        const updateCardList = maybeboardMode ? setMaybeboardCards : setDeckCards;
+        const exists = cardList.some(c => c.card_id === card.card_id);
+
         if (!exists) {
             const cards = [
-                ...deckCards,
+                ...cardList,
                 {
                     ...card,
                     count: 1,
                     selection_type: 'automatic',
+                    location,
                 },
             ];
 
-            setDeckCards(cards);
+            updateCardList(cards);
         }
     };
 

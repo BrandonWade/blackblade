@@ -28,8 +28,11 @@ const useDeck = (hdrs = {}) => {
         }
     };
 
-    const saveDeck = async (publicID = '', name = '', deck = []) => {
-        const cards = deck.map(card => ({ count: card.count, card_id: card.card_id, selection_type: card.selection_type }));
+    const saveDeck = async (publicID = '', name = '', deck = [], maybeboard = []) => {
+        const cards = [
+            ...deck.map(card => ({ count: card.count, card_id: card.card_id, selection_type: card.selection_type, location: 'deck' })),
+            ...maybeboard.map(card => ({ count: card.count, card_id: card.card_id, selection_type: card.selection_type, location: 'maybeboard' })),
+        ];
         const response = await fetch(`/api/decks/${publicID}`, {
             method: 'PUT',
             headers: {

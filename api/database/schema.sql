@@ -152,10 +152,11 @@ CREATE TABLE deck_cards (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
     deck_id bigint unsigned NOT NULL DEFAULT 0,
     card_id bigint unsigned NOT NULL DEFAULT 0,
+    location enum('deck', 'maybeboard') NOT NULL DEFAULT 'deck',
     count int unsigned NOT NULL DEFAULT 0,
     selection_type enum('automatic', 'manual') NOT NULL DEFAULT 'automatic',
     PRIMARY KEY (id),
-    UNIQUE KEY U_deck_id_card_id (deck_id, card_id),
+    UNIQUE KEY U_deck_id_card_id_location (deck_id, card_id, location),
     FOREIGN KEY (deck_id) REFERENCES decks(id),
     FOREIGN KEY (card_id) REFERENCES cards(id)
 ) CHARSET=utf8mb4;
