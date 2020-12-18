@@ -47,15 +47,37 @@ const DeckTable = ({
 
     return (
         <table className='DeckTable-deck'>
-            <DeckSection cards={creatures} heading='Creatures' visible={creatures.length > 0} updateCount={updateCount} removeCard={removeCard} />
-            <DeckSection cards={spells} heading='Spells' visible={spells.length > 0} updateCount={updateCount} removeCard={removeCard} />
-            <DeckSection cards={land} heading='Land' visible={land.length > 0} updateCount={updateCount} removeCard={removeCard} />
+            <DeckSection
+                cards={creatures}
+                heading='Creatures'
+                visible={creatures.length > 0}
+                updateCount={updateCount}
+                removeCard={removeCard}
+                className={maybeboardMode ? 'DeckTable-section--faded' : ''}
+            />
+            <DeckSection
+                cards={spells}
+                heading='Spells'
+                visible={spells.length > 0}
+                updateCount={updateCount}
+                removeCard={removeCard}
+                className={maybeboardMode ? 'DeckTable-section--faded' : ''}
+            />
+            <DeckSection
+                cards={land}
+                heading='Land'
+                visible={land.length > 0}
+                updateCount={updateCount}
+                removeCard={removeCard}
+                className={maybeboardMode ? 'DeckTable-section--faded' : ''}
+            />
             <DeckSection
                 cards={maybeboard}
                 heading='Maybeboard'
                 visible={true}
                 updateCount={updateCount}
                 removeCard={removeCard}
+                className={maybeboardMode ? '' : 'DeckTable-section--faded'}
                 headingClassName={`DeckTable-maybeboardHeading ${maybeboardMode ? 'DeckTable-headingRow--active' : ''}`}
                 onHeadingClick={toggleMaybeboardMode}
             />

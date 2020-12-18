@@ -7,11 +7,12 @@ const DeckSection = ({
     visible = false,
     updateCount = () => {},
     removeCard = () => {},
+    className = '',
     headingClassName = '',
     onHeadingClick = () => {},
 }) => {
     return visible ? (
-        <tbody className='DeckTable-section'>
+        <tbody className={`DeckTable-section ${className}`}>
             <tr className='DeckTable-headingRow'>
                 <th colSpan='100%' className={headingClassName} onClick={onHeadingClick}>
                     {heading}
