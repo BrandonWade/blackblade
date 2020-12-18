@@ -1,4 +1,10 @@
 .DeckTable {
+    &-section {
+        &--faded {
+            opacity: 0.5;
+        }
+    }
+
     &-headingRow {
         height: 3rem;
         font-size: 1.4rem;
