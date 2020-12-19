@@ -12,7 +12,7 @@ import './AdvancedSearch.scss';
 const AdvancedSearch = () => {
     const { advancedSearch } = useSearch();
     const { displayResults } = useDisplayResults();
-    const { name, setName, text, setText, type, setType, colors, setColors } = useContext(SearchContext);
+    const { name, setName, text, setText, type, setType, colors, setColors, set, setSet } = useContext(SearchContext);
 
     const onChangeColors = color => {
         setColors({
@@ -24,8 +24,8 @@ const AdvancedSearch = () => {
     const onSubmit = async e => {
         e.preventDefault();
 
-        const response = await advancedSearch({ name, text, type, colors });
-        displayResults(response, { name, text, type, colors, page: 1 }, true);
+        const response = await advancedSearch({ name, text, type, colors, set });
+        displayResults(response, { name, text, type, colors, set, page: 1 }, true);
     };
 
     return (
@@ -98,6 +98,10 @@ const AdvancedSearch = () => {
                                 Green
                             </Checkbox>
                         </div>
+                    </div>
+                    <div className='AdvancedSearch-formRow'>
+                        <label className='AdvancedSearch-rowLabel'>Set</label>
+                        <Input className='AdvancedSearch-input' value={set} onChange={e => setSet(e.target.value)} />
                     </div>
                     <Button className='AdvancedSearch-searchButton' onClick={onSubmit}>
                         Search

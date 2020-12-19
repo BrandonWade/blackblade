@@ -26,6 +26,10 @@ const useSearch = (hdrs = {}) => {
             });
         }
 
+        if (params?.set) {
+            pairs = pairs.concat(`set=${params.set}`);
+        }
+
         pairs = pairs.concat(`page=${params?.page || 1}`);
 
         if (pairs.length === 0) {
