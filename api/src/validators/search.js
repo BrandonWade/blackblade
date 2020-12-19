@@ -9,6 +9,7 @@ const blackExists = check('black').isBoolean();
 const redExists = check('red').isBoolean();
 const greenExists = check('green').isBoolean();
 const pageExists = check('page').isInt({ min: 1 });
+const setExists = check('set').isInt({ min: 3 });
 const cardIDValidator = param('id').isInt().toInt({ min: 1 });
 
 const searchValidators = [
@@ -21,6 +22,7 @@ const searchValidators = [
         blackExists,
         redExists,
         greenExists,
+        setExists,
     ]),
     pageExists,
 ];

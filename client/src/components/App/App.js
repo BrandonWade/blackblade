@@ -19,6 +19,7 @@ const App = () => {
     const [text, setText] = useState('');
     const [type, setType] = useState('');
     const [colors, setColors] = useState(colorInitialState);
+    const [set, setSet] = useState('');
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
     const [searchResults, setSearchResults] = useState([]);
@@ -65,6 +66,8 @@ const App = () => {
                             setType,
                             colors,
                             setColors,
+                            set,
+                            setSet,
                             page,
                             setPage,
                             totalResults,

@@ -9,11 +9,13 @@ const search = async (params = {}) => {
     const colours = Object.keys(params?.colours).filter(
         (c) => params?.colours[c],
     );
+    const set = params?.set || '';
     const totalResults = await SearchRepository.getTotalResults(
         nameTokens,
         textTokens,
         typeTokens,
         colours,
+        set,
     );
 
     const cardResults = await SearchRepository.getCardsByName(
@@ -21,6 +23,7 @@ const search = async (params = {}) => {
         textTokens,
         typeTokens,
         colours,
+        set,
         params?.page,
         pageSize,
     );

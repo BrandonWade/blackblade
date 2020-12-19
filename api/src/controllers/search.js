@@ -10,6 +10,7 @@ const search = async (req, res) => {
     const black = req.query['black'];
     const red = req.query['red'];
     const green = req.query['green'];
+    const set = req.query['set'];
     const page = parseInt(req.query['page']);
 
     const results = await SearchService.search({
@@ -17,6 +18,7 @@ const search = async (req, res) => {
         text,
         type,
         colours: { W: white, U: blue, B: black, R: red, G: green },
+        set,
         page,
     });
 

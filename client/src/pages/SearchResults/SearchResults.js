@@ -10,7 +10,7 @@ import './SearchResults.scss';
 
 const SearchResults = ({ location }) => {
     const history = useHistory();
-    const { setName, setText, setType, setColors, setPage } = useContext(SearchContext);
+    const { setName, setText, setType, setColors, setSet, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
     const { advancedSearch } = useSearch();
     const { displayResults } = useDisplayResults();
@@ -32,6 +32,7 @@ const SearchResults = ({ location }) => {
         const urlBlack = urlParams.get('black') === 'true';
         const urlRed = urlParams.get('red') === 'true';
         const urlGreen = urlParams.get('green') === 'true';
+        const urlSet = urlParams.get('set') || '';
         const urlPage = parseInt(urlParams.get('page')) || 1;
 
         const fetchResults = async (params = {}) => {
@@ -106,6 +107,11 @@ const SearchResults = ({ location }) => {
             updated = true;
         }
 
+        if (urlSet !== '') {
+            setSet(urlSet);
+            updated = true;
+        }
+
         if (urlPage !== 1) {
             setPage(urlPage);
             updated = true;
@@ -115,7 +121,7 @@ const SearchResults = ({ location }) => {
             const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen };
             fetchResults({ name: urlName, text: urlText, type: urlType, colors: urlColors, page: urlPage });
         }
-    }, [location, setColors, setName, setPage, setText, setType, advancedSearch, displayResults]);
+    }, [location, setName, setText, setType, setColors, setSet, advancedSearch, displayResults, setPage]);
 
     const onSelectResult = card => {
         setCard(card);
