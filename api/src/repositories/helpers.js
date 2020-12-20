@@ -1,5 +1,9 @@
 import { difference } from 'lodash';
 
+export const addEqualCondition = (builder, params, field) => {
+    params.forEach((param) => builder.where(field, param));
+};
+
 export const addLikeCondition = (builder, params, field) => {
     params.forEach((param) => builder.where(field, 'like', `%${param}%`));
 };
