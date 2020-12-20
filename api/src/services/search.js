@@ -9,7 +9,7 @@ const search = async (params = {}) => {
     const colours = Object.keys(params?.colours).filter(
         (c) => params?.colours[c],
     );
-    const set = params?.set || '';
+    const set = params?.set?.split(/\s+/) || [];
     const totalResults = await SearchRepository.getTotalResults(
         nameTokens,
         textTokens,
