@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import SearchContext from '../../contexts/SearchContext';
-import DeckBuilderContext from '../../contexts/DeckBuilderContext';
+import SearchContext from '../../contexts/Search';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 import Input from '../Input';
 import PaginatedResults from '../../components/PaginatedResults';
 import './DeckBuilderSearch.scss';

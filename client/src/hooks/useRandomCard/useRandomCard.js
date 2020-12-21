@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearch from '../useSearch';
 import useErrors from '../useErrors';
-import CardContext from '../../contexts/CardContext';
+import CardContext from '../../contexts/Card';
 
 const useRandomCard = () => {
     const history = useHistory();

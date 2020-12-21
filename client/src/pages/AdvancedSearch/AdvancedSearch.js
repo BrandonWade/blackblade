@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import SearchContext from '../../contexts/SearchContext';
+import SearchContext from '../../contexts/Search';
 import symbolMap from '../../hooks/useSymbols/symbolMap';
 import HeaderPage from '../../components/HeaderPage';
 import Input from '../../components/Input';

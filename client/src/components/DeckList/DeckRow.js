@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import CardContext from '../../contexts/CardContext';
-import CardArtSelectorContext from '../../contexts/CardArtSelectorContext';
+import CardContext from '../../contexts/Card';
+import CardArtSelectorContext from '../../contexts/CardArtSelector';
 import DeckRowManaCost from './DeckRowManaCost';
 import Input from '../../components/Input';
 import { Images } from '../Icons';

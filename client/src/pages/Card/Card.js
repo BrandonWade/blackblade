@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import CardContext from '../../contexts/CardContext';
+import CardContext from '../../contexts/Card';
 import HeaderPage from '../../components/HeaderPage';
 import NoResults from '../../components/NoResults';
 import CardImage from '../../components/CardImage';

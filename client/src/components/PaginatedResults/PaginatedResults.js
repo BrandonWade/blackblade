@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import SearchContext from '../../contexts/SearchContext';
+import SearchContext from '../../contexts/Search';
 import Paginator from '../../components/Paginator';
 import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';

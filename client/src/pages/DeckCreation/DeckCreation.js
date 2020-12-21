@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import useDeck from '../../hooks/useDeck';
 import useErrors from '../../hooks/useErrors';
-import DeckBuilderContext from '../../contexts/DeckBuilderContext';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
 import Input from '../../components/Input';
 import Button from '../../components/Button';

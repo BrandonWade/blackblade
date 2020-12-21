@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import useDeck from '../../hooks/useDeck';
 import useErrors from '../../hooks/useErrors';
-import DeckBuilderContext from '../../contexts/DeckBuilderContext';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardArtSelector from '../../components/CardArtSelector';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
 import DeckActions from '../../components/DeckActions';
