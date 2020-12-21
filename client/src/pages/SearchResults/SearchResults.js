@@ -12,7 +12,7 @@ const SearchResults = ({ location }) => {
     const history = useHistory();
     const { setName, setText, setType, setColors, setSet, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
-    const { advancedSearch } = useSearch();
+    const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
 
     /*
@@ -22,106 +22,106 @@ const SearchResults = ({ location }) => {
         (or to be more precise, causes them to update too frequently causing changes to be discarded).
     */
     // If the page is loaded directly, use the values from the URL params
-    useEffect(() => {
-        const urlParams = new URLSearchParams(location?.search);
-        const urlName = urlParams.get('name') || '';
-        const urlText = urlParams.get('text') || '';
-        const urlType = urlParams.get('type') || '';
-        const urlWhite = urlParams.get('white') === 'true';
-        const urlBlue = urlParams.get('blue') === 'true';
-        const urlBlack = urlParams.get('black') === 'true';
-        const urlRed = urlParams.get('red') === 'true';
-        const urlGreen = urlParams.get('green') === 'true';
-        const urlSet = urlParams.get('set') || '';
-        const urlPage = parseInt(urlParams.get('page')) || 1;
+    // useEffect(() => {
+    //     const urlParams = new URLSearchParams(location?.search);
+    //     const urlName = urlParams.get('name') || '';
+    //     const urlText = urlParams.get('text') || '';
+    //     const urlType = urlParams.get('type') || '';
+    //     const urlWhite = urlParams.get('white') === 'true';
+    //     const urlBlue = urlParams.get('blue') === 'true';
+    //     const urlBlack = urlParams.get('black') === 'true';
+    //     const urlRed = urlParams.get('red') === 'true';
+    //     const urlGreen = urlParams.get('green') === 'true';
+    //     const urlSet = urlParams.get('set') || '';
+    //     const urlPage = parseInt(urlParams.get('page')) || 1;
 
-        const fetchResults = async (params = {}) => {
-            const response = await advancedSearch(params);
-            displayResults(response, params, false);
-        };
+    //     const fetchResults = async (params = {}) => {
+    //         const response = await searchCards(params);
+    //         displayResults(response, params, false);
+    //     };
 
-        let updated = false;
+    //     let updated = false;
 
-        if (urlName !== '') {
-            setName(urlName);
-            updated = true;
-        }
+    //     if (urlName !== '') {
+    //         setName(urlName);
+    //         updated = true;
+    //     }
 
-        if (urlText !== '') {
-            setText(urlText);
-            updated = true;
-        }
+    //     if (urlText !== '') {
+    //         setText(urlText);
+    //         updated = true;
+    //     }
 
-        if (urlType !== '') {
-            setType(urlType);
-            updated = true;
-        }
+    //     if (urlType !== '') {
+    //         setType(urlType);
+    //         updated = true;
+    //     }
 
-        if (urlWhite !== false) {
-            setColors(colors => {
-                return {
-                    ...colors,
-                    white: urlWhite,
-                };
-            });
-            updated = true;
-        }
+    //     if (urlWhite !== false) {
+    //         setColors(colors => {
+    //             return {
+    //                 ...colors,
+    //                 white: urlWhite,
+    //             };
+    //         });
+    //         updated = true;
+    //     }
 
-        if (urlBlue !== false) {
-            setColors(colors => {
-                return {
-                    ...colors,
-                    blue: urlBlue,
-                };
-            });
-            updated = true;
-        }
+    //     if (urlBlue !== false) {
+    //         setColors(colors => {
+    //             return {
+    //                 ...colors,
+    //                 blue: urlBlue,
+    //             };
+    //         });
+    //         updated = true;
+    //     }
 
-        if (urlBlack !== false) {
-            setColors(colors => {
-                return {
-                    ...colors,
-                    black: urlBlack,
-                };
-            });
-            updated = true;
-        }
+    //     if (urlBlack !== false) {
+    //         setColors(colors => {
+    //             return {
+    //                 ...colors,
+    //                 black: urlBlack,
+    //             };
+    //         });
+    //         updated = true;
+    //     }
 
-        if (urlRed !== false) {
-            setColors(colors => {
-                return {
-                    ...colors,
-                    red: urlRed,
-                };
-            });
-            updated = true;
-        }
+    //     if (urlRed !== false) {
+    //         setColors(colors => {
+    //             return {
+    //                 ...colors,
+    //                 red: urlRed,
+    //             };
+    //         });
+    //         updated = true;
+    //     }
 
-        if (urlGreen !== false) {
-            setColors(colors => {
-                return {
-                    ...colors,
-                    green: urlGreen,
-                };
-            });
-            updated = true;
-        }
+    //     if (urlGreen !== false) {
+    //         setColors(colors => {
+    //             return {
+    //                 ...colors,
+    //                 green: urlGreen,
+    //             };
+    //         });
+    //         updated = true;
+    //     }
 
-        if (urlSet !== '') {
-            setSet(urlSet);
-            updated = true;
-        }
+    //     if (urlSet !== '') {
+    //         setSet(urlSet);
+    //         updated = true;
+    //     }
 
-        if (urlPage !== 1) {
-            setPage(urlPage);
-            updated = true;
-        }
+    //     if (urlPage !== 1) {
+    //         setPage(urlPage);
+    //         updated = true;
+    //     }
 
-        if (updated) {
-            const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen };
-            fetchResults({ name: urlName, text: urlText, type: urlType, colors: urlColors, page: urlPage });
-        }
-    }, [location, setName, setText, setType, setColors, setSet, advancedSearch, displayResults, setPage]);
+    //     if (updated) {
+    //         const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen };
+    //         fetchResults({ name: urlName, text: urlText, type: urlType, colors: urlColors, page: urlPage });
+    //     }
+    // }, [location, setName, setText, setType, setColors, setSet, searchCards, displayResults, setPage]);
 
     const onSelectResult = card => {
         setCard(card);

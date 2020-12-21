@@ -10,7 +10,7 @@ import Button from '../../components/Button';
 import './AdvancedSearch.scss';
 
 const AdvancedSearch = () => {
-    const { advancedSearch } = useSearch();
+    const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
     const { name, setName, text, setText, type, setType, colors, setColors, set, setSet } = useContext(SearchContext);
 
@@ -24,7 +24,7 @@ const AdvancedSearch = () => {
     const onSubmit = async e => {
         e.preventDefault();
 
-        const response = await advancedSearch({ name, text, type, colors, set });
+        const response = await searchCards({ name, text, type, colors, set });
         displayResults(response, { name, text, type, colors, set, page: 1 }, true);
     };
 

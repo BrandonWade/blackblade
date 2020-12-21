@@ -8,7 +8,7 @@ import PaginatedResults from '../../components/PaginatedResults';
 import './DeckBuilderSearch.scss';
 
 const DeckBuilderSearch = () => {
-    const { basicSearch } = useSearch();
+    const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
     const { name, setName } = useContext(SearchContext);
     const { deckCards, setDeckCards, maybeboardCards, setMaybeboardCards, maybeboardMode } = useContext(DeckBuilderContext);
@@ -18,8 +18,9 @@ const DeckBuilderSearch = () => {
     const onSubmit = async e => {
         e.preventDefault();
 
-        const response = await basicSearch(name);
-        displayResults(response, { name, page: 1 }, redirect, redirectForSingleResult);
+        const params = { name };
+        const response = await searchCards(params);
+        displayResults(response, params, redirect, redirectForSingleResult);
     };
 
     const onSelectResult = card => {
