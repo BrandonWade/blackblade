@@ -11,15 +11,16 @@ import './Home.scss';
 
 const Home = () => {
     const { name, setName } = useContext(SearchContext);
-    const { basicSearch } = useSearch();
+    const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
     const { displayRandomCard } = useRandomCard();
 
     const onSubmit = async e => {
         e.preventDefault();
 
-        const response = await basicSearch(name);
-        displayResults(response, { name, page: 1 }, true);
+        const params = { name };
+        const response = await searchCards(params);
+        displayResults(response, params, true);
     };
 
     const onChange = e => {

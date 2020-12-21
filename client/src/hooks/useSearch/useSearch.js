@@ -93,7 +93,7 @@ const useSearch = (hdrs = {}) => {
         }
     };
 
-    const advancedSearch = useCallback(
+    const searchCards = useCallback(
         async (params = {}) => {
             const paramString = getParamString(params);
             const response = await fetch(`/api/search?${paramString}`, {
@@ -121,19 +121,11 @@ const useSearch = (hdrs = {}) => {
         [getParamString]
     );
 
-    const basicSearch = useCallback(
-        async (name = '', page = 1) => {
-            return advancedSearch({ name, page });
-        },
-        [advancedSearch]
-    );
-
     return {
         getParamString,
         getCardByID,
         getRandomCard,
-        advancedSearch,
-        basicSearch,
+        searchCards,
     };
 };
 
