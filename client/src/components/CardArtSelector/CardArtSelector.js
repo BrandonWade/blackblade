@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import CardArtSelectorContext from '../../contexts/CardArtSelectorContext';
-import CardContext from '../../contexts/CardContext';
-import DeckBuilderContext from '../../contexts/DeckBuilderContext';
+import CardArtSelectorContext from '../../contexts/CardArtSelector';
+import CardContext from '../../contexts/Card';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 import Overlay from '../Overlay';
 import CardGrid from '../CardGrid';
 import './CardArtSelector.scss';

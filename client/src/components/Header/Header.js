@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import useRandomCard from '../../hooks/useRandomCard';
-import SearchContext from '../../contexts/SearchContext';
+import SearchContext from '../../contexts/Search';
 import { Documents } from '../Icons';
 import Logo from '../Logo';
 import Input from '../Input';

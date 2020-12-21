@@ -1,5 +1,5 @@
 import { useContext, useCallback } from 'react';
-import ErrorContext from '../../contexts/ErrorContext';
+import ErrorContext from '../../contexts/Error';
 
 const useErrors = () => {
     const { setErrors } = useContext(ErrorContext);

@@ -2,8 +2,8 @@ import { useContext, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearch from '../useSearch';
 import useErrors from '../useErrors';
-import CardContext from '../../contexts/CardContext';
-import SearchContext from '../../contexts/SearchContext';
+import CardContext from '../../contexts/Card';
+import SearchContext from '../../contexts/Search';
 
 const useDisplayResults = () => {
     const history = useHistory();

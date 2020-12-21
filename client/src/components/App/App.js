@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import CardContext from '../../contexts/CardContext';
-import SearchContext, { colorInitialState } from '../../contexts/SearchContext';
-import DeckBuilderContext from '../../contexts/DeckBuilderContext';
-import CardArtSelectorContext from '../../contexts/CardArtSelectorContext';
-import ErrorContext from '../../contexts/ErrorContext';
+import CardContext from '../../contexts/Card';
+import SearchContext, { colorInitialState } from '../../contexts/Search';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
+import CardArtSelectorContext from '../../contexts/CardArtSelector';
+import ErrorContext from '../../contexts/Error';
 import Home from '../../pages/Home';
 import AdvancedSearch from '../../pages/AdvancedSearch';
 import SearchResults from '../../pages/SearchResults';
