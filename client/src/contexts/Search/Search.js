@@ -1,28 +1,20 @@
 import { createContext } from 'react';
 
-export const colorInitialState = {
-    white: false,
-    blue: false,
-    black: false,
-    red: false,
-    green: false,
+export const initialState = {
+    name: '',
+    text: '',
+    type: '',
+    colors: {
+        white: false,
+        blue: false,
+        black: false,
+        red: false,
+        green: false,
+    },
+    page: 1,
+    totalResults: 0,
+    searchResults: [],
+    numberOfPages: 1,
 };
 
-export default createContext({
-    name: '',
-    setName: () => {},
-    text: '',
-    setText: () => {},
-    type: '',
-    setType: () => {},
-    colors: colorInitialState,
-    setColors: () => {},
-    page: 1,
-    setPage: () => {},
-    totalResults: 0,
-    setTotalResults: () => {},
-    searchResults: [],
-    setSearchResults: () => {},
-    numberOfPages: 1,
-    setNumberOfPages: () => {},
-});
+export default createContext(initialState);

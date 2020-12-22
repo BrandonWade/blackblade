@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, ChevronCircleLeft, ChevronCircleRight } from
 import Button from '../Button';
 import './Paginator.scss';
 
-const Paginator = ({ className = '', onPageChange = () => {} }) => {
+function Paginator({ className = '', onPageChange = () => {} }) {
     const { totalResults, numberOfPages, page } = useContext(SearchContext);
     const firstEnabled = page > 1;
     const previousEnabled = page > 1;
@@ -41,6 +41,6 @@ const Paginator = ({ className = '', onPageChange = () => {} }) => {
             </div>
         </div>
     );
-};
+}
 
 export default Paginator;
