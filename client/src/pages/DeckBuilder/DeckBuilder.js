@@ -44,7 +44,6 @@ const DeckBuilder = () => {
                 addErrors(result.errors);
                 return;
             }
-
             const deck = result.cards.filter(c => c.location === 'deck');
             const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
             setDeckName(result.name);
@@ -63,12 +62,12 @@ const DeckBuilder = () => {
         getDeck,
         isUnmodified,
         publicID,
-        setDeckCards,
-        setMaybeboardCards,
-        setDeckName,
-        setUnmodifiedDeckCards,
-        setUnmodifiedMaybeboardCards,
-        setUnmodifiedDeckName,
+        // setDeckCards,
+        // setMaybeboardCards,
+        // setDeckName,
+        // setUnmodifiedDeckCards,
+        // setUnmodifiedMaybeboardCards,
+        // setUnmodifiedDeckName,
     ]);
 
     const onSaveDeck = async () => {

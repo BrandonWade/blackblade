@@ -20,7 +20,7 @@ function useDisplayResults() {
 
         let route;
         const numberOfPages = response.pages || 1;
-        const totalResults = response.total_results || 0;
+        const totalResults = response.totalResults || 0;
         const results = response.results || [];
         const singleResult = results.length === 1 && totalResults <= 1;
         if (redirectForSingleResult && singleResult) {

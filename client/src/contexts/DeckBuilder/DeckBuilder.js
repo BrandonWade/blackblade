@@ -1,18 +1,13 @@
 import { createContext } from 'react';
 
-export default createContext({
+export const initialState = {
     deckName: '',
-    setDeckName: () => {},
     deckCards: [],
-    setDeckCards: () => {},
     maybeboardCards: [],
-    setMaybeboardCards: () => {},
     unmodifiedDeckName: '',
-    setUnmodifiedDeckName: () => {},
     unmodifiedDeckCards: [],
-    setUnmodifiedDeckCards: () => {},
     unmodifiedMaybeboardCards: [],
-    setUnmodifiedMaybeboardCards: () => {},
     maybeboardMode: false,
-    setMaybeboardMode: () => {},
-});
+};
+
+export default createContext(initialState);
