@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import CardContext from '../../contexts/Card';
-import SearchContext, { colorInitialState } from '../../contexts/Search';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardArtSelectorContext from '../../contexts/CardArtSelector';
 import ErrorContext from '../../contexts/Error';
@@ -12,18 +11,10 @@ import Card from '../../pages/Card';
 import DeckCreation from '../../pages/DeckCreation';
 import DeckBuilder from '../../pages/DeckBuilder';
 import About from '../../pages/About';
+import SearchProvider from '../../providers/Search';
 import './App.scss';
 
-const App = () => {
-    const [name, setName] = useState('');
-    const [text, setText] = useState('');
-    const [type, setType] = useState('');
-    const [colors, setColors] = useState(colorInitialState);
-    const [set, setSet] = useState('');
-    const [page, setPage] = useState(1);
-    const [totalResults, setTotalResults] = useState(0);
-    const [searchResults, setSearchResults] = useState([]);
-    const [numberOfPages, setNumberOfPages] = useState(1);
+function App() {
     const [card, setCard] = useState({});
     const [artSelectorVisible, setArtSelectorVisible] = useState(false);
     const [deckName, setDeckName] = useState('');
@@ -56,28 +47,7 @@ const App = () => {
                         setMaybeboardMode,
                     }}
                 >
-                    <SearchContext.Provider
-                        value={{
-                            name,
-                            setName,
-                            text,
-                            setText,
-                            type,
-                            setType,
-                            colors,
-                            setColors,
-                            set,
-                            setSet,
-                            page,
-                            setPage,
-                            totalResults,
-                            setTotalResults,
-                            searchResults,
-                            setSearchResults,
-                            numberOfPages,
-                            setNumberOfPages,
-                        }}
-                    >
+                    <SearchProvider>
                         <CardContext.Provider value={{ card, setCard }}>
                             <BrowserRouter>
                                 <Switch>
@@ -93,11 +63,11 @@ const App = () => {
                                 </Switch>
                             </BrowserRouter>
                         </CardContext.Provider>
-                    </SearchContext.Provider>
+                    </SearchProvider>
                 </DeckBuilderContext.Provider>
             </CardArtSelectorContext.Provider>
         </ErrorContext.Provider>
     );
-};
+}
 
 export default App;

@@ -9,16 +9,13 @@ import Checkbox from '../../components/Checkbox';
 import Button from '../../components/Button';
 import './AdvancedSearch.scss';
 
-const AdvancedSearch = () => {
+function AdvancedSearch() {
     const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
     const { name, setName, text, setText, type, setType, colors, setColors, set, setSet } = useContext(SearchContext);
 
     const onChangeColors = color => {
-        setColors({
-            ...colors,
-            [color]: !colors[color],
-        });
+        setColors(color);
     };
 
     const onSubmit = async e => {
@@ -110,6 +107,6 @@ const AdvancedSearch = () => {
             </div>
         </HeaderPage>
     );
-};
+}
 
 export default AdvancedSearch;

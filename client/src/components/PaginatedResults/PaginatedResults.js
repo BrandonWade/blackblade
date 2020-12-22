@@ -6,7 +6,7 @@ import Paginator from '../../components/Paginator';
 import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
-const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect = true, redirectForSingleResult = true }) => {
+function PaginatedResults({ className = '', onSelectResult = () => {}, redirect = true, redirectForSingleResult = true }) {
     const { name, text, type, colors, set, searchResults, setPage } = useContext(SearchContext);
     const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
@@ -27,6 +27,6 @@ const PaginatedResults = ({ className = '', onSelectResult = () => {}, redirect 
             <CardGrid cards={searchResults} onClick={onSelectResult} />
         </div>
     );
-};
+}
 
 export default PaginatedResults;

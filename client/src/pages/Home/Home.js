@@ -9,7 +9,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import './Home.scss';
 
-const Home = () => {
+function Home() {
     const { name, setName } = useContext(SearchContext);
     const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
@@ -48,6 +48,6 @@ const Home = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Home;
