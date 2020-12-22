@@ -1,1 +1,1 @@
-export { default } from './DeckBuilder';
+export { default, initialState } from './DeckBuilder';
