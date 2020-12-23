@@ -1,1 +1,1 @@
-export { default } from './CardArtSelector';
+export { default, initialState } from './CardArtSelector';

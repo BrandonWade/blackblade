@@ -1,6 +1,5 @@
 import { createContext } from 'react';
 
-export default createContext({
-    card: {},
-    setCard: () => {},
-});
+export const initialState = {};
+
+export default createContext(initialState);

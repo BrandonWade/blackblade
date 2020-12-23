@@ -1,6 +1,5 @@
 import { createContext } from 'react';
 
-export default createContext({
-    visible: true,
-    setVisible: () => {},
-});
+export const initialState = false;
+
+export default createContext(initialState);

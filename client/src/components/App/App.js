@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import CardContext from '../../contexts/Card';
-import CardArtSelectorContext from '../../contexts/CardArtSelector';
-import ErrorContext from '../../contexts/Error';
+import ErrorProvider from '../../providers/Error';
+import CardArtSelectorProvider from '../../providers/CardArtSelector';
+import DeckBuilderProvider from '../../providers/DeckBuilder';
+import SearchProvider from '../../providers/Search';
+import CardProvider from '../../providers/Card';
 import Home from '../../pages/Home';
 import AdvancedSearch from '../../pages/AdvancedSearch';
 import SearchResults from '../../pages/SearchResults';
@@ -10,21 +12,15 @@ import Card from '../../pages/Card';
 import DeckCreation from '../../pages/DeckCreation';
 import DeckBuilder from '../../pages/DeckBuilder';
 import About from '../../pages/About';
-import DeckBuilderProvider from '../../providers/DeckBuilder';
-import SearchProvider from '../../providers/Search';
 import './App.scss';
 
 function App() {
-    const [card, setCard] = useState({});
-    const [artSelectorVisible, setArtSelectorVisible] = useState(false);
-    const [errors, setErrors] = useState([]);
-
     return (
-        <ErrorContext.Provider value={{ errors, setErrors }}>
-            <CardArtSelectorContext.Provider value={{ artSelectorVisible, setArtSelectorVisible }}>
+        <ErrorProvider>
+            <CardArtSelectorProvider>
                 <DeckBuilderProvider>
                     <SearchProvider>
-                        <CardContext.Provider value={{ card, setCard }}>
+                        <CardProvider>
                             <BrowserRouter>
                                 <Switch>
                                     <Route path='/' exact component={Home} />
@@ -38,11 +34,11 @@ function App() {
                                     <Redirect to='/' />
                                 </Switch>
                             </BrowserRouter>
-                        </CardContext.Provider>
+                        </CardProvider>
                     </SearchProvider>
                 </DeckBuilderProvider>
-            </CardArtSelectorContext.Provider>
-        </ErrorContext.Provider>
+            </CardArtSelectorProvider>
+        </ErrorProvider>
     );
 }
 
