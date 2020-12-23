@@ -23,7 +23,7 @@ function SearchReducer(state = {}, action = {}) {
                 ...state,
                 colors: {
                     ...state.colors,
-                    [action.color]: !state.colors[action.color],
+                    [action.color]: action.value,
                 },
             };
 

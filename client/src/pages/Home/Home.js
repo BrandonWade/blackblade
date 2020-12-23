@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import useRandomCard from '../../hooks/useRandomCard';
 import SearchContext from '../../contexts/Search';
@@ -11,16 +10,13 @@ import './Home.scss';
 
 function Home() {
     const { name, setName } = useContext(SearchContext);
-    const { searchCards } = useSearch();
-    const { displayResults } = useDisplayResults();
+    const { searchResultsRedirect } = useDisplayResults();
     const { displayRandomCard } = useRandomCard();
 
     const onSubmit = async e => {
         e.preventDefault();
 
-        const params = { name };
-        const response = await searchCards(params);
-        displayResults(response, params, true);
+        searchResultsRedirect({ name });
     };
 
     const onChange = e => {

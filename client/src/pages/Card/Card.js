@@ -16,7 +16,7 @@ function Card() {
     const { id } = useParams();
     const cardID = parseInt(id);
     const { getCardByID } = useSearch();
-    const { displayResults } = useDisplayResults();
+    const { displayCard } = useDisplayResults();
     const { card } = useContext(CardContext);
     const selectedSet = card?.sets_json?.find(set => set.card_id === cardID) || {};
     const cardFaces = selectedSet?.card_faces || [];
@@ -24,13 +24,13 @@ function Card() {
     useEffect(() => {
         const fetchCard = async () => {
             const response = await getCardByID(id);
-            displayResults(response, {}, false);
+            displayCard(response);
         };
 
         if (card.card_id !== cardID) {
             fetchCard();
         }
-    }, [card.card_id, cardID, id, displayResults, getCardByID]);
+    }, [card.card_id, cardID, id, getCardByID, displayCard]);
 
     return (
         <HeaderPage className='Card'>

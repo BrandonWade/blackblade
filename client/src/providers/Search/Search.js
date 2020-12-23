@@ -8,7 +8,7 @@ function SearchProvider({ children = [] }) {
     const setName = name => dispatch({ type: 'SET_NAME', name });
     const setText = text => dispatch({ type: 'SET_TEXT', text });
     const setType = type => dispatch({ type: 'SET_TYPE', cardType: type });
-    const setColors = color => dispatch({ type: 'SET_COLORS', color });
+    const setColors = (color, value) => dispatch({ type: 'SET_COLORS', color, value });
     const setSet = set => dispatch({ type: 'SET_SET', set });
     const setPage = page => dispatch({ type: 'SET_PAGE', page });
     const setTotalResults = totalResults => dispatch({ type: 'SET_TOTAL_RESULTS', totalResults });

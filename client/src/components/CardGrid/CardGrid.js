@@ -8,7 +8,7 @@ function CardGrid({ className = '', cards = [], currentCardID = 0, onClick = () 
         <NoResults showMessage={cards.length === 0}>
             <div className={`CardGrid ${className}`}>
                 {cards.map(card => {
-                    return <CardGridImage card={card} selected={card.card_id === currentCardID} onClick={onClick} />;
+                    return <CardGridImage key={card.card_id} card={card} selected={card.card_id === currentCardID} onClick={onClick} />;
                 })}
             </div>
         </NoResults>
