@@ -1,6 +1,5 @@
 import { createContext } from 'react';
 
-export default createContext({
-    errors: [],
-    setErrors: () => {},
-});
+export const initialState = [];
+
+export default createContext(initialState);

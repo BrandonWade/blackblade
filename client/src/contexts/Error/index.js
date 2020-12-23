@@ -1,1 +1,1 @@
-export { default } from './Error';
+export { default, initialState } from './Error';
