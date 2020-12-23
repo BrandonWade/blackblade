@@ -6,7 +6,7 @@ import DeckRowManaCost from './DeckRowManaCost';
 import Input from '../../components/Input';
 import { Images } from '../Icons';
 
-const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) => {
+function DeckRow({ card = {}, updateCount = () => {}, removeCard = () => {} }) {
     const history = useHistory();
     const { setCard } = useContext(CardContext);
     const { setArtSelectorVisible } = useContext(CardArtSelectorContext);
@@ -59,6 +59,6 @@ const DeckRow = ({ card = {}, updateCount = () => {}, removeCard = () => {} }) =
             </td>
         </tr>
     );
-};
+}
 
 export default DeckRow;

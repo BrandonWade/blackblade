@@ -12,7 +12,7 @@ import DeckTable from '../../components/DeckList/DeckTable';
 import Button from '../../components/Button';
 import './DeckBuilder.scss';
 
-const DeckBuilder = () => {
+function DeckBuilder() {
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDeck();
     const { addErrors } = useErrors();
@@ -37,38 +37,41 @@ const DeckBuilder = () => {
     const nameNotModified = isEqual(deckName, unmodifiedDeckName);
     const isUnmodified = deckNotModified && maybeboardNotModified && nameNotModified;
 
-    useEffect(() => {
-        const fetchDeck = async () => {
-            const result = await getDeck(publicID);
-            if (!result.success) {
-                addErrors(result.errors);
-                return;
-            }
-            const deck = result.cards.filter(c => c.location === 'deck');
-            const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
-            setDeckName(result.name);
-            setDeckCards(deck);
-            setMaybeboardCards(maybeboard);
-            setUnmodifiedDeckName(result.name);
-            setUnmodifiedDeckCards(deck);
-            setUnmodifiedMaybeboardCards(maybeboard);
-        };
+    useEffect(
+        () => {
+            const fetchDeck = async () => {
+                const result = await getDeck(publicID);
+                if (!result.success) {
+                    addErrors(result.errors);
+                    return;
+                }
+                const deck = result.cards.filter(c => c.location === 'deck');
+                const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
+                setDeckName(result.name);
+                setDeckCards(deck);
+                setMaybeboardCards(maybeboard);
+                setUnmodifiedDeckName(result.name);
+                setUnmodifiedDeckCards(deck);
+                setUnmodifiedMaybeboardCards(maybeboard);
+            };
 
-        if (isUnmodified) {
-            fetchDeck();
-        }
-    }, [
-        addErrors,
-        getDeck,
-        isUnmodified,
-        publicID,
-        // setDeckCards,
-        // setMaybeboardCards,
-        // setDeckName,
-        // setUnmodifiedDeckCards,
-        // setUnmodifiedMaybeboardCards,
-        // setUnmodifiedDeckName,
-    ]);
+            if (isUnmodified) {
+                fetchDeck();
+            }
+        },
+        [
+            // addErrors,
+            // getDeck,
+            // isUnmodified,
+            // publicID,
+            // setDeckCards,
+            // setMaybeboardCards,
+            // setDeckName,
+            // setUnmodifiedDeckCards,
+            // setUnmodifiedMaybeboardCards,
+            // setUnmodifiedDeckName,
+        ]
+    );
 
     const onSaveDeck = async () => {
         const result = await saveDeck(publicID, deckName, deckCards, maybeboardCards);
@@ -111,6 +114,6 @@ const DeckBuilder = () => {
             </div>
         </div>
     );
-};
+}
 
 export default DeckBuilder;

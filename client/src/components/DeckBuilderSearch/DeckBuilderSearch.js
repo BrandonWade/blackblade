@@ -7,7 +7,7 @@ import Input from '../Input';
 import PaginatedResults from '../../components/PaginatedResults';
 import './DeckBuilderSearch.scss';
 
-const DeckBuilderSearch = () => {
+function DeckBuilderSearch() {
     const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
     const { name, setName } = useContext(SearchContext);
@@ -44,10 +44,14 @@ const DeckBuilderSearch = () => {
         }
     };
 
+    const onSearch = e => {
+        setName(e.target.value);
+    };
+
     return (
         <div className='DeckBuilderSearch'>
             <form className='DeckBuilderSearch-searchForm' onSubmit={onSubmit}>
-                <Input className='DeckBuilderSearch-searchBar' value={name} placeholder='Search' onChange={e => setName(e.target.value)} />
+                <Input className='DeckBuilderSearch-searchBar' value={name} placeholder='Search' onChange={onSearch} />
             </form>
             <PaginatedResults
                 className='DeckBuilderSearch-results'
@@ -57,6 +61,6 @@ const DeckBuilderSearch = () => {
             />
         </div>
     );
-};
+}
 
 export default DeckBuilderSearch;

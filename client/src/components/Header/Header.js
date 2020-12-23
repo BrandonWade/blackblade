@@ -11,7 +11,7 @@ import Button from '../Button';
 import Menu from '../Menu';
 import './Header.scss';
 
-const Header = () => {
+function Header() {
     const { name, setName } = useContext(SearchContext);
     const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
@@ -45,7 +45,7 @@ const Header = () => {
                 <Link to='/decks'>
                     <Button className='Header-link'>Deck Builder</Button>
                 </Link>
-                <Button className='Header-link' onClick={() => displayRandomCard()}>
+                <Button className='Header-link' onClick={displayRandomCard}>
                     Random Card
                 </Button>
                 <Link to='/about'>
@@ -53,11 +53,11 @@ const Header = () => {
                 </Link>
             </div>
             <span className='Header-randomCard'>
-                <Documents className='Header-randomIcon' onClick={() => displayRandomCard()} />
+                <Documents className='Header-randomIcon' onClick={displayRandomCard} />
             </span>
             <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         </div>
     );
-};
+}
 
 export default Header;

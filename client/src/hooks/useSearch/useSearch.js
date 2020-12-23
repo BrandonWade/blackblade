@@ -1,6 +1,6 @@
 import { useRef, useCallback } from 'react';
 
-const useSearch = (hdrs = {}) => {
+function useSearch(hdrs = {}) {
     const headers = useRef(hdrs);
 
     const getParamString = useCallback((params = {}) => {
@@ -127,6 +127,6 @@ const useSearch = (hdrs = {}) => {
         getRandomCard,
         searchCards,
     };
-};
+}
 
 export default useSearch;

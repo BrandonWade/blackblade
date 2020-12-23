@@ -41,7 +41,7 @@ function Home() {
                     <Link to='/decks'>
                         <Button className='Home-link'>Deck Builder</Button>
                     </Link>
-                    <Button className='Home-link' onClick={() => displayRandomCard()}>
+                    <Button className='Home-link' onClick={displayRandomCard}>
                         Random Card
                     </Button>
                 </div>

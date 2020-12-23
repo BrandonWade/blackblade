@@ -6,7 +6,7 @@ import Overlay from '../Overlay';
 import CardGrid from '../CardGrid';
 import './CardArtSelector.scss';
 
-const CardArtSelector = () => {
+function CardArtSelector() {
     const { artSelectorVisible, setArtSelectorVisible } = useContext(CardArtSelectorContext);
     const { card, setCard } = useContext(CardContext);
     const { deckCards, setDeckCards } = useContext(DeckBuilderContext);
@@ -32,6 +32,6 @@ const CardArtSelector = () => {
             </Overlay>
         </div>
     ) : null;
-};
+}
 
 export default CardArtSelector;

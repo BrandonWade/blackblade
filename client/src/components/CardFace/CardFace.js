@@ -3,7 +3,7 @@ import useSymbols from '../../hooks/useSymbols';
 import CardSection from '../CardSection';
 import './CardFace.scss';
 
-const CardFace = ({ face = {} }) => {
+function CardFace({ face = {} }) {
     const manaCost = useSymbols(face?.mana_cost || '');
     const oracleText = useSymbols(face?.oracle_text || '');
 
@@ -40,6 +40,6 @@ const CardFace = ({ face = {} }) => {
             {renderStatLine(face)}
         </CardSection>
     );
-};
+}
 
 export default CardFace;

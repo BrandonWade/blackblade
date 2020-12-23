@@ -3,14 +3,14 @@ import { sortBy } from 'lodash';
 import DeckSection from './DeckSection';
 import './DeckTable.scss';
 
-const DeckTable = ({
+function DeckTable({
     deckCards = [],
     setDeckCards = () => {},
     maybeboardCards = [],
     setMaybeboardCards = () => {},
     maybeboardMode = false,
     setMaybeboardMode = () => {},
-}) => {
+}) {
     const deck = sortBy(deckCards, ['cmc']);
     const maybeboard = sortBy(maybeboardCards, ['cmc']);
     const creatures = deck.filter(card => ['creature'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
@@ -83,6 +83,6 @@ const DeckTable = ({
             />
         </table>
     );
-};
+}
 
 export default DeckTable;

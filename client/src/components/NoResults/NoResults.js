@@ -2,7 +2,7 @@ import React from 'react';
 import { MagnifyingGlass } from '../Icons';
 import './NoResults.scss';
 
-const NoResults = ({ showMessage = false, children = null }) => {
+function NoResults({ showMessage = false, children = null }) {
     return (
         <>
             {showMessage ? (
@@ -18,6 +18,6 @@ const NoResults = ({ showMessage = false, children = null }) => {
             )}
         </>
     );
-};
+}
 
 export default NoResults;

@@ -1,4 +1,4 @@
-const useDeck = (headers = {}) => {
+function useDeck(headers = {}) {
     const createDeck = async (name = '') => {
         const response = await fetch('/api/decks', {
             method: 'POST',
@@ -82,6 +82,6 @@ const useDeck = (headers = {}) => {
         saveDeck,
         getDeck,
     };
-};
+}
 
 export default useDeck;
