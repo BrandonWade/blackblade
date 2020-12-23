@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/Search';
 import symbolMap from '../../hooks/useSymbols/symbolMap';
@@ -10,8 +9,7 @@ import Button from '../../components/Button';
 import './AdvancedSearch.scss';
 
 function AdvancedSearch() {
-    const { searchCards } = useSearch();
-    const { displayResults } = useDisplayResults();
+    const { searchResultsRedirect } = useDisplayResults();
     const { name, setName, text, setText, type, setType, colors, setColors, set, setSet } = useContext(SearchContext);
 
     const onChangeName = e => {
@@ -31,9 +29,7 @@ function AdvancedSearch() {
     const onChangeBlack = () => onChangeColors('black');
     const onChangeRed = () => onChangeColors('red');
     const onChangeGreen = () => onChangeColors('green');
-    const onChangeColors = color => {
-        setColors(color);
-    };
+    const onChangeColors = color => setColors(color, !colors[color]);
 
     const onChangeSet = e => {
         setSet(e.target.value);
@@ -42,8 +38,7 @@ function AdvancedSearch() {
     const onSubmit = async e => {
         e.preventDefault();
 
-        const response = await searchCards({ name, text, type, colors, set });
-        displayResults(response, { name, text, type, colors, set, page: 1 }, true);
+        searchResultsRedirect({ name, text, type, colors, set, page: 1 });
     };
 
     return (

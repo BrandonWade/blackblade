@@ -1,9 +1,5 @@
-import { useRef, useCallback } from 'react';
-
-function useSearch(hdrs = {}) {
-    const headers = useRef(hdrs);
-
-    const getParamString = useCallback((params = {}) => {
+function useSearch(headers = {}) {
+    const getParamString = (params = {}) => {
         let pairs = [];
 
         if (params?.name) {
@@ -37,7 +33,7 @@ function useSearch(hdrs = {}) {
         }
 
         return pairs.join('&');
-    }, []);
+    };
 
     const getCardByID = async id => {
         const response = await fetch(`/api/cards/${id}`, {
@@ -93,33 +89,30 @@ function useSearch(hdrs = {}) {
         }
     };
 
-    const searchCards = useCallback(
-        async (params = {}) => {
-            const paramString = getParamString(params);
-            const response = await fetch(`/api/search?${paramString}`, {
-                headers: {
-                    ...headers,
-                },
-            });
+    const searchCards = async (params = {}) => {
+        const paramString = getParamString(params);
+        const response = await fetch(`/api/search?${paramString}`, {
+            headers: {
+                ...headers,
+            },
+        });
 
-            switch (response.status) {
-                case 200:
-                    const data = await response.json();
-                    return {
-                        success: true,
-                        totalResults: data.total_results,
-                        pages: data.pages,
-                        results: data.results,
-                    };
-                default:
-                    return {
-                        success: false,
-                        errors: await response.json(),
-                    };
-            }
-        },
-        [getParamString]
-    );
+        switch (response.status) {
+            case 200:
+                const data = await response.json();
+                return {
+                    success: true,
+                    totalResults: data.total_results,
+                    pages: data.pages,
+                    results: data.results,
+                };
+            default:
+                return {
+                    success: false,
+                    errors: await response.json(),
+                };
+        }
+    };
 
     return {
         getParamString,

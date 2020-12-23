@@ -1,19 +1,16 @@
 import React, { useContext } from 'react';
-import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/Search';
 import Paginator from '../../components/Paginator';
 import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
-function PaginatedResults({ className = '', onSelectResult = () => {}, redirect = true, redirectForSingleResult = true }) {
+function PaginatedResults({ className = '', onSelectResult = () => {}, redirect = true }) {
     const { name, text, type, colors, set, searchResults, setPage } = useContext(SearchContext);
-    const { searchCards } = useSearch();
-    const { displayResults } = useDisplayResults();
+    const { searchResultsRedirect } = useDisplayResults();
 
     const fetchResults = async (page = 1) => {
-        const response = await searchCards({ name, text, type, colors, set, page });
-        displayResults(response, { name, text, type, colors, set, page }, redirect, redirectForSingleResult);
+        searchResultsRedirect({ name, text, type, colors, set, page });
     };
 
     const onPageChange = page => {
