@@ -17,7 +17,7 @@ const search = async (req, res) => {
         name,
         text,
         type,
-        colours: { W: white, U: blue, B: black, R: red, G: green },
+        colors: { W: white, U: blue, B: black, R: red, G: green },
         set,
         page,
     });

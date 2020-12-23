@@ -6,15 +6,13 @@ const search = async (params = {}) => {
     const nameTokens = params?.name?.split(/\s+/) || [];
     const textTokens = params?.text?.split(/\s+/) || [];
     const typeTokens = params?.type?.split(/\s+/) || [];
-    const colours = Object.keys(params?.colours).filter(
-        (c) => params?.colours[c],
-    );
+    const colors = Object.keys(params?.colors).filter((c) => params?.colors[c]);
     const set = params?.set?.split(/\s+/) || [];
     const totalResults = await SearchRepository.getTotalResults(
         nameTokens,
         textTokens,
         typeTokens,
-        colours,
+        colors,
         set,
     );
 
@@ -22,7 +20,7 @@ const search = async (params = {}) => {
         nameTokens,
         textTokens,
         typeTokens,
-        colours,
+        colors,
         set,
         params?.page,
         pageSize,
