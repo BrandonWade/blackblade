@@ -1,7 +1,7 @@
 import { useContext, useCallback } from 'react';
 import ErrorContext from '../../contexts/Error';
 
-const useErrors = () => {
+function useErrors() {
     const { setErrors } = useContext(ErrorContext);
 
     const addErrors = useCallback(
@@ -23,6 +23,6 @@ const useErrors = () => {
     return {
         addErrors,
     };
-};
+}
 
 export default useErrors;

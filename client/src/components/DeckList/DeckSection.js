@@ -1,7 +1,7 @@
 import React from 'react';
 import DeckRow from './DeckRow';
 
-const DeckSection = ({
+function DeckSection({
     cards = [],
     heading = '',
     visible = false,
@@ -10,7 +10,7 @@ const DeckSection = ({
     className = '',
     headingClassName = '',
     onHeadingClick = () => {},
-}) => {
+}) {
     return visible ? (
         <tbody className={`DeckTable-section ${className}`}>
             <tr className='DeckTable-headingRow'>
@@ -23,6 +23,6 @@ const DeckSection = ({
             ))}
         </tbody>
     ) : null;
-};
+}
 
 export default DeckSection;

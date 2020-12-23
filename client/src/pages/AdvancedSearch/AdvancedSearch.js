@@ -14,8 +14,29 @@ function AdvancedSearch() {
     const { displayResults } = useDisplayResults();
     const { name, setName, text, setText, type, setType, colors, setColors, set, setSet } = useContext(SearchContext);
 
+    const onChangeName = e => {
+        setName(e.target.value);
+    };
+
+    const onChangeText = e => {
+        setText(e.target.value);
+    };
+
+    const onChangeType = e => {
+        setType(e.target.value);
+    };
+
+    const onChangeWhite = () => onChangeColors('white');
+    const onChangeBlue = () => onChangeColors('blue');
+    const onChangeBlack = () => onChangeColors('black');
+    const onChangeRed = () => onChangeColors('red');
+    const onChangeGreen = () => onChangeColors('green');
     const onChangeColors = color => {
         setColors(color);
+    };
+
+    const onChangeSet = e => {
+        setSet(e.target.value);
     };
 
     const onSubmit = async e => {
@@ -31,66 +52,36 @@ function AdvancedSearch() {
                 <form className='AdvancedSearch-form' onSubmit={onSubmit}>
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Name</label>
-                        <Input className='AdvancedSearch-input' value={name} onChange={e => setName(e.target.value)} />
+                        <Input className='AdvancedSearch-input' value={name} onChange={onChangeName} />
                     </div>
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Text</label>
-                        <Input className='AdvancedSearch-input' value={text} onChange={e => setText(e.target.value)} />
+                        <Input className='AdvancedSearch-input' value={text} onChange={onChangeText} />
                     </div>
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Type</label>
-                        <Input className='AdvancedSearch-input' value={type} onChange={e => setType(e.target.value)} />
+                        <Input className='AdvancedSearch-input' value={type} onChange={onChangeType} />
                     </div>
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Colors</label>
                         <div className='AdvancedSearch-colorBoxes'>
-                            <Checkbox
-                                className='AdvancedSearch-colorCheckbox'
-                                text='White'
-                                name='Color--white'
-                                value={colors['white']}
-                                onClick={() => onChangeColors('white')}
-                            >
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='White' name='Color--white' value={colors['white']} onClick={onChangeWhite}>
                                 <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{W}'] }} />
                                 White
                             </Checkbox>
-                            <Checkbox
-                                className='AdvancedSearch-colorCheckbox'
-                                text='Blue'
-                                name='Color--blue'
-                                value={colors['blue']}
-                                onClick={() => onChangeColors('blue')}
-                            >
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Blue' name='Color--blue' value={colors['blue']} onClick={onChangeBlue}>
                                 <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{U}'] }} />
                                 Blue
                             </Checkbox>
-                            <Checkbox
-                                className='AdvancedSearch-colorCheckbox'
-                                text='Black'
-                                name='Color--black'
-                                value={colors['black']}
-                                onClick={() => onChangeColors('black')}
-                            >
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Black' name='Color--black' value={colors['black']} onClick={onChangeBlack}>
                                 <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{B}'] }} />
                                 Black
                             </Checkbox>
-                            <Checkbox
-                                className='AdvancedSearch-colorCheckbox'
-                                text='Red'
-                                name='Color--red'
-                                value={colors['red']}
-                                onClick={() => onChangeColors('red')}
-                            >
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Red' name='Color--red' value={colors['red']} onClick={onChangeRed}>
                                 <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{R}'] }} />
                                 Red
                             </Checkbox>
-                            <Checkbox
-                                className='AdvancedSearch-colorCheckbox'
-                                text='Green'
-                                name='Color--green'
-                                value={colors['green']}
-                                onClick={() => onChangeColors('green')}
-                            >
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Green' name='Color--green' value={colors['green']} onClick={onChangeGreen}>
                                 <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{G}'] }} />
                                 Green
                             </Checkbox>
@@ -98,7 +89,7 @@ function AdvancedSearch() {
                     </div>
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Set</label>
-                        <Input className='AdvancedSearch-input' value={set} onChange={e => setSet(e.target.value)} />
+                        <Input className='AdvancedSearch-input' value={set} onChange={onChangeSet} />
                     </div>
                     <Button className='AdvancedSearch-searchButton' onClick={onSubmit}>
                         Search

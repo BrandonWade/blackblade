@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../Button';
 import './Overlay.scss';
 
-const Overlay = ({ className = '', visible = false, setVisible = () => {}, children = [] }) => {
+function Overlay({ className = '', visible = false, setVisible = () => {}, children = [] }) {
     const closeOverlay = () => {
         setVisible(false);
     };
@@ -15,6 +15,6 @@ const Overlay = ({ className = '', visible = false, setVisible = () => {}, child
             {children}
         </div>
     );
-};
+}
 
 export default Overlay;

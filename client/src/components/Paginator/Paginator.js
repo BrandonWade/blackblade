@@ -11,15 +11,31 @@ function Paginator({ className = '', onPageChange = () => {} }) {
     const nextEnabled = page < numberOfPages;
     const lastEnabled = page < numberOfPages;
 
+    const onFirstPageClick = () => {
+        onPageChange(1);
+    };
+
+    const onPreviousPageClick = () => {
+        onPageChange(page - 1);
+    };
+
+    const onNextPageClick = () => {
+        onPageChange(page + 1);
+    };
+
+    const onLastPageClick = () => {
+        onPageChange(numberOfPages);
+    };
+
     return (
         <div className={`Paginator ${className}`}>
             <div className='Paginator-content'>
                 <div className='Paginator-buttonGroup'>
-                    <Button onClick={() => onPageChange(1)} disabled={!firstEnabled}>
+                    <Button onClick={onFirstPageClick} disabled={!firstEnabled}>
                         <ChevronCircleLeft className='Paginator-icon Paginator-firstPageIcon' />
                         First
                     </Button>
-                    <Button onClick={() => onPageChange(page - 1)} disabled={!previousEnabled}>
+                    <Button onClick={onPreviousPageClick} disabled={!previousEnabled}>
                         <ChevronLeft className='Paginator-icon Paginator-previousPageIcon' />
                         Previous
                     </Button>
@@ -29,11 +45,11 @@ function Paginator({ className = '', onPageChange = () => {} }) {
                     <div className='Paginator-infoBlock'>{`${totalResults} results total`}</div>
                 </div>
                 <div className='Paginator-buttonGroup'>
-                    <Button onClick={() => onPageChange(page + 1)} disabled={!nextEnabled}>
+                    <Button onClick={onNextPageClick} disabled={!nextEnabled}>
                         Next
                         <ChevronRight className='Paginator-icon Paginator-nextPageIcon' />
                     </Button>
-                    <Button onClick={() => onPageChange(numberOfPages)} disabled={!lastEnabled}>
+                    <Button onClick={onLastPageClick} disabled={!lastEnabled}>
                         Last
                         <ChevronCircleRight className='Paginator-icon Paginator-lastPageIcon' />
                     </Button>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Icons.scss';
 
-export const ChevronLeft = ({ className = '', onClick = () => {} }) => {
+export function ChevronLeft({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -10,9 +10,9 @@ export const ChevronLeft = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const ChevronRight = ({ className = '', onClick = () => {} }) => {
+export function ChevronRight({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -21,9 +21,9 @@ export const ChevronRight = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const ChevronCircleLeft = ({ className = '', onClick = () => {} }) => {
+export function ChevronCircleLeft({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -32,9 +32,9 @@ export const ChevronCircleLeft = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const ChevronCircleRight = ({ className = '', onClick = () => {} }) => {
+export function ChevronCircleRight({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -43,9 +43,9 @@ export const ChevronCircleRight = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const ChevronThinRight = ({ className = '', onClick = () => {} }) => {
+export function ChevronThinRight({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -54,9 +54,9 @@ export const ChevronThinRight = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const ChevronThinDown = ({ className = '', onClick = () => {} }) => {
+export function ChevronThinDown({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -65,9 +65,9 @@ export const ChevronThinDown = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const RotateCW = ({ className = '', onClick = () => {} }) => {
+export function RotateCW({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -76,9 +76,9 @@ export const RotateCW = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const RotateCCW = ({ className = '', onClick = () => {} }) => {
+export function RotateCCW({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -87,9 +87,9 @@ export const RotateCCW = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const FlipRotate = ({ className = '', onClick = () => {} }) => {
+export function FlipRotate({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -98,9 +98,9 @@ export const FlipRotate = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const Documents = ({ className = '', onClick = () => {} }) => {
+export function Documents({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -109,9 +109,9 @@ export const Documents = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const MagnifyingGlass = ({ className = '', onClick = () => {} }) => {
+export function MagnifyingGlass({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -120,9 +120,9 @@ export const MagnifyingGlass = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const Pencil = ({ className = '', onClick = () => {} }) => {
+export function Pencil({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -131,9 +131,9 @@ export const Pencil = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}
 
-export const Images = ({ className = '', onClick = () => {} }) => {
+export function Images({ className = '', onClick = () => {} }) {
     return (
         <span className={`Icon ${className}`} onClick={onClick}>
             <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
@@ -142,4 +142,4 @@ export const Images = ({ className = '', onClick = () => {} }) => {
             </svg>
         </span>
     );
-};
+}

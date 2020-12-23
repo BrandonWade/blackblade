@@ -8,7 +8,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import './DeckCreation.scss';
 
-const DeckCreation = ({ editing = false }) => {
+function DeckCreation({ editing = false }) {
     const history = useHistory();
     const { publicID } = useParams();
     const { createDeck } = useDeck();
@@ -47,6 +47,6 @@ const DeckCreation = ({ editing = false }) => {
             </form>
         </HeaderPage>
     );
-};
+}
 
 export default DeckCreation;

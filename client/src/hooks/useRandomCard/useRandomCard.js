@@ -4,7 +4,7 @@ import useSearch from '../useSearch';
 import useErrors from '../useErrors';
 import CardContext from '../../contexts/Card';
 
-const useRandomCard = () => {
+function useRandomCard() {
     const history = useHistory();
     const { getRandomCard } = useSearch();
     const { addErrors } = useErrors();
@@ -24,6 +24,6 @@ const useRandomCard = () => {
     return {
         displayRandomCard,
     };
-};
+}
 
 export default useRandomCard;

@@ -8,7 +8,7 @@ import HeaderPage from '../../components/HeaderPage';
 import PaginatedResults from '../../components/PaginatedResults';
 import './SearchResults.scss';
 
-const SearchResults = ({ location }) => {
+function SearchResults({ location }) {
     const history = useHistory();
 
     const { setCard } = useContext(CardContext);
@@ -26,6 +26,6 @@ const SearchResults = ({ location }) => {
             <PaginatedResults onSelectResult={onSelectResult} />
         </HeaderPage>
     );
-};
+}
 
 export default SearchResults;

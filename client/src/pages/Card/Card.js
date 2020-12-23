@@ -12,7 +12,7 @@ import CardSets from '../../components/CardSets';
 import CardRulings from '../../components/CardRulings';
 import './Card.scss';
 
-const Card = () => {
+function Card() {
     const { id } = useParams();
     const cardID = parseInt(id);
     const { getCardByID } = useSearch();
@@ -50,6 +50,6 @@ const Card = () => {
             </NoResults>
         </HeaderPage>
     );
-};
+}
 
 export default Card;

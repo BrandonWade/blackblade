@@ -2,7 +2,7 @@ import React from 'react';
 import { sumBy, sum, head, sortBy } from 'lodash';
 import './DeckStats.scss';
 
-const DeckStats = ({ deck = [] }) => {
+function DeckStats({ deck = [] }) {
     let stats = [];
 
     const estimatedPrice = () => {
@@ -178,6 +178,6 @@ const DeckStats = ({ deck = [] }) => {
             })}
         </div>
     );
-};
+}
 
 export default DeckStats;

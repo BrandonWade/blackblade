@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import CardSection from '../CardSection';
 import './CardSets.scss';
 
-const CardSets = ({ cardSets = [], currentCardID = 0 }) => {
+function CardSets({ cardSets = [], currentCardID = 0 }) {
     return cardSets.length > 0 ? (
         <CardSection className='CardSets'>
             <ul className='CardSets-list'>
@@ -24,6 +24,6 @@ const CardSets = ({ cardSets = [], currentCardID = 0 }) => {
             </ul>
         </CardSection>
     ) : null;
-};
+}
 
 export default CardSets;

@@ -3,7 +3,7 @@ import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate } from '../Icons';
 import './CardImage.scss';
 
-const CardImage = ({ cardFaces = [], layout = '' }) => {
+function CardImage({ cardFaces = [], layout = '' }) {
     const [flipped, setFlipped] = useState(false);
     const [rotatedCW, setRotatedCW] = useState(false);
     const [rotatedCCW, setRotatedCCW] = useState(false);
@@ -25,31 +25,47 @@ const CardImage = ({ cardFaces = [], layout = '' }) => {
         setTransformed(false);
     }, [cardFaces]);
 
+    const onFlip = () => {
+        setFlipped(!flipped);
+    };
+
+    const onRotateCW = () => {
+        setRotatedCW(!rotatedCW);
+    };
+
+    const onRotateCCW = () => {
+        setRotatedCCW(!rotatedCCW);
+    };
+
+    const onTransform = () => {
+        setTransformed(!transformed);
+    };
+
     const renderButton = () => {
         if (canFlip) {
             return (
-                <Button className='CardImage-button' onClick={() => setFlipped(!flipped)}>
+                <Button className='CardImage-button' onClick={onFlip}>
                     <FlipRotate className='CardImage-buttonIcon' />
                     Flip
                 </Button>
             );
         } else if (canRotateCW) {
             return (
-                <Button className='CardImage-button' onClick={() => setRotatedCW(!rotatedCW)}>
+                <Button className='CardImage-button' onClick={onRotateCW}>
                     <RotateCW className='CardImage-buttonIcon' />
                     Rotate
                 </Button>
             );
         } else if (canRotateCCW) {
             return (
-                <Button className='CardImage-button' onClick={() => setRotatedCCW(!rotatedCCW)}>
+                <Button className='CardImage-button' onClick={onRotateCCW}>
                     <RotateCCW className='CardImage-buttonIcon' />
                     Rotate
                 </Button>
             );
         } else if (canTransform) {
             return (
-                <Button className='CardImage-button' onClick={() => setTransformed(!transformed)}>
+                <Button className='CardImage-button' onClick={onTransform}>
                     <FlipRotate className='CardImage-buttonIcon' />
                     Transform
                 </Button>
@@ -72,6 +88,6 @@ const CardImage = ({ cardFaces = [], layout = '' }) => {
             {renderButton()}
         </div>
     );
-};
+}
 
 export default CardImage;
