@@ -76,8 +76,8 @@ function DeckStats({ deck = [] }) {
         }
     };
 
-    const getColourPercentages = () => {
-        const colourCounts = { '{B}': 0, '{W}': 0, '{G}': 0, '{U}': 0, '{R}': 0 };
+    const getColorPercentages = () => {
+        const colorCounts = { '{B}': 0, '{W}': 0, '{G}': 0, '{U}': 0, '{R}': 0 };
 
         deck.forEach(card => {
             const count = card.count || 0;
@@ -86,74 +86,74 @@ function DeckStats({ deck = [] }) {
                 const symbols = face.mana_cost.split(/(\{(?:\D|[A-Z0-9]+|[A-Z0-9]+\/[A-Z0-9]+)\})/g);
                 symbols.forEach(symbol => {
                     if (symbol === '{W}' || symbol === '{W/P}' || symbol === '{2/W}') {
-                        colourCounts['{W}'] += count;
+                        colorCounts['{W}'] += count;
                     } else if (symbol === '{U}' || symbol === '{U/P}' || symbol === '{2/U}') {
-                        colourCounts['{U}'] += count;
+                        colorCounts['{U}'] += count;
                     } else if (symbol === '{B}' || symbol === '{B/P}' || symbol === '{2/B}') {
-                        colourCounts['{B}'] += count;
+                        colorCounts['{B}'] += count;
                     } else if (symbol === '{R}' || symbol === '{R/P}' || symbol === '{2/R}') {
-                        colourCounts['{R}'] += count;
+                        colorCounts['{R}'] += count;
                     } else if (symbol === '{G}' || symbol === '{G/P}' || symbol === '{2/G}') {
-                        colourCounts['{G}'] += count;
+                        colorCounts['{G}'] += count;
                     } else if (symbol === '{W/U}') {
-                        colourCounts['{W}'] += count;
-                        colourCounts['{U}'] += count;
+                        colorCounts['{W}'] += count;
+                        colorCounts['{U}'] += count;
                     } else if (symbol === '{W/B}') {
-                        colourCounts['{W}'] += count;
-                        colourCounts['{B}'] += count;
+                        colorCounts['{W}'] += count;
+                        colorCounts['{B}'] += count;
                     } else if (symbol === '{U/B}') {
-                        colourCounts['{U}'] += count;
-                        colourCounts['{B}'] += count;
+                        colorCounts['{U}'] += count;
+                        colorCounts['{B}'] += count;
                     } else if (symbol === '{U/R}') {
-                        colourCounts['{U}'] += count;
-                        colourCounts['{R}'] += count;
+                        colorCounts['{U}'] += count;
+                        colorCounts['{R}'] += count;
                     } else if (symbol === '{B/R}') {
-                        colourCounts['{B}'] += count;
-                        colourCounts['{R}'] += count;
+                        colorCounts['{B}'] += count;
+                        colorCounts['{R}'] += count;
                     } else if (symbol === '{B/G}') {
-                        colourCounts['{B}'] += count;
-                        colourCounts['{G}'] += count;
+                        colorCounts['{B}'] += count;
+                        colorCounts['{G}'] += count;
                     } else if (symbol === '{R/G}') {
-                        colourCounts['{R}'] += count;
-                        colourCounts['{G}'] += count;
+                        colorCounts['{R}'] += count;
+                        colorCounts['{G}'] += count;
                     } else if (symbol === '{R/W}') {
-                        colourCounts['{R}'] += count;
-                        colourCounts['{W}'] += count;
+                        colorCounts['{R}'] += count;
+                        colorCounts['{W}'] += count;
                     } else if (symbol === '{G/W}') {
-                        colourCounts['{G}'] += count;
-                        colourCounts['{W}'] += count;
+                        colorCounts['{G}'] += count;
+                        colorCounts['{W}'] += count;
                     } else if (symbol === '{G/U}') {
-                        colourCounts['{G}'] += count;
-                        colourCounts['{U}'] += count;
+                        colorCounts['{G}'] += count;
+                        colorCounts['{U}'] += count;
                     }
                 });
             });
         });
 
-        const total = sum(Object.values(colourCounts));
+        const total = sum(Object.values(colorCounts));
 
-        if (colourCounts['{B}'] > 0) {
-            const percentage = ((colourCounts['{B}'] / total) * 100).toFixed(2);
+        if (colorCounts['{B}'] > 0) {
+            const percentage = ((colorCounts['{B}'] / total) * 100).toFixed(2);
             stats = stats.concat({ label: '% Black', value: percentage });
         }
 
-        if (colourCounts['{W}'] > 0) {
-            const percentage = ((colourCounts['{W}'] / total) * 100).toFixed(2);
+        if (colorCounts['{W}'] > 0) {
+            const percentage = ((colorCounts['{W}'] / total) * 100).toFixed(2);
             stats = stats.concat({ label: '% White', value: percentage });
         }
 
-        if (colourCounts['{G}'] > 0) {
-            const percentage = ((colourCounts['{G}'] / total) * 100).toFixed(2);
+        if (colorCounts['{G}'] > 0) {
+            const percentage = ((colorCounts['{G}'] / total) * 100).toFixed(2);
             stats = stats.concat({ label: '% Green', value: percentage });
         }
 
-        if (colourCounts['{U}'] > 0) {
-            const percentage = ((colourCounts['{U}'] / total) * 100).toFixed(2);
+        if (colorCounts['{U}'] > 0) {
+            const percentage = ((colorCounts['{U}'] / total) * 100).toFixed(2);
             stats = stats.concat({ label: '% Blue', value: percentage });
         }
 
-        if (colourCounts['{R}'] > 0) {
-            const percentage = ((colourCounts['{R}'] / total) * 100).toFixed(2);
+        if (colorCounts['{R}'] > 0) {
+            const percentage = ((colorCounts['{R}'] / total) * 100).toFixed(2);
             stats = stats.concat({ label: '% Red', value: percentage });
         }
     };
@@ -164,7 +164,7 @@ function DeckStats({ deck = [] }) {
     totalCreatures();
     totalSpells();
     totalLands();
-    getColourPercentages();
+    getColorPercentages();
 
     return (
         <div className='DeckStats'>
