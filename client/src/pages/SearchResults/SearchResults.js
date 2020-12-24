@@ -13,7 +13,7 @@ function SearchResults({ location }) {
     const { setName, setText, setType, setColors, setSet, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
     const { searchCards } = useSearch();
-    const { displayResults } = useDisplayResults();
+    const { cardRedirect, displayResults } = useDisplayResults();
     const { search } = location;
 
     useEffect(() => {
@@ -31,7 +31,12 @@ function SearchResults({ location }) {
 
         const fetchResults = async (params = {}) => {
             const response = await searchCards(params);
-            displayResults(response); // TODO: Handle case where there is only 1 result
+
+            if (response?.totalResults === 1) {
+                cardRedirect(response.results[0]);
+            } else {
+                displayResults(response);
+            }
         };
 
         setName(urlName);
