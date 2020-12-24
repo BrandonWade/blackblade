@@ -1,24 +1,26 @@
+import { SET_NAME, SET_TEXT, SET_TYPE, SET_COLORS, SET_SET, SET_PAGE, SET_TOTAL_RESULTS, SET_SEARCH_RESULTS, SET_NUMBER_OF_PAGES } from '../../actions/Search';
+
 function SearchReducer(state = {}, action = {}) {
     switch (action.type) {
-        case 'SET_NAME':
+        case SET_NAME:
             return {
                 ...state,
                 name: action.name,
             };
 
-        case 'SET_TEXT':
+        case SET_TEXT:
             return {
                 ...state,
                 text: action.text,
             };
 
-        case 'SET_TYPE':
+        case SET_TYPE:
             return {
                 ...state,
                 type: action.cardType,
             };
 
-        case 'SET_COLORS':
+        case SET_COLORS:
             return {
                 ...state,
                 colors: {
@@ -27,31 +29,31 @@ function SearchReducer(state = {}, action = {}) {
                 },
             };
 
-        case 'SET_SET':
+        case SET_SET:
             return {
                 ...state,
                 set: action.set,
             };
 
-        case 'SET_PAGE':
+        case SET_PAGE:
             return {
                 ...state,
                 page: action.page,
             };
 
-        case 'SET_TOTAL_RESULTS':
+        case SET_TOTAL_RESULTS:
             return {
                 ...state,
                 totalResults: action.totalResults,
             };
 
-        case 'SET_SEARCH_RESULTS':
+        case SET_SEARCH_RESULTS:
             return {
                 ...state,
                 searchResults: action.searchResults,
             };
 
-        case 'SET_NUMBER_OF_PAGES':
+        case SET_NUMBER_OF_PAGES:
             return {
                 ...state,
                 numberOfPages: action.numberOfPages,
