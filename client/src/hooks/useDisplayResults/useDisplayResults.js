@@ -12,11 +12,20 @@ function useDisplayResults() {
     const { setCard } = useContext(CardContext);
     const { setTotalResults, setSearchResults, setNumberOfPages } = useContext(SearchContext);
 
+    const cardRedirect = (card = {}) => {
+        history.replace(`/cards/${card.card_id}`);
+    };
+
     const searchResultsRedirect = (params = {}) => {
         history.push(`/cards/search?${getParamString(params)}`);
     };
 
     const displayCard = (response = {}) => {
+        if (!response.success) {
+            addErrors(response.errors);
+            return;
+        }
+
         setCard(response?.results?.[0] || {});
     };
 
@@ -35,6 +44,7 @@ function useDisplayResults() {
     };
 
     return {
+        cardRedirect,
         searchResultsRedirect,
         displayCard,
         displayResults,
