@@ -1,42 +1,52 @@
+import {
+    SET_DECK_NAME,
+    SET_DECK_CARDS,
+    SET_MAYBEBOARD_CARDS,
+    SET_UNMODIFIED_DECK_NAME,
+    SET_UNMODIFIED_DECK_CARDS,
+    SET_UNMODIFIED_MAYBEBOARD_CARDS,
+    SET_MAYBEBOARD_MODE,
+} from '../../actions/DeckBuilder';
+
 function DeckBuilderReducer(state = {}, action = {}) {
     switch (action.type) {
-        case 'SET_DECK_NAME':
+        case SET_DECK_NAME:
             return {
                 ...state,
                 deckName: action.deckName,
             };
 
-        case 'SET_DECK_CARDS':
+        case SET_DECK_CARDS:
             return {
                 ...state,
                 deckCards: action.deckCards,
             };
 
-        case 'SET_MAYBEBOARD_CARDS':
+        case SET_MAYBEBOARD_CARDS:
             return {
                 ...state,
                 maybeboardCards: action.maybeboardCards,
             };
 
-        case 'SET_UNMODIFIED_DECK_NAME':
+        case SET_UNMODIFIED_DECK_NAME:
             return {
                 ...state,
                 unmodifiedDeckName: action.unmodifiedDeckName,
             };
 
-        case 'SET_UNMODIFIED_DECK_CARDS':
+        case SET_UNMODIFIED_DECK_CARDS:
             return {
                 ...state,
                 unmodifiedDeckCards: action.unmodifiedDeckCards,
             };
 
-        case 'SET_UNMODIFIED_MAYBEBOARD_CARDS':
+        case SET_UNMODIFIED_MAYBEBOARD_CARDS:
             return {
                 ...state,
                 unmodifiedMaybeboardCards: action.unmodifiedMaybeboardCards,
             };
 
-        case 'SET_MAYBEBOARD_MODE':
+        case SET_MAYBEBOARD_MODE:
             return {
                 ...state,
                 maybeboardMode: action.maybeboardMode,
