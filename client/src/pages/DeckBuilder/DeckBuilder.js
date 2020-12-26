@@ -37,41 +37,27 @@ function DeckBuilder() {
     const nameNotModified = isEqual(deckName, unmodifiedDeckName);
     const isUnmodified = deckNotModified && maybeboardNotModified && nameNotModified;
 
-    useEffect(
-        () => {
-            const fetchDeck = async () => {
-                const result = await getDeck(publicID);
-                if (!result.success) {
-                    addErrors(result.errors);
-                    return;
-                }
-                const deck = result.cards.filter(c => c.location === 'deck');
-                const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
-                setDeckName(result.name);
-                setDeckCards(deck);
-                setMaybeboardCards(maybeboard);
-                setUnmodifiedDeckName(result.name);
-                setUnmodifiedDeckCards(deck);
-                setUnmodifiedMaybeboardCards(maybeboard);
-            };
-
-            if (isUnmodified) {
-                fetchDeck();
+    useEffect(() => {
+        const fetchDeck = async () => {
+            const result = await getDeck(publicID);
+            if (!result.success) {
+                addErrors(result.errors);
+                return;
             }
-        },
-        [
-            // addErrors,
-            // getDeck,
-            // isUnmodified,
-            // publicID,
-            // setDeckCards,
-            // setMaybeboardCards,
-            // setDeckName,
-            // setUnmodifiedDeckCards,
-            // setUnmodifiedMaybeboardCards,
-            // setUnmodifiedDeckName,
-        ]
-    );
+            const deck = result.cards.filter(c => c.location === 'deck');
+            const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
+            setDeckName(result.name);
+            setDeckCards(deck);
+            setMaybeboardCards(maybeboard);
+            setUnmodifiedDeckName(result.name);
+            setUnmodifiedDeckCards(deck);
+            setUnmodifiedMaybeboardCards(maybeboard);
+        };
+
+        if (isUnmodified) {
+            fetchDeck();
+        }
+    }, []);
 
     const onSaveDeck = async () => {
         const result = await saveDeck(publicID, deckName, deckCards, maybeboardCards);
