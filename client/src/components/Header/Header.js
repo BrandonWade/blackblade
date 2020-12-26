@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import useRandomCard from '../../hooks/useRandomCard';
@@ -11,7 +11,8 @@ import Menu from '../Menu';
 import './Header.scss';
 
 function Header() {
-    const { name, setName } = useContext(SearchContext);
+    const [query, setQuery] = useState('');
+    const { setName } = useContext(SearchContext);
     const { searchResultsRedirect } = useDisplayResults();
     const { displayRandomCard } = useRandomCard();
     const [menuOpen, setMenuOpen] = useState(false);
@@ -19,11 +20,12 @@ function Header() {
     const onSubmit = async e => {
         e.preventDefault();
 
-        searchResultsRedirect({ name });
+        setName(query);
+        searchResultsRedirect({ name: query });
     };
 
     const onChange = e => {
-        setName(e.target.value);
+        setQuery(e.target.value);
     };
 
     return (
@@ -31,7 +33,7 @@ function Header() {
             <div className='Header-content'>
                 <Logo className='Header-logo' />
                 <form className='Header-searchForm' onSubmit={onSubmit}>
-                    <Input placeholder='Search' className='Header-searchBox' value={name} onChange={onChange} />
+                    <Input placeholder='Search' className='Header-searchBox' value={query} onChange={onChange} />
                 </form>
             </div>
             <div className='Header-linksContainer'>

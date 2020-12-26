@@ -10,7 +10,7 @@ import './SearchResults.scss';
 
 function SearchResults({ location }) {
     const history = useHistory();
-    const { setName, setText, setType, setColors, setSet, setPage } = useContext(SearchContext);
+    const { name, setName, text, setText, type, setType, colors, setColors, set, setSet, page, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
     const { searchCards } = useSearch();
     const { cardRedirect, displayResults } = useDisplayResults();
@@ -29,6 +29,48 @@ function SearchResults({ location }) {
         const urlSet = urlParams.get('set') || '';
         const urlPage = parseInt(urlParams.get('page')) || 1;
 
+        if (urlName !== name) {
+            setName(urlName);
+        }
+
+        if (urlText !== text) {
+            setText(urlText);
+        }
+
+        if (urlType !== type) {
+            setType(urlType);
+        }
+
+        if (urlWhite !== colors['white']) {
+            setColors('white', urlWhite);
+        }
+
+        if (urlBlue !== colors['blue']) {
+            setColors('blue', urlBlue);
+        }
+
+        if (urlBlack !== colors['black']) {
+            setColors('black', urlBlack);
+        }
+
+        if (urlRed !== colors['red']) {
+            setColors('red', urlRed);
+        }
+
+        if (urlGreen !== colors['green']) {
+            setColors('green', urlGreen);
+        }
+
+        if (urlSet !== set) {
+            setSet(urlSet);
+        }
+
+        if (urlPage !== page) {
+            setPage(urlPage);
+        }
+    }, [search, name, setName, text, setText, type, setType, colors, setColors, set, setSet, page, setPage]);
+
+    useEffect(() => {
         const fetchResults = async (params = {}) => {
             const response = await searchCards(params);
 
@@ -39,30 +81,17 @@ function SearchResults({ location }) {
             }
         };
 
-        setName(urlName);
-        setText(urlText);
-        setType(urlType);
-        setColors('white', urlWhite);
-        setColors('blue', urlBlue);
-        setColors('black', urlBlack);
-        setColors('red', urlRed);
-        setColors('green', urlGreen);
-        setSet(urlSet);
-        setPage(urlPage);
-
-        const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen };
-        fetchResults({ name: urlName, text: urlText, type: urlType, colors: urlColors, set: urlSet, page: urlPage });
+        fetchResults({ name, text, type, colors, set, page });
     }, [
-        search,
         // cardRedirect,
         // displayResults,
         // searchCards,
-        // setColors,
-        // setName,
-        // setPage,
-        // setSet,
-        // setText,
-        // setType,
+        name,
+        text,
+        type,
+        colors,
+        set,
+        page,
     ]);
 
     const onSelectResult = card => {
@@ -72,7 +101,7 @@ function SearchResults({ location }) {
 
     return (
         <HeaderPage className='SearchResults'>
-            <PaginatedResults onSelectResult={onSelectResult} />
+            <PaginatedResults onSelectResult={onSelectResult} redirect={true} />
         </HeaderPage>
     );
 }

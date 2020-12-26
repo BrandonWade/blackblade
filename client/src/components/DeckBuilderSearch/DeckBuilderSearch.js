@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/Search';
@@ -8,16 +8,17 @@ import PaginatedResults from '../../components/PaginatedResults';
 import './DeckBuilderSearch.scss';
 
 function DeckBuilderSearch() {
+    const [query, setQuery] = useState('');
     const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
-    const { name, setName } = useContext(SearchContext);
+    const { setName } = useContext(SearchContext);
     const { deckCards, setDeckCards, maybeboardCards, setMaybeboardCards, maybeboardMode } = useContext(DeckBuilderContext);
 
     const onSubmit = async e => {
         e.preventDefault();
 
-        const params = { name };
-        const response = await searchCards(params);
+        setName(query);
+        const response = await searchCards({ name: query });
         displayResults(response);
     };
 
@@ -43,15 +44,15 @@ function DeckBuilderSearch() {
     };
 
     const onSearch = e => {
-        setName(e.target.value);
+        setQuery(e.target.value);
     };
 
     return (
         <div className='DeckBuilderSearch'>
             <form className='DeckBuilderSearch-searchForm' onSubmit={onSubmit}>
-                <Input className='DeckBuilderSearch-searchBar' value={name} placeholder='Search' onChange={onSearch} />
+                <Input className='DeckBuilderSearch-searchBar' value={query} placeholder='Search' onChange={onSearch} />
             </form>
-            <PaginatedResults className='DeckBuilderSearch-results' onSelectResult={onSelectResult} />
+            <PaginatedResults className='DeckBuilderSearch-results' redirect={false} onSelectResult={onSelectResult} />
         </div>
     );
 }
