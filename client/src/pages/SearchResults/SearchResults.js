@@ -52,7 +52,18 @@ function SearchResults({ location }) {
 
         const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen };
         fetchResults({ name: urlName, text: urlText, type: urlType, colors: urlColors, set: urlSet, page: urlPage });
-    }, [search]);
+    }, [
+        search,
+        // cardRedirect,
+        // displayResults,
+        // searchCards,
+        // setColors,
+        // setName,
+        // setPage,
+        // setSet,
+        // setText,
+        // setType,
+    ]);
 
     const onSelectResult = card => {
         setCard(card);
