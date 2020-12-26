@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/Search';
 import Paginator from '../../components/Paginator';
@@ -7,10 +8,16 @@ import './PaginatedResults.scss';
 
 function PaginatedResults({ className = '', onSelectResult = () => {}, redirect = true }) {
     const { name, text, type, colors, set, searchResults, setPage } = useContext(SearchContext);
-    const { searchResultsRedirect } = useDisplayResults();
+    const { searchCards } = useSearch();
+    const { searchResultsRedirect, displayResults } = useDisplayResults();
 
     const fetchResults = async (page = 1) => {
-        searchResultsRedirect({ name, text, type, colors, set, page });
+        if (redirect === true) {
+            searchResultsRedirect({ name, text, type, colors, set, page });
+        } else {
+            const response = await searchCards({ name, page });
+            displayResults(response);
+        }
     };
 
     const onPageChange = page => {

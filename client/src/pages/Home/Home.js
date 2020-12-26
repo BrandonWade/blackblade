@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import useRandomCard from '../../hooks/useRandomCard';
@@ -9,18 +9,20 @@ import Button from '../../components/Button';
 import './Home.scss';
 
 function Home() {
-    const { name, setName } = useContext(SearchContext);
+    const [query, setQuery] = useState('');
+    const { setName } = useContext(SearchContext);
     const { searchResultsRedirect } = useDisplayResults();
     const { displayRandomCard } = useRandomCard();
 
     const onSubmit = async e => {
         e.preventDefault();
 
-        searchResultsRedirect({ name });
+        setName(query);
+        searchResultsRedirect({ name: query });
     };
 
     const onChange = e => {
-        setName(e.target.value);
+        setQuery(e.target.value);
     };
 
     return (
@@ -28,7 +30,7 @@ function Home() {
             <div className='Home-content'>
                 <Logo size='large' />
                 <form className='Home-searchForm' onSubmit={onSubmit}>
-                    <Input className='Home-searchBox' value={name} onChange={onChange} />
+                    <Input className='Home-searchBox' value={query} onChange={onChange} />
                 </form>
                 <div className='Home-linksContainer'>
                     <Link to='/advanced'>
