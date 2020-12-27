@@ -1,7 +1,18 @@
 import React, { useReducer } from 'react';
 import SearchReducer from '../../reducers/Search';
 import SearchContext, { initialState } from '../../contexts/Search';
-import { SET_NAME, SET_TEXT, SET_TYPE, SET_COLORS, SET_SET, SET_PAGE, SET_TOTAL_RESULTS, SET_SEARCH_RESULTS, SET_NUMBER_OF_PAGES } from '../../actions/Search';
+import {
+    SET_NAME,
+    SET_TEXT,
+    SET_TYPE,
+    SET_COLORS,
+    SET_COLORLESS,
+    SET_SET,
+    SET_PAGE,
+    SET_TOTAL_RESULTS,
+    SET_SEARCH_RESULTS,
+    SET_NUMBER_OF_PAGES,
+} from '../../actions/Search';
 
 function SearchProvider({ children = [] }) {
     const [state, dispatch] = useReducer(SearchReducer, initialState);
@@ -10,6 +21,7 @@ function SearchProvider({ children = [] }) {
     const setText = text => dispatch({ type: SET_TEXT, text });
     const setType = type => dispatch({ type: SET_TYPE, cardType: type });
     const setColors = (color, value) => dispatch({ type: SET_COLORS, color, value });
+    const setColorless = value => dispatch({ type: SET_COLORLESS, value });
     const setSet = set => dispatch({ type: SET_SET, set });
     const setPage = page => dispatch({ type: SET_PAGE, page });
     const setTotalResults = totalResults => dispatch({ type: SET_TOTAL_RESULTS, totalResults });
@@ -22,6 +34,7 @@ function SearchProvider({ children = [] }) {
         setText,
         setType,
         setColors,
+        setColorless,
         setSet,
         setPage,
         setTotalResults,

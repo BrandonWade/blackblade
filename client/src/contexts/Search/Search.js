@@ -10,6 +10,7 @@ export const initialState = {
         black: false,
         red: false,
         green: false,
+        colorless: false,
     },
     page: 1,
     totalResults: 0,

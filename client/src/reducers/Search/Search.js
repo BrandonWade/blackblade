@@ -1,4 +1,15 @@
-import { SET_NAME, SET_TEXT, SET_TYPE, SET_COLORS, SET_SET, SET_PAGE, SET_TOTAL_RESULTS, SET_SEARCH_RESULTS, SET_NUMBER_OF_PAGES } from '../../actions/Search';
+import {
+    SET_NAME,
+    SET_TEXT,
+    SET_TYPE,
+    SET_COLORS,
+    SET_COLORLESS,
+    SET_SET,
+    SET_PAGE,
+    SET_TOTAL_RESULTS,
+    SET_SEARCH_RESULTS,
+    SET_NUMBER_OF_PAGES,
+} from '../../actions/Search';
 
 function SearchReducer(state = {}, action = {}) {
     switch (action.type) {
@@ -26,6 +37,20 @@ function SearchReducer(state = {}, action = {}) {
                 colors: {
                     ...state.colors,
                     [action.color]: action.value,
+                    colorless: false,
+                },
+            };
+
+        case SET_COLORLESS:
+            return {
+                ...state,
+                colors: {
+                    white: false,
+                    blue: false,
+                    black: false,
+                    red: false,
+                    green: false,
+                    colorless: action.value,
                 },
             };
 

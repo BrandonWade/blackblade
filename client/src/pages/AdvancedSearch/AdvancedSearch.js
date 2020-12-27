@@ -10,7 +10,7 @@ import './AdvancedSearch.scss';
 
 function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
-    const { name, setName, text, setText, type, setType, colors, setColors, set, setSet } = useContext(SearchContext);
+    const { name, setName, text, setText, type, setType, colors, setColors, setColorless, set, setSet } = useContext(SearchContext);
 
     const onChangeName = e => {
         setName(e.target.value);
@@ -30,6 +30,7 @@ function AdvancedSearch() {
     const onChangeRed = () => onChangeColors('red');
     const onChangeGreen = () => onChangeColors('green');
     const onChangeColors = color => setColors(color, !colors[color]);
+    const onChangeColorless = () => setColorless(!colors['colorless']);
 
     const onChangeSet = e => {
         setSet(e.target.value);
@@ -60,25 +61,29 @@ function AdvancedSearch() {
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Colors</label>
                         <div className='AdvancedSearch-colorBoxes'>
-                            <Checkbox className='AdvancedSearch-colorCheckbox' text='White' name='Color--white' value={colors['white']} onClick={onChangeWhite}>
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='White' value={colors['white']} onClick={onChangeWhite}>
                                 <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{W}'] }} />
                                 White
                             </Checkbox>
-                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Blue' name='Color--blue' value={colors['blue']} onClick={onChangeBlue}>
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Blue' value={colors['blue']} onClick={onChangeBlue}>
                                 <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{U}'] }} />
                                 Blue
                             </Checkbox>
-                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Black' name='Color--black' value={colors['black']} onClick={onChangeBlack}>
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Black' value={colors['black']} onClick={onChangeBlack}>
                                 <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{B}'] }} />
                                 Black
                             </Checkbox>
-                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Red' name='Color--red' value={colors['red']} onClick={onChangeRed}>
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Red' value={colors['red']} onClick={onChangeRed}>
                                 <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{R}'] }} />
                                 Red
                             </Checkbox>
-                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Green' name='Color--green' value={colors['green']} onClick={onChangeGreen}>
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Green' value={colors['green']} onClick={onChangeGreen}>
                                 <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{G}'] }} />
                                 Green
+                            </Checkbox>
+                            <Checkbox className='AdvancedSearch-colorCheckbox' text='Green' value={colors['colorless']} onClick={onChangeColorless}>
+                                <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{C}'] }} />
+                                Colorless
                             </Checkbox>
                         </div>
                     </div>

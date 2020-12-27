@@ -25,3 +25,13 @@ export const addColorCondition = (builder, colors) => {
     colors.forEach((color) => builder.where(colorMap[color], '=', true));
     diffColors.forEach((color) => builder.where(colorMap[color], '=', false));
 };
+
+export const addColorlessCondition = (builder, colorless) => {
+    if (!colorless) {
+        return;
+    }
+
+    const colorList = ['is_white', 'is_blue', 'is_black', 'is_red', 'is_green'];
+
+    colorList.forEach((color) => builder.where(color, '=', false));
+};

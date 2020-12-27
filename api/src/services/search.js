@@ -13,6 +13,7 @@ const search = async (params = {}) => {
         textTokens,
         typeTokens,
         colors,
+        params?.colorless,
         set,
     );
 
@@ -21,6 +22,7 @@ const search = async (params = {}) => {
         textTokens,
         typeTokens,
         colors,
+        params?.colorless,
         set,
         params?.page,
         pageSize,

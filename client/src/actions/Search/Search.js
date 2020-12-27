@@ -2,6 +2,7 @@ export const SET_NAME = 'SET_NAME';
 export const SET_TEXT = 'SET_TEXT';
 export const SET_TYPE = 'SET_TYPE';
 export const SET_COLORS = 'SET_COLORS';
+export const SET_COLORLESS = 'SET_COLORLESS';
 export const SET_SET = 'SET_SET';
 export const SET_PAGE = 'SET_PAGE';
 export const SET_TOTAL_RESULTS = 'SET_TOTAL_RESULTS';
