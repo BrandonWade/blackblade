@@ -45,7 +45,7 @@ CREATE TABLE cards (
     set_name varchar(64) NOT NULL DEFAULT '',
     faces_json json DEFAULT NULL,
     rarity enum('common', 'uncommon', 'rare', 'mythic'),
-    layout enum('normal', 'split', 'flip', 'transform', 'meld', 'leveler', 'saga', 'adventure', 'token', 'double_faced_token', 'emblem', 'augment', 'host', 'aftermath'),
+    layout enum('normal', 'split', 'flip', 'transform', 'meld', 'leveler', 'saga', 'adventure', 'token', 'double_faced_token', 'emblem', 'augment', 'host', 'aftermath', 'modal_dfc'),
     border_color enum('black', 'borderless', 'gold', 'silver', 'white'),
     frame enum('1993', '1997', '2003', '2015', 'future'),
     released_at date DEFAULT NULL,
