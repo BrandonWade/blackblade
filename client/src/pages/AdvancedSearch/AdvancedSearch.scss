@@ -69,9 +69,12 @@
         }
     }
 
-    &-colorBoxes {
+    &-colorOptions {
         width: 100%;
         max-width: 75rem;
+    }
+
+    &-colorBoxes {
         line-height: 2.5rem;
         display: flex;
         justify-content: space-between;
@@ -90,6 +93,16 @@
         @media only screen and (max-width: 52.125em) {
             margin-top: 0.5rem;
         }
+    }
+
+    &-colorMatchType {
+        margin-top: 2.5rem;
+        font-size: 1.6rem;
+    }
+
+    &-colorMatchDescription {
+        font-size: 1.2rem;
+        margin-top: 0.75rem;
     }
 
     &-manaSymbol {

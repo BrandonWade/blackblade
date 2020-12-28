@@ -22,6 +22,10 @@ function useSearch(headers = {}) {
             });
         }
 
+        if (Object.values(params.colors).some(color => color === true)) {
+            pairs = pairs.concat(`match_type=${params.matchType}`);
+        }
+
         if (params?.set) {
             pairs = pairs.concat(`set=${params.set}`);
         }
