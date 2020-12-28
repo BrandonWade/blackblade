@@ -27,12 +27,37 @@ export function matchTypeExists(_, { req }) {
     ];
 
     if (!matchTypes.includes(matchType)) {
-        throw new Error(`match type must be one of: ${matchTypes.join(', ')}`);
+        const types = matchTypes.join(', ');
+        throw new Error(`match type must be one of: ${types}`);
     }
 
     if (colors.every((c) => c === false)) {
         throw new Error(
             'match type must be included when at least one color option selected',
+        );
+    }
+
+    return true;
+}
+
+export function oneOptionalFieldExists(query) {
+    const optionalFields = [
+        'name',
+        'text',
+        'type',
+        'white',
+        'blue',
+        'black',
+        'red',
+        'green',
+        'colorless',
+        'set',
+    ];
+
+    if (optionalFields.every((field) => query[field] === undefined)) {
+        const fields = optionalFields.join(', ');
+        throw new Error(
+            `at least one of the following fields must be present: ${fields}`,
         );
     }
 
