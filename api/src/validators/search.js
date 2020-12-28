@@ -1,50 +1,64 @@
-import { check, param, oneOf } from 'express-validator';
-import { exclusiveColors, matchTypeExists } from './custom';
+import { query, param } from 'express-validator';
+import {
+    exclusiveColors,
+    matchTypeExists,
+    oneOptionalFieldExists,
+} from './custom';
 
-const nameExists = check('name').isLength({ min: 1 });
-const textExists = check('text').isLength({ min: 1 });
-const typeExists = check('type').isLength({ min: 1 });
-const whiteExists = check('white')
+const nameExists = query('name').optional().isLength({ min: 1 });
+const textExists = query('text').optional().isLength({ min: 1 });
+const typeExists = query('type').optional().isLength({ min: 1 });
+const whiteExists = query('white')
+    .optional()
     .isBoolean()
     .custom(exclusiveColors)
     .custom(matchTypeExists);
-const blueExists = check('blue')
+const blueExists = query('blue')
+    .optional()
     .isBoolean()
     .custom(exclusiveColors)
     .custom(matchTypeExists);
-const blackExists = check('black')
+const blackExists = query('black')
+    .optional()
     .isBoolean()
     .custom(exclusiveColors)
     .custom(matchTypeExists);
-const redExists = check('red')
+const redExists = query('red')
+    .optional()
     .isBoolean()
     .custom(exclusiveColors)
     .custom(matchTypeExists);
-const greenExists = check('green')
+const greenExists = query('green')
+    .optional()
     .isBoolean()
     .custom(exclusiveColors)
     .custom(matchTypeExists);
-const colorlessExists = check('colorless')
+const colorlessExists = query('colorless')
+    .optional()
     .isBoolean()
     .custom(exclusiveColors)
     .custom(matchTypeExists);
-const setExists = check('set').isLength({ min: 3 });
-const pageExists = check('page').isInt({ min: 1 });
+const setExists = query('set').optional().isLength({ min: 3 });
+
+// At minimum one of the optional fields must exist
+const mustExist = query().custom(oneOptionalFieldExists);
+
+const pageExists = query('page').isInt({ min: 1 });
+
 const cardIDValidator = param('id').isInt().toInt({ min: 1 });
 
 const searchValidators = [
-    oneOf([
-        nameExists,
-        textExists,
-        typeExists,
-        whiteExists,
-        blueExists,
-        blackExists,
-        redExists,
-        greenExists,
-        colorlessExists,
-        setExists,
-    ]),
+    nameExists,
+    textExists,
+    typeExists,
+    whiteExists,
+    blueExists,
+    blackExists,
+    redExists,
+    greenExists,
+    colorlessExists,
+    setExists,
+    mustExist,
     pageExists,
 ];
 const cardValidators = [cardIDValidator];
