@@ -4,6 +4,7 @@ import {
     SET_TYPE,
     SET_COLORS,
     SET_COLORLESS,
+    SET_MATCH_TYPE,
     SET_SET,
     SET_PAGE,
     SET_TOTAL_RESULTS,
@@ -52,6 +53,12 @@ function SearchReducer(state = {}, action = {}) {
                     green: false,
                     colorless: action.value,
                 },
+            };
+
+        case SET_MATCH_TYPE:
+            return {
+                ...state,
+                matchType: action.matchType,
             };
 
         case SET_SET:

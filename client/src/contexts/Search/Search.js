@@ -12,6 +12,7 @@ export const initialState = {
         green: false,
         colorless: false,
     },
+    matchType: 'exact',
     page: 1,
     totalResults: 0,
     searchResults: [],

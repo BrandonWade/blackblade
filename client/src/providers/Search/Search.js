@@ -7,6 +7,7 @@ import {
     SET_TYPE,
     SET_COLORS,
     SET_COLORLESS,
+    SET_MATCH_TYPE,
     SET_SET,
     SET_PAGE,
     SET_TOTAL_RESULTS,
@@ -22,6 +23,7 @@ function SearchProvider({ children = [] }) {
     const setType = type => dispatch({ type: SET_TYPE, cardType: type });
     const setColors = (color, value) => dispatch({ type: SET_COLORS, color, value });
     const setColorless = value => dispatch({ type: SET_COLORLESS, value });
+    const setMatchType = matchType => dispatch({ type: SET_MATCH_TYPE, matchType });
     const setSet = set => dispatch({ type: SET_SET, set });
     const setPage = page => dispatch({ type: SET_PAGE, page });
     const setTotalResults = totalResults => dispatch({ type: SET_TOTAL_RESULTS, totalResults });
@@ -35,6 +37,7 @@ function SearchProvider({ children = [] }) {
         setType,
         setColors,
         setColorless,
+        setMatchType,
         setSet,
         setPage,
         setTotalResults,

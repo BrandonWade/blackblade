@@ -1,0 +1,7 @@
+.Select {
+    border: var(--line);
+    border-radius: var(--border-radius);
+    appearance: none;
+    background: url('./arrow.svg') 95% / 1.5rem no-repeat var(--color-primary-light);
+    padding: 1rem 3rem 1rem 1rem;
+}

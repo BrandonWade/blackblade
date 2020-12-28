@@ -10,7 +10,7 @@ import './SearchResults.scss';
 
 function SearchResults({ location }) {
     const history = useHistory();
-    const { setName, setText, setType, setColors, setColorless, setSet, setPage } = useContext(SearchContext);
+    const { setName, setText, setType, setColors, setColorless, setMatchType, setSet, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
     const { searchCards } = useSearch();
     const { cardRedirect, displayResults } = useDisplayResults();
@@ -27,6 +27,7 @@ function SearchResults({ location }) {
         const urlRed = urlParams.get('red') === 'true';
         const urlGreen = urlParams.get('green') === 'true';
         const urlColorless = urlParams.get('colorless') === 'true';
+        const urlMatchType = urlParams.get('match_type') || '';
         const urlSet = urlParams.get('set') || '';
         const urlPage = parseInt(urlParams.get('page')) || 1;
 
@@ -43,22 +44,25 @@ function SearchResults({ location }) {
         setName(urlName);
         setText(urlText);
         setType(urlType);
-        setColors('white', urlWhite);
-        setColors('blue', urlBlue);
-        setColors('black', urlBlack);
-        setColors('red', urlRed);
-        setColors('green', urlGreen);
 
         // Conditional check included to preserve state when navigating back to advanced search page
         if (urlColorless) {
             setColorless(urlColorless);
+        } else {
+            setColors('white', urlWhite);
+            setColors('blue', urlBlue);
+            setColors('black', urlBlack);
+            setColors('red', urlRed);
+            setColors('green', urlGreen);
         }
+
+        setMatchType(urlMatchType);
 
         setSet(urlSet);
         setPage(urlPage);
 
         const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen, colorless: urlColorless };
-        fetchResults({ name: urlName, text: urlText, type: urlType, colors: urlColors, set: urlSet, page: urlPage });
+        fetchResults({ name: urlName, text: urlText, type: urlType, colors: urlColors, matchType: urlMatchType, set: urlSet, page: urlPage });
     }, [search]);
 
     const onSelectResult = card => {
