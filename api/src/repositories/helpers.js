@@ -8,8 +8,8 @@ export const addLikeCondition = (builder, params, field) => {
     params.forEach((param) => builder.where(field, 'like', `%${param}%`));
 };
 
-export const addColorCondition = (builder, colors) => {
-    if (colors.length === 0) {
+export const addColorCondition = (builder, colors, matchType) => {
+    if (colors.length === 0 || !matchType) {
         return;
     }
 
@@ -22,16 +22,31 @@ export const addColorCondition = (builder, colors) => {
     };
     const diffColors = difference(Object.keys(colorMap), colors);
 
-    colors.forEach((color) => builder.where(colorMap[color], '=', true));
-    diffColors.forEach((color) => builder.where(colorMap[color], '=', false));
+    if (matchType === 'exact') {
+        colors.forEach((color) => builder.where(colorMap[color], '=', true));
+        diffColors.forEach((color) =>
+            builder.where(colorMap[color], '=', false),
+        );
+    } else if (matchType === 'at_least') {
+        colors.forEach((color) => builder.where(colorMap[color], '=', true));
+    } else if (matchType === 'at_most') {
+        builder.where((b) => {
+            colors.forEach((color) => b.orWhere(colorMap[color], '=', true));
+        });
+        diffColors.forEach((color) =>
+            builder.where(colorMap[color], '=', false),
+        );
+    }
 };
 
-export const addColorlessCondition = (builder, colorless) => {
-    if (!colorless) {
+export const addColorlessCondition = (builder, colorless, matchType) => {
+    if (!colorless || !matchType) {
         return;
     }
 
     const colorList = ['is_white', 'is_blue', 'is_black', 'is_red', 'is_green'];
 
-    colorList.forEach((color) => builder.where(color, '=', false));
+    if (matchType === 'exact' || matchType === 'at_most') {
+        colorList.forEach((color) => builder.where(color, '=', false));
+    }
 };

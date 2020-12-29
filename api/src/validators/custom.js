@@ -24,6 +24,7 @@ export function matchTypeExists(_, { req }) {
         req.query['black'] === 'true',
         req.query['red'] === 'true',
         req.query['green'] === 'true',
+        req.query['colorless'] === 'true',
     ];
 
     if (!matchTypes.includes(matchType)) {

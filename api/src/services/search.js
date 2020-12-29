@@ -14,6 +14,7 @@ const search = async (params = {}) => {
         typeTokens,
         colors,
         params?.colorless,
+        params?.matchType,
         set,
     );
 
@@ -23,6 +24,7 @@ const search = async (params = {}) => {
         typeTokens,
         colors,
         params?.colorless,
+        params?.matchType,
         set,
         params?.page,
         pageSize,

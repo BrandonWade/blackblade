@@ -12,6 +12,7 @@ const getTotalResults = (
     typeTokens,
     colors,
     colorless,
+    matchType,
     set,
 ) => {
     const subquery = builder
@@ -24,8 +25,8 @@ const getTotalResults = (
     addLikeCondition(subquery, nameTokens, 'f.name');
     addLikeCondition(subquery, textTokens, 'f.oracle_text');
     addLikeCondition(subquery, typeTokens, 'f.type_line');
-    addColorCondition(subquery, colors);
-    addColorlessCondition(subquery, colorless);
+    addColorCondition(subquery, colors, matchType);
+    addColorlessCondition(subquery, colorless, matchType);
     addEqualCondition(subquery, set, 'c.set_code');
 
     return builder.count('* AS total_results').from(subquery);
@@ -37,6 +38,7 @@ const getCardsByName = (
     typeTokens,
     colors,
     colorless,
+    matchType,
     set,
     page,
     pageSize,
@@ -62,8 +64,8 @@ const getCardsByName = (
     addLikeCondition(query, nameTokens, 'f.name');
     addLikeCondition(query, textTokens, 'f.oracle_text');
     addLikeCondition(query, typeTokens, 'f.type_line');
-    addColorCondition(query, colors);
-    addColorlessCondition(query, colorless);
+    addColorCondition(query, colors, matchType);
+    addColorlessCondition(query, colorless, matchType);
     addEqualCondition(query, set, 'c.set_code');
 
     return query;

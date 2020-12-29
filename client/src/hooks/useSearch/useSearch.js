@@ -15,15 +15,15 @@ function useSearch(headers = {}) {
         }
 
         if (params?.colors) {
-            Object.keys(params?.colors).forEach(color => {
+            Object.keys(params.colors).forEach(color => {
                 if (params?.colors[color]) {
                     pairs = pairs.concat(`${[color]}=${params.colors[color]}`);
                 }
             });
-        }
 
-        if (Object.values(params.colors).some(color => color === true)) {
-            pairs = pairs.concat(`match_type=${params.matchType}`);
+            if (Object.values(params.colors).some(color => color === true)) {
+                pairs = pairs.concat(`match_type=${params.matchType}`);
+            }
         }
 
         if (params?.set) {

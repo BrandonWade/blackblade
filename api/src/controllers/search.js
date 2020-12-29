@@ -11,6 +11,7 @@ const search = async (req, res) => {
     const red = req.query['red'];
     const green = req.query['green'];
     const colorless = req.query['colorless'];
+    const matchType = req.query['match_type'];
     const set = req.query['set'];
     const page = parseInt(req.query['page']);
 
@@ -20,6 +21,7 @@ const search = async (req, res) => {
         type,
         colors: { W: white, U: blue, B: black, R: red, G: green },
         colorless,
+        matchType,
         set,
         page,
     });
