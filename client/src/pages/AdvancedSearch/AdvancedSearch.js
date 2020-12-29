@@ -103,7 +103,7 @@ function AdvancedSearch() {
                                 </Checkbox>
                             </div>
                             <div className='AdvancedSearch-colorMatchSection'>
-                                <Select className='AdvancedSearch-colorMatchType' onChange={onChangeMatchType}>
+                                <Select className='AdvancedSearch-colorMatchType' value={matchType} onChange={onChangeMatchType}>
                                     <option value='exact'>Exactly these colors</option>
                                     <option value='at_least'>At least these colors</option>
                                     <option value='at_most'>At most these colors</option>
