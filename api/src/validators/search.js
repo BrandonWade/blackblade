@@ -39,6 +39,10 @@ const colorlessExists = query('colorless')
     .custom(exclusiveColors)
     .custom(matchTypeExists);
 const setExists = query('set').optional().isLength({ min: 3 });
+const commonExists = query('common').optional().isBoolean();
+const uncommonExists = query('uncommon').optional().isBoolean();
+const rareExists = query('rare').optional().isBoolean();
+const mythicExists = query('mythic').optional().isBoolean();
 
 // At minimum one of the optional fields must exist
 const mustExist = query().custom(oneOptionalFieldExists);
@@ -58,6 +62,10 @@ const searchValidators = [
     greenExists,
     colorlessExists,
     setExists,
+    commonExists,
+    uncommonExists,
+    rareExists,
+    mythicExists,
     mustExist,
     pageExists,
 ];

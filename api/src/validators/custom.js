@@ -53,6 +53,10 @@ export function oneOptionalFieldExists(query) {
         'green',
         'colorless',
         'set',
+        'common',
+        'uncommon',
+        'rare',
+        'mythic',
     ];
 
     if (optionalFields.every((field) => query[field] === undefined)) {

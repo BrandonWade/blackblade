@@ -1,9 +1,10 @@
 import { connection, builder } from '../db';
 import {
     addLikeCondition,
-    addColorCondition,
+    addColorConditions,
     addColorlessCondition,
     addEqualCondition,
+    addInCondition,
 } from './helpers';
 
 const getTotalResults = (
@@ -14,6 +15,7 @@ const getTotalResults = (
     colorless,
     matchType,
     set,
+    rarities,
 ) => {
     const subquery = builder
         .select('c.*')
@@ -25,9 +27,10 @@ const getTotalResults = (
     addLikeCondition(subquery, nameTokens, 'f.name');
     addLikeCondition(subquery, textTokens, 'f.oracle_text');
     addLikeCondition(subquery, typeTokens, 'f.type_line');
-    addColorCondition(subquery, colors, matchType);
+    addColorConditions(subquery, colors, matchType);
     addColorlessCondition(subquery, colorless, matchType);
     addEqualCondition(subquery, set, 'c.set_code');
+    addInCondition(subquery, rarities, 'c.rarity');
 
     return builder.count('* AS total_results').from(subquery);
 };
@@ -40,6 +43,7 @@ const getCardsByName = (
     colorless,
     matchType,
     set,
+    rarities,
     page,
     pageSize,
 ) => {
@@ -64,9 +68,10 @@ const getCardsByName = (
     addLikeCondition(query, nameTokens, 'f.name');
     addLikeCondition(query, textTokens, 'f.oracle_text');
     addLikeCondition(query, typeTokens, 'f.type_line');
-    addColorCondition(query, colors, matchType);
+    addColorConditions(query, colors, matchType);
     addColorlessCondition(query, colorless, matchType);
     addEqualCondition(query, set, 'c.set_code');
+    addInCondition(query, rarities, 'c.rarity');
 
     return query;
 };

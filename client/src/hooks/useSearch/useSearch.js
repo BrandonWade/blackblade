@@ -30,6 +30,14 @@ function useSearch(headers = {}) {
             pairs = pairs.concat(`set=${params.set}`);
         }
 
+        if (params?.rarities) {
+            Object.keys(params.rarities).forEach(rarity => {
+                if (params?.rarities[rarity]) {
+                    pairs = pairs.concat(`${[rarity]}=${params.rarities[rarity]}`);
+                }
+            });
+        }
+
         pairs = pairs.concat(`page=${params?.page || 1}`);
 
         if (pairs.length === 0) {

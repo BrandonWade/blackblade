@@ -8,6 +8,10 @@ const search = async (params = {}) => {
     const typeTokens = params?.type?.split(/\s+/) || [];
     const colors = Object.keys(params?.colors).filter((c) => params?.colors[c]);
     const set = params?.set?.split(/\s+/) || [];
+    const rarities = Object.keys(params?.rarities).filter(
+        (r) => params?.rarities[r],
+    );
+
     const totalResults = await SearchRepository.getTotalResults(
         nameTokens,
         textTokens,
@@ -16,6 +20,7 @@ const search = async (params = {}) => {
         params?.colorless,
         params?.matchType,
         set,
+        rarities,
     );
 
     const cardResults = await SearchRepository.getCardsByName(
@@ -26,6 +31,7 @@ const search = async (params = {}) => {
         params?.colorless,
         params?.matchType,
         set,
+        rarities,
         params?.page,
         pageSize,
     );

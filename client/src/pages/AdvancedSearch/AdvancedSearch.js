@@ -11,7 +11,23 @@ import './AdvancedSearch.scss';
 
 function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
-    const { name, setName, text, setText, type, setType, colors, setColors, setColorless, matchType, setMatchType, set, setSet } = useContext(SearchContext);
+    const {
+        name,
+        setName,
+        text,
+        setText,
+        type,
+        setType,
+        colors,
+        setColors,
+        setColorless,
+        matchType,
+        setMatchType,
+        set,
+        setSet,
+        rarities,
+        setRarities,
+    } = useContext(SearchContext);
 
     const onChangeName = e => {
         setName(e.target.value);
@@ -41,10 +57,16 @@ function AdvancedSearch() {
         setSet(e.target.value);
     };
 
+    const onChangeCommon = () => onChangeRarity('common');
+    const onChangeUncommon = () => onChangeRarity('uncommon');
+    const onChangeRare = () => onChangeRarity('rare');
+    const onChangeMythic = () => onChangeRarity('mythic');
+    const onChangeRarity = rarity => setRarities(rarity, !rarities[rarity]);
+
     const onSubmit = async e => {
         e.preventDefault();
 
-        searchResultsRedirect({ name, text, type, colors, matchType, set, page: 1 });
+        searchResultsRedirect({ name, text, type, colors, matchType, set, rarities, page: 1 });
     };
 
     const renderColorMatchDescription = () => {
@@ -76,28 +98,28 @@ function AdvancedSearch() {
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Colors</label>
                         <div className='AdvancedSearch-colorOptions'>
-                            <div className='AdvancedSearch-colorBoxes'>
-                                <Checkbox className='AdvancedSearch-colorCheckbox' text='White' value={colors['white']} onClick={onChangeWhite}>
+                            <div className='AdvancedSearch-checkboxContainer'>
+                                <Checkbox className='AdvancedSearch-checkbox' value={colors['white']} onClick={onChangeWhite}>
                                     <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{W}'] }} />
                                     White
                                 </Checkbox>
-                                <Checkbox className='AdvancedSearch-colorCheckbox' text='Blue' value={colors['blue']} onClick={onChangeBlue}>
+                                <Checkbox className='AdvancedSearch-checkbox' value={colors['blue']} onClick={onChangeBlue}>
                                     <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{U}'] }} />
                                     Blue
                                 </Checkbox>
-                                <Checkbox className='AdvancedSearch-colorCheckbox' text='Black' value={colors['black']} onClick={onChangeBlack}>
+                                <Checkbox className='AdvancedSearch-checkbox' value={colors['black']} onClick={onChangeBlack}>
                                     <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{B}'] }} />
                                     Black
                                 </Checkbox>
-                                <Checkbox className='AdvancedSearch-colorCheckbox' text='Red' value={colors['red']} onClick={onChangeRed}>
+                                <Checkbox className='AdvancedSearch-checkbox' value={colors['red']} onClick={onChangeRed}>
                                     <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{R}'] }} />
                                     Red
                                 </Checkbox>
-                                <Checkbox className='AdvancedSearch-colorCheckbox' text='Green' value={colors['green']} onClick={onChangeGreen}>
+                                <Checkbox className='AdvancedSearch-checkbox' value={colors['green']} onClick={onChangeGreen}>
                                     <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{G}'] }} />
                                     Green
                                 </Checkbox>
-                                <Checkbox className='AdvancedSearch-colorCheckbox' text='Green' value={colors['colorless']} onClick={onChangeColorless}>
+                                <Checkbox className='AdvancedSearch-checkbox' value={colors['colorless']} onClick={onChangeColorless}>
                                     <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{C}'] }} />
                                     Colorless
                                 </Checkbox>
@@ -115,6 +137,23 @@ function AdvancedSearch() {
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Set</label>
                         <Input className='AdvancedSearch-input' value={set} onChange={onChangeSet} />
+                    </div>
+                    <div className='AdvancedSearch-formRow'>
+                        <label className='AdvancedSearch-rowLabel'>Rarity</label>
+                        <div className='AdvancedSearch-checkboxContainer AdvancedSearch-rarities'>
+                            <Checkbox className='AdvancedSearch-checkbox' value={rarities['common']} onClick={onChangeCommon}>
+                                Common
+                            </Checkbox>
+                            <Checkbox className='AdvancedSearch-checkbox' value={rarities['uncommon']} onClick={onChangeUncommon}>
+                                Uncommon
+                            </Checkbox>
+                            <Checkbox className='AdvancedSearch-checkbox' value={rarities['rare']} onClick={onChangeRare}>
+                                Rare
+                            </Checkbox>
+                            <Checkbox className='AdvancedSearch-checkbox' value={rarities['mythic']} onClick={onChangeMythic}>
+                                Mythic Rare
+                            </Checkbox>
+                        </div>
                     </div>
                     <Button className='AdvancedSearch-searchButton' onClick={onSubmit}>
                         Search
