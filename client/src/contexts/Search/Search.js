@@ -13,6 +13,13 @@ export const initialState = {
         colorless: false,
     },
     matchType: 'exact',
+    set: '',
+    rarities: {
+        common: false,
+        uncommon: false,
+        rare: false,
+        mythic: false,
+    },
     page: 1,
     totalResults: 0,
     searchResults: [],

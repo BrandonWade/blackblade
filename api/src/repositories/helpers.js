@@ -8,7 +8,15 @@ export const addLikeCondition = (builder, params, field) => {
     params.forEach((param) => builder.where(field, 'like', `%${param}%`));
 };
 
-export const addColorCondition = (builder, colors, matchType) => {
+export const addInCondition = (builder, params, field) => {
+    if (params.length === 0) {
+        return;
+    }
+
+    builder.whereIn(field, params);
+};
+
+export const addColorConditions = (builder, colors, matchType) => {
     if (colors.length === 0 || !matchType) {
         return;
     }

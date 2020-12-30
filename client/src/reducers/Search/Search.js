@@ -6,6 +6,7 @@ import {
     SET_COLORLESS,
     SET_MATCH_TYPE,
     SET_SET,
+    SET_RARITIES,
     SET_PAGE,
     SET_TOTAL_RESULTS,
     SET_SEARCH_RESULTS,
@@ -65,6 +66,15 @@ function SearchReducer(state = {}, action = {}) {
             return {
                 ...state,
                 set: action.set,
+            };
+
+        case SET_RARITIES:
+            return {
+                ...state,
+                rarities: {
+                    ...state.rarities,
+                    [action.rarity]: action.value,
+                },
             };
 
         case SET_PAGE:

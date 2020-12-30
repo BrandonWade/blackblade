@@ -10,7 +10,7 @@ import './SearchResults.scss';
 
 function SearchResults({ location }) {
     const history = useHistory();
-    const { setName, setText, setType, setColors, setColorless, setMatchType, setSet, setPage } = useContext(SearchContext);
+    const { setName, setText, setType, setColors, setColorless, setMatchType, setSet, setRarities, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
     const { searchCards } = useSearch();
     const { cardRedirect, displayResults } = useDisplayResults();
@@ -29,6 +29,10 @@ function SearchResults({ location }) {
         const urlColorless = urlParams.get('colorless') === 'true';
         const urlMatchType = urlParams.get('match_type') || '';
         const urlSet = urlParams.get('set') || '';
+        const urlCommon = urlParams.get('common') || '';
+        const urlUncommon = urlParams.get('uncommon') || '';
+        const urlRare = urlParams.get('rare') || '';
+        const urlMythic = urlParams.get('mythic') || '';
         const urlPage = parseInt(urlParams.get('page')) || 1;
 
         const fetchResults = async (params = {}) => {
@@ -57,12 +61,26 @@ function SearchResults({ location }) {
         }
 
         setMatchType(urlMatchType);
+        setRarities('common', urlCommon);
+        setRarities('uncommon', urlUncommon);
+        setRarities('rare', urlRare);
+        setRarities('mythic', urlMythic);
 
         setSet(urlSet);
         setPage(urlPage);
 
         const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen, colorless: urlColorless };
-        fetchResults({ name: urlName, text: urlText, type: urlType, colors: urlColors, matchType: urlMatchType, set: urlSet, page: urlPage });
+        const urlRarities = { common: urlCommon, uncommon: urlUncommon, rare: urlRare, mythic: urlMythic };
+        fetchResults({
+            name: urlName,
+            text: urlText,
+            type: urlType,
+            colors: urlColors,
+            matchType: urlMatchType,
+            set: urlSet,
+            rarities: urlRarities,
+            page: urlPage,
+        });
     }, [search]);
 
     const onSelectResult = card => {
