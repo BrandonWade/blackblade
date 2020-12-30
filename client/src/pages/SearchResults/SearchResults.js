@@ -27,7 +27,7 @@ function SearchResults({ location }) {
         const urlRed = urlParams.get('red') === 'true';
         const urlGreen = urlParams.get('green') === 'true';
         const urlColorless = urlParams.get('colorless') === 'true';
-        const urlMatchType = urlParams.get('match_type') || '';
+        const urlMatchType = urlParams.get('matchType') || '';
         const urlSet = urlParams.get('set') || '';
         const urlCommon = urlParams.get('common') || '';
         const urlUncommon = urlParams.get('uncommon') || '';

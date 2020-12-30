@@ -11,7 +11,7 @@ const search = async (req, res) => {
     const red = req.query['red'];
     const green = req.query['green'];
     const colorless = req.query['colorless'];
-    const matchType = req.query['match_type'];
+    const matchType = req.query['matchType'];
     const set = req.query['set'];
     const common = req.query['common'];
     const uncommon = req.query['uncommon'];
