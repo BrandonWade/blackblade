@@ -16,7 +16,7 @@ export function exclusiveColors(_, { req }) {
 }
 
 export function matchTypeExists(_, { req }) {
-    const matchType = req.query['match_type'];
+    const matchType = req.query['matchType'];
     const matchTypes = ['exact', 'at_least', 'at_most'];
     const colors = [
         req.query['white'] === 'true',

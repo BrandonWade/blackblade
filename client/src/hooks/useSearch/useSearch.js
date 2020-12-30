@@ -2,47 +2,44 @@ function useSearch(headers = {}) {
     const getParamString = (params = {}) => {
         let pairs = [];
 
+        const addPair = name => (pairs = pairs.concat(`${[name]}=${params[name]}`));
+        const addPairsFromObject = obj => {
+            Object.keys(obj).forEach(key => {
+                if (obj[key]) {
+                    pairs = pairs.concat(`${[key]}=${obj[key]}`);
+                }
+            });
+        };
+
         if (params?.name) {
-            pairs = pairs.concat(`name=${params.name}`);
+            addPair('name');
         }
 
         if (params?.text) {
-            pairs = pairs.concat(`text=${params.text}`);
+            addPair('text');
         }
 
         if (params?.type) {
-            pairs = pairs.concat(`type=${params.type}`);
+            addPair('type');
         }
 
         if (params?.colors) {
-            Object.keys(params.colors).forEach(color => {
-                if (params?.colors[color]) {
-                    pairs = pairs.concat(`${[color]}=${params.colors[color]}`);
-                }
-            });
+            addPairsFromObject(params.colors);
 
             if (Object.values(params.colors).some(color => color === true)) {
-                pairs = pairs.concat(`match_type=${params.matchType}`);
+                addPair('matchType');
             }
         }
 
         if (params?.set) {
-            pairs = pairs.concat(`set=${params.set}`);
+            addPair('set');
         }
 
         if (params?.rarities) {
-            Object.keys(params.rarities).forEach(rarity => {
-                if (params?.rarities[rarity]) {
-                    pairs = pairs.concat(`${[rarity]}=${params.rarities[rarity]}`);
-                }
-            });
+            addPairsFromObject(params.rarities);
         }
 
-        pairs = pairs.concat(`page=${params?.page || 1}`);
-
-        if (pairs.length === 0) {
-            return;
-        }
+        addPair('page');
 
         return pairs.join('&');
     };
