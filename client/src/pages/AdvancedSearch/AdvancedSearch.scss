@@ -88,6 +88,7 @@
 
     &-checkbox {
         width: auto;
+        margin-right: 1rem;
 
         @media only screen and (max-width: 52.125em) {
             margin-top: 0.5rem;
@@ -97,6 +98,12 @@
     &-colorMatchType {
         margin-top: 2.5rem;
         font-size: 1.6rem;
+
+        @media only screen and (max-width: 52.125em) {
+            margin-top: 1rem;
+            font-size: 1.4rem;
+            padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+        }
     }
 
     &-colorMatchDescription {
@@ -120,7 +127,8 @@
     }
 
     &-rarities {
-        width: 50rem;
+        width: 100%;
+        max-width: 50rem;
     }
 
     &-searchButton {
