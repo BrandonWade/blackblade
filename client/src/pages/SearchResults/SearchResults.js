@@ -10,7 +10,7 @@ import './SearchResults.scss';
 
 function SearchResults({ location }) {
     const history = useHistory();
-    const { setName, setText, setType, setColors, setColorless, setMatchType, setSet, setRarities, setPage } = useContext(SearchContext);
+    const { setName, setText, setTypes, setColors, setColorless, setMatchType, setSet, setRarities, setPage } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
     const { searchCards } = useSearch();
     const { cardRedirect, displayResults } = useDisplayResults();
@@ -20,7 +20,7 @@ function SearchResults({ location }) {
         const urlParams = new URLSearchParams(search);
         const urlName = urlParams.get('name') || '';
         const urlText = urlParams.get('text') || '';
-        const urlType = urlParams.get('type') || '';
+        const urlTypes = urlParams.get('types') || '';
         const urlWhite = urlParams.get('white') === 'true';
         const urlBlue = urlParams.get('blue') === 'true';
         const urlBlack = urlParams.get('black') === 'true';
@@ -47,7 +47,7 @@ function SearchResults({ location }) {
 
         setName(urlName);
         setText(urlText);
-        setType(urlType);
+        setTypes(urlTypes);
 
         // Conditional check included to preserve state when navigating back to advanced search page
         if (urlColorless) {
@@ -74,7 +74,7 @@ function SearchResults({ location }) {
         fetchResults({
             name: urlName,
             text: urlText,
-            type: urlType,
+            types: urlTypes,
             colors: urlColors,
             matchType: urlMatchType,
             set: urlSet,

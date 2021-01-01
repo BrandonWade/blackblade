@@ -21,7 +21,7 @@ function SearchProvider({ children = [] }) {
 
     const setName = name => dispatch({ type: SET_NAME, name });
     const setText = text => dispatch({ type: SET_TEXT, text });
-    const setType = type => dispatch({ type: SET_TYPE, cardType: type });
+    const setTypes = types => dispatch({ type: SET_TYPE, types });
     const setColors = (color, value) => dispatch({ type: SET_COLORS, color, value });
     const setColorless = value => dispatch({ type: SET_COLORLESS, value });
     const setMatchType = matchType => dispatch({ type: SET_MATCH_TYPE, matchType });
@@ -36,7 +36,7 @@ function SearchProvider({ children = [] }) {
         ...state,
         setName,
         setText,
-        setType,
+        setTypes,
         setColors,
         setColorless,
         setMatchType,

@@ -45,7 +45,7 @@ export function oneOptionalFieldExists(query) {
     const optionalFields = [
         'name',
         'text',
-        'type',
+        'types',
         'white',
         'blue',
         'black',
