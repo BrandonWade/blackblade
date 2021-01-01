@@ -5,7 +5,7 @@ const pageSize = 60;
 const search = async (params = {}) => {
     const nameTokens = params?.name?.split(/\s+/) || [];
     const textTokens = params?.text?.split(/\s+/) || [];
-    const typeTokens = params?.type?.split(/\s+/) || [];
+    const typeTokens = params?.types?.split(/\s+/) || [];
     const colors = Object.keys(params?.colors).filter((c) => params?.colors[c]);
     const set = params?.set?.split(/\s+/) || [];
     const rarities = Object.keys(params?.rarities).filter(
@@ -53,8 +53,17 @@ const getRandomCard = async () => {
     return result[0];
 };
 
+const getCardSets = async () => {
+    const [results] = await SearchRepository.getCardSets();
+
+    return {
+        card_sets: results,
+    };
+};
+
 export default {
     search,
     getCardByID,
     getRandomCard,
+    getCardSets,
 };

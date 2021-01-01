@@ -7,13 +7,13 @@ import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
 function PaginatedResults({ className = '', onSelectResult = () => {}, redirect = true }) {
-    const { name, text, type, colors, matchType, set, rarities, searchResults, setPage } = useContext(SearchContext);
+    const { name, text, types, colors, matchType, set, rarities, searchResults, setPage } = useContext(SearchContext);
     const { searchCards } = useSearch();
     const { searchResultsRedirect, displayResults } = useDisplayResults();
 
     const fetchResults = async (page = 1) => {
         if (redirect === true) {
-            searchResultsRedirect({ name, text, type, colors, matchType, rarities, set, page });
+            searchResultsRedirect({ name, text, types, colors, matchType, rarities, set, page });
         } else {
             const response = await searchCards({ name, page });
             displayResults(response);

@@ -4,7 +4,7 @@ import SearchService from '../services/search';
 const search = async (req, res) => {
     const name = req.query['name'];
     const text = req.query['text'];
-    const type = req.query['type'];
+    const types = req.query['types'];
     const white = req.query['white'];
     const blue = req.query['blue'];
     const black = req.query['black'];
@@ -22,7 +22,7 @@ const search = async (req, res) => {
     const results = await SearchService.search({
         name,
         text,
-        type,
+        types,
         colors: { W: white, U: blue, B: black, R: red, G: green },
         colorless,
         matchType,
@@ -49,4 +49,9 @@ const getRandomCard = async (_, res) => {
     res.status(HttpStatus.OK).json(results);
 };
 
-export { search, getCardByID, getRandomCard };
+const getCardSets = async (_, res) => {
+    const results = await SearchService.getCardSets();
+    res.status(HttpStatus.OK).json(results);
+};
+
+export { search, getCardByID, getRandomCard, getCardSets };

@@ -30,7 +30,7 @@ function SearchReducer(state = {}, action = {}) {
         case SET_TYPE:
             return {
                 ...state,
-                type: action.cardType,
+                types: action.types,
             };
 
         case SET_COLORS:

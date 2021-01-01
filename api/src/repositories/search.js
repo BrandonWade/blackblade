@@ -122,9 +122,19 @@ const getRandomCard = async () => {
     );
 };
 
+const getCardSets = async () => {
+    return await connection.query(
+        `SELECT *
+        FROM sets;
+    `,
+        [],
+    );
+};
+
 export default {
     getTotalResults,
     getCardsByName,
     getCardByID,
     getRandomCard,
+    getCardSets,
 };

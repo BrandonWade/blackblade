@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import useDisplayResults from '../../hooks/useDisplayResults';
+import useFetchCardSets from '../../hooks/useFetchCardSets';
+import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 import SearchContext from '../../contexts/Search';
 import symbolMap from '../../hooks/useSymbols/symbolMap';
 import HeaderPage from '../../components/HeaderPage';
@@ -11,13 +13,15 @@ import './AdvancedSearch.scss';
 
 function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
+    const { getCardSets } = useFetchCardSets();
+    const { cardSets } = useContext(AdvancedSearchContext);
     const {
         name,
         setName,
         text,
         setText,
-        type,
-        setType,
+        types,
+        setTypes,
         colors,
         setColors,
         setColorless,
@@ -29,6 +33,10 @@ function AdvancedSearch() {
         setRarities,
     } = useContext(SearchContext);
 
+    useEffect(() => {
+        getCardSets();
+    }, [getCardSets]);
+
     const onChangeName = e => {
         setName(e.target.value);
     };
@@ -37,8 +45,8 @@ function AdvancedSearch() {
         setText(e.target.value);
     };
 
-    const onChangeType = e => {
-        setType(e.target.value);
+    const onChangeTypes = e => {
+        setTypes(e.target.value);
     };
 
     const onChangeWhite = () => onChangeColors('white');
@@ -66,7 +74,7 @@ function AdvancedSearch() {
     const onSubmit = async e => {
         e.preventDefault();
 
-        searchResultsRedirect({ name, text, type, colors, matchType, set, rarities, page: 1 });
+        searchResultsRedirect({ name, text, types, colors, matchType, set, rarities, page: 1 });
     };
 
     const renderColorMatchDescription = () => {
@@ -92,8 +100,8 @@ function AdvancedSearch() {
                         <Input className='AdvancedSearch-input' value={text} onChange={onChangeText} />
                     </div>
                     <div className='AdvancedSearch-formRow'>
-                        <label className='AdvancedSearch-rowLabel'>Type</label>
-                        <Input className='AdvancedSearch-input' value={type} onChange={onChangeType} />
+                        <label className='AdvancedSearch-rowLabel'>Types</label>
+                        <Input className='AdvancedSearch-input' value={types} onChange={onChangeTypes} />
                     </div>
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Colors</label>
@@ -125,7 +133,7 @@ function AdvancedSearch() {
                                 </Checkbox>
                             </div>
                             <div className='AdvancedSearch-colorMatchSection'>
-                                <Select className='AdvancedSearch-colorMatchType' value={matchType} onChange={onChangeMatchType}>
+                                <Select className='AdvancedSearch-select AdvancedSearch-colorMatchType' value={matchType} onChange={onChangeMatchType}>
                                     <option value='exact'>Exactly these colors</option>
                                     <option value='at_least'>At least these colors</option>
                                     <option value='at_most'>At most these colors</option>
@@ -136,7 +144,14 @@ function AdvancedSearch() {
                     </div>
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Set</label>
-                        <Input className='AdvancedSearch-input' value={set} onChange={onChangeSet} />
+                        <Select className='AdvancedSearch-select' value={set} onChange={onChangeSet}>
+                            <option value=''>Choose a card set</option>
+                            {cardSets.map(s => (
+                                <option key={s.id} value={s.set_code}>
+                                    {s.set_name}
+                                </option>
+                            ))}
+                        </Select>
                     </div>
                     <div className='AdvancedSearch-formRow'>
                         <label className='AdvancedSearch-rowLabel'>Rarity</label>

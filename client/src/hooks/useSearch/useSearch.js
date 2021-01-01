@@ -19,8 +19,8 @@ function useSearch(headers = {}) {
             addPair('text');
         }
 
-        if (params?.type) {
-            addPair('type');
+        if (params?.types) {
+            addPair('types');
         }
 
         if (params?.colors) {
