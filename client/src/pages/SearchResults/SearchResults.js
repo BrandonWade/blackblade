@@ -60,7 +60,11 @@ function SearchResults({ location }) {
             setColors('green', urlGreen);
         }
 
-        setMatchType(urlMatchType);
+        // urlMatchType doesn't have a safe "empty" value
+        if (urlMatchType) {
+            setMatchType(urlMatchType);
+        }
+
         setRarities('common', urlCommon);
         setRarities('uncommon', urlUncommon);
         setRarities('rare', urlRare);
