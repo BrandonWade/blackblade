@@ -1,4 +1,5 @@
 import React from 'react';
+import withFormField from '../../hocs/withFormField';
 import './Select.scss';
 
 function Select({ className = '', children = [], value = '', onChange = () => {} }) {
@@ -10,3 +11,5 @@ function Select({ className = '', children = [], value = '', onChange = () => {}
 }
 
 export default Select;
+
+export const SelectField = withFormField(Select);

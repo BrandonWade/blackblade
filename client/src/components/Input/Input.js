@@ -1,4 +1,5 @@
 import React from 'react';
+import withFormField from '../../hocs/withFormField';
 import './Input.scss';
 
 function Input({ type = 'text', className = '', placeholder = '', name = '', value = '', onChange = () => {} }) {
@@ -6,3 +7,5 @@ function Input({ type = 'text', className = '', placeholder = '', name = '', val
 }
 
 export default Input;
+
+export const InputField = withFormField(Input);

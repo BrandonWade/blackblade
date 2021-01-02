@@ -3,35 +3,19 @@ import useDisplayResults from '../../hooks/useDisplayResults';
 import useFetchCardSets from '../../hooks/useFetchCardSets';
 import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 import SearchContext from '../../contexts/Search';
-import symbolMap from '../../hooks/useSymbols/symbolMap';
 import HeaderPage from '../../components/HeaderPage';
-import Input from '../../components/Input';
-import Checkbox from '../../components/Checkbox';
-import Select from '../../components/Select';
+import { InputField } from '../../components/Input';
+import { SelectField } from '../../components/Select';
 import Button from '../../components/Button';
+import ColorOptions from './ColorOptions';
+import RarityOptions from './RarityOptions';
 import './AdvancedSearch.scss';
 
 function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
     const { getCardSets } = useFetchCardSets();
     const { cardSets } = useContext(AdvancedSearchContext);
-    const {
-        name,
-        setName,
-        text,
-        setText,
-        types,
-        setTypes,
-        colors,
-        setColors,
-        setColorless,
-        matchType,
-        setMatchType,
-        set,
-        setSet,
-        rarities,
-        setRarities,
-    } = useContext(SearchContext);
+    const { name, setName, text, setText, types, setTypes, colors, matchType, set, setSet, rarities } = useContext(SearchContext);
 
     useEffect(() => {
         getCardSets();
@@ -49,27 +33,9 @@ function AdvancedSearch() {
         setTypes(e.target.value);
     };
 
-    const onChangeWhite = () => onChangeColors('white');
-    const onChangeBlue = () => onChangeColors('blue');
-    const onChangeBlack = () => onChangeColors('black');
-    const onChangeRed = () => onChangeColors('red');
-    const onChangeGreen = () => onChangeColors('green');
-    const onChangeColors = color => setColors(color, !colors[color]);
-    const onChangeColorless = () => setColorless(!colors['colorless']);
-
-    const onChangeMatchType = e => {
-        setMatchType(e.target.value);
-    };
-
     const onChangeSet = e => {
         setSet(e.target.value);
     };
-
-    const onChangeCommon = () => onChangeRarity('common');
-    const onChangeUncommon = () => onChangeRarity('uncommon');
-    const onChangeRare = () => onChangeRarity('rare');
-    const onChangeMythic = () => onChangeRarity('mythic');
-    const onChangeRarity = rarity => setRarities(rarity, !rarities[rarity]);
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -77,99 +43,47 @@ function AdvancedSearch() {
         searchResultsRedirect({ name, text, types, colors, matchType, set, rarities, page: 1 });
     };
 
-    const renderColorMatchDescription = () => {
-        if (matchType === 'exact') {
-            return 'This match type means that cards must include all colors selected and no others.';
-        } else if (matchType === 'at_least') {
-            return 'This match type means that cards must include all colors selected and may include additional colors.';
-        } else {
-            return 'This match type means that cards will have some or all of the colors selected.';
-        }
-    };
-
     return (
         <HeaderPage className='AdvancedSearch'>
             <div className='AdvancedSearch-content'>
                 <form className='AdvancedSearch-form' onSubmit={onSubmit}>
-                    <div className='AdvancedSearch-formRow'>
-                        <label className='AdvancedSearch-rowLabel'>Name</label>
-                        <Input className='AdvancedSearch-input' value={name} onChange={onChangeName} />
-                    </div>
-                    <div className='AdvancedSearch-formRow'>
-                        <label className='AdvancedSearch-rowLabel'>Text</label>
-                        <Input className='AdvancedSearch-input' value={text} onChange={onChangeText} />
-                    </div>
-                    <div className='AdvancedSearch-formRow'>
-                        <label className='AdvancedSearch-rowLabel'>Types</label>
-                        <Input className='AdvancedSearch-input' value={types} onChange={onChangeTypes} />
-                    </div>
-                    <div className='AdvancedSearch-formRow'>
-                        <label className='AdvancedSearch-rowLabel'>Colors</label>
-                        <div className='AdvancedSearch-colorOptions'>
-                            <div className='AdvancedSearch-checkboxContainer'>
-                                <Checkbox className='AdvancedSearch-checkbox' value={colors['white']} onClick={onChangeWhite}>
-                                    <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{W}'] }} />
-                                    White
-                                </Checkbox>
-                                <Checkbox className='AdvancedSearch-checkbox' value={colors['blue']} onClick={onChangeBlue}>
-                                    <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{U}'] }} />
-                                    Blue
-                                </Checkbox>
-                                <Checkbox className='AdvancedSearch-checkbox' value={colors['black']} onClick={onChangeBlack}>
-                                    <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{B}'] }} />
-                                    Black
-                                </Checkbox>
-                                <Checkbox className='AdvancedSearch-checkbox' value={colors['red']} onClick={onChangeRed}>
-                                    <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{R}'] }} />
-                                    Red
-                                </Checkbox>
-                                <Checkbox className='AdvancedSearch-checkbox' value={colors['green']} onClick={onChangeGreen}>
-                                    <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{G}'] }} />
-                                    Green
-                                </Checkbox>
-                                <Checkbox className='AdvancedSearch-checkbox' value={colors['colorless']} onClick={onChangeColorless}>
-                                    <span className='AdvancedSearch-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{C}'] }} />
-                                    Colorless
-                                </Checkbox>
-                            </div>
-                            <div className='AdvancedSearch-colorMatchSection'>
-                                <Select className='AdvancedSearch-select AdvancedSearch-colorMatchType' value={matchType} onChange={onChangeMatchType}>
-                                    <option value='exact'>Exactly these colors</option>
-                                    <option value='at_least'>At least these colors</option>
-                                    <option value='at_most'>At most these colors</option>
-                                </Select>
-                                <p className='AdvancedSearch-colorMatchDescription'>{renderColorMatchDescription()}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='AdvancedSearch-formRow'>
-                        <label className='AdvancedSearch-rowLabel'>Set</label>
-                        <Select className='AdvancedSearch-select' value={set} onChange={onChangeSet}>
-                            <option value=''>Choose a card set</option>
-                            {cardSets.map(s => (
-                                <option key={s.id} value={s.set_code}>
-                                    {s.set_name}
-                                </option>
-                            ))}
-                        </Select>
-                    </div>
-                    <div className='AdvancedSearch-formRow'>
-                        <label className='AdvancedSearch-rowLabel'>Rarity</label>
-                        <div className='AdvancedSearch-checkboxContainer AdvancedSearch-rarities'>
-                            <Checkbox className='AdvancedSearch-checkbox' value={rarities['common']} onClick={onChangeCommon}>
-                                Common
-                            </Checkbox>
-                            <Checkbox className='AdvancedSearch-checkbox' value={rarities['uncommon']} onClick={onChangeUncommon}>
-                                Uncommon
-                            </Checkbox>
-                            <Checkbox className='AdvancedSearch-checkbox' value={rarities['rare']} onClick={onChangeRare}>
-                                Rare
-                            </Checkbox>
-                            <Checkbox className='AdvancedSearch-checkbox' value={rarities['mythic']} onClick={onChangeMythic}>
-                                Mythic Rare
-                            </Checkbox>
-                        </div>
-                    </div>
+                    <InputField
+                        labelClassName='AdvancedSearch-label'
+                        label='Name'
+                        className='AdvancedSearch-input'
+                        value={name}
+                        onChange={onChangeName}
+                    />
+                    <InputField
+                        labelClassName='AdvancedSearch-label'
+                        label='Text'
+                        className='AdvancedSearch-input'
+                        value={text}
+                        onChange={onChangeText}
+                    />
+                    <InputField
+                        labelClassName='AdvancedSearch-label'
+                        label='Types'
+                        className='AdvancedSearch-input'
+                        value={types}
+                        onChange={onChangeTypes}
+                    />
+                    <ColorOptions labelClassName='AdvancedSearch-label' label='Colors' />
+                    <SelectField
+                        labelClassName='AdvancedSearch-label'
+                        label='Set'
+                        className='AdvancedSearch-select'
+                        value={set}
+                        onChange={onChangeSet}
+                    >
+                        <option value=''>Choose a card set</option>
+                        {cardSets.map(s => (
+                            <option key={s.id} value={s.set_code}>
+                                {s.set_name}
+                            </option>
+                        ))}
+                    </SelectField>
+                    <RarityOptions labelClassName='AdvancedSearch-label' label='Rarities' />
                     <Button className='AdvancedSearch-searchButton' onClick={onSubmit}>
                         Search
                     </Button>
