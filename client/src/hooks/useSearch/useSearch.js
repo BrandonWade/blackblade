@@ -1,8 +1,12 @@
-function useSearch(headers = {}) {
+import useFetch from '../useFetch';
+
+function useSearch() {
+    const { fetchData } = useFetch();
+
     const getParamString = (params = {}) => {
         let pairs = [];
 
-        const addPair = name => (pairs = pairs.concat(`${[name]}=${params[name]}`));
+        const addPair = (name, fallback) => (pairs = pairs.concat(`${[name]}=${params[name] || fallback}`));
         const addPairsFromObject = obj => {
             Object.keys(obj).forEach(key => {
                 if (obj[key]) {
@@ -39,17 +43,13 @@ function useSearch(headers = {}) {
             addPairsFromObject(params.rarities);
         }
 
-        addPair('page');
+        addPair('page', 1);
 
         return pairs.join('&');
     };
 
     const getCardByID = async id => {
-        const response = await fetch(`/api/cards/${id}`, {
-            headers: {
-                ...headers,
-            },
-        });
+        const response = await fetchData(`/api/cards/${id}`);
 
         switch (response.status) {
             case 200:
@@ -76,11 +76,7 @@ function useSearch(headers = {}) {
     };
 
     const getRandomCard = async () => {
-        const response = await fetch('/api/cards/random', {
-            headers: {
-                ...headers,
-            },
-        });
+        const response = await fetchData('/api/cards/random');
 
         switch (response.status) {
             case 200:
@@ -99,12 +95,7 @@ function useSearch(headers = {}) {
     };
 
     const searchCards = async (params = {}) => {
-        const paramString = getParamString(params);
-        const response = await fetch(`/api/search?${paramString}`, {
-            headers: {
-                ...headers,
-            },
-        });
+        const response = await fetchData(`/api/search?${getParamString(params)}`);
 
         switch (response.status) {
             case 200:
