@@ -1,0 +1,19 @@
+.FormField {
+    display: flex;
+    align-items: center;
+
+    @media only screen and (max-width: 52.125em) {
+        display: block;
+    }
+
+    &:not(:last-of-type) {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: var(--line-transparent);
+
+        @media only screen and (max-width: 52.125em) {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+    }
+}
