@@ -1,13 +1,10 @@
-function useDeck(headers = {}) {
+import useFetch from '../useFetch';
+
+function useDeck() {
+    const { fetchData } = useFetch();
+
     const createDeck = async (name = '') => {
-        const response = await fetch('/api/decks', {
-            method: 'POST',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name }),
-        });
+        const response = await fetchData('/api/decks', 'POST', { name });
 
         switch (response.status) {
             case 200:
@@ -29,17 +26,7 @@ function useDeck(headers = {}) {
             ...deck.map(card => ({ count: card.count, card_id: card.card_id, selection_type: card.selection_type, location: 'deck' })),
             ...maybeboard.map(card => ({ count: card.count, card_id: card.card_id, selection_type: card.selection_type, location: 'maybeboard' })),
         ];
-        const response = await fetch(`/api/decks/${publicID}`, {
-            method: 'PUT',
-            headers: {
-                ...headers,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name,
-                cards,
-            }),
-        });
+        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, cards });
 
         switch (response.status) {
             case 200:
@@ -55,11 +42,7 @@ function useDeck(headers = {}) {
     };
 
     const getDeck = async (publicID = '') => {
-        const response = await fetch(`/api/decks/${publicID}`, {
-            headers: {
-                ...headers,
-            },
-        });
+        const response = await fetchData(`/api/decks/${publicID}`);
 
         switch (response.status) {
             case 200:

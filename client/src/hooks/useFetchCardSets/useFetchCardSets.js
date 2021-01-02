@@ -1,18 +1,15 @@
 import { useContext, useCallback } from 'react';
+import useFetch from '../useFetch';
 import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 import ErrorContext from '../../contexts/Error';
 
 function useFetchCardSets() {
+    const { fetchData } = useFetch();
     const { setCardSets } = useContext(AdvancedSearchContext);
     const { setErrors } = useContext(ErrorContext);
 
-    const getCardSets = useCallback(async (headers = {}) => {
-        const response = await fetch(`/api/sets`, {
-            headers: {
-                ...headers,
-            },
-        });
-
+    const getCardSets = useCallback(async () => {
+        const response = await fetchData(`/api/sets`);
         const data = await response.json();
 
         switch (response.status) {
