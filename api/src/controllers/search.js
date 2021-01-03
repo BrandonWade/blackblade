@@ -17,6 +17,7 @@ const search = async (req, res) => {
     const uncommon = req.query['uncommon'];
     const rare = req.query['rare'];
     const mythic = req.query['mythic'];
+    const flavorText = req.query['flavorText'];
     const page = parseInt(req.query['page']);
 
     const results = await SearchService.search({
@@ -28,6 +29,7 @@ const search = async (req, res) => {
         matchType,
         set,
         rarities: { common, uncommon, rare, mythic },
+        flavorText,
         page,
     });
 

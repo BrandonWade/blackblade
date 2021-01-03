@@ -20,6 +20,7 @@ export const initialState = {
         rare: false,
         mythic: false,
     },
+    flavorText: '',
     page: 1,
     totalResults: 0,
     searchResults: [],

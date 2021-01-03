@@ -15,7 +15,9 @@ function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
     const { getCardSets } = useFetchCardSets();
     const { cardSets } = useContext(AdvancedSearchContext);
-    const { name, setName, text, setText, types, setTypes, colors, matchType, set, setSet, rarities } = useContext(SearchContext);
+    const { name, setName, text, setText, types, setTypes, colors, matchType, set, setSet, rarities, flavorText, setFlavorText } = useContext(
+        SearchContext
+    );
 
     useEffect(() => {
         getCardSets();
@@ -37,10 +39,14 @@ function AdvancedSearch() {
         setSet(e.target.value);
     };
 
+    const onChangeFlavorText = e => {
+        setFlavorText(e.target.value);
+    };
+
     const onSubmit = async e => {
         e.preventDefault();
 
-        searchResultsRedirect({ name, text, types, colors, matchType, set, rarities, page: 1 });
+        searchResultsRedirect({ name, text, types, colors, matchType, set, rarities, flavorText, page: 1 });
     };
 
     return (
@@ -84,6 +90,13 @@ function AdvancedSearch() {
                         ))}
                     </SelectField>
                     <RarityOptions labelClassName='AdvancedSearch-label' label='Rarities' />
+                    <InputField
+                        labelClassName='AdvancedSearch-label'
+                        label='Flavor Text'
+                        className='AdvancedSearch-input'
+                        value={flavorText}
+                        onChange={onChangeFlavorText}
+                    />
                     <Button className='AdvancedSearch-searchButton' onClick={onSubmit}>
                         Search
                     </Button>
