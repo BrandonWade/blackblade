@@ -10,7 +10,9 @@ import './SearchResults.scss';
 
 function SearchResults({ location }) {
     const history = useHistory();
-    const { setName, setText, setTypes, setColors, setColorless, setMatchType, setSet, setRarities, setPage } = useContext(SearchContext);
+    const { setName, setText, setTypes, setColors, setColorless, setMatchType, setSet, setRarities, setFlavorText, setPage } = useContext(
+        SearchContext
+    );
     const { setCard } = useContext(CardContext);
     const { searchCards } = useSearch();
     const { cardRedirect, displayResults } = useDisplayResults();
@@ -33,6 +35,7 @@ function SearchResults({ location }) {
         const urlUncommon = urlParams.get('uncommon') || '';
         const urlRare = urlParams.get('rare') || '';
         const urlMythic = urlParams.get('mythic') || '';
+        const urlFlavorText = urlParams.get('flavorText') || '';
         const urlPage = parseInt(urlParams.get('page')) || 1;
 
         const fetchResults = async (params = {}) => {
@@ -65,12 +68,12 @@ function SearchResults({ location }) {
             setMatchType(urlMatchType);
         }
 
+        setSet(urlSet);
         setRarities('common', urlCommon);
         setRarities('uncommon', urlUncommon);
         setRarities('rare', urlRare);
         setRarities('mythic', urlMythic);
-
-        setSet(urlSet);
+        setFlavorText(urlFlavorText);
         setPage(urlPage);
 
         const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen, colorless: urlColorless };
@@ -83,6 +86,7 @@ function SearchResults({ location }) {
             matchType: urlMatchType,
             set: urlSet,
             rarities: urlRarities,
+            flavorText: urlFlavorText,
             page: urlPage,
         });
     }, [search]);

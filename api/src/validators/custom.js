@@ -57,6 +57,7 @@ export function oneOptionalFieldExists(query) {
         'uncommon',
         'rare',
         'mythic',
+        'flavorText',
     ];
 
     if (optionalFields.every((field) => query[field] === undefined)) {

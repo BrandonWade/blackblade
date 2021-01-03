@@ -7,6 +7,7 @@ import {
     SET_MATCH_TYPE,
     SET_SET,
     SET_RARITIES,
+    SET_FLAVOR_TEXT,
     SET_PAGE,
     SET_TOTAL_RESULTS,
     SET_SEARCH_RESULTS,
@@ -75,6 +76,12 @@ function SearchReducer(state = {}, action = {}) {
                     ...state.rarities,
                     [action.rarity]: action.value,
                 },
+            };
+
+        case SET_FLAVOR_TEXT:
+            return {
+                ...state,
+                flavorText: action.flavorText,
             };
 
         case SET_PAGE:

@@ -6,6 +6,7 @@ export const SET_COLORLESS = 'SET_COLORLESS';
 export const SET_MATCH_TYPE = 'SET_MATCH_TYPE';
 export const SET_SET = 'SET_SET';
 export const SET_RARITIES = 'SET_RARITIES';
+export const SET_FLAVOR_TEXT = 'SET_FLAVOR_TEXT';
 export const SET_PAGE = 'SET_PAGE';
 export const SET_TOTAL_RESULTS = 'SET_TOTAL_RESULTS';
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';

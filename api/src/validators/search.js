@@ -43,6 +43,7 @@ const commonExists = query('common').optional().isBoolean();
 const uncommonExists = query('uncommon').optional().isBoolean();
 const rareExists = query('rare').optional().isBoolean();
 const mythicExists = query('mythic').optional().isBoolean();
+const flavorTextExists = query('flavorText').optional().isLength({ min: 1 });
 
 // At minimum one of the optional fields must exist
 const mustExist = query().custom(oneOptionalFieldExists);
@@ -66,6 +67,7 @@ const searchValidators = [
     uncommonExists,
     rareExists,
     mythicExists,
+    flavorTextExists,
     mustExist,
     pageExists,
 ];

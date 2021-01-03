@@ -11,6 +11,7 @@ const search = async (params = {}) => {
     const rarities = Object.keys(params?.rarities).filter(
         (r) => params?.rarities[r],
     );
+    const flavorTextTokens = params?.flavorText?.split(/\s+/) || [];
 
     const totalResults = await SearchRepository.getTotalResults(
         nameTokens,
@@ -21,6 +22,7 @@ const search = async (params = {}) => {
         params?.matchType,
         set,
         rarities,
+        flavorTextTokens,
     );
 
     const cardResults = await SearchRepository.getCardsByName(
@@ -32,6 +34,7 @@ const search = async (params = {}) => {
         params?.matchType,
         set,
         rarities,
+        flavorTextTokens,
         params?.page,
         pageSize,
     );

@@ -39,6 +39,10 @@ function useSearch() {
             addPair('set');
         }
 
+        if (params?.flavorText) {
+            addPair('flavorText');
+        }
+
         if (params?.rarities) {
             addPairsFromObject(params.rarities);
         }

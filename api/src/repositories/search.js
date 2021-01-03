@@ -16,6 +16,7 @@ const getTotalResults = (
     matchType,
     set,
     rarities,
+    flavorTextTokens,
 ) => {
     const subquery = builder
         .select('c.*')
@@ -31,6 +32,7 @@ const getTotalResults = (
     addColorlessCondition(subquery, colorless, matchType);
     addEqualCondition(subquery, set, 'c.set_code');
     addInCondition(subquery, rarities, 'c.rarity');
+    addLikeCondition(subquery, flavorTextTokens, 'f.flavor_text');
 
     return builder.count('* AS total_results').from(subquery);
 };
@@ -44,6 +46,7 @@ const getCardsByName = (
     matchType,
     set,
     rarities,
+    flavorTextTokens,
     page,
     pageSize,
 ) => {
@@ -72,6 +75,7 @@ const getCardsByName = (
     addColorlessCondition(query, colorless, matchType);
     addEqualCondition(query, set, 'c.set_code');
     addInCondition(query, rarities, 'c.rarity');
+    addLikeCondition(query, flavorTextTokens, 'f.flavor_text');
 
     return query;
 };
