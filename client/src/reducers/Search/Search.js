@@ -6,6 +6,7 @@ import {
     SET_COLORLESS,
     SET_MATCH_TYPE,
     SET_SET,
+    SET_STAT,
     SET_RARITIES,
     SET_FLAVOR_TEXT,
     SET_PAGE,
@@ -67,6 +68,15 @@ function SearchReducer(state = {}, action = {}) {
             return {
                 ...state,
                 set: action.set,
+            };
+
+        case SET_STAT:
+            return {
+                ...state,
+                [action.stat]: {
+                    comparator: action.comparator,
+                    value: action.value,
+                },
             };
 
         case SET_RARITIES:

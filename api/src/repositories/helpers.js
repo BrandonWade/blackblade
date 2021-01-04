@@ -58,3 +58,13 @@ export const addColorlessCondition = (builder, colorless, matchType) => {
         colorList.forEach((color) => builder.where(color, '=', false));
     }
 };
+
+export const addStatCondition = (builder, stat, field) => {
+    if (!stat || !stat.comparator || stat.value === '') {
+        return;
+    }
+
+    const comparator = stat.comparator === '==' ? '=' : stat.comparator;
+    builder.where(field, comparator, stat.value);
+    builder.where(field, '!=', '');
+};

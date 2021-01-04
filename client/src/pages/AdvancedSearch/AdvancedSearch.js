@@ -9,15 +9,33 @@ import { SelectField } from '../../components/Select';
 import Button from '../../components/Button';
 import ColorOptions from './ColorOptions';
 import RarityOptions from './RarityOptions';
+import StatRow from './StatRow';
 import './AdvancedSearch.scss';
 
 function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
     const { getCardSets } = useFetchCardSets();
     const { cardSets } = useContext(AdvancedSearchContext);
-    const { name, setName, text, setText, types, setTypes, colors, matchType, set, setSet, rarities, flavorText, setFlavorText } = useContext(
-        SearchContext
-    );
+    const {
+        name,
+        setName,
+        text,
+        setText,
+        types,
+        setTypes,
+        colors,
+        matchType,
+        set,
+        setSet,
+        cmc,
+        power,
+        toughness,
+        loyalty,
+        setStat,
+        rarities,
+        flavorText,
+        setFlavorText,
+    } = useContext(SearchContext);
 
     useEffect(() => {
         getCardSets();
@@ -46,7 +64,7 @@ function AdvancedSearch() {
     const onSubmit = async e => {
         e.preventDefault();
 
-        searchResultsRedirect({ name, text, types, colors, matchType, set, rarities, flavorText, page: 1 });
+        searchResultsRedirect({ name, text, types, colors, matchType, set, cmc, power, toughness, loyalty, rarities, flavorText, page: 1 });
     };
 
     return (
@@ -89,6 +107,14 @@ function AdvancedSearch() {
                             </option>
                         ))}
                     </SelectField>
+                    <StatRow
+                        labelClassName='AdvancedSearch-label'
+                        label='Power'
+                        stat='power'
+                        comparator={power.comparator}
+                        value={power.value}
+                        setStat={setStat}
+                    />
                     <RarityOptions labelClassName='AdvancedSearch-label' label='Rarities' />
                     <InputField
                         labelClassName='AdvancedSearch-label'

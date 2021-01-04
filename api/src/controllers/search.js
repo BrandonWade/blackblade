@@ -13,6 +13,14 @@ const search = async (req, res) => {
     const colorless = req.query['colorless'];
     const matchType = req.query['matchType'];
     const set = req.query['set'];
+    const cmcComparator = req.query['cmcComparator'];
+    const cmcValue = parseInt(req.query['cmcValue']);
+    const powerComparator = req.query['powerComparator'];
+    const powerValue = parseInt(req.query['powerValue']);
+    const toughnessComparator = req.query['toughnessComparator'];
+    const toughnessValue = parseInt(req.query['toughnessValue']);
+    const loyaltyComparator = req.query['loyaltyComparator'];
+    const loyaltyValue = parseInt(req.query['loyaltyValue']);
     const common = req.query['common'];
     const uncommon = req.query['uncommon'];
     const rare = req.query['rare'];
@@ -28,6 +36,10 @@ const search = async (req, res) => {
         colorless,
         matchType,
         set,
+        cmc: { comparator: cmcComparator, value: cmcValue },
+        power: { comparator: powerComparator, value: powerValue },
+        toughness: { comparator: toughnessComparator, value: toughnessValue },
+        loyalty: { comparator: loyaltyComparator, value: loyaltyValue },
         rarities: { common, uncommon, rare, mythic },
         flavorText,
         page,

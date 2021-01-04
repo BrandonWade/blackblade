@@ -14,6 +14,22 @@ export const initialState = {
     },
     matchType: 'exact',
     set: '',
+    cmc: {
+        comparator: '==',
+        value: '',
+    },
+    power: {
+        comparator: '==',
+        value: '',
+    },
+    toughness: {
+        comparator: '==',
+        value: '',
+    },
+    loyalty: {
+        comparator: '==',
+        value: '',
+    },
     rarities: {
         common: false,
         uncommon: false,
