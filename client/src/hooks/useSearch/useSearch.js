@@ -35,32 +35,37 @@ function useSearch() {
             addPair('types');
         }
 
-        addPairsFromObject(params.colors);
-        if (Object.values(params.colors).some(color => color === true)) {
-            addPair('matchType');
+        if (params?.colors) {
+            addPairsFromObject(params.colors);
+
+            if (Object.values(params.colors).some(color => color === true)) {
+                addPair('matchType');
+            }
         }
 
         if (params?.set) {
             addPair('set');
         }
 
-        // if (params.cmc?.value !== '') {
+        // if (params?.cmc && params?.cmc?.value !== '') {
         //     addNestedPair('cmc');
         // }
 
-        if (params.power?.value !== '') {
+        if (params?.power && params?.power?.value !== '') {
             addNestedPair('power');
         }
 
-        // if (params.toughness?.value !== '') {
+        // if (params?.toughness && params?.toughness?.value !== '') {
         //     addNestedPair('toughness');
         // }
 
-        // if (params.loyalty?.value !== '') {
+        // if (params?.loyalty && params?.loyalty?.value !== '') {
         //     addNestedPair('loyalty');
         // }
 
-        addPairsFromObject(params.rarities);
+        if (params?.rarities) {
+            addPairsFromObject(params.rarities);
+        }
 
         if (params?.flavorText) {
             addPair('flavorText');
