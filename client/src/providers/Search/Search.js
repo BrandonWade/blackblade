@@ -9,6 +9,7 @@ import {
     SET_COLORLESS,
     SET_MATCH_TYPE,
     SET_SET,
+    SET_STAT,
     SET_FLAVOR_TEXT,
     SET_RARITIES,
     SET_PAGE,
@@ -27,6 +28,7 @@ function SearchProvider({ children = [] }) {
     const setColorless = value => dispatch({ type: SET_COLORLESS, value });
     const setMatchType = matchType => dispatch({ type: SET_MATCH_TYPE, matchType });
     const setSet = set => dispatch({ type: SET_SET, set });
+    const setStat = (stat, comparator, value) => dispatch({ type: SET_STAT, stat, comparator, value });
     const setRarities = (rarity, value) => dispatch({ type: SET_RARITIES, rarity, value });
     const setFlavorText = flavorText => dispatch({ type: SET_FLAVOR_TEXT, flavorText });
     const setPage = page => dispatch({ type: SET_PAGE, page });
@@ -43,6 +45,7 @@ function SearchProvider({ children = [] }) {
         setColorless,
         setMatchType,
         setSet,
+        setStat,
         setRarities,
         setFlavorText,
         setPage,

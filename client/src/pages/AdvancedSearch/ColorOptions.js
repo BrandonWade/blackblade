@@ -33,7 +33,7 @@ function ColorOptions() {
 
     return (
         <div className='ColorOptions'>
-            <FieldGroup className='AdvancedSearch-checkboxContainer'>
+            <FieldGroup>
                 <Checkbox className='AdvancedSearch-checkbox' value={colors['white']} onClick={onChangeWhite}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{W}'] }} />
                     White

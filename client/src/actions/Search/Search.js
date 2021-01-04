@@ -5,6 +5,7 @@ export const SET_COLORS = 'SET_COLORS';
 export const SET_COLORLESS = 'SET_COLORLESS';
 export const SET_MATCH_TYPE = 'SET_MATCH_TYPE';
 export const SET_SET = 'SET_SET';
+export const SET_STAT = 'SET_STAT';
 export const SET_RARITIES = 'SET_RARITIES';
 export const SET_FLAVOR_TEXT = 'SET_FLAVOR_TEXT';
 export const SET_PAGE = 'SET_PAGE';

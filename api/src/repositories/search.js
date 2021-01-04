@@ -3,6 +3,7 @@ import {
     addLikeCondition,
     addColorConditions,
     addColorlessCondition,
+    addStatCondition,
     addEqualCondition,
     addInCondition,
 } from './helpers';
@@ -15,6 +16,10 @@ const getTotalResults = (
     colorless,
     matchType,
     set,
+    cmc,
+    power,
+    toughness,
+    loyalty,
     rarities,
     flavorTextTokens,
 ) => {
@@ -30,6 +35,10 @@ const getTotalResults = (
     addLikeCondition(subquery, typeTokens, 'f.type_line');
     addColorConditions(subquery, colors, matchType);
     addColorlessCondition(subquery, colorless, matchType);
+    // addStatCondition(subquery, cmc, 'c.cmc');
+    addStatCondition(subquery, power, 'f.power');
+    // addStatCondition(subquery, toughness, 'f.toughness');
+    // addStatCondition(subquery, loyalty, 'f.loyalty');
     addEqualCondition(subquery, set, 'c.set_code');
     addInCondition(subquery, rarities, 'c.rarity');
     addLikeCondition(subquery, flavorTextTokens, 'f.flavor_text');
@@ -45,6 +54,10 @@ const getCardsByName = (
     colorless,
     matchType,
     set,
+    cmc,
+    power,
+    toughness,
+    loyalty,
     rarities,
     flavorTextTokens,
     page,
@@ -73,6 +86,10 @@ const getCardsByName = (
     addLikeCondition(query, typeTokens, 'f.type_line');
     addColorConditions(query, colors, matchType);
     addColorlessCondition(query, colorless, matchType);
+    // addStatCondition(query, cmc, 'c.cmc');
+    addStatCondition(query, power, 'f.power');
+    // addStatCondition(query, toughness, 'f.toughness');
+    // addStatCondition(query, loyalty, 'f.loyalty');
     addEqualCondition(query, set, 'c.set_code');
     addInCondition(query, rarities, 'c.rarity');
     addLikeCondition(query, flavorTextTokens, 'f.flavor_text');

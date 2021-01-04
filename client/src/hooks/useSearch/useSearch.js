@@ -6,7 +6,15 @@ function useSearch() {
     const getParamString = (params = {}) => {
         let pairs = [];
 
-        const addPair = (name, fallback) => (pairs = pairs.concat(`${[name]}=${params[name] || fallback}`));
+        const addPair = (name, fallback) => (pairs = pairs.concat(`${name}=${params[name] || fallback}`));
+        const addNestedPair = name => {
+            const keys = Object.keys(params[name]);
+            keys.forEach(key => {
+                const capitalized = `${key.charAt(0).toUpperCase()}${key.slice(1)}`;
+                const queryKey = `${name}${capitalized}`;
+                pairs = pairs.concat(`${queryKey}=${params[name][key]}`);
+            });
+        };
         const addPairsFromObject = obj => {
             Object.keys(obj).forEach(key => {
                 if (obj[key]) {
@@ -27,24 +35,35 @@ function useSearch() {
             addPair('types');
         }
 
-        if (params?.colors) {
-            addPairsFromObject(params.colors);
-
-            if (Object.values(params.colors).some(color => color === true)) {
-                addPair('matchType');
-            }
+        addPairsFromObject(params.colors);
+        if (Object.values(params.colors).some(color => color === true)) {
+            addPair('matchType');
         }
 
         if (params?.set) {
             addPair('set');
         }
 
-        if (params?.flavorText) {
-            addPair('flavorText');
+        // if (params.cmc?.value !== '') {
+        //     addNestedPair('cmc');
+        // }
+
+        if (params.power?.value !== '') {
+            addNestedPair('power');
         }
 
-        if (params?.rarities) {
-            addPairsFromObject(params.rarities);
+        // if (params.toughness?.value !== '') {
+        //     addNestedPair('toughness');
+        // }
+
+        // if (params.loyalty?.value !== '') {
+        //     addNestedPair('loyalty');
+        // }
+
+        addPairsFromObject(params.rarities);
+
+        if (params?.flavorText) {
+            addPair('flavorText');
         }
 
         addPair('page', 1);

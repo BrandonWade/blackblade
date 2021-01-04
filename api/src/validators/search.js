@@ -2,6 +2,8 @@ import { query, param } from 'express-validator';
 import {
     exclusiveColors,
     matchTypeExists,
+    validStatComparator,
+    statValueExists,
     oneOptionalFieldExists,
 } from './custom';
 
@@ -39,6 +41,38 @@ const colorlessExists = query('colorless')
     .custom(exclusiveColors)
     .custom(matchTypeExists);
 const setExists = query('set').optional().isLength({ min: 3 });
+const cmcComparatorExists = query('cmcComparator')
+    .optional()
+    .custom((comparator) => validStatComparator('cmc', comparator))
+    .custom((_, params) => statValueExists('cmc', params));
+const cmcValueExists = query('cmcValue')
+    .optional()
+    .isFloat()
+    .isLength({ min: 1 });
+const powerComparatorExists = query('powerComparator')
+    .optional()
+    .custom((comparator) => validStatComparator('power', comparator))
+    .custom((_, params) => statValueExists('power', params));
+const powerValueExists = query('powerValue')
+    .optional()
+    .isInt()
+    .isLength({ min: 1 });
+const toughnessComparatorExists = query('toughnessComparator')
+    .optional()
+    .custom((comparator) => validStatComparator('toughness', comparator))
+    .custom((_, params) => statValueExists('toughness', params));
+const toughnessValueExists = query('toughnessValue')
+    .optional()
+    .isInt()
+    .isLength({ min: 1 });
+const loyaltyComparatorExists = query('loyaltyComparator')
+    .optional()
+    .custom((comparator) => validStatComparator('loyalty', comparator))
+    .custom((_, params) => statValueExists('loyalty', params));
+const loyaltyValueExists = query('loyaltyValue')
+    .optional()
+    .isInt()
+    .isLength({ min: 1 });
 const commonExists = query('common').optional().isBoolean();
 const uncommonExists = query('uncommon').optional().isBoolean();
 const rareExists = query('rare').optional().isBoolean();
@@ -63,6 +97,14 @@ const searchValidators = [
     greenExists,
     colorlessExists,
     setExists,
+    cmcComparatorExists,
+    cmcValueExists,
+    powerComparatorExists,
+    powerValueExists,
+    toughnessComparatorExists,
+    toughnessValueExists,
+    loyaltyComparatorExists,
+    loyaltyValueExists,
     commonExists,
     uncommonExists,
     rareExists,

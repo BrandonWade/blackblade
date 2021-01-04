@@ -41,6 +41,31 @@ export function matchTypeExists(_, { req }) {
     return true;
 }
 
+export function validStatComparator(stat, comparator) {
+    const validComparator = ['==', '!=', '<', '<=', '>', '>='];
+
+    if (comparator === '') {
+        throw new Error(`comparator for ${stat} does not exist`);
+    }
+
+    if (!validComparator.includes(comparator)) {
+        const comparators = validComparator.join(', ');
+        throw new Error(`comparator must be one of: ${comparators}`);
+    }
+
+    return true;
+}
+
+export function statValueExists(stat, { req }) {
+    const statValue = req.query[`${stat}Value`];
+
+    if (statValue === undefined) {
+        throw new Error(`value for ${stat} does not exist`);
+    }
+
+    return true;
+}
+
 export function oneOptionalFieldExists(query) {
     const optionalFields = [
         'name',
@@ -53,6 +78,14 @@ export function oneOptionalFieldExists(query) {
         'green',
         'colorless',
         'set',
+        'cmcComparator',
+        'cmcValue',
+        'powerComparator',
+        'powerValue',
+        'toughnessComparator',
+        'toughnessValue',
+        'loyaltyComparator',
+        'loyaltyValue',
         'common',
         'uncommon',
         'rare',
@@ -61,10 +94,7 @@ export function oneOptionalFieldExists(query) {
     ];
 
     if (optionalFields.every((field) => query[field] === undefined)) {
-        const fields = optionalFields.join(', ');
-        throw new Error(
-            `at least one of the following fields must be present: ${fields}`,
-        );
+        throw new Error('at least one search criterion must be provided');
     }
 
     return true;

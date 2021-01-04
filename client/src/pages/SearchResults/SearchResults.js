@@ -10,7 +10,7 @@ import './SearchResults.scss';
 
 function SearchResults({ location }) {
     const history = useHistory();
-    const { setName, setText, setTypes, setColors, setColorless, setMatchType, setSet, setRarities, setFlavorText, setPage } = useContext(
+    const { setName, setText, setTypes, setColors, setColorless, setMatchType, setSet, setStat, setRarities, setFlavorText, setPage } = useContext(
         SearchContext
     );
     const { setCard } = useContext(CardContext);
@@ -31,6 +31,14 @@ function SearchResults({ location }) {
         const urlColorless = urlParams.get('colorless') === 'true';
         const urlMatchType = urlParams.get('matchType') || '';
         const urlSet = urlParams.get('set') || '';
+        const urlCMCComparator = urlParams.get('cmcComparator') || '';
+        const urlCMCValue = urlParams.get('cmcValue') || '';
+        const urlPowerComparator = urlParams.get('powerComparator') || '';
+        const urlPowerValue = urlParams.get('powerValue') || '';
+        const urlToughnessComparator = urlParams.get('toughnessComparator') || '';
+        const urlToughnessValue = urlParams.get('toughnessValue') || '';
+        const urlLoyaltyComparator = urlParams.get('loyaltyComparator') || '';
+        const urlLoyaltyValue = urlParams.get('loyaltyValue') || '';
         const urlCommon = urlParams.get('common') || '';
         const urlUncommon = urlParams.get('uncommon') || '';
         const urlRare = urlParams.get('rare') || '';
@@ -69,6 +77,10 @@ function SearchResults({ location }) {
         }
 
         setSet(urlSet);
+        setStat('cmc', urlCMCComparator, urlCMCValue);
+        setStat('power', urlPowerComparator, urlPowerValue);
+        setStat('toughness', urlToughnessComparator, urlToughnessValue);
+        setStat('loyalty', urlLoyaltyComparator, urlLoyaltyValue);
         setRarities('common', urlCommon);
         setRarities('uncommon', urlUncommon);
         setRarities('rare', urlRare);
@@ -77,6 +89,10 @@ function SearchResults({ location }) {
         setPage(urlPage);
 
         const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen, colorless: urlColorless };
+        const urlCMC = { comparator: urlPowerComparator, value: urlPowerValue };
+        const urlPower = { comparator: urlPowerComparator, value: urlPowerValue };
+        const urlToughness = { comparator: urlPowerComparator, value: urlPowerValue };
+        const urlLoyalty = { comparator: urlPowerComparator, value: urlPowerValue };
         const urlRarities = { common: urlCommon, uncommon: urlUncommon, rare: urlRare, mythic: urlMythic };
         fetchResults({
             name: urlName,
@@ -85,6 +101,10 @@ function SearchResults({ location }) {
             colors: urlColors,
             matchType: urlMatchType,
             set: urlSet,
+            cmc: urlCMC,
+            power: urlPower,
+            toughness: urlToughness,
+            loyalty: urlLoyalty,
             rarities: urlRarities,
             flavorText: urlFlavorText,
             page: urlPage,
