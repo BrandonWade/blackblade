@@ -47,21 +47,21 @@ function useSearch() {
             addPair('set');
         }
 
-        // if (params?.cmc && params?.cmc?.value !== '') {
-        //     addNestedPair('cmc');
-        // }
+        if (params?.cmc && params?.cmc?.value !== '') {
+            addNestedPair('cmc');
+        }
 
         if (params?.power && params?.power?.value !== '') {
             addNestedPair('power');
         }
 
-        // if (params?.toughness && params?.toughness?.value !== '') {
-        //     addNestedPair('toughness');
-        // }
+        if (params?.toughness && params?.toughness?.value !== '') {
+            addNestedPair('toughness');
+        }
 
-        // if (params?.loyalty && params?.loyalty?.value !== '') {
-        //     addNestedPair('loyalty');
-        // }
+        if (params?.loyalty && params?.loyalty?.value !== '') {
+            addNestedPair('loyalty');
+        }
 
         if (params?.rarities) {
             addPairsFromObject(params.rarities);

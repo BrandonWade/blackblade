@@ -109,10 +109,34 @@ function AdvancedSearch() {
                     </SelectField>
                     <StatRow
                         labelClassName='AdvancedSearch-label'
+                        label='CMC'
+                        stat='cmc'
+                        comparator={cmc.comparator}
+                        value={cmc.value}
+                        setStat={setStat}
+                    />
+                    <StatRow
+                        labelClassName='AdvancedSearch-label'
                         label='Power'
                         stat='power'
                         comparator={power.comparator}
                         value={power.value}
+                        setStat={setStat}
+                    />
+                    <StatRow
+                        labelClassName='AdvancedSearch-label'
+                        label='Toughness'
+                        stat='toughness'
+                        comparator={toughness.comparator}
+                        value={toughness.value}
+                        setStat={setStat}
+                    />
+                    <StatRow
+                        labelClassName='AdvancedSearch-label'
+                        label='Loyalty'
+                        stat='loyalty'
+                        comparator={loyalty.comparator}
+                        value={loyalty.value}
                         setStat={setStat}
                     />
                     <RarityOptions labelClassName='AdvancedSearch-label' label='Rarities' />
