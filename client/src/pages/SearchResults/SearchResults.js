@@ -29,15 +29,15 @@ function SearchResults({ location }) {
         const urlRed = urlParams.get('red') === 'true';
         const urlGreen = urlParams.get('green') === 'true';
         const urlColorless = urlParams.get('colorless') === 'true';
-        const urlMatchType = urlParams.get('matchType') || '';
+        const urlMatchType = urlParams.get('matchType') || 'exact';
         const urlSet = urlParams.get('set') || '';
-        const urlCMCComparator = urlParams.get('cmcComparator') || '';
+        const urlCMCComparator = urlParams.get('cmcComparator') || '==';
         const urlCMCValue = urlParams.get('cmcValue') || '';
-        const urlPowerComparator = urlParams.get('powerComparator') || '';
+        const urlPowerComparator = urlParams.get('powerComparator') || '==';
         const urlPowerValue = urlParams.get('powerValue') || '';
-        const urlToughnessComparator = urlParams.get('toughnessComparator') || '';
+        const urlToughnessComparator = urlParams.get('toughnessComparator') || '==';
         const urlToughnessValue = urlParams.get('toughnessValue') || '';
-        const urlLoyaltyComparator = urlParams.get('loyaltyComparator') || '';
+        const urlLoyaltyComparator = urlParams.get('loyaltyComparator') || '==';
         const urlLoyaltyValue = urlParams.get('loyaltyValue') || '';
         const urlCommon = urlParams.get('common') || '';
         const urlUncommon = urlParams.get('uncommon') || '';
@@ -71,11 +71,7 @@ function SearchResults({ location }) {
             setColors('green', urlGreen);
         }
 
-        // urlMatchType doesn't have a safe "empty" value
-        if (urlMatchType) {
-            setMatchType(urlMatchType);
-        }
-
+        setMatchType(urlMatchType);
         setSet(urlSet);
         setStat('cmc', urlCMCComparator, urlCMCValue);
         setStat('power', urlPowerComparator, urlPowerValue);
@@ -89,10 +85,10 @@ function SearchResults({ location }) {
         setPage(urlPage);
 
         const urlColors = { white: urlWhite, blue: urlBlue, black: urlBlack, red: urlRed, green: urlGreen, colorless: urlColorless };
-        const urlCMC = { comparator: urlPowerComparator, value: urlPowerValue };
+        const urlCMC = { comparator: urlCMCComparator, value: urlCMCValue };
         const urlPower = { comparator: urlPowerComparator, value: urlPowerValue };
-        const urlToughness = { comparator: urlPowerComparator, value: urlPowerValue };
-        const urlLoyalty = { comparator: urlPowerComparator, value: urlPowerValue };
+        const urlToughness = { comparator: urlToughnessComparator, value: urlToughnessValue };
+        const urlLoyalty = { comparator: urlLoyaltyComparator, value: urlLoyaltyValue };
         const urlRarities = { common: urlCommon, uncommon: urlUncommon, rare: urlRare, mythic: urlMythic };
         fetchResults({
             name: urlName,
