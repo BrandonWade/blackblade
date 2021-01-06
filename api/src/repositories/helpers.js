@@ -66,5 +66,4 @@ export const addStatCondition = (builder, stat, field) => {
 
     const comparator = stat.comparator === '==' ? '=' : stat.comparator;
     builder.where(field, comparator, stat.value);
-    builder.where(field, '!=', '');
 };

@@ -22,7 +22,7 @@ function StatRow({ stat = '', comparator = '==', value = '', setStat = () => {} 
                 <option value='>'>Greater than</option>
                 <option value='>='>Greater than or equal to</option>
             </Select>
-            <Input className='AdvancedSearch-input AdvancedSearch-input--small' type='text' value={value} onChange={onChangeValue} />
+            <Input className='AdvancedSearch-input AdvancedSearch-input--small' type='number' value={value} onChange={onChangeValue} />
         </div>
     );
 }
