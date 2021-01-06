@@ -47,19 +47,19 @@ function useSearch() {
             addPair('set');
         }
 
-        if (params?.cmc && params?.cmc?.value !== '') {
+        if (params?.cmc && params?.cmc?.value !== '' && parseInt(params?.cmc) !== NaN) {
             addNestedPair('cmc');
         }
 
-        if (params?.power && params?.power?.value !== '') {
+        if (params?.power && params?.power?.value !== '' && parseInt(params?.power) !== NaN) {
             addNestedPair('power');
         }
 
-        if (params?.toughness && params?.toughness?.value !== '') {
+        if (params?.toughness && params?.toughness?.value !== '' && parseInt(params?.toughness) !== NaN) {
             addNestedPair('toughness');
         }
 
-        if (params?.loyalty && params?.loyalty?.value !== '') {
+        if (params?.loyalty && params?.loyalty?.value !== '' && parseInt(params?.loyalty) !== NaN) {
             addNestedPair('loyalty');
         }
 
@@ -69,6 +69,10 @@ function useSearch() {
 
         if (params?.flavorText) {
             addPair('flavorText');
+        }
+
+        if (pairs.length === 0) {
+            return;
         }
 
         addPair('page', 1);
@@ -123,7 +127,15 @@ function useSearch() {
     };
 
     const searchCards = async (params = {}) => {
-        const response = await fetchData(`/api/search?${getParamString(params)}`);
+        const paramString = getParamString(params);
+        if (paramString === undefined) {
+            return {
+                success: false,
+                errors: ['invalid params'],
+            };
+        }
+
+        const response = await fetchData(`/api/search?${paramString}`);
 
         switch (response.status) {
             case 200:

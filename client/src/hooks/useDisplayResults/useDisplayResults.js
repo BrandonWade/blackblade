@@ -17,7 +17,12 @@ function useDisplayResults() {
     };
 
     const searchResultsRedirect = (params = {}) => {
-        history.push(`/cards/search?${getParamString(params)}`);
+        const paramString = getParamString(params);
+        if (paramString === undefined) {
+            return;
+        }
+
+        history.push(`/cards/search?${paramString}`);
     };
 
     const displayCard = (response = {}) => {
