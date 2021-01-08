@@ -5,7 +5,7 @@ import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 import SearchContext from '../../contexts/Search';
 import HeaderPage from '../../components/HeaderPage';
 import { InputField } from '../../components/Input';
-import { SelectField } from '../../components/Select';
+import { MultiSelectField } from '../../components/Select';
 import Button from '../../components/Button';
 import ColorOptions from './ColorOptions';
 import RarityOptions from './RarityOptions';
@@ -25,8 +25,9 @@ function AdvancedSearch() {
         setTypes,
         colors,
         matchType,
-        set,
-        setSet,
+        selectedSets,
+        addSet,
+        removeSet,
         cmc,
         power,
         toughness,
@@ -53,8 +54,12 @@ function AdvancedSearch() {
         setTypes(e.target.value);
     };
 
-    const onChangeSet = e => {
-        setSet(e.target.value);
+    const onSelectSet = e => {
+        addSet(e.target.value);
+    };
+
+    const onClearSet = e => {
+        removeSet(e.target.value);
     };
 
     const onChangeFlavorText = e => {
@@ -64,7 +69,7 @@ function AdvancedSearch() {
     const onSubmit = async e => {
         e.preventDefault();
 
-        searchResultsRedirect({ name, text, types, colors, matchType, set, cmc, power, toughness, loyalty, rarities, flavorText, page: 1 });
+        searchResultsRedirect({ name, text, types, colors, matchType, selectedSets, cmc, power, toughness, loyalty, rarities, flavorText, page: 1 });
     };
 
     return (
@@ -93,12 +98,13 @@ function AdvancedSearch() {
                         onChange={onChangeTypes}
                     />
                     <ColorOptions labelClassName='AdvancedSearch-label' label='Colors' />
-                    <SelectField
+                    <MultiSelectField
                         labelClassName='AdvancedSearch-label'
-                        label='Set'
+                        label='Sets'
                         className='AdvancedSearch-select'
-                        value={set}
-                        onChange={onChangeSet}
+                        selectedOptions={selectedSets}
+                        onSelectOption={onSelectSet}
+                        onClearOption={onClearSet}
                     >
                         <option value=''>Choose a card set</option>
                         {cardSets.map(s => (
@@ -106,7 +112,7 @@ function AdvancedSearch() {
                                 {s.set_name}
                             </option>
                         ))}
-                    </SelectField>
+                    </MultiSelectField>
                     <StatRow
                         labelClassName='AdvancedSearch-label'
                         label='CMC'

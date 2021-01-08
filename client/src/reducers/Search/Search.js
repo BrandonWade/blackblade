@@ -5,7 +5,8 @@ import {
     SET_COLORS,
     SET_COLORLESS,
     SET_MATCH_TYPE,
-    SET_SET,
+    ADD_SET,
+    REMOVE_SET,
     SET_STAT,
     SET_RARITIES,
     SET_FLAVOR_TEXT,
@@ -64,10 +65,17 @@ function SearchReducer(state = {}, action = {}) {
                 matchType: action.matchType,
             };
 
-        case SET_SET:
+        case ADD_SET:
             return {
                 ...state,
-                set: action.set,
+                selectedSets: [...state.selectedSets, action.set],
+            };
+
+        case REMOVE_SET:
+            const setIndex = state.selectedSets.findIndex(set => set === action.set);
+            return {
+                ...state,
+                selectedSets: [...state.selectedSets.slice(0, setIndex), ...state.selectedSets.slice(setIndex + 1)],
             };
 
         case SET_STAT:

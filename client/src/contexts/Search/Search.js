@@ -13,7 +13,7 @@ export const initialState = {
         colorless: false,
     },
     matchType: 'exact',
-    set: '',
+    selectedSets: [],
     cmc: {
         comparator: '==',
         value: '',

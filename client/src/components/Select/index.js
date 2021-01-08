@@ -1,1 +1,1 @@
-export { default, SelectField } from './Select';
+export { default, SelectField, MultiSelectField } from './Select';
