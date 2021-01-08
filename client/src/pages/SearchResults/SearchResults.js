@@ -10,7 +10,7 @@ import './SearchResults.scss';
 
 function SearchResults({ location }) {
     const history = useHistory();
-    const { setName, setText, setTypes, setColors, setColorless, setMatchType, setSet, setStat, setRarities, setFlavorText, setPage } = useContext(
+    const { setName, setText, setTypes, setColors, setColorless, setMatchType, setStat, setRarities, setFlavorText, setPage } = useContext(
         SearchContext
     );
     const { setCard } = useContext(CardContext);
@@ -72,7 +72,7 @@ function SearchResults({ location }) {
         }
 
         setMatchType(urlMatchType);
-        setSet(urlSet);
+        // setSet(urlSet);
         setStat('cmc', urlCMCComparator, urlCMCValue);
         setStat('power', urlPowerComparator, urlPowerValue);
         setStat('toughness', urlToughnessComparator, urlToughnessValue);

@@ -43,23 +43,23 @@ function useSearch() {
             }
         }
 
-        if (params?.set) {
-            addPair('set');
-        }
+        // if (params?.set) {
+        //     addPair('set');
+        // }
 
-        if (params?.cmc && params?.cmc?.value !== '' && parseInt(params?.cmc) !== NaN) {
+        if (params?.cmc && params?.cmc?.value !== '' && !isNaN(parseInt(params?.cmc))) {
             addNestedPair('cmc');
         }
 
-        if (params?.power && params?.power?.value !== '' && parseInt(params?.power) !== NaN) {
+        if (params?.power && params?.power?.value !== '' && !isNaN(parseInt(params?.power))) {
             addNestedPair('power');
         }
 
-        if (params?.toughness && params?.toughness?.value !== '' && parseInt(params?.toughness) !== NaN) {
+        if (params?.toughness && params?.toughness?.value !== '' && !isNaN(parseInt(params?.toughness))) {
             addNestedPair('toughness');
         }
 
-        if (params?.loyalty && params?.loyalty?.value !== '' && parseInt(params?.loyalty) !== NaN) {
+        if (params?.loyalty && params?.loyalty?.value !== '' && !isNaN(parseInt(params?.loyalty))) {
             addNestedPair('loyalty');
         }
 

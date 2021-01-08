@@ -1,10 +1,9 @@
 import React from 'react';
-// import { difference } from 'lodash';
 import './withMultiSelect.scss';
 
 function withMultiSelect(Select) {
     const MultiSelect = props => {
-        const { multiSelectClassName = '', children = [], selectedOptions = [], onSelectResult = () => {} } = props;
+        const { multiSelectClassName = '', children = [], selectedOptions = [], onSelectOption = () => {} } = props;
 
         const renderSelectedOptions = () => {
             if (selectedOptions.length === 0) {
@@ -13,20 +12,20 @@ function withMultiSelect(Select) {
 
             return (
                 <ul>
-                    {selectedOptions.map((option, i) => (
-                        <li key={i}>{option}</li>
+                    {selectedOptions.map(option => (
+                        <li key={option}>{option}</li>
                     ))}
                 </ul>
             );
         };
 
-        // TODO: allow clearing sets
+        // TODO: Add support for clearing selected options
 
         return (
             <div className={`MultiSelect ${multiSelectClassName}`}>
                 {renderSelectedOptions()}
-                <Select {...props} onChange={onSelectResult}>
-                    {}
+                <Select {...props} onChange={onSelectOption}>
+                    {children}
                 </Select>
             </div>
         );

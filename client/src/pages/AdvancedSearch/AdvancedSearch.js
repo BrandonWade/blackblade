@@ -72,6 +72,22 @@ function AdvancedSearch() {
         searchResultsRedirect({ name, text, types, colors, matchType, selectedSets, cmc, power, toughness, loyalty, rarities, flavorText, page: 1 });
     };
 
+    const renderFilteredSets = () => {
+        const setOfSelectedSets = new Set(selectedSets);
+        const filteredSets = cardSets.filter(s => !setOfSelectedSets.has(s.set_code));
+
+        return (
+            <>
+                <option value=''>Choose a card set</option>
+                {filteredSets.map(s => (
+                    <option key={s.id} value={s.set_code}>
+                        {s.set_name}
+                    </option>
+                ))}
+            </>
+        );
+    };
+
     return (
         <HeaderPage className='AdvancedSearch'>
             <div className='AdvancedSearch-content'>
@@ -106,12 +122,7 @@ function AdvancedSearch() {
                         onSelectOption={onSelectSet}
                         onClearOption={onClearSet}
                     >
-                        <option value=''>Choose a card set</option>
-                        {cardSets.map(s => (
-                            <option key={s.id} value={s.set_code}>
-                                {s.set_name}
-                            </option>
-                        ))}
+                        {renderFilteredSets()}
                     </MultiSelectField>
                     <StatRow
                         labelClassName='AdvancedSearch-label'
