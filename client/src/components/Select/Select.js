@@ -1,5 +1,6 @@
 import React from 'react';
 import withFormField from '../../hocs/withFormField';
+import withMultiSelect from '../../hocs/withMultiSelect';
 import './Select.scss';
 
 function Select({ className = '', children = [], value = '', onChange = () => {} }) {
@@ -13,3 +14,4 @@ function Select({ className = '', children = [], value = '', onChange = () => {}
 export default Select;
 
 export const SelectField = withFormField(Select);
+export const MultiSelectField = withFormField(withMultiSelect(Select));

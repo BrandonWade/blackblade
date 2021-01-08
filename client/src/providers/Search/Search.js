@@ -8,7 +8,8 @@ import {
     SET_COLORS,
     SET_COLORLESS,
     SET_MATCH_TYPE,
-    SET_SET,
+    ADD_SET,
+    REMOVE_SET,
     SET_STAT,
     SET_FLAVOR_TEXT,
     SET_RARITIES,
@@ -27,7 +28,8 @@ function SearchProvider({ children = [] }) {
     const setColors = (color, value) => dispatch({ type: SET_COLORS, color, value });
     const setColorless = value => dispatch({ type: SET_COLORLESS, value });
     const setMatchType = matchType => dispatch({ type: SET_MATCH_TYPE, matchType });
-    const setSet = set => dispatch({ type: SET_SET, set });
+    const addSet = set => dispatch({ type: ADD_SET, set });
+    const removeSet = set => dispatch({ type: REMOVE_SET, set });
     const setStat = (stat, comparator, value) => dispatch({ type: SET_STAT, stat, comparator, value });
     const setRarities = (rarity, value) => dispatch({ type: SET_RARITIES, rarity, value });
     const setFlavorText = flavorText => dispatch({ type: SET_FLAVOR_TEXT, flavorText });
@@ -44,7 +46,8 @@ function SearchProvider({ children = [] }) {
         setColors,
         setColorless,
         setMatchType,
-        setSet,
+        addSet,
+        removeSet,
         setStat,
         setRarities,
         setFlavorText,
