@@ -1,9 +1,10 @@
 import React from 'react';
+import MultiSelectRow from './MultiSelectRow';
 import './withMultiSelect.scss';
 
 function withMultiSelect(Select) {
     const MultiSelect = props => {
-        const { multiSelectClassName = '', children = [], selectedOptions = [], onSelectOption = () => {} } = props;
+        const { multiSelectClassName = '', children = [], selectedOptions = [], onSelectOption = () => {}, onClearOption = () => {} } = props;
 
         const renderSelectedOptions = () => {
             if (selectedOptions.length === 0) {
@@ -11,22 +12,22 @@ function withMultiSelect(Select) {
             }
 
             return (
-                <ul>
-                    {selectedOptions.map(option => (
-                        <li key={option}>{option}</li>
+                <ul className='MultiSelect-list'>
+                    {selectedOptions.map(o => (
+                        <MultiSelectRow key={o.value} value={o.value} onRemove={onClearOption}>
+                            {o.text}
+                        </MultiSelectRow>
                     ))}
                 </ul>
             );
         };
 
-        // TODO: Add support for clearing selected options
-
         return (
             <div className={`MultiSelect ${multiSelectClassName}`}>
-                {renderSelectedOptions()}
                 <Select {...props} onChange={onSelectOption}>
                     {children}
                 </Select>
+                {renderSelectedOptions()}
             </div>
         );
     };

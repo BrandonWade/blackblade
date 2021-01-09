@@ -72,7 +72,7 @@ function SearchReducer(state = {}, action = {}) {
             };
 
         case REMOVE_SET:
-            const setIndex = state.selectedSets.findIndex(set => set === action.set);
+            const setIndex = state.selectedSets.findIndex(set => set.set_code === action.setCode);
             return {
                 ...state,
                 selectedSets: [...state.selectedSets.slice(0, setIndex), ...state.selectedSets.slice(setIndex + 1)],

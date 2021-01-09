@@ -1,0 +1,33 @@
+.MultiSelect {
+    &-list {
+        list-style-type: none;
+        margin-top: 0.75rem;
+    }
+
+    &-row {
+        display: flex;
+        border: var(--line);
+        border-radius: var(--border-radius);
+        background-color: var(--color-primary-dark);
+        padding: 0.5rem;
+        font-size: 1.4rem;
+
+        &:not(:last-child) {
+            margin-bottom: 0.75rem;
+        }
+    }
+
+    &-removeRow {
+        font-size: 1.4rem;
+        line-height: 2rem;
+        margin-right: 0.5rem;
+        width: 2rem;
+        text-align: center;
+        transition: all 0.2s;
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--color-primary-lighter);
+        }
+    }
+}

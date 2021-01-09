@@ -10,7 +10,7 @@ function Overlay({ className = '', visible = false, setVisible = () => {}, child
     return (
         <div className={`Overlay ${visible ? '' : 'Overlay--closed'} ${className}`}>
             <Button className='Overlay-closeButton' onClick={closeOverlay}>
-                <span className='Overlay-closeIcon'></span>
+                <span className='Overlay-closeIcon' />
             </Button>
             {children}
         </div>
