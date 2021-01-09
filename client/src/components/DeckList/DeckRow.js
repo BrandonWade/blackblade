@@ -55,7 +55,7 @@ function DeckRow({ card = {}, updateCount = () => {}, removeCard = () => {} }) {
                 ))}
             </td>
             <td className='DeckTable-remove' onClick={onRemoveCard}>
-                &#10799;
+                &#x2715;
             </td>
         </tr>
     );
