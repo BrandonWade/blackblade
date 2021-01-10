@@ -22,6 +22,9 @@ function useSearch() {
                 }
             });
         };
+        const addPairFromArray = name => {
+            pairs = pairs.concat(`${name}=${params[name].join(',')}`);
+        };
 
         if (params?.name) {
             addPair('name');
@@ -43,9 +46,9 @@ function useSearch() {
             }
         }
 
-        // if (params?.set) {
-        //     addPair('set');
-        // }
+        if (params?.selectedSets && params?.selectedSets?.length > 0) {
+            addPairFromArray('selectedSets');
+        }
 
         if (params?.cmc && params?.cmc?.value !== '' && !isNaN(parseInt(params?.cmc))) {
             addNestedPair('cmc');

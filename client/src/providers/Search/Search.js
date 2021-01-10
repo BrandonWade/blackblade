@@ -10,6 +10,7 @@ import {
     SET_MATCH_TYPE,
     ADD_SET,
     REMOVE_SET,
+    SET_SELECTED_SETS,
     SET_STAT,
     SET_FLAVOR_TEXT,
     SET_RARITIES,
@@ -30,6 +31,7 @@ function SearchProvider({ children = [] }) {
     const setMatchType = matchType => dispatch({ type: SET_MATCH_TYPE, matchType });
     const addSet = set => dispatch({ type: ADD_SET, set });
     const removeSet = setCode => dispatch({ type: REMOVE_SET, setCode });
+    const setSelectedSets = selectedSets => dispatch({ type: SET_SELECTED_SETS, selectedSets });
     const setStat = (stat, comparator, value) => dispatch({ type: SET_STAT, stat, comparator, value });
     const setRarities = (rarity, value) => dispatch({ type: SET_RARITIES, rarity, value });
     const setFlavorText = flavorText => dispatch({ type: SET_FLAVOR_TEXT, flavorText });
@@ -48,6 +50,7 @@ function SearchProvider({ children = [] }) {
         setMatchType,
         addSet,
         removeSet,
+        setSelectedSets,
         setStat,
         setRarities,
         setFlavorText,

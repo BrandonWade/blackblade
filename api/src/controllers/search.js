@@ -12,7 +12,7 @@ const search = async (req, res) => {
     const green = req.query['green'];
     const colorless = req.query['colorless'];
     const matchType = req.query['matchType'];
-    const set = req.query['set'];
+    const selectedSets = req.query['selectedSets'];
     const cmcComparator = req.query['cmcComparator'];
     const cmcValue = parseInt(req.query['cmcValue']);
     const powerComparator = req.query['powerComparator'];
@@ -35,7 +35,7 @@ const search = async (req, res) => {
         colors: { W: white, U: blue, B: black, R: red, G: green },
         colorless,
         matchType,
-        set,
+        selectedSets,
         cmc: { comparator: cmcComparator, value: cmcValue },
         power: { comparator: powerComparator, value: powerValue },
         toughness: { comparator: toughnessComparator, value: toughnessValue },

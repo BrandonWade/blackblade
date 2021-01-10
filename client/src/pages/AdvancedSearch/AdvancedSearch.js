@@ -55,10 +55,7 @@ function AdvancedSearch() {
     };
 
     const onSelectSet = e => {
-        addSet({
-            set_code: e.target.value,
-            set_name: e.target.options[e.target.selectedIndex].text,
-        });
+        addSet(e.target.value);
     };
 
     const onClearSet = setCode => {
@@ -75,12 +72,21 @@ function AdvancedSearch() {
         searchResultsRedirect({ name, text, types, colors, matchType, selectedSets, cmc, power, toughness, loyalty, rarities, flavorText, page: 1 });
     };
 
-    const getSelectedSets = () => {
-        return selectedSets.map(s => ({ value: s.set_code, text: s.set_name }));
+    const getFormattedSelectedSets = () => {
+        return selectedSets.reduce((sets, setCode) => {
+            const set = cardSets.find(set => set.set_code === setCode);
+
+            if (set) {
+                return sets.concat({
+                    value: setCode,
+                    text: set.set_name,
+                });
+            }
+        }, []);
     };
 
     const renderFilteredSets = () => {
-        const setOfSelectedSets = new Set(selectedSets.map(s => s.set_code));
+        const setOfSelectedSets = new Set(selectedSets);
         const filteredSets = cardSets.filter(s => !setOfSelectedSets.has(s.set_code));
 
         return (
@@ -125,7 +131,7 @@ function AdvancedSearch() {
                         labelClassName='AdvancedSearch-label'
                         label='Sets'
                         className='AdvancedSearch-select'
-                        selectedOptions={getSelectedSets()}
+                        selectedOptions={getFormattedSelectedSets()}
                         onSelectOption={onSelectSet}
                         onClearOption={onClearSet}
                     >

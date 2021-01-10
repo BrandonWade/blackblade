@@ -41,6 +41,20 @@ export function matchTypeExists(_, { req }) {
     return true;
 }
 
+export function validSetList(setString) {
+    const sets = setString.split(',');
+
+    if (setString.length === 0) {
+        throw new Error(`no valid set codes provided`);
+    }
+
+    if (!sets.every((s) => s.length >= 3)) {
+        throw new Error(`invalid set codes`);
+    }
+
+    return true;
+}
+
 export function validStatComparator(stat, comparator) {
     const validComparator = ['==', '!=', '<', '<=', '>', '>='];
 
@@ -77,7 +91,7 @@ export function oneOptionalFieldExists(query) {
         'red',
         'green',
         'colorless',
-        'set',
+        'selectedSets',
         'cmcComparator',
         'cmcValue',
         'powerComparator',
