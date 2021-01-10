@@ -7,7 +7,7 @@ const search = async (params = {}) => {
     const textTokens = params?.text?.split(/\s+/) || [];
     const typeTokens = params?.types?.split(/\s+/) || [];
     const colors = Object.keys(params?.colors).filter((c) => params?.colors[c]);
-    const set = params?.set?.split(/\s+/) || [];
+    const selectedSetTokens = params?.selectedSets?.split(/,/) || [];
     const rarities = Object.keys(params?.rarities).filter(
         (r) => params?.rarities[r],
     );
@@ -20,7 +20,7 @@ const search = async (params = {}) => {
         colors,
         params?.colorless,
         params?.matchType,
-        set,
+        selectedSetTokens,
         params?.cmc,
         params?.power,
         params?.toughness,
@@ -36,7 +36,7 @@ const search = async (params = {}) => {
         colors,
         params?.colorless,
         params?.matchType,
-        set,
+        selectedSetTokens,
         params?.cmc,
         params?.power,
         params?.toughness,

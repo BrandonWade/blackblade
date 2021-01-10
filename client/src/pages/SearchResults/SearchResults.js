@@ -10,9 +10,19 @@ import './SearchResults.scss';
 
 function SearchResults({ location }) {
     const history = useHistory();
-    const { setName, setText, setTypes, setColors, setColorless, setMatchType, setStat, setRarities, setFlavorText, setPage } = useContext(
-        SearchContext
-    );
+    const {
+        setName,
+        setText,
+        setTypes,
+        setColors,
+        setColorless,
+        setMatchType,
+        setSelectedSets,
+        setStat,
+        setRarities,
+        setFlavorText,
+        setPage,
+    } = useContext(SearchContext);
     const { setCard } = useContext(CardContext);
     const { searchCards } = useSearch();
     const { cardRedirect, displayResults } = useDisplayResults();
@@ -30,7 +40,7 @@ function SearchResults({ location }) {
         const urlGreen = urlParams.get('green') === 'true';
         const urlColorless = urlParams.get('colorless') === 'true';
         const urlMatchType = urlParams.get('matchType') || 'exact';
-        const urlSet = urlParams.get('set') || '';
+        const urlSelectedSets = urlParams.get('selectedSets')?.split(',') || [];
         const urlCMCComparator = urlParams.get('cmcComparator') || '==';
         const urlCMCValue = urlParams.get('cmcValue') || '';
         const urlPowerComparator = urlParams.get('powerComparator') || '==';
@@ -72,7 +82,7 @@ function SearchResults({ location }) {
         }
 
         setMatchType(urlMatchType);
-        // setSet(urlSet);
+        setSelectedSets(urlSelectedSets);
         setStat('cmc', urlCMCComparator, urlCMCValue);
         setStat('power', urlPowerComparator, urlPowerValue);
         setStat('toughness', urlToughnessComparator, urlToughnessValue);
@@ -96,7 +106,7 @@ function SearchResults({ location }) {
             types: urlTypes,
             colors: urlColors,
             matchType: urlMatchType,
-            set: urlSet,
+            selectedSets: urlSelectedSets,
             cmc: urlCMC,
             power: urlPower,
             toughness: urlToughness,
