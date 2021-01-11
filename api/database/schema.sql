@@ -164,9 +164,17 @@ CREATE TABLE deck_cards (
 DROP TABLE IF EXISTS sets;
 CREATE TABLE sets (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
-	set_code varchar(8) NOT NULL DEFAULT '',
+    set_code varchar(8) NOT NULL DEFAULT '',
     set_name varchar(64) NOT NULL DEFAULT '',
     PRIMARY KEY (id),
     UNIQUE KEY U_set_code (set_code),
     UNIQUE KEY U_set_name (set_name)
+) CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS types;
+CREATE TABLE types (
+    id bigint unsigned NOT NULL AUTO_INCREMENT,
+    type varchar(32) NOT NULL DEFAULT '',
+    PRIMARY KEY (id),
+    UNIQUE KEY U_type (type)
 ) CHARSET=utf8mb4;
