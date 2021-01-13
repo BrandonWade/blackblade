@@ -4,7 +4,6 @@ import {
     addColorConditions,
     addColorlessCondition,
     addStatCondition,
-    addEqualCondition,
     addInCondition,
 } from './helpers';
 

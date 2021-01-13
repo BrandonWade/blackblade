@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AdvancedSearchContext, { initialState } from '../../contexts/AdvancedSearch';
+import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 
 function AdvancedSearchProvider({ children = [] }) {
     const [cardTypes, setCardTypes] = useState([]);
