@@ -2,7 +2,7 @@ import { query, param } from 'express-validator';
 import {
     exclusiveColors,
     matchTypeExists,
-    validSetList,
+    validList,
     validStatComparator,
     statValueExists,
     oneOptionalFieldExists,
@@ -10,7 +10,9 @@ import {
 
 const nameExists = query('name').optional().isLength({ min: 1 });
 const textExists = query('text').optional().isLength({ min: 1 });
-const typeExists = query('type').optional().isLength({ min: 1 });
+const typeExists = query('selectedTypes')
+    .optional()
+    .custom((selectedTypes) => validList('types', selectedTypes));
 const whiteExists = query('white')
     .optional()
     .isBoolean()
@@ -41,7 +43,9 @@ const colorlessExists = query('colorless')
     .isBoolean()
     .custom(exclusiveColors)
     .custom(matchTypeExists);
-const setExists = query('selectedSets').optional().custom(validSetList);
+const setExists = query('selectedSets')
+    .optional()
+    .custom((selectedSets) => validList('set codes', selectedSets));
 const cmcComparatorExists = query('cmcComparator')
     .optional()
     .custom((comparator) => validStatComparator('cmc', comparator))

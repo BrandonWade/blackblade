@@ -104,6 +104,8 @@ function AdvancedSearch() {
                     text: cardType,
                 });
             }
+
+            return types;
         }, []);
     };
 
@@ -117,6 +119,8 @@ function AdvancedSearch() {
                     text: set.set_name,
                 });
             }
+
+            return sets;
         }, []);
     };
 

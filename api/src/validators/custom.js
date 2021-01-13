@@ -41,15 +41,11 @@ export function matchTypeExists(_, { req }) {
     return true;
 }
 
-export function validSetList(setString) {
-    const sets = setString.split(',');
+export function validList(type, listString) {
+    const items = listString.split(',');
 
-    if (setString.length === 0) {
-        throw new Error(`no valid set codes provided`);
-    }
-
-    if (!sets.every((s) => s.length >= 3)) {
-        throw new Error(`invalid set codes`);
+    if (listString.length === 0 || items.length === 0) {
+        throw new Error(`no valid ${type} provided`);
     }
 
     return true;
@@ -84,7 +80,7 @@ export function oneOptionalFieldExists(query) {
     const optionalFields = [
         'name',
         'text',
-        'types',
+        'selectedTypes',
         'white',
         'blue',
         'black',

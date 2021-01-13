@@ -13,7 +13,7 @@ function SearchResults({ location }) {
     const {
         setName,
         setText,
-        setTypes,
+        setSelectedTypes,
         setColors,
         setColorless,
         setMatchType,
@@ -32,7 +32,7 @@ function SearchResults({ location }) {
         const urlParams = new URLSearchParams(search);
         const urlName = urlParams.get('name') || '';
         const urlText = urlParams.get('text') || '';
-        const urlTypes = urlParams.get('types') || '';
+        const urlSelectedTypes = urlParams.get('selectedTypes')?.split(',') || [];
         const urlWhite = urlParams.get('white') === 'true';
         const urlBlue = urlParams.get('blue') === 'true';
         const urlBlack = urlParams.get('black') === 'true';
@@ -68,7 +68,7 @@ function SearchResults({ location }) {
 
         setName(urlName);
         setText(urlText);
-        setTypes(urlTypes);
+        setSelectedTypes(urlSelectedTypes);
 
         // Conditional check included to preserve state when navigating back to advanced search page
         if (urlColorless) {
@@ -103,7 +103,7 @@ function SearchResults({ location }) {
         fetchResults({
             name: urlName,
             text: urlText,
-            types: urlTypes,
+            selectedTypes: urlSelectedTypes,
             colors: urlColors,
             matchType: urlMatchType,
             selectedSets: urlSelectedSets,

@@ -34,8 +34,8 @@ function useSearch() {
             addPair('text');
         }
 
-        if (params?.types) {
-            addPair('types');
+        if (params?.selectedTypes && params?.selectedTypes?.length > 0) {
+            addPairFromArray('selectedTypes');
         }
 
         if (params?.colors) {

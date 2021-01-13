@@ -4,7 +4,7 @@ import SearchService from '../services/search';
 const search = async (req, res) => {
     const name = req.query['name'];
     const text = req.query['text'];
-    const types = req.query['types'];
+    const selectedTypes = req.query['selectedTypes'];
     const white = req.query['white'];
     const blue = req.query['blue'];
     const black = req.query['black'];
@@ -31,7 +31,7 @@ const search = async (req, res) => {
     const results = await SearchService.search({
         name,
         text,
-        types,
+        selectedTypes,
         colors: { W: white, U: blue, B: black, R: red, G: green },
         colorless,
         matchType,
