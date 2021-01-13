@@ -4,7 +4,9 @@ import SearchContext, { initialState } from '../../contexts/Search';
 import {
     SET_NAME,
     SET_TEXT,
-    SET_TYPE,
+    ADD_TYPE,
+    REMOVE_TYPE,
+    SET_SELECTED_TYPES,
     SET_COLORS,
     SET_COLORLESS,
     SET_MATCH_TYPE,
@@ -25,7 +27,9 @@ function SearchProvider({ children = [] }) {
 
     const setName = name => dispatch({ type: SET_NAME, name });
     const setText = text => dispatch({ type: SET_TEXT, text });
-    const setTypes = types => dispatch({ type: SET_TYPE, types });
+    const addType = cardType => dispatch({ type: ADD_TYPE, cardType });
+    const removeType = cardType => dispatch({ type: REMOVE_TYPE, cardType });
+    const setSelectedTypes = types => dispatch({ type: SET_SELECTED_TYPES, types });
     const setColors = (color, value) => dispatch({ type: SET_COLORS, color, value });
     const setColorless = value => dispatch({ type: SET_COLORLESS, value });
     const setMatchType = matchType => dispatch({ type: SET_MATCH_TYPE, matchType });
@@ -44,7 +48,9 @@ function SearchProvider({ children = [] }) {
         ...state,
         setName,
         setText,
-        setTypes,
+        addType,
+        removeType,
+        setSelectedTypes,
         setColors,
         setColorless,
         setMatchType,

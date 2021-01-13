@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import AdvancedSearchContext, { initialState } from '../../contexts/AdvancedSearch';
 
 function AdvancedSearchProvider({ children = [] }) {
-    const [cardSets, setCardSets] = useState(initialState);
+    const [cardTypes, setCardTypes] = useState([]);
+    const [cardSets, setCardSets] = useState([]);
 
     const props = {
+        cardTypes,
         cardSets,
+        setCardTypes,
         setCardSets,
     };
 

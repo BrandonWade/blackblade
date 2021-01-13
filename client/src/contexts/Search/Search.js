@@ -3,7 +3,7 @@ import { createContext } from 'react';
 export const initialState = {
     name: '',
     text: '',
-    types: '',
+    selectedTypes: [],
     colors: {
         white: false,
         blue: false,

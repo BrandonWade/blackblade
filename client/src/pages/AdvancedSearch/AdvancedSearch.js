@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import useDisplayResults from '../../hooks/useDisplayResults';
+import useFetchCardTypes from '../../hooks/useFetchCardTypes';
 import useFetchCardSets from '../../hooks/useFetchCardSets';
 import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 import SearchContext from '../../contexts/Search';
@@ -14,15 +15,17 @@ import './AdvancedSearch.scss';
 
 function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
+    const { getCardTypes } = useFetchCardTypes();
     const { getCardSets } = useFetchCardSets();
-    const { cardSets } = useContext(AdvancedSearchContext);
+    const { cardTypes, cardSets } = useContext(AdvancedSearchContext);
     const {
         name,
         setName,
         text,
         setText,
-        types,
-        setTypes,
+        selectedTypes,
+        addType,
+        removeType,
         colors,
         matchType,
         selectedSets,
@@ -39,8 +42,9 @@ function AdvancedSearch() {
     } = useContext(SearchContext);
 
     useEffect(() => {
+        getCardTypes();
         getCardSets();
-    }, [getCardSets]);
+    }, [getCardTypes, getCardSets]);
 
     const onChangeName = e => {
         setName(e.target.value);
@@ -50,8 +54,12 @@ function AdvancedSearch() {
         setText(e.target.value);
     };
 
-    const onChangeTypes = e => {
-        setTypes(e.target.value);
+    const onSelectType = e => {
+        addType(e.target.value);
+    };
+
+    const onClearType = type => {
+        removeType(type);
     };
 
     const onSelectSet = e => {
@@ -69,12 +77,39 @@ function AdvancedSearch() {
     const onSubmit = async e => {
         e.preventDefault();
 
-        searchResultsRedirect({ name, text, types, colors, matchType, selectedSets, cmc, power, toughness, loyalty, rarities, flavorText, page: 1 });
+        searchResultsRedirect({
+            name,
+            text,
+            selectedTypes,
+            colors,
+            matchType,
+            selectedSets,
+            cmc,
+            power,
+            toughness,
+            loyalty,
+            rarities,
+            flavorText,
+            page: 1,
+        });
+    };
+
+    const getFormattedSelectedTypes = () => {
+        return selectedTypes.reduce((types, cardType) => {
+            const type = cardTypes.find(t => t.type === cardType);
+
+            if (type) {
+                return types.concat({
+                    value: cardType,
+                    text: cardType,
+                });
+            }
+        }, []);
     };
 
     const getFormattedSelectedSets = () => {
         return selectedSets.reduce((sets, setCode) => {
-            const set = cardSets.find(set => set.set_code === setCode);
+            const set = cardSets.find(s => s.set_code === setCode);
 
             if (set) {
                 return sets.concat({
@@ -83,6 +118,22 @@ function AdvancedSearch() {
                 });
             }
         }, []);
+    };
+
+    const renderFilteredTypes = () => {
+        const setOfSelectedTypes = new Set(selectedTypes);
+        const filteredTypes = cardTypes.filter(t => !setOfSelectedTypes.has(t.type));
+
+        return (
+            <>
+                <option value=''>Choose a card type</option>
+                {filteredTypes.map(t => (
+                    <option key={t.id} value={t.type}>
+                        {t.type}
+                    </option>
+                ))}
+            </>
+        );
     };
 
     const renderFilteredSets = () => {
@@ -119,13 +170,16 @@ function AdvancedSearch() {
                         value={text}
                         onChange={onChangeText}
                     />
-                    <InputField
+                    <MultiSelectField
                         labelClassName='AdvancedSearch-label'
                         label='Types'
-                        className='AdvancedSearch-input'
-                        value={types}
-                        onChange={onChangeTypes}
-                    />
+                        className='AdvancedSearch-select'
+                        selectedOptions={getFormattedSelectedTypes()}
+                        onSelectOption={onSelectType}
+                        onClearOption={onClearType}
+                    >
+                        {renderFilteredTypes()}
+                    </MultiSelectField>
                     <ColorOptions labelClassName='AdvancedSearch-label' label='Colors' />
                     <MultiSelectField
                         labelClassName='AdvancedSearch-label'

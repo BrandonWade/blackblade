@@ -1,5 +1,8 @@
 import { createContext } from 'react';
 
-export const initialState = [];
+export const initialState = {
+    cardTypes: [],
+    cardSets: [],
+};
 
 export default createContext(initialState);
