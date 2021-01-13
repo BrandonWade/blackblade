@@ -20,7 +20,7 @@ function useFetchCardTypes() {
                 setErrors(data.errors);
                 return;
         }
-    }, []);
+    }, [fetchData, setCardTypes, setErrors]);
 
     return {
         getCardTypes,
