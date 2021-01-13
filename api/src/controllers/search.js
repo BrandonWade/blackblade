@@ -63,9 +63,14 @@ const getRandomCard = async (_, res) => {
     res.status(HttpStatus.OK).json(results);
 };
 
+const getCardTypes = async (_, res) => {
+    const results = await SearchService.getCardTypes();
+    res.status(HttpStatus.OK).json(results);
+};
+
 const getCardSets = async (_, res) => {
     const results = await SearchService.getCardSets();
     res.status(HttpStatus.OK).json(results);
 };
 
-export { search, getCardByID, getRandomCard, getCardSets };
+export { search, getCardByID, getRandomCard, getCardTypes, getCardSets };

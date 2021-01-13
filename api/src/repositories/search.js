@@ -143,6 +143,15 @@ const getRandomCard = async () => {
     );
 };
 
+const getCardTypes = async () => {
+    return await connection.query(
+        `SELECT *
+        FROM types;
+    `,
+        [],
+    );
+};
+
 const getCardSets = async () => {
     return await connection.query(
         `SELECT *
@@ -157,5 +166,6 @@ export default {
     getCardsByName,
     getCardByID,
     getRandomCard,
+    getCardTypes,
     getCardSets,
 };

@@ -4,6 +4,7 @@ import {
     search,
     getCardByID,
     getRandomCard,
+    getCardTypes,
     getCardSets,
 } from './controllers/search';
 import { createDeck, saveDeck, getDeck } from './controllers/decks';
@@ -14,6 +15,7 @@ const router = express.Router();
 router.get('/search', searchValidators, validate, search);
 router.get('/cards/random', getRandomCard);
 router.get('/cards/:id', cardValidators, validate, getCardByID);
+router.get('/types', getCardTypes);
 router.get('/sets', getCardSets);
 router.post('/decks', createDeck);
 router.put('/decks/:publicID', saveDeck);

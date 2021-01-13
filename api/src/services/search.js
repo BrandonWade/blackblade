@@ -64,6 +64,14 @@ const getRandomCard = async () => {
     return result[0];
 };
 
+const getCardTypes = async () => {
+    const [results] = await SearchRepository.getCardTypes();
+
+    return {
+        card_types: results,
+    };
+};
+
 const getCardSets = async () => {
     const [results] = await SearchRepository.getCardSets();
 
@@ -76,5 +84,6 @@ export default {
     search,
     getCardByID,
     getRandomCard,
+    getCardTypes,
     getCardSets,
 };

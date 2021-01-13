@@ -1,7 +1,9 @@
 import {
     SET_NAME,
     SET_TEXT,
-    SET_TYPE,
+    ADD_TYPE,
+    REMOVE_TYPE,
+    SET_SELECTED_TYPES,
     SET_COLORS,
     SET_COLORLESS,
     SET_MATCH_TYPE,
@@ -31,10 +33,23 @@ function SearchReducer(state = {}, action = {}) {
                 text: action.text,
             };
 
-        case SET_TYPE:
+        case ADD_TYPE:
             return {
                 ...state,
-                types: action.types,
+                selectedTypes: [...state.selectedTypes, action.cardType],
+            };
+
+        case REMOVE_TYPE:
+            const typeIndex = state.selectedTypes.findIndex(type => type === action.cardType);
+            return {
+                ...state,
+                selectedTypes: [...state.selectedTypes.slice(0, typeIndex), ...state.selectedTypes.slice(typeIndex + 1)],
+            };
+
+        case SET_SELECTED_TYPES:
+            return {
+                ...state,
+                selectedTypes: action.selectedTypes,
             };
 
         case SET_COLORS:
