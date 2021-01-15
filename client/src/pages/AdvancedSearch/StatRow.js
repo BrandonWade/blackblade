@@ -1,15 +1,25 @@
 import React from 'react';
 import withFormField from '../../hocs/withFormField';
-import Input from '../../components/Input';
 import Select from '../../components/Select';
+import { NumberInputField } from '../../components/NumberInput';
 
-function StatRow({ stat = '', comparator = '==', value = '', setStat = () => {} }) {
+function StatRow({ stat = '', comparator = '==', value = 0, setStat = () => {} }) {
     const onChangeComparator = e => {
         setStat(stat, e.target.value, value);
     };
 
     const onChangeValue = e => {
         setStat(stat, comparator, e.target.value);
+    };
+
+    const onIncrement = () => {
+        const val = parseInt(value) || 0;
+        setStat(stat, comparator, val + 1);
+    };
+
+    const onDecrement = () => {
+        const val = parseInt(value) || 0;
+        setStat(stat, comparator, val - 1);
     };
 
     return (
@@ -22,7 +32,13 @@ function StatRow({ stat = '', comparator = '==', value = '', setStat = () => {} 
                 <option value='>'>Greater than</option>
                 <option value='>='>Greater than or equal to</option>
             </Select>
-            <Input className='AdvancedSearch-input AdvancedSearch-input--small' type='number' value={value} onChange={onChangeValue} />
+            <NumberInputField
+                className='AdvancedSearch-input AdvancedSearch-input--small'
+                value={value}
+                onChange={onChangeValue}
+                onIncrement={onIncrement}
+                onDecrement={onDecrement}
+            />
         </div>
     );
 }

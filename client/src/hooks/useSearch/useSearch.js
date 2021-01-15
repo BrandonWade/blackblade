@@ -50,19 +50,19 @@ function useSearch() {
             addPairFromArray('selectedSets');
         }
 
-        if (params?.cmc && params?.cmc?.value !== '' && !isNaN(parseInt(params?.cmc))) {
+        if (params?.cmc && params?.cmc?.value !== '' && !isNaN(parseInt(params?.cmc?.value))) {
             addNestedPair('cmc');
         }
 
-        if (params?.power && params?.power?.value !== '' && !isNaN(parseInt(params?.power))) {
+        if (params?.power && params?.power?.value !== '' && !isNaN(parseInt(params?.power?.value))) {
             addNestedPair('power');
         }
 
-        if (params?.toughness && params?.toughness?.value !== '' && !isNaN(parseInt(params?.toughness))) {
+        if (params?.toughness && params?.toughness?.value !== '' && !isNaN(parseInt(params?.toughness?.value))) {
             addNestedPair('toughness');
         }
 
-        if (params?.loyalty && params?.loyalty?.value !== '' && !isNaN(parseInt(params?.loyalty))) {
+        if (params?.loyalty && params?.loyalty?.value !== '' && !isNaN(parseInt(params?.loyalty?.value))) {
             addNestedPair('loyalty');
         }
 
