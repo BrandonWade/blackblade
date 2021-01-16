@@ -118,7 +118,6 @@ function SearchResults({ location }) {
     }, [search]);
 
     const onSelectResult = card => {
-        setCard(card);
         history.push(`/cards/${card.card_id}`);
     };
 
