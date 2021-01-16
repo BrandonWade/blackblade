@@ -24,7 +24,6 @@ function DeckRow({ card = {}, updateCount = () => {}, removeCard = () => {} }) {
     };
 
     const onLinkClick = () => {
-        setCard(card);
         history.push(`/cards/${card.card_id}`);
     };
 
