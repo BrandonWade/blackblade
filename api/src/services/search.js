@@ -29,7 +29,7 @@ const search = async (params = {}) => {
         flavorTextTokens,
     );
 
-    const cardResults = await SearchRepository.getCardsByName(
+    const cardResults = await SearchRepository.getCardsByProperties(
         nameTokens,
         textTokens,
         selectedTypeTokens,

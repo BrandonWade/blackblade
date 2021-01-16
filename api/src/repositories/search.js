@@ -45,7 +45,7 @@ const getTotalResults = (
     return builder.count('* AS total_results').from(subquery);
 };
 
-const getCardsByName = (
+const getCardsByProperties = (
     nameTokens,
     textTokens,
     typeTokens,
@@ -63,18 +63,10 @@ const getCardsByName = (
     pageSize,
 ) => {
     const query = builder
-        .select(
-            'c.id AS card_id',
-            'c.cmc',
-            'c.rarity',
-            'c.layout',
-            's.sets_json',
-            'r.rulings_json',
-        )
+        .select('c.id AS card_id', 's.sets_json')
         .from('card_faces AS f')
         .innerJoin('cards AS c', 'c.id', 'f.card_id')
         .innerJoin('card_sets_list AS s', 's.id', 'c.card_sets_list_id')
-        .leftJoin('card_rulings_list AS r', 'r.id', 'c.card_rulings_list_id')
         .groupBy('c.oracle_id')
         .orderBy('f.name')
         .limit(pageSize)
@@ -100,8 +92,6 @@ const getCardByID = async (id) => {
     return await connection.query(
         `SELECT
         c.id card_id,
-        c.cmc,
-        c.rarity,
         c.layout,
         s.sets_json,
         r.rulings_json
@@ -118,16 +108,12 @@ const getRandomCard = async () => {
     return await connection.query(
         `SELECT
         a.card_id,
-        a.cmc,
-        a.rarity,
         a.layout,
         s.sets_json,
         r.rulings_json
         FROM (
             SELECT
             c.id card_id,
-            c.cmc,
-            c.rarity,
             c.layout,
             c.card_sets_list_id,
             c.card_rulings_list_id
@@ -162,7 +148,7 @@ const getCardSets = async () => {
 
 export default {
     getTotalResults,
-    getCardsByName,
+    getCardsByProperties,
     getCardByID,
     getRandomCard,
     getCardTypes,
