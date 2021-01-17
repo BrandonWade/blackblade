@@ -75,7 +75,7 @@
         }
 
         &:enabled:hover {
-            background-color: #937de2;
+            background-color: var(--color-highlight-light);
             border: 1px solid #876fe0;
         }
     }
