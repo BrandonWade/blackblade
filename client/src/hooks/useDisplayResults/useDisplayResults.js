@@ -22,6 +22,9 @@ function useDisplayResults() {
             return;
         }
 
+        setTotalResults(0);
+        setNumberOfPages(1);
+        setSearchResults([]);
         history.push(`/cards/search?${paramString}`);
     };
 
