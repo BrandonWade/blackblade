@@ -42,7 +42,7 @@ function DeckTable({
     };
 
     const toggleMaybeboardMode = () => {
-        setMaybeboardMode(prevMaybeboardMode => !prevMaybeboardMode);
+        setMaybeboardMode(!maybeboardMode);
     };
 
     return (

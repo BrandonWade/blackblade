@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import CardContext from '../../contexts/Card';
 import SearchContext from '../../contexts/Search';
 import HeaderPage from '../../components/HeaderPage';
 import PaginatedResults from '../../components/PaginatedResults';
@@ -23,7 +22,6 @@ function SearchResults({ location }) {
         setFlavorText,
         setPage,
     } = useContext(SearchContext);
-    const { setCard } = useContext(CardContext);
     const { searchCards } = useSearch();
     const { cardRedirect, displayResults } = useDisplayResults();
     const { search } = location;
