@@ -49,9 +49,9 @@ function DeckBuilder() {
             setDeckName(result.name);
             setDeckCards(deck);
             setMaybeboardCards(maybeboard);
-            setUnmodifiedDeckName(result.name);
-            setUnmodifiedDeckCards(deck);
-            setUnmodifiedMaybeboardCards(maybeboard);
+            setUnmodifiedDeckName();
+            setUnmodifiedDeckCards();
+            setUnmodifiedMaybeboardCards();
         };
 
         if (isUnmodified) {
@@ -67,9 +67,9 @@ function DeckBuilder() {
         }
 
         // Once changes to the deck have been saved, update the unmodified state
-        setUnmodifiedDeckName(deckName);
-        setUnmodifiedDeckCards(deckCards);
-        setUnmodifiedMaybeboardCards(maybeboardCards);
+        setUnmodifiedDeckName();
+        setUnmodifiedDeckCards();
+        setUnmodifiedMaybeboardCards();
     };
 
     return (
@@ -90,9 +90,7 @@ function DeckBuilder() {
                     <DeckStats deck={deckCards} />
                     <DeckTable
                         deckCards={deckCards}
-                        setDeckCards={setDeckCards}
                         maybeboardCards={maybeboardCards}
-                        setMaybeboardCards={setMaybeboardCards}
                         maybeboardMode={maybeboardMode}
                         setMaybeboardMode={setMaybeboardMode}
                     />
