@@ -1,14 +1,11 @@
 import React from 'react';
-import { sortBy } from 'lodash';
 import DeckSection from './DeckSection';
 import './DeckTable.scss';
 
 function DeckTable({ deckCards = [], maybeboardCards = [], maybeboardMode = false, setMaybeboardMode = () => {} }) {
-    const deck = sortBy(deckCards, ['cmc']); // TODO: This sort logic should probably be in the reducer
-    const maybeboard = sortBy(maybeboardCards, ['cmc']); // TODO: This sort logic should probably be in the reducer
-    const creatures = deck.filter(card => ['creature'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
-    const spells = deck.filter(card => ['creature', 'land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === false);
-    const land = deck.filter(card => ['land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
+    const creatures = deckCards.filter(card => ['creature'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
+    const spells = deckCards.filter(card => ['creature', 'land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === false);
+    const land = deckCards.filter(card => ['land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
 
     const toggleMaybeboardMode = () => {
         setMaybeboardMode(!maybeboardMode);
@@ -26,7 +23,7 @@ function DeckTable({ deckCards = [], maybeboardCards = [], maybeboardMode = fals
             <DeckSection cards={spells} heading='Spells' type='spells' visible={spells.length > 0} className={maybeboardMode ? 'u-faded' : ''} />
             <DeckSection cards={land} heading='Land' type='land' visible={land.length > 0} className={maybeboardMode ? 'u-faded' : ''} />
             <DeckSection
-                cards={maybeboard}
+                cards={maybeboardCards}
                 heading='Maybeboard'
                 type='maybeboard'
                 visible={true}
