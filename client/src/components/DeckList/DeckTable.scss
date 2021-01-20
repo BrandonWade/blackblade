@@ -1,10 +1,4 @@
 .DeckTable {
-    &-section {
-        &--faded {
-            opacity: 0.5;
-        }
-    }
-
     &-headingRow {
         height: 3rem;
         font-size: 1.4rem;
@@ -42,7 +36,8 @@
         text-align: center;
     }
 
-    &-selectArt {
+    &-selectArt,
+    &-switchSection {
         cursor: pointer;
         width: 4rem;
 
@@ -55,9 +50,9 @@
         }
     }
 
-    &-selectArtIcon {
+    &-selectArtIcon,
+    &-switchSectionIcon {
         fill: var(--color-primary-text);
-        opacity: 0.5;
         display: block;
         width: 2rem;
         height: 2rem;

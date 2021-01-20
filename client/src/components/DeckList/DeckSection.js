@@ -1,16 +1,7 @@
 import React from 'react';
 import DeckRow from './DeckRow';
 
-function DeckSection({
-    cards = [],
-    heading = '',
-    visible = false,
-    updateCount = () => {},
-    removeCard = () => {},
-    className = '',
-    headingClassName = '',
-    onHeadingClick = () => {},
-}) {
+function DeckSection({ cards = [], heading = '', type = '', visible = false, className = '', headingClassName = '', onHeadingClick = () => {} }) {
     return visible ? (
         <tbody className={`DeckTable-section ${className}`}>
             <tr className='DeckTable-headingRow'>
@@ -19,7 +10,7 @@ function DeckSection({
                 </th>
             </tr>
             {cards.map(card => (
-                <DeckRow key={card.card_id} card={card} updateCount={updateCount} removeCard={removeCard} />
+                <DeckRow key={card.card_id} card={card} count={card.count} sectionType={type} />
             ))}
         </tbody>
     ) : null;

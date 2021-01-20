@@ -3,43 +3,12 @@ import { sortBy } from 'lodash';
 import DeckSection from './DeckSection';
 import './DeckTable.scss';
 
-function DeckTable({
-    deckCards = [],
-    setDeckCards = () => {},
-    maybeboardCards = [],
-    setMaybeboardCards = () => {},
-    maybeboardMode = false,
-    setMaybeboardMode = () => {},
-}) {
-    const deck = sortBy(deckCards, ['cmc']);
-    const maybeboard = sortBy(maybeboardCards, ['cmc']);
+function DeckTable({ deckCards = [], maybeboardCards = [], maybeboardMode = false, setMaybeboardMode = () => {} }) {
+    const deck = sortBy(deckCards, ['cmc']); // TODO: This sort logic should probably be in the reducer
+    const maybeboard = sortBy(maybeboardCards, ['cmc']); // TODO: This sort logic should probably be in the reducer
     const creatures = deck.filter(card => ['creature'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
     const spells = deck.filter(card => ['creature', 'land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === false);
     const land = deck.filter(card => ['land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
-
-    const updateCount = (cardID, count, location) => {
-        const inDeck = location === 'deck';
-        const cardList = inDeck ? deckCards : maybeboardCards;
-        const updateCardList = inDeck ? setDeckCards : setMaybeboardCards;
-        const index = cardList.findIndex(c => c.card_id === cardID);
-        const cards = [
-            ...cardList.slice(0, index),
-            {
-                ...cardList[index],
-                count: parseInt(count) || 1,
-            },
-            ...cardList.slice(index + 1),
-        ];
-
-        updateCardList(cards);
-    };
-
-    const removeCard = (cardID, location) => {
-        const inDeck = location === 'deck';
-        const cardList = inDeck ? deckCards : maybeboardCards;
-        const updateCardList = inDeck ? setDeckCards : setMaybeboardCards;
-        updateCardList(cardList.filter(c => c.card_id !== cardID));
-    };
 
     const toggleMaybeboardMode = () => {
         setMaybeboardMode(!maybeboardMode);
@@ -50,34 +19,18 @@ function DeckTable({
             <DeckSection
                 cards={creatures}
                 heading='Creatures'
+                type='creatures'
                 visible={creatures.length > 0}
-                updateCount={updateCount}
-                removeCard={removeCard}
-                className={maybeboardMode ? 'DeckTable-section--faded' : ''}
+                className={maybeboardMode ? 'u-faded' : ''}
             />
-            <DeckSection
-                cards={spells}
-                heading='Spells'
-                visible={spells.length > 0}
-                updateCount={updateCount}
-                removeCard={removeCard}
-                className={maybeboardMode ? 'DeckTable-section--faded' : ''}
-            />
-            <DeckSection
-                cards={land}
-                heading='Land'
-                visible={land.length > 0}
-                updateCount={updateCount}
-                removeCard={removeCard}
-                className={maybeboardMode ? 'DeckTable-section--faded' : ''}
-            />
+            <DeckSection cards={spells} heading='Spells' type='spells' visible={spells.length > 0} className={maybeboardMode ? 'u-faded' : ''} />
+            <DeckSection cards={land} heading='Land' type='land' visible={land.length > 0} className={maybeboardMode ? 'u-faded' : ''} />
             <DeckSection
                 cards={maybeboard}
                 heading='Maybeboard'
+                type='maybeboard'
                 visible={true}
-                updateCount={updateCount}
-                removeCard={removeCard}
-                className={maybeboardMode ? '' : 'DeckTable-section--faded'}
+                className={maybeboardMode ? '' : 'u-faded'}
                 headingClassName={`DeckTable-maybeboardHeading ${maybeboardMode ? 'DeckTable-headingRow--active' : ''}`}
                 onHeadingClick={toggleMaybeboardMode}
             />

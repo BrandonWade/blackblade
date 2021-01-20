@@ -154,3 +154,25 @@ export function Images({ className = '', onClick = () => {} }) {
         </span>
     );
 }
+
+export function ArrowUp({ className = '', onClick = () => {} }) {
+    return (
+        <span className={`Icon ${className}`} onClick={onClick}>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
+                <title>arrow-up</title>
+                <path d='M10 2.5l6.5 6.5h-3.5v8h-6v-8h-3.5l6.5-6.5z'></path>
+            </svg>
+        </span>
+    );
+}
+
+export function ArrowDown({ className = '', onClick = () => {} }) {
+    return (
+        <span className={`Icon ${className}`} onClick={onClick}>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
+                <title>arrow-down</title>
+                <path d='M10 17.5l-6.5-6.5h3.5v-8h6v8h3.5l-6.5 6.5z'></path>
+            </svg>
+        </span>
+    );
+}
