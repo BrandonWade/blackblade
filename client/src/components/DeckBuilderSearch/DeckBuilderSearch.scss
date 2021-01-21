@@ -3,6 +3,10 @@
     height: 100%;
     overflow-y: auto;
 
+    @media only screen and (max-width: 75em) {
+        padding: 1rem;
+    }
+
     @media only screen and (max-width: 37.5em) {
         padding: 0;
     }
@@ -28,6 +32,11 @@
             padding: 1rem 0.75rem;
             top: -2rem;
 
+            @media only screen and (max-width: 52.125em) {
+                padding: 0.5rem 0.75rem;
+                top: -1rem;
+            }
+
             @media only screen and (max-width: 37.5em) {
                 padding: 0 0.25rem 0.5rem;
                 top: 0;
@@ -39,7 +48,7 @@
             padding: 0;
             grid-template-columns: repeat(4, 1fr);
 
-            @media only screen and (max-width: 52.125em) {
+            @media only screen and (max-width: 75em) {
                 grid-template-columns: repeat(3, 1fr);
             }
 
