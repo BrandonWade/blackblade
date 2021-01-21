@@ -79,13 +79,15 @@ function DeckBuilder() {
                 <DeckBuilderSearch />
             </div>
             <div className='DeckBuilder-deckPanel'>
-                <div className='DeckBuilder-nameBar'>
-                    <div className='DeckBuilder-name'>{deckName}</div>
-                    <Button className={`DeckBuilder-saveButton ${isUnmodified ? 'u-hidden' : ''}`} onClick={onSaveDeck}>
-                        Save
-                    </Button>
+                <div className='DeckBuilder-deckInfo'>
+                    <div className='DeckBuilder-nameBar'>
+                        <div className='DeckBuilder-name'>{deckName}</div>
+                        <Button className={`DeckBuilder-saveButton ${isUnmodified ? 'u-hidden' : ''}`} onClick={onSaveDeck}>
+                            Save
+                        </Button>
+                    </div>
+                    <DeckActions />
                 </div>
-                <DeckActions />
                 <div className='DeckBuilder-tableContainer'>
                     <DeckStats deck={deckCards} />
                     <DeckTable

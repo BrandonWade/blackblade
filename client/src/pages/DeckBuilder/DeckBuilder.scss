@@ -9,6 +9,10 @@
     &-searchPanel {
         flex: 3.5;
 
+        @media only screen and (max-width: 75em) {
+            flex: 3;
+        }
+
         @media only screen and (max-width: 52.125em) {
             flex: 1;
             overflow-y: auto;
@@ -17,13 +21,16 @@
     }
 
     &-deckPanel {
-        flex: 1.5;
         height: 100%;
         max-width: 30vw;
         max-height: 100vh;
         overflow-y: auto;
         background-color: var(--color-primary-light);
         border-left: var(--line);
+
+        @media only screen and (max-width: 75em) {
+            max-width: 40vw;
+        }
 
         @media only screen and (max-width: 52.125em) {
             display: flex;
