@@ -52,3 +52,7 @@
         border-bottom-right-radius: var(--border-radius);
     }
 }
+
+input[type='number'].NumberInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
