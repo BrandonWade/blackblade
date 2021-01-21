@@ -20,20 +20,20 @@ function DeckStats({ deck = [] }) {
                 variantPrice = lowest?.price || 0;
             }
 
-            return (parseFloat(variantPrice) || 0) * card.count;
+            return (parseFloat(variantPrice) || 0) * (parseInt(card.count) || 0);
         });
         stats = stats.concat({ label: 'Estimated Price', value: `$${price.toFixed(2)}` });
     };
 
     const totalCards = () => {
-        const total = sumBy(deck, card => card.count || 0);
+        const total = sumBy(deck, card => parseInt(card.count) || 0);
         stats = stats.concat({ label: 'Total Cards', value: total });
     };
 
     const averageCMC = () => {
-        const costSum = sumBy(deck, card => parseFloat(card.cmc) * card.count);
+        const costSum = sumBy(deck, card => parseFloat(card.cmc) * (parseInt(card.count) || 0));
         const nonLandCount = sumBy(deck, card => {
-            const count = card.count || 0;
+            const count = parseInt(card.count) || 0;
             const faces = card?.sets_json?.[0]?.card_faces || [];
             const anyNonLandFaces = faces.some(face => face.derived_type !== 'land');
             return anyNonLandFaces ? count : 0;
@@ -45,7 +45,7 @@ function DeckStats({ deck = [] }) {
 
     const totalOfTypes = types => {
         return sumBy(deck, card => {
-            const count = card.count || 0;
+            const count = parseInt(card.count) || 0;
             const faces = card?.sets_json?.[0]?.card_faces || [];
             const anyFacesOfTypes = faces.some(face => types.includes(face.derived_type));
             return anyFacesOfTypes ? count : 0;
@@ -80,7 +80,7 @@ function DeckStats({ deck = [] }) {
         const colorCounts = { '{B}': 0, '{W}': 0, '{G}': 0, '{U}': 0, '{R}': 0 };
 
         deck.forEach(card => {
-            const count = card.count || 0;
+            const count = parseInt(card.count) || 0;
             const faces = card?.sets_json?.[0]?.card_faces || [];
             faces.forEach(face => {
                 const symbols = face.mana_cost.split(/(\{(?:\D|[A-Z0-9]+|[A-Z0-9]+\/[A-Z0-9]+)\})/g);
