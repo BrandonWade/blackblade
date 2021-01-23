@@ -38,8 +38,15 @@ export const addColorConditions = (builder, colors, matchType) => {
     } else if (matchType === 'at_least') {
         colors.forEach((color) => builder.where(colorMap[color], '=', true));
     } else if (matchType === 'at_most') {
-        builder.where((b) => {
-            colors.forEach((color) => b.orWhere(colorMap[color], '=', true));
+        builder.where((builder) => {
+            colors.forEach((color) =>
+                builder.orWhere(colorMap[color], '=', true),
+            );
+            builder.orWhere((builder) => {
+                Object.values(colorMap).forEach((color) =>
+                    builder.andWhere(color, '=', false),
+                );
+            });
         });
         diffColors.forEach((color) =>
             builder.where(colorMap[color], '=', false),
