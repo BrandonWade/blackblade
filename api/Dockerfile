@@ -1,4 +1,4 @@
-FROM node:10 AS builder
+FROM node:15 AS builder
 WORKDIR /app
 
 COPY ./package.json .
@@ -10,7 +10,7 @@ RUN npm install
 RUN npm run build
 
 
-FROM node:alpine
+FROM node:15-alpine
 WORKDIR /app
 
 COPY --from=builder /app/node_modules ./node_modules
