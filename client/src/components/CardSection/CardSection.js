@@ -1,4 +1,3 @@
-import React from 'react';
 import './CardSection.scss';
 
 function CardSection({ children, className }) {

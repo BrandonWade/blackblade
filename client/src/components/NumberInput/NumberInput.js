@@ -1,4 +1,3 @@
-import React from 'react';
 import withFormField from '../../hocs/withFormField';
 import { ChevronThinDown, ChevronThinUp } from '../Icons';
 import './NumberInput.scss';

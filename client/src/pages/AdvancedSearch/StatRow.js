@@ -1,4 +1,3 @@
-import React from 'react';
 import withFormField from '../../hocs/withFormField';
 import Select from '../../components/Select';
 import { NumberInputField } from '../../components/NumberInput';

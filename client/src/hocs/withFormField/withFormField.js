@@ -1,4 +1,3 @@
-import React from 'react';
 import './withFormField.scss';
 
 function withFormField(BaseComponent) {

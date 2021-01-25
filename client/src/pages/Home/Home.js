@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import useRandomCard from '../../hooks/useRandomCard';

@@ -1,4 +1,3 @@
-import React from 'react';
 import './Button.scss';
 
 function Button({ className = '', onClick = () => {}, disabled = false, children = [] }) {

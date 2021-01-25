@@ -1,4 +1,3 @@
-import React from 'react';
 import './Checkbox.scss';
 
 function Checkbox({ className = '', value = false, onClick = () => {}, children = [] }) {

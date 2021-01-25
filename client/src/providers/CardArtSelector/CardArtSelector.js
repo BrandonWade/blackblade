@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CardArtSelectorContext, { initialState } from '../../contexts/CardArtSelector';
 
 function CardArtSelectorProvider({ children = [] }) {

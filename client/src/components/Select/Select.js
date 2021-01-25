@@ -1,4 +1,3 @@
-import React from 'react';
 import withFormField from '../../hocs/withFormField';
 import withMultiSelect from '../../hocs/withMultiSelect';
 import './Select.scss';

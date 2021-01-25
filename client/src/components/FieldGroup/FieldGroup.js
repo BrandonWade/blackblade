@@ -1,4 +1,3 @@
-import React from 'react';
 import './FieldGroup.scss';
 
 function FieldGroup({ className = '', children = [] }) {
