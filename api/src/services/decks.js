@@ -46,7 +46,7 @@ const getDeck = async (publicID) => {
     const [cards] = await DeckRepository.getDeckCardsByPublicID(publicID);
 
     return {
-        name: deck?.[0].name || '',
+        name: deck?.[0]?.name || '',
         cards,
     };
 };

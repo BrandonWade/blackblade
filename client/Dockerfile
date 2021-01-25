@@ -1,4 +1,4 @@
-FROM node:10 AS builder
+FROM node:15-alpine AS builder
 WORKDIR /app
 
 COPY package.json .
@@ -10,7 +10,7 @@ RUN npm install
 RUN npm run build
 
 
-FROM nginx:1.17
+FROM nginx:1.19-alpine
 EXPOSE 8200
 
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
