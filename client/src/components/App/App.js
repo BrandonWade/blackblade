@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import ErrorProvider from '../../providers/Error';
 import CardArtSelectorProvider from '../../providers/CardArtSelector';

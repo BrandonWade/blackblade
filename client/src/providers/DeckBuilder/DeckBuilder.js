@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import { useReducer } from 'react';
 import DeckBuilderReducer from '../../reducers/DeckBuilder';
 import DeckBuilderContext, { initialState } from '../../contexts/DeckBuilder';
 import {

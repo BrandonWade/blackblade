@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate } from '../Icons';
 import './CardImage.scss';

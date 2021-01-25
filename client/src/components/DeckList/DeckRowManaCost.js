@@ -1,4 +1,3 @@
-import React from 'react';
 import useSymbols from '../../hooks/useSymbols';
 
 function DeckRowManaCost({ manaCost = '' }) {

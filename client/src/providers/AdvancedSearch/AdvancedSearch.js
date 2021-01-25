@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 
 function AdvancedSearchProvider({ children = [] }) {

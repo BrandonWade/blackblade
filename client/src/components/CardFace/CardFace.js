@@ -1,4 +1,3 @@
-import React from 'react';
 import useSymbols from '../../hooks/useSymbols';
 import CardSection from '../CardSection';
 import './CardFace.scss';

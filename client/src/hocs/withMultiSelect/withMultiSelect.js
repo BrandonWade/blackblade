@@ -1,4 +1,3 @@
-import React from 'react';
 import MultiSelectRow from './MultiSelectRow';
 import './withMultiSelect.scss';
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import useFetchCardSets from '../../hooks/useFetchCardSets';
 import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 import SearchContext from '../../contexts/Search';

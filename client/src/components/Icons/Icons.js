@@ -1,4 +1,3 @@
-import React from 'react';
 import './Icons.scss';
 
 export function ChevronLeft({ className = '', onClick = () => {} }) {

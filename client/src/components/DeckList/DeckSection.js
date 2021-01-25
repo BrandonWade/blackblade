@@ -1,4 +1,3 @@
-import React from 'react';
 import DeckRow from './DeckRow';
 
 function DeckSection({ cards = [], heading = '', type = '', visible = false, className = '', headingClassName = '', onHeadingClick = () => {} }) {

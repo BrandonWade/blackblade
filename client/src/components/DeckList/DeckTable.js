@@ -1,4 +1,3 @@
-import React from 'react';
 import DeckSection from './DeckSection';
 import './DeckTable.scss';
 

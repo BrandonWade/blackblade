@@ -1,5 +1,3 @@
-import React from 'react';
-
 function CardGridImage({ card = {}, selected = false, onClick = () => {} }) {
     const cardFace = card?.sets_json ? card?.sets_json?.[0]?.card_faces?.[0] : card.card_faces?.[0];
 

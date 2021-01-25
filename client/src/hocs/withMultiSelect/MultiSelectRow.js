@@ -1,5 +1,3 @@
-import React from 'react';
-
 function MultiSelectRow({ value = '', children = [], onRemove = () => {} }) {
     const onRemoveRow = () => {
         onRemove(value);

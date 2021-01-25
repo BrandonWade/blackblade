@@ -1,4 +1,3 @@
-import React from 'react';
 import CardRuling from './CardRuling';
 import './CardRulings.scss';
 

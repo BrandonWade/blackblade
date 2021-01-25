@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import withFormField from '../../hocs/withFormField';
 import SearchContext from '../../contexts/Search';
 import FieldGroup from '../../components/FieldGroup';
