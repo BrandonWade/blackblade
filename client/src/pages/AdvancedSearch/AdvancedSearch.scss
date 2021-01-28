@@ -16,8 +16,6 @@
     }
 
     &-form {
-        margin-bottom: 3rem;
-
         @media only screen and (max-width: 52.125em) {
             display: flex;
             flex-direction: column;
@@ -76,10 +74,12 @@
     }
 
     &-searchButton {
+        display: inline-block;
         margin-top: 5rem;
+        margin-bottom: 3rem;
 
         @media only screen and (max-width: 52.125em) {
-            display: flex;
+            display: inline-flex;
             justify-content: center;
         }
     }
