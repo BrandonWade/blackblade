@@ -182,8 +182,9 @@ CREATE TABLE types (
 DROP TABLE IF EXISTS accounts;
 CREATE TABLE accounts (
   id int unsigned NOT NULL AUTO_INCREMENT,
-  email_hash varbinary(256) NOT NULL DEFAULT '',
+  email_iv binary(16) NOT NULL DEFAULT '',
   email_enc varbinary(300) NOT NULL DEFAULT '',
+  email_hash varbinary(256) NOT NULL DEFAULT '',
   password_hash varbinary(64) NOT NULL DEFAULT '',
   is_activated tinyint(1) NOT NULL DEFAULT 0,
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
