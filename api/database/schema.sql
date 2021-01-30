@@ -178,3 +178,16 @@ CREATE TABLE types (
     PRIMARY KEY (id),
     UNIQUE KEY U_type (type)
 ) CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS accounts;
+CREATE TABLE accounts (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  email_hash varbinary(256) NOT NULL DEFAULT '',
+  email_enc varbinary(300) NOT NULL DEFAULT '',
+  password_hash varbinary(64) NOT NULL DEFAULT '',
+  is_activated tinyint(1) NOT NULL DEFAULT 0,
+  created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY U_email_hash (email_hash)
+) CHARSET=utf8mb4;
