@@ -1,12 +1,12 @@
 FROM node:15-alpine
 WORKDIR /usr/src/app
 
-COPY package.json .
-COPY package-lock.json .
+COPY ./package.json .
+COPY ./package-lock.json .
 
 RUN npm install
 
-COPY src/ .
+COPY ./src ./src
 COPY nodemon.json .
 COPY .babelrc .
 
