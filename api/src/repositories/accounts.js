@@ -1,9 +1,16 @@
 import { connection } from '../db';
 
-const registerAccount = async (emailIV, emailEnc, emailHash, passwordHash) => {
+const registerAccount = async (
+    emailIV,
+    emailAuthTag,
+    emailEnc,
+    emailHash,
+    passwordHash,
+) => {
     return connection.query(
         `INSERT INTO accounts (
             email_iv,
+            email_auth_tag,
             email_enc,
             email_hash,
             password_hash
@@ -11,10 +18,11 @@ const registerAccount = async (emailIV, emailEnc, emailHash, passwordHash) => {
             ?,
             ?,
             ?,
+            ?,
             ?
         )
     `,
-        [emailIV, emailEnc, emailHash, passwordHash],
+        [emailIV, emailAuthTag, emailEnc, emailHash, passwordHash],
     );
 };
 
