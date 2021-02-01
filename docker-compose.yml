@@ -27,11 +27,12 @@ services:
         ports:
             - '8000:8000'
         environment:
-            - API_PORT=8000
-            - DB_HOST=blackblade-db
-            - DB_USERNAME=root
-            - DB_PASSWORD=root
-            - DB_DATABASE=blackblade
+            - API_PORT=${API_PORT:?err}
+            - DB_HOST=${DB_HOST:?err}
+            - DB_USERNAME=${DB_USERNAME:?err}
+            - DB_PASSWORD=${DB_PASSWORD:?err}
+            - DB_DATABASE=${DB_DATABASE:?err}
+            - EMAIL_ENC_KEY=${EMAIL_ENC_KEY:?err}
     nginx:
         restart: always
         build:
