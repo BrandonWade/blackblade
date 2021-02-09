@@ -9,7 +9,7 @@
         align-items: center;
         width: 100%;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 75em) {
             flex-wrap: wrap;
         }
     }
@@ -37,7 +37,7 @@
         }
     }
 
-    @media only screen and (max-width: 37.5em) {
+    @media only screen and (max-width: 75em) {
         &-buttonGroup:nth-of-type(1) {
             order: 2;
         }
@@ -82,12 +82,12 @@
         justify-content: space-between;
         font-size: 1.4rem;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 75em) {
             order: 1;
             width: 100%;
             text-align: center;
             padding: 0.5rem;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
     }
 
