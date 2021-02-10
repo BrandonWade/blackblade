@@ -125,9 +125,11 @@ function AdvancedSearch() {
                         value={flavorText}
                         onChange={onChangeFlavorText}
                     />
-                    <Button className='AdvancedSearch-searchButton' onClick={onSubmit}>
-                        Search
-                    </Button>
+                    <div className='AdvancedSearch-footer'>
+                        <Button className='AdvancedSearch-searchButton' onClick={onSubmit}>
+                            Search
+                        </Button>
+                    </div>
                 </form>
             </div>
         </HeaderPage>
