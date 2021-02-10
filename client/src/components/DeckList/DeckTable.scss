@@ -77,10 +77,6 @@
 
     &-names {
         font-size: 1.3rem;
-        max-width: 30rem;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
 
         @media only screen and (max-width: 37.5em) {
             font-size: 1.1rem;
@@ -99,10 +95,33 @@
 
     &-manaSubRow {
         justify-content: flex-end;
+
+        & > .CardSymbol {
+            width: 1.3em;
+            height: 1.3em;
+
+            @media only screen and (max-width: 37.5em) {
+                width: 1.1em;
+                height: 1.1em;
+            }
+        }
     }
 
     &-cardLink {
         cursor: pointer;
+        display: block;
+        max-width: 18rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        @media only screen and (max-width: 75em) {
+            max-width: 10rem;
+        }
+
+        @media only screen and (max-width: 52.125em) {
+            max-width: 100%;
+        }
     }
 
     &-manaCosts,
