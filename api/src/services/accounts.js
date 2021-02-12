@@ -1,4 +1,4 @@
-import { generateIV, encryptValue, decryptValue } from '../helpers/encrypt';
+import { generateIV, encryptValue } from '../helpers/encrypt';
 import { Buffer } from 'buffer';
 import hashValue from '../helpers/hash';
 import AccountRepository from '../repositories/accounts';
