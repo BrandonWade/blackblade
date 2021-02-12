@@ -193,3 +193,17 @@ CREATE TABLE accounts (
   PRIMARY KEY (id),
   UNIQUE KEY U_email_hash (email_hash)
 ) CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS account_activation_tokens;
+CREATE TABLE account_activation_tokens (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  account_id int unsigned NOT NULL DEFAULT 0,
+  activation_token char(64) NOT NULL DEFAULT '',
+  is_used tinyint(1) NOT NULL DEFAULT 0,
+  last_sent_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY U_account_id (account_id),
+  UNIQUE KEY U_activation_token (activation_token)
+) CHARSET=utf8mb4;

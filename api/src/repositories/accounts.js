@@ -26,6 +26,21 @@ const registerAccount = async (
     );
 };
 
+const createAccountActivationToken = async (accountID, activationToken) => {
+    return connection.query(
+        `INSERT INTO account_activation_tokens(
+            account_id,
+            activation_token
+        ) VALUES (
+            ?,
+            ?
+        );
+    `,
+        [accountID, activationToken],
+    );
+};
+
 export default {
     registerAccount,
+    createAccountActivationToken,
 };
