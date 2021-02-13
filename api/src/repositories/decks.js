@@ -30,6 +30,7 @@ const saveDeck = async (deckID, name, deck) => {
     const conn = await connection.getConnection();
     await conn.beginTransaction();
 
+    let success = false;
     try {
         await conn.query(
             `DELETE
@@ -72,13 +73,15 @@ const saveDeck = async (deckID, name, deck) => {
         );
 
         await conn.commit();
+
+        success = true;
     } catch (e) {
         console.error('error saving deck:', e);
     }
 
     await conn.release();
 
-    return true;
+    return success;
 };
 
 const getDeckByPublicID = async (publicID) => {
