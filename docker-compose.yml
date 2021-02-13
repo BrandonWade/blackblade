@@ -33,6 +33,9 @@ services:
             - DB_PASSWORD=${DB_PASSWORD:?err}
             - DB_DATABASE=${DB_DATABASE:?err}
             - EMAIL_ENC_KEY=${EMAIL_ENC_KEY:?err}
+            - MAILJET_PUBLIC_KEY=${MAILJET_PUBLIC_KEY:?err}
+            - MAILJET_PRIVATE_KEY=${MAILJET_PRIVATE_KEY:?err}
+            - BLACKBLADE_DOMAIN=${BLACKBLADE_DOMAIN:?err}
     nginx:
         restart: always
         build:

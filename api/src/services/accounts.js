@@ -3,6 +3,7 @@ import { Buffer } from 'buffer';
 import hashValue from '../helpers/hash';
 import generateToken from '../helpers/tokens';
 import AccountRepository from '../repositories/accounts';
+import EmailService from '../services/email';
 
 const registerAccount = async (email, password) => {
     const emailIV = generateIV();
@@ -26,12 +27,16 @@ const registerAccount = async (email, password) => {
         );
     } catch (e) {
         console.error('error registering account', e);
-        return;
+        return false;
     }
 
-    return {
-        activation_token: activationToken,
-    };
+    const emailSent = EmailService.sendAccountActivationEmail(email, token);
+    if (!emailSent) {
+        console.error('error sending activation email');
+        return false;
+    }
+
+    return true;
 };
 
 export default {
