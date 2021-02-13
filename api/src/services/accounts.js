@@ -1,6 +1,7 @@
 import { generateIV, encryptValue } from '../helpers/encrypt';
 import { Buffer } from 'buffer';
 import hashValue from '../helpers/hash';
+import generateToken from '../helpers/tokens';
 import AccountRepository from '../repositories/accounts';
 
 const registerAccount = async (email, password) => {
@@ -12,14 +13,25 @@ const registerAccount = async (email, password) => {
     );
     const emailHash = await hashValue(email);
     const passwordHash = await hashValue(password);
+    const activationToken = generateToken();
 
-    return AccountRepository.registerAccount(
-        emailIV,
-        emailAuthTag,
-        emailEnc,
-        emailHash,
-        passwordHash,
-    );
+    try {
+        AccountRepository.registerAccount(
+            emailIV,
+            emailAuthTag,
+            emailEnc,
+            emailHash,
+            passwordHash,
+            activationToken,
+        );
+    } catch (e) {
+        console.error('error registering account', e);
+        return;
+    }
+
+    return {
+        activation_token: activationToken,
+    };
 };
 
 export default {

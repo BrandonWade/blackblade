@@ -6,41 +6,59 @@ const registerAccount = async (
     emailEnc,
     emailHash,
     passwordHash,
+    activationToken,
 ) => {
-    return connection.query(
-        `INSERT INTO accounts (
-            email_iv,
-            email_auth_tag,
-            email_enc,
-            email_hash,
-            password_hash
-        ) VALUES (
-            ?,
-            ?,
-            ?,
-            ?,
-            ?
-        )
-    `,
-        [emailIV, emailAuthTag, emailEnc, emailHash, passwordHash],
-    );
-};
+    const conn = await connection.getConnection();
+    await conn.beginTransaction();
 
-const createAccountActivationToken = async (accountID, activationToken) => {
-    return connection.query(
-        `INSERT INTO account_activation_tokens(
-            account_id,
-            activation_token
-        ) VALUES (
-            ?,
-            ?
+    let success = false;
+    try {
+        const [accountResult] = await conn.query(
+            `INSERT INTO accounts (
+                email_iv,
+                email_auth_tag,
+                email_enc,
+                email_hash,
+                password_hash
+            ) VALUES (
+                ?,
+                ?,
+                ?,
+                ?,
+                ?
+            )
+        `,
+            [emailIV, emailAuthTag, emailEnc, emailHash, passwordHash],
         );
-    `,
-        [accountID, activationToken],
-    );
+
+        if (!accountResult?.insertId) {
+            throw 'invalid insert id from creating account';
+        }
+
+        await conn.query(
+            `INSERT INTO account_activation_tokens(
+                account_id,
+                activation_token
+            ) VALUES (
+                ?,
+                ?
+            );
+        `,
+            [accountResult.insertId, activationToken],
+        );
+
+        await conn.commit();
+
+        success = true;
+    } catch (e) {
+        console.error('error saving deck:', e);
+    }
+
+    await conn.release();
+
+    return success;
 };
 
 export default {
     registerAccount,
-    createAccountActivationToken,
 };
