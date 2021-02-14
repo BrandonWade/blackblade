@@ -17,7 +17,7 @@ const registerAccount = async (email, password) => {
     const activationToken = generateToken();
 
     try {
-        AccountRepository.registerAccount(
+        await AccountRepository.registerAccount(
             emailIV,
             emailAuthTag,
             emailEnc,
@@ -30,7 +30,10 @@ const registerAccount = async (email, password) => {
         return false;
     }
 
-    const emailSent = EmailService.sendAccountActivationEmail(email, token);
+    const emailSent = await EmailService.sendAccountActivationEmail(
+        email,
+        activationToken,
+    );
     if (!emailSent) {
         console.error('error sending activation email');
         return false;

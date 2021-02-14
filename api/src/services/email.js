@@ -1,12 +1,12 @@
 import MailjetClient from '../clients/mailjet';
 
-const sendAccountActivationEmail = (email, token) => {
+const sendAccountActivationEmail = async (email, token) => {
     const domain = process.env.BLACKBLADE_DOMAIN || '';
     const link = `${domain}/api/accounts/activate?t=${token}`;
 
     const message = {
         From: {
-            Email: `register@${domain}`,
+            Email: 'register@blackblade.ca',
             Name: 'Blackblade',
         },
         To: [
@@ -19,7 +19,7 @@ const sendAccountActivationEmail = (email, token) => {
         HTMLPart: '', // TODO: Get an HTML template, then replace TextPart
     };
 
-    const result = MailjetClient.send(message);
+    const result = await MailjetClient.send(message);
     if (!result) {
         console.error('error sending activation email');
         return false;

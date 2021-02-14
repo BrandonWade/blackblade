@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 import * as mailjet from 'node-mailjet';
 
 const send = async (message) => {
@@ -6,10 +7,17 @@ const send = async (message) => {
         process.env.MAILJET_PRIVATE_KEY,
     );
 
-    // TODO: Make request
-    // const request = await client.post('send', { version: 'v3.1' }).request({
-    //     Messages: [message],
-    // });
+    const { response } = await client
+        .post('send', { version: 'v3.1' })
+        .request({
+            Messages: [message],
+        });
+    if (response.statusCode !== StatusCodes.OK) {
+        console.error('error contacting mailjet', response.statusCode);
+        return false;
+    }
+
+    return true;
 };
 
 export default {
