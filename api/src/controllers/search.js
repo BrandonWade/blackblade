@@ -1,4 +1,4 @@
-import * as HttpStatus from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import SearchService from '../services/search';
 
 const search = async (req, res) => {
@@ -45,32 +45,32 @@ const search = async (req, res) => {
         page,
     });
 
-    res.status(HttpStatus.OK).json(results);
+    res.status(StatusCodes.OK).json(results);
 };
 
 const getCardByID = async (req, res) => {
     const id = req.params['id'];
     const results = await SearchService.getCardByID(id);
     if (results.length === 0) {
-        return res.status(HttpStatus.NOT_FOUND).send();
+        return res.status(StatusCodes.NOT_FOUND).send();
     } else {
-        return res.status(HttpStatus.OK).json(results);
+        return res.status(StatusCodes.OK).json(results);
     }
 };
 
 const getRandomCard = async (_, res) => {
     const results = await SearchService.getRandomCard();
-    res.status(HttpStatus.OK).json(results);
+    res.status(StatusCodes.OK).json(results);
 };
 
 const getCardTypes = async (_, res) => {
     const results = await SearchService.getCardTypes();
-    res.status(HttpStatus.OK).json(results);
+    res.status(StatusCodes.OK).json(results);
 };
 
 const getCardSets = async (_, res) => {
     const results = await SearchService.getCardSets();
-    res.status(HttpStatus.OK).json(results);
+    res.status(StatusCodes.OK).json(results);
 };
 
 export { search, getCardByID, getRandomCard, getCardTypes, getCardSets };
