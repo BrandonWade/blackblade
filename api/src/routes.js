@@ -8,7 +8,7 @@ import {
     getCardSets,
 } from './controllers/search';
 import { createDeck, saveDeck, getDeck } from './controllers/decks';
-import { registerAccount } from './controllers/accounts';
+import { registerAccount, activateAccount } from './controllers/accounts';
 import validate from './middleware/validate';
 
 const router = express.Router();
@@ -22,5 +22,6 @@ router.post('/decks', createDeck);
 router.put('/decks/:publicID', saveDeck);
 router.get('/decks/:publicID', getDeck);
 // router.post('/accounts/register', registerAccount);
+// router.get('/accounts/activate', activateAccount);
 
 export default router;

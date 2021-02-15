@@ -9,7 +9,7 @@ const registerAccount = async (req, res) => {
     );
 
     if (!success) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: [{ msg: 'error registering account' }],
         });
     }
@@ -17,4 +17,18 @@ const registerAccount = async (req, res) => {
     return res.status(StatusCodes.OK).send();
 };
 
-export { registerAccount };
+const activateAccount = (req, res) => {
+    const token = req.query['t'];
+
+    const success = AccountService.activateAccount(token);
+    if (!success) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: [{ msg: 'error activating account' }],
+        });
+    }
+
+    // TODO: Redirect to login page
+    return res.redirect('/');
+};
+
+export { registerAccount, activateAccount };
