@@ -42,6 +42,18 @@ const registerAccount = async (email, password) => {
     return true;
 };
 
+const activateAccount = async (token) => {
+    try {
+        await AccountRepository.activateAccount(token);
+    } catch (e) {
+        console.error('error activating account', e);
+        return false;
+    }
+
+    return true;
+};
+
 export default {
     registerAccount,
+    activateAccount,
 };
