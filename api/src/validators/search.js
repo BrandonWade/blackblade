@@ -89,8 +89,6 @@ const mustExist = query().custom(oneOptionalFieldExists);
 
 const pageExists = query('page').isInt({ min: 1 });
 
-const cardIDValidator = param('id').isInt().toInt({ min: 1 });
-
 const searchValidators = [
     nameExists,
     textExists,
@@ -118,6 +116,5 @@ const searchValidators = [
     mustExist,
     pageExists,
 ];
-const cardValidators = [cardIDValidator];
 
-export { searchValidators, cardValidators };
+export { searchValidators };
