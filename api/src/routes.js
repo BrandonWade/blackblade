@@ -1,5 +1,6 @@
 import express from 'express';
 import { searchValidators, cardValidators } from './validators/search';
+import accountValidators from './validators/accounts';
 import {
     search,
     getCardByID,
@@ -21,7 +22,7 @@ router.get('/sets', getCardSets);
 router.post('/decks', createDeck);
 router.put('/decks/:publicID', saveDeck);
 router.get('/decks/:publicID', getDeck);
-// router.post('/accounts/register', registerAccount);
+// router.post('/accounts/register', accountValidators, validate, registerAccount);
 // router.get('/accounts/activate', activateAccount);
 
 export default router;

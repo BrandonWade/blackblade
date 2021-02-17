@@ -109,3 +109,13 @@ export function oneOptionalFieldExists(query) {
 
     return true;
 }
+
+export function passwordsMatch(password, { req }) {
+    const confirmPassword = req.body['confirm_password'];
+
+    if (password !== confirmPassword) {
+        throw new Error('password and confirm password do not match');
+    }
+
+    return true;
+}

@@ -1,7 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import AccountService from '../services/accounts';
 
-// TODO: Add middleware to validate payload
 const registerAccount = async (req, res) => {
     const success = await AccountService.registerAccount(
         req.body.email,
