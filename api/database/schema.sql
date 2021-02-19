@@ -204,6 +204,20 @@ CREATE TABLE account_activation_tokens (
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
-  UNIQUE KEY U_account_id (account_id),
-  UNIQUE KEY U_activation_token (activation_token)
+  UNIQUE KEY U_activation_token (activation_token),
+  FOREIGN KEY (account_id) REFERENCES accounts(id)
+) CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS account_password_reset_tokens;
+CREATE TABLE account_password_reset_tokens (
+  id int unsigned NOT NULL AUTO_INCREMENT,
+  account_id int unsigned NOT NULL DEFAULT 0,
+  reset_token char(64) NOT NULL DEFAULT '',
+  status enum('pending', 'used', 'disabled') NOT NULL DEFAULT 'pending',
+  expires_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY U_reset_token (reset_token),
+  FOREIGN KEY (account_id) REFERENCES accounts(id)
 ) CHARSET=utf8mb4;

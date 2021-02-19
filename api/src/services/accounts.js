@@ -53,7 +53,26 @@ const activateAccount = async (token) => {
     return true;
 };
 
+const requestPasswordReset = async (email) => {
+    const passwordResetToken = generateToken();
+
+    try {
+        await AccountRepository.createPasswordResetToken(
+            email,
+            passwordResetToken,
+        );
+
+        // TODO: Send reset email
+    } catch (e) {
+        console.error('error requesting password reset', e);
+        return false;
+    }
+
+    return true;
+};
+
 export default {
     registerAccount,
     activateAccount,
+    requestPasswordReset,
 };
