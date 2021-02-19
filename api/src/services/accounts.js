@@ -50,7 +50,14 @@ const requestPasswordReset = async (email) => {
             passwordResetToken,
         );
 
-        // TODO: Send reset email
+        const emailSent = await EmailService.sendPasswordResetEmail(
+            email,
+            passwordResetToken,
+        );
+        if (!emailSent) {
+            console.error('error sending password reset token');
+            return false;
+        }
     } catch (e) {
         console.error('error requesting password reset', e);
         return false;

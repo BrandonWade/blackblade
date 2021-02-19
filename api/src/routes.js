@@ -4,6 +4,7 @@ import { cardValidators } from './validators/card';
 import {
     registerUserValidators,
     activateAccountValidators,
+    requestPasswordResetValidators,
 } from './validators/accounts';
 import {
     search,
@@ -43,9 +44,9 @@ router.get('/decks/:publicID', getDeck);
 //     activateAccount,
 // );
 // router.post(
-//     '/accounts/forgot',
-//     // registerUserValidators,
-//     // validate,
+//     '/accounts/password/forgot',
+//     requestPasswordResetValidators,
+//     validate,
 //     requestPasswordReset,
 // );
 

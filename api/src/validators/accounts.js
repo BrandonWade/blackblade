@@ -14,5 +14,10 @@ const activationTokenValid = query('t')
 
 const registerUserValidators = [emailValid, passwordValid];
 const activateAccountValidators = [activationTokenValid];
+const requestPasswordResetValidators = [emailValid];
 
-export { registerUserValidators, activateAccountValidators };
+export {
+    registerUserValidators,
+    activateAccountValidators,
+    requestPasswordResetValidators,
+};
