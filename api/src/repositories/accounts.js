@@ -1,34 +1,22 @@
 import { connection } from '../db';
 
-const registerAccount = async (
-    emailIV,
-    emailAuthTag,
-    emailEnc,
-    emailHash,
-    passwordHash,
-    activationToken,
-) => {
+const registerAccount = async (email, passwordHash, activationToken) => {
+    let success = false;
+
     const tx = await connection.getConnection();
     await tx.beginTransaction();
 
-    let success = false;
     try {
         const [accountResult] = await tx.query(
             `INSERT INTO accounts (
-                email_iv,
-                email_auth_tag,
-                email_enc,
-                email_hash,
+                email,
                 password_hash
             ) VALUES (
-                ?,
-                ?,
-                ?,
                 ?,
                 ?
             )
         `,
-            [emailIV, emailAuthTag, emailEnc, emailHash, passwordHash],
+            [email, passwordHash],
         );
 
         if (!accountResult?.insertId) {
