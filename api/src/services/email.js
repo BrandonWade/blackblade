@@ -28,6 +28,35 @@ const sendAccountActivationEmail = async (email, token) => {
     return true;
 };
 
+const sendPasswordResetEmail = async (email, token) => {
+    const domain = process.env.BLACKBLADE_DOMAIN || '';
+    const link = `${domain}/api/accounts/password/forgot?t=${token}`;
+
+    const message = {
+        From: {
+            Email: 'accounts@blackblade.ca',
+            Name: 'Blackblade',
+        },
+        To: [
+            {
+                Email: email,
+            },
+        ],
+        Subject: 'Password Reset',
+        TextPart: `Please visit the following URL to reset your password: ${link}`,
+        HTMLPart: '', // TODO: Get an HTML template, then replace TextPart
+    };
+
+    const result = await MailjetClient.send(message);
+    if (!result) {
+        console.error('error sending password reset email');
+        return false;
+    }
+
+    return true;
+};
+
 export default {
     sendAccountActivationEmail,
+    sendPasswordResetEmail,
 };
