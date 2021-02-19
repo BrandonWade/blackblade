@@ -16,10 +16,10 @@ const registerAccount = async (req, res) => {
     return res.status(StatusCodes.OK).send();
 };
 
-const activateAccount = (req, res) => {
+const activateAccount = async (req, res) => {
     const token = req.query['t'];
 
-    const success = AccountService.activateAccount(token);
+    const success = await AccountService.activateAccount(token);
     if (!success) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: [{ msg: 'error activating account' }],
@@ -30,4 +30,17 @@ const activateAccount = (req, res) => {
     return res.redirect('/');
 };
 
-export { registerAccount, activateAccount };
+const requestPasswordReset = async (req, res) => {
+    const email = req.body['email'];
+
+    const success = await AccountService.requestPasswordReset(email);
+    if (!success) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: [{ msg: 'error requesting password reset' }],
+        });
+    }
+
+    return res.status(StatusCodes.OK).send();
+};
+
+export { registerAccount, activateAccount, requestPasswordReset };
