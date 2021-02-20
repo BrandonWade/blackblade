@@ -5,6 +5,7 @@ import {
     registerUserValidators,
     activateAccountValidators,
     requestPasswordResetValidators,
+    passwordResetRedirectValidators,
 } from './validators/accounts';
 import {
     search,
@@ -18,6 +19,7 @@ import {
     registerAccount,
     activateAccount,
     requestPasswordReset,
+    passwordResetRedirect,
 } from './controllers/accounts';
 import validate from './middleware/validate';
 
@@ -48,6 +50,12 @@ router.get('/decks/:publicID', getDeck);
 //     requestPasswordResetValidators,
 //     validate,
 //     requestPasswordReset,
+// );
+// router.get(
+//     '/accounts/password/forgot',
+//     passwordResetRedirectValidators,
+//     validate, // TODO: Because this route is a simple redirect, this middleware might not work if validation fails
+//     passwordResetRedirect,
 // );
 
 export default router;

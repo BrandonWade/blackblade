@@ -43,4 +43,18 @@ const requestPasswordReset = async (req, res) => {
     return res.status(StatusCodes.OK).send();
 };
 
-export { registerAccount, activateAccount, requestPasswordReset };
+const passwordResetRedirect = async (req, res) => {
+    const token = req.query['t'];
+
+    res.cookie('bb_prt', token, { maxAge: 3600, httpOnly: true, secure: true });
+
+    // TODO: Redirect to password reset page
+    return res.redirect('/');
+};
+
+export {
+    registerAccount,
+    activateAccount,
+    requestPasswordReset,
+    passwordResetRedirect,
+};

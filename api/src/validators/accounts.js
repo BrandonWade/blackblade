@@ -11,13 +11,19 @@ const activationTokenValid = query('t')
     .exists()
     .isLength(64)
     .matches(/^[0-9a-f]+$/);
+const passwordResetTokenValid = query('t')
+    .exists()
+    .isLength(64)
+    .matches(/^[0-9a-f]+$/);
 
 const registerUserValidators = [emailValid, passwordValid];
 const activateAccountValidators = [activationTokenValid];
 const requestPasswordResetValidators = [emailValid];
+const passwordResetRedirectValidators = [passwordResetTokenValid];
 
 export {
     registerUserValidators,
     activateAccountValidators,
     requestPasswordResetValidators,
+    passwordResetRedirectValidators,
 };
