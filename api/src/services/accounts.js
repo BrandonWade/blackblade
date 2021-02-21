@@ -66,8 +66,22 @@ const requestPasswordReset = async (email) => {
     return true;
 };
 
+const resetPassword = async (token, password) => {
+    const passwordHash = await hashValue(password);
+
+    try {
+        await AccountRepository.resetPassword(token, passwordHash);
+    } catch (e) {
+        console.error('error resetting password', e);
+        return false;
+    }
+
+    return true;
+};
+
 export default {
     registerAccount,
     activateAccount,
     requestPasswordReset,
+    resetPassword,
 };

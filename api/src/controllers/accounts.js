@@ -44,7 +44,7 @@ const requestPasswordReset = async (req, res) => {
 };
 
 const passwordResetRedirect = async (req, res) => {
-    const token = req.query['t'];
+    const token = req.query['bb_prt'];
 
     res.cookie('bb_prt', token, { maxAge: 3600, httpOnly: true, secure: true });
 
@@ -52,9 +52,24 @@ const passwordResetRedirect = async (req, res) => {
     return res.redirect('/');
 };
 
+const resetPassword = async (req, res) => {
+    const token = req.cookies['bb_prt'];
+    const password = req.body['password'];
+
+    const success = await AccountService.resetPassword(token, password);
+    if (!success) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors: [{ msg: 'error resetting password' }],
+        });
+    }
+
+    return res.status(StatusCodes.OK).send();
+};
+
 export {
     registerAccount,
     activateAccount,
     requestPasswordReset,
     passwordResetRedirect,
+    resetPassword,
 };
