@@ -6,6 +6,7 @@ import {
     activateAccountValidators,
     requestPasswordResetValidators,
     passwordResetRedirectValidators,
+    resetPasswordValidators,
 } from './validators/accounts';
 import {
     search,
@@ -20,6 +21,7 @@ import {
     activateAccount,
     requestPasswordReset,
     passwordResetRedirect,
+    resetPassword,
 } from './controllers/accounts';
 import validate from './middleware/validate';
 
@@ -56,6 +58,12 @@ router.get('/decks/:publicID', getDeck);
 //     passwordResetRedirectValidators,
 //     validate, // TODO: Because this route is a simple redirect, this middleware might not work if validation fails
 //     passwordResetRedirect,
+// );
+// router.post(
+//     '/accounts/password',
+//     resetPasswordValidators,
+//     validate,
+//     resetPassword,
 // );
 
 export default router;

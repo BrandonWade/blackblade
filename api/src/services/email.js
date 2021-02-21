@@ -2,7 +2,7 @@ import MailjetClient from '../clients/mailjet';
 
 const sendAccountActivationEmail = async (email, token) => {
     const domain = process.env.BLACKBLADE_DOMAIN || '';
-    const link = `${domain}/api/accounts/activate?t=${token}`;
+    const link = `${domain}/api/accounts/activate?bb_at=${token}`;
 
     const message = {
         From: {
@@ -30,7 +30,7 @@ const sendAccountActivationEmail = async (email, token) => {
 
 const sendPasswordResetEmail = async (email, token) => {
     const domain = process.env.BLACKBLADE_DOMAIN || '';
-    const link = `${domain}/api/accounts/password/forgot?t=${token}`;
+    const link = `${domain}/api/accounts/password/forgot?bb_prt=${token}`;
 
     const message = {
         From: {

@@ -158,8 +158,46 @@ const createPasswordResetToken = async (email, token) => {
     return success;
 };
 
+const resetPassword = async (token, passwordHash) => {
+    let success = false;
+
+    const tx = await connection.getConnection();
+    await tx.beginTransaction();
+
+    try {
+        await tx.query(
+            `UPDATE accounts a
+            INNER JOIN account_password_reset_tokens t ON a.id = t.id
+            SET a.password_hash = ?
+            WHERE t.reset_token = ?
+            AND t.status = 'pending'
+        `,
+            [passwordHash, token],
+        );
+
+        await tx.query(
+            `UPDATE account_password_reset_tokens t
+            SET t.status = 'used'
+            WHERE t.reset_token = ?
+        `,
+            [token],
+        );
+
+        await tx.commit();
+
+        success = true;
+    } catch (e) {
+        console.error('error resetting password', e);
+    }
+
+    await tx.release();
+
+    return success;
+};
+
 export default {
     registerAccount,
     activateAccount,
     createPasswordResetToken,
+    resetPassword,
 };
