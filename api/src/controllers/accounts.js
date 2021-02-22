@@ -1,16 +1,21 @@
 import { StatusCodes } from 'http-status-codes';
+import NotFoundError from '../errors/not_found';
 import AccountService from '../services/accounts';
 
 const registerAccount = async (req, res) => {
-    const success = await AccountService.registerAccount(
-        req.body.email,
-        req.body.password,
-    );
-
-    if (!success) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error registering account' }],
-        });
+    // TODO: Return 409 for existing username
+    try {
+        await AccountService.registerAccount(req.body.email, req.body.password);
+    } catch (e) {
+        if (e instanceof NotFoundError) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                errors: [{ msg: e.message }],
+            });
+        } else {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                errors: [{ msg: 'error registering account' }],
+            });
+        }
     }
 
     return res.status(StatusCodes.OK).send();
@@ -19,11 +24,18 @@ const registerAccount = async (req, res) => {
 const activateAccount = async (req, res) => {
     const token = req.query['t'];
 
-    const success = await AccountService.activateAccount(token);
-    if (!success) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error activating account' }],
-        });
+    try {
+        await AccountService.activateAccount(token);
+    } catch (e) {
+        if (e instanceof NotFoundError) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                errors: [{ msg: e.message }],
+            });
+        } else {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                errors: [{ msg: 'error activating account' }],
+            });
+        }
     }
 
     // TODO: Redirect to login page
@@ -33,11 +45,18 @@ const activateAccount = async (req, res) => {
 const requestPasswordReset = async (req, res) => {
     const email = req.body['email'];
 
-    const success = await AccountService.requestPasswordReset(email);
-    if (!success) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error requesting password reset' }],
-        });
+    try {
+        await AccountService.requestPasswordReset(email);
+    } catch (e) {
+        if (e instanceof NotFoundError) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                errors: [{ msg: e.message }],
+            });
+        } else {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                errors: [{ msg: 'error requesting password reset' }],
+            });
+        }
     }
 
     return res.status(StatusCodes.OK).send();
@@ -56,11 +75,18 @@ const resetPassword = async (req, res) => {
     const token = req.cookies['bb_prt'];
     const password = req.body['password'];
 
-    const success = await AccountService.resetPassword(token, password);
-    if (!success) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error resetting password' }],
-        });
+    try {
+        await AccountService.resetPassword(token, password);
+    } catch (e) {
+        if (e instanceof NotFoundError) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                errors: [{ msg: e.message }],
+            });
+        } else {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                errors: [{ msg: 'error resetting password' }],
+            });
+        }
     }
 
     return res.status(StatusCodes.OK).send();

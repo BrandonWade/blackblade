@@ -1,7 +1,8 @@
 import MailjetClient from '../clients/mailjet';
 
+const domain = process.env.BLACKBLADE_DOMAIN || '';
+
 const sendAccountActivationEmail = async (email, token) => {
-    const domain = process.env.BLACKBLADE_DOMAIN || '';
     const link = `${domain}/api/accounts/activate?bb_at=${token}`;
 
     const message = {
@@ -19,17 +20,12 @@ const sendAccountActivationEmail = async (email, token) => {
         HTMLPart: '', // TODO: Get an HTML template, then replace TextPart
     };
 
-    const result = await MailjetClient.send(message);
-    if (!result) {
-        console.error('error sending activation email');
-        return false;
-    }
+    await MailjetClient.send(email, message);
 
     return true;
 };
 
 const sendPasswordResetEmail = async (email, token) => {
-    const domain = process.env.BLACKBLADE_DOMAIN || '';
     const link = `${domain}/api/accounts/password/forgot?bb_prt=${token}`;
 
     const message = {
@@ -47,11 +43,7 @@ const sendPasswordResetEmail = async (email, token) => {
         HTMLPart: '', // TODO: Get an HTML template, then replace TextPart
     };
 
-    const result = await MailjetClient.send(message);
-    if (!result) {
-        console.error('error sending password reset email');
-        return false;
-    }
+    await MailjetClient.send(email, message);
 
     return true;
 };

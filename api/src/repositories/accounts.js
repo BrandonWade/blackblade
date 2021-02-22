@@ -1,4 +1,5 @@
 import { connection } from '../db';
+import NotFoundError from '../errors/not_found';
 
 const registerAccount = async (email, passwordHash, activationToken) => {
     let success = false;
@@ -18,12 +19,12 @@ const registerAccount = async (email, passwordHash, activationToken) => {
         `,
             [email, passwordHash],
         );
-
-        if (!accountResult?.insertId) {
-            throw 'invalid insert id from creating account';
+        if (accountResult?.affectedRows !== 1 && !accountResult?.insertId) {
+            throw `error creating account with email ${email}`;
         }
 
-        await tx.query(
+        const accountID = accountResult.insertId;
+        const [tokenResults] = await tx.query(
             `INSERT INTO account_activation_tokens(
                 account_id,
                 activation_token
@@ -32,17 +33,20 @@ const registerAccount = async (email, passwordHash, activationToken) => {
                 ?
             )
         `,
-            [accountResult.insertId, activationToken],
+            [accountID, activationToken],
         );
+        if (tokenResults?.affectedRows !== 1 && !tokenResults?.insertId) {
+            throw `error creating account with email ${email}`;
+        }
 
         await tx.commit();
 
         success = true;
     } catch (e) {
-        console.error('error saving deck:', e);
+        throw e;
+    } finally {
+        await tx.release();
     }
-
-    await tx.release();
 
     return success;
 };
@@ -54,7 +58,7 @@ const activateAccount = async (activationToken) => {
     await tx.beginTransaction();
 
     try {
-        const [results] = await connection.query(
+        const [accountIDResults] = await connection.query(
             `SELECT
             a.id
             FROM accounts a
@@ -64,12 +68,14 @@ const activateAccount = async (activationToken) => {
         `,
             [activationToken],
         );
-        if (!results.length !== 1 && !results?.[0]?.id) {
-            throw `unable to locate account associated with activation token ${activationToken}`;
+        if (!accountIDResults.length !== 1 && !accountIDResults?.[0]?.id) {
+            throw new NotFoundError(
+                `could not find account associated with activation token ${activationToken}`,
+            );
         }
 
-        const accountID = results[0].id;
-        await tx.query(
+        const accountID = accountIDResults[0].id;
+        const [tokenResults] = await tx.query(
             `UPDATE account_activation_tokens
             SET is_used = 1
             WHERE account_id = ?
@@ -77,23 +83,31 @@ const activateAccount = async (activationToken) => {
         `,
             [accountID, activationToken],
         );
+        if (!tokenResults.length !== 1 && !tokenResults?.[0]?.id) {
+            throw new NotFoundError(
+                `could not find activation token ${activationToken} associated with account ${accountID}`,
+            );
+        }
 
-        await tx.query(
+        const [accountResults] = await tx.query(
             `UPDATE accounts
             SET is_activated = 1
             WHERE id = ?
         `,
             [accountID],
         );
+        if (!accountResults.length !== 1 && !accountResults?.[0]?.id) {
+            throw new NotFoundError(`could not activate account ${accountID}`);
+        }
 
         await tx.commit();
 
         success = true;
     } catch (e) {
-        console.error('error activating account', e);
+        throw e;
+    } finally {
+        await tx.release();
     }
-
-    await tx.release();
 
     return success;
 };
@@ -114,7 +128,9 @@ const createPasswordResetToken = async (email, token) => {
             [email],
         );
         if (!accountResults.length !== 1 && !accountResults?.[0]?.id) {
-            throw `unable to locate account associated with email ${email}`;
+            throw new NotFoundError(
+                `could not find account with email ${email}`,
+            );
         }
 
         const accountID = accountResults[0].id;
@@ -132,7 +148,7 @@ const createPasswordResetToken = async (email, token) => {
             [accountID, token],
         );
         if (!insertResults?.insertId) {
-            throw `error inserting password reset token for account ${accountID}`;
+            throw `error creating password reset token for account ${accountID}`;
         }
 
         const insertID = insertResults?.insertId;
@@ -150,10 +166,10 @@ const createPasswordResetToken = async (email, token) => {
 
         success = true;
     } catch (e) {
-        console.error('error creating password reset token', e);
+        throw e;
+    } finally {
+        await tx.release();
     }
-
-    await tx.release();
 
     return success;
 };
@@ -165,7 +181,7 @@ const resetPassword = async (token, passwordHash) => {
     await tx.beginTransaction();
 
     try {
-        await tx.query(
+        const [accountResult] = await tx.query(
             `UPDATE accounts a
             INNER JOIN account_password_reset_tokens t ON a.id = t.id
             SET a.password_hash = ?
@@ -174,8 +190,13 @@ const resetPassword = async (token, passwordHash) => {
         `,
             [passwordHash, token],
         );
+        if (accountResult?.affectedRows === 0) {
+            throw new NotFoundError(
+                `could not find account associated with reset token ${token}`,
+            );
+        }
 
-        await tx.query(
+        const [tokenResult] = await tx.query(
             `UPDATE account_password_reset_tokens t
             SET t.status = 'used'
             WHERE t.reset_token = ?
@@ -183,14 +204,18 @@ const resetPassword = async (token, passwordHash) => {
             [token],
         );
 
+        if (tokenResult?.affectedRows === 0) {
+            throw new NotFoundError(`could not find reset token ${token}`);
+        }
+
         await tx.commit();
 
         success = true;
     } catch (e) {
-        console.error('error resetting password', e);
+        throw e;
+    } finally {
+        await tx.release();
     }
-
-    await tx.release();
 
     return success;
 };

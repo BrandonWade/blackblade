@@ -13,18 +13,11 @@ const registerAccount = async (email, password) => {
             passwordHash,
             activationToken,
         );
+
+        await EmailService.sendAccountActivationEmail(email, activationToken);
     } catch (e) {
         console.error('error registering account', e);
-        return false;
-    }
-
-    const emailSent = await EmailService.sendAccountActivationEmail(
-        email,
-        activationToken,
-    );
-    if (!emailSent) {
-        console.error('error sending activation email');
-        return false;
+        throw e;
     }
 
     return true;
@@ -35,7 +28,7 @@ const activateAccount = async (token) => {
         await AccountRepository.activateAccount(token);
     } catch (e) {
         console.error('error activating account', e);
-        return false;
+        throw e;
     }
 
     return true;
@@ -50,17 +43,10 @@ const requestPasswordReset = async (email) => {
             passwordResetToken,
         );
 
-        const emailSent = await EmailService.sendPasswordResetEmail(
-            email,
-            passwordResetToken,
-        );
-        if (!emailSent) {
-            console.error('error sending password reset token');
-            return false;
-        }
+        await EmailService.sendPasswordResetEmail(email, passwordResetToken);
     } catch (e) {
         console.error('error requesting password reset', e);
-        return false;
+        throw e;
     }
 
     return true;
@@ -73,7 +59,7 @@ const resetPassword = async (token, password) => {
         await AccountRepository.resetPassword(token, passwordHash);
     } catch (e) {
         console.error('error resetting password', e);
-        return false;
+        throw e;
     }
 
     return true;

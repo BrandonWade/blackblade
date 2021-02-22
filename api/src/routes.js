@@ -35,12 +35,7 @@ router.get('/sets', getCardSets);
 router.post('/decks', createDeck);
 router.put('/decks/:publicID', saveDeck);
 router.get('/decks/:publicID', getDeck);
-// router.post(
-//     '/accounts/register',
-//     registerUserValidators,
-//     validate,
-//     registerAccount,
-// );
+// router.post('/accounts', registerUserValidators, validate, registerAccount);
 // router.get(
 //     '/accounts/activate',
 //     activateAccountValidators,
