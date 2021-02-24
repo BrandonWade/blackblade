@@ -1,5 +1,6 @@
 import { connection } from '../db';
 import NotFoundError from '../errors/not_found';
+import AlreadyExistsError from '../errors/already_exists';
 
 const registerAccount = async (email, passwordHash, activationToken) => {
     let success = false;
@@ -43,7 +44,13 @@ const registerAccount = async (email, passwordHash, activationToken) => {
 
         success = true;
     } catch (e) {
-        throw e;
+        if (e.toString().indexOf('Duplicate entry') !== -1) {
+            throw new AlreadyExistsError(
+                `account with email ${email} already exists`,
+            );
+        } else {
+            throw e;
+        }
     } finally {
         await tx.release();
     }

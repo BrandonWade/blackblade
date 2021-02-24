@@ -1,14 +1,18 @@
 import { StatusCodes } from 'http-status-codes';
+import AlreadyExistsError from '../errors/already_exists';
 import NotFoundError from '../errors/not_found';
 import AccountService from '../services/accounts';
 
 const registerAccount = async (req, res) => {
-    // TODO: Return 409 for existing username
     try {
         await AccountService.registerAccount(req.body.email, req.body.password);
     } catch (e) {
         if (e instanceof NotFoundError) {
             return res.status(StatusCodes.NOT_FOUND).json({
+                errors: [{ msg: e.message }],
+            });
+        } else if (e instanceof AlreadyExistsError) {
+            return res.status(StatusCodes.CONFLICT).json({
                 errors: [{ msg: e.message }],
             });
         } else {
