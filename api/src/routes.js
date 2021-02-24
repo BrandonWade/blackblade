@@ -9,7 +9,7 @@ import {
     resetPasswordValidators,
 } from './validators/accounts';
 import {
-    search,
+    searchCards,
     getCardByID,
     getRandomCard,
     getCardTypes,
@@ -27,7 +27,7 @@ import validate from './middleware/validate';
 
 const router = express.Router();
 
-router.get('/search', searchValidators, validate, search);
+router.get('/search', searchValidators, validate, searchCards);
 router.get('/cards/random', getRandomCard);
 router.get('/cards/:id', cardValidators, validate, getCardByID);
 router.get('/types', getCardTypes);
