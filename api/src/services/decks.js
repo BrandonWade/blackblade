@@ -1,52 +1,69 @@
 import DeckRepository from '../repositories/decks';
 
 const createDeck = async (accountID, name) => {
-    const [createResult] = await DeckRepository.createDeck(accountID, name);
-    const deckID = createResult.insertId || 0;
-    if (!deckID) {
-        const err = 'create deck: error creating deck';
-        console.error(err);
-        throw err;
-    }
+    let publicID;
 
-    const [deckResult] = await DeckRepository.getPublicIDByID(deckID);
-    const deckPublicID = deckResult?.[0].public_id || 0;
-    if (!deckPublicID) {
-        const err = 'create deck: error getting public id';
-        console.error(err);
-        throw err;
+    try {
+        const [createResult] = await DeckRepository.createDeck(accountID, name);
+        const deckID = createResult?.insertId || 0;
+        if (!deckID) {
+            throw 'error inserting new deck row';
+        }
+
+        const [deckResult] = await DeckRepository.getPublicIDByID(deckID);
+        publicID = deckResult?.[0]?.public_id || 0;
+        if (!publicID) {
+            throw `error getting public id for deck ${deckID}`;
+        }
+    } catch (e) {
+        console.error('error creating deck', e);
+        throw e;
     }
 
     return {
-        deck_uri: `/decks/${deckPublicID}`,
+        deck_uri: `/decks/${publicID}`,
     };
 };
 
 const saveDeck = async (publicID, name, deck) => {
-    const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
-    const deckID = deckIDResult?.[0].id || 0;
-    if (!deckID) {
-        const err = 'save deck: error getting deck id';
-        console.error(err);
-        throw err;
-    }
+    try {
+        const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
+        const deckID = deckIDResult?.[0]?.id || 0;
+        if (!deckID) {
+            throw `error getting deck with public id ${publicID}`;
+        }
 
-    const saveResult = await DeckRepository.saveDeck(deckID, name, deck);
-    if (!saveResult) {
-        const err = 'save deck: error saving deck';
-        console.error(err);
-        throw err;
+        const saveResult = await DeckRepository.saveDeck(deckID, name, deck);
+        if (!saveResult) {
+            throw `error saving deck with public id ${publicID}`;
+        }
+    } catch (e) {
+        console.error('error saving deck', e);
+        throw e;
     }
 
     return;
 };
 
 const getDeck = async (publicID) => {
-    const [deck] = await DeckRepository.getDeckByPublicID(publicID);
-    const [cards] = await DeckRepository.getDeckCardsByPublicID(publicID);
+    let name;
+    let cards;
+
+    try {
+        const [deck] = await DeckRepository.getDeckByPublicID(publicID);
+        name = deck?.[0]?.name || '';
+        if (!name.length) {
+            throw `error getting name for deck with public id ${publicID}`;
+        }
+
+        [cards] = await DeckRepository.getDeckCardsByPublicID(publicID);
+    } catch (e) {
+        console.error('error retriving deck', e);
+        throw e;
+    }
 
     return {
-        name: deck?.[0]?.name || '',
+        name,
         cards,
     };
 };

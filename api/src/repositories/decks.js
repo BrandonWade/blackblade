@@ -34,9 +34,9 @@ const saveDeck = async (deckID, name, deck) => {
     try {
         await conn.query(
             `DELETE
-                FROM deck_cards
-                WHERE deck_id = ?
-            `,
+            FROM deck_cards
+            WHERE deck_id = ?
+        `,
             [deckID],
         );
 
@@ -76,10 +76,10 @@ const saveDeck = async (deckID, name, deck) => {
 
         success = true;
     } catch (e) {
-        console.error('error saving deck:', e);
+        throw e;
+    } finally {
+        await conn.release();
     }
-
-    await conn.release();
 
     return success;
 };
