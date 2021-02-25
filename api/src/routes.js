@@ -51,7 +51,7 @@ router.get('/decks/:publicID', getDeck);
 // router.get(
 //     '/accounts/password/forgot',
 //     passwordResetRedirectValidators,
-//     validate, // TODO: Because this route is a simple redirect, this middleware might not work if validation fails
+//     validate('/'), // TODO: Redirect to the forgot password page
 //     passwordResetRedirect,
 // );
 // router.post(
