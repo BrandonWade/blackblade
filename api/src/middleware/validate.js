@@ -1,17 +1,21 @@
 import { validationResult } from 'express-validator';
 import { StatusCodes } from 'http-status-codes';
 
-const validate = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
-            errors: errors.array(),
-        });
+const validate = (redirect = '') => {
+    return function (req, res, next) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            if (redirect) {
+                return res.redirect(redirect);
+            }
 
-        return;
-    }
+            return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+                errors: errors.array(),
+            });
+        }
 
-    next();
+        next();
+    };
 };
 
 export default validate;
