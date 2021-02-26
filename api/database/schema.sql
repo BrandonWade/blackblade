@@ -142,6 +142,7 @@ CREATE TABLE decks (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
     public_id char(16) NOT NULL DEFAULT '',
     account_id bigint unsigned NOT NULL DEFAULT 0,
+    visibility enum('private', 'public') DEFAULT 'private',
     name varchar(64) NOT NULL DEFAULT '',
     PRIMARY KEY (id),
     UNIQUE KEY U_public_id (public_id)
