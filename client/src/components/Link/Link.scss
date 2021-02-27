@@ -1,0 +1,9 @@
+.Link {
+    color: var(--color-highlight);
+    transition: 0.2s all;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--color-highlight-light);
+    }
+}
