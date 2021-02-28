@@ -27,25 +27,25 @@ import validate from './middleware/validate';
 
 const router = express.Router();
 
-router.get('/search', searchValidators, validate, searchCards);
+router.get('/search', searchValidators, validate(), searchCards);
 router.get('/cards/random', getRandomCard);
-router.get('/cards/:id', cardValidators, validate, getCardByID);
+router.get('/cards/:id', cardValidators, validate(), getCardByID);
 router.get('/types', getCardTypes);
 router.get('/sets', getCardSets);
 router.post('/decks', createDeck);
 router.put('/decks/:publicID', saveDeck);
 router.get('/decks/:publicID', getDeck);
-// router.post('/accounts', registerUserValidators, validate, registerAccount);
+// router.post('/accounts', registerUserValidators, validate(), registerAccount);
 // router.get(
 //     '/accounts/activate',
 //     activateAccountValidators,
-//     validate,
+//     validate(),
 //     activateAccount,
 // );
 // router.post(
 //     '/accounts/password/forgot',
 //     requestPasswordResetValidators,
-//     validate,
+//     validate(),
 //     requestPasswordReset,
 // );
 // router.get(
@@ -57,7 +57,7 @@ router.get('/decks/:publicID', getDeck);
 // router.post(
 //     '/accounts/password',
 //     resetPasswordValidators,
-//     validate,
+//     validate(),
 //     resetPassword,
 // );
 

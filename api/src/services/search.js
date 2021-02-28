@@ -3,7 +3,7 @@ import SearchRepository from '../repositories/search';
 
 const pageSize = 60;
 
-const search = async (params = {}) => {
+const searchCards = async (params = {}) => {
     const nameTokens = params?.name?.split(/\s+/) || [];
     const textTokens = params?.text?.split(/\s+/) || [];
     const selectedTypeTokens = params?.selectedTypes?.split(/,/) || [];
@@ -123,7 +123,7 @@ const getCardSets = async () => {
 };
 
 export default {
-    search,
+    searchCards,
     getCardByID,
     getRandomCard,
     getCardTypes,
