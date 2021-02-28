@@ -11,7 +11,7 @@ function renderInternalLink({ className = '', to = '', children = [] }) {
 
 function renderExternalLink({ className = '', to = '', children = [] }) {
     return (
-        <a className={`Link ${className}`} href={to} target='_blank'>
+        <a className={`Link ${className}`} href={to} target='_blank' rel='noreferrer'>
             {children}
         </a>
     );
