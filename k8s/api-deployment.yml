@@ -31,5 +31,20 @@ spec:
                                 key: MYSQL_PASSWORD
                       - name: DB_DATABASE
                         value: blackblade
+                      - name: MAILJET_PUBLIC_KEY
+                        valueFrom:
+                            secretKeyRef:
+                                name: mailjetpublickey
+                                key: MAILJET_PUBLIC_KEY
+                      - name: MAILJET_PRIVATE_KEY
+                        valueFrom:
+                            secretKeyRef:
+                                name: mailjetprivatekey
+                                key: MAILJET_PRIVATE_KEY
+                      - name: BLACKBLADE_DOMAIN
+                        valueFrom:
+                            secretKeyRef:
+                                name: blackbladedomain
+                                key: BLACKBLADE_DOMAIN
             imagePullSecrets:
                 - name: regcred
