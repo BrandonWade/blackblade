@@ -31,7 +31,7 @@ const searchCards = async (req, res) => {
     let results;
 
     try {
-        results = await SearchService.search({
+        results = await SearchService.searchCards({
             name,
             text,
             selectedTypes,
