@@ -6,4 +6,8 @@ const hashValue = async (value) => {
     return await bcrypt.hash(value, SALT_ROUNDS);
 };
 
-export default hashValue;
+const compareValues = async (value, hash) => {
+    return await bcrypt.compare(value, hash);
+};
+
+export { hashValue, compareValues };

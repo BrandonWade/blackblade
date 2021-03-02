@@ -75,7 +75,7 @@ const activateAccount = async (activationToken) => {
         `,
             [activationToken],
         );
-        if (!accountIDResults.length !== 1 && !accountIDResults?.[0]?.id) {
+        if (accountIDResults.length !== 1 || !accountIDResults?.[0]?.id) {
             throw new NotFoundError(
                 `could not find account associated with activation token ${activationToken}`,
             );
@@ -90,7 +90,7 @@ const activateAccount = async (activationToken) => {
         `,
             [accountID, activationToken],
         );
-        if (!tokenResults.length !== 1 && !tokenResults?.[0]?.id) {
+        if (tokenResults?.affectedRows !== 1) {
             throw new NotFoundError(
                 `could not find activation token ${activationToken} associated with account ${accountID}`,
             );
@@ -103,7 +103,7 @@ const activateAccount = async (activationToken) => {
         `,
             [accountID],
         );
-        if (!accountResults.length !== 1 && !accountResults?.[0]?.id) {
+        if (accountResults?.affectedRows !== 1) {
             throw new NotFoundError(`could not activate account ${accountID}`);
         }
 
@@ -134,7 +134,7 @@ const createPasswordResetToken = async (email, token) => {
         `,
             [email],
         );
-        if (!accountResults.length !== 1 && !accountResults?.[0]?.id) {
+        if (accountResults.length !== 1 || !accountResults?.[0]?.id) {
             throw new NotFoundError(
                 `could not find account with email ${email}`,
             );
@@ -197,7 +197,7 @@ const resetPassword = async (token, passwordHash) => {
         `,
             [passwordHash, token],
         );
-        if (accountResult?.affectedRows === 0) {
+        if (accountResult?.affectedRows !== 1) {
             throw new NotFoundError(
                 `could not find account associated with reset token ${token}`,
             );
@@ -211,7 +211,7 @@ const resetPassword = async (token, passwordHash) => {
             [token],
         );
 
-        if (tokenResult?.affectedRows === 0) {
+        if (tokenResult?.affectedRows !== 1) {
             throw new NotFoundError(`could not find reset token ${token}`);
         }
 
@@ -227,9 +227,33 @@ const resetPassword = async (token, passwordHash) => {
     return success;
 };
 
+const getAccountPasswordByEmail = async (email) => {
+    try {
+        const [results] = await connection.query(
+            `SELECT
+            a.password_hash
+            FROM accounts a
+            WHERE a.email = ?
+            AND a.is_activated = 1
+        `,
+            [email],
+        );
+        if (results.length !== 1 || !results?.[0]?.password_hash) {
+            throw new NotFoundError(
+                `could not find active account with email ${email}`,
+            );
+        }
+
+        return results[0].password_hash;
+    } catch (e) {
+        throw e;
+    }
+};
+
 export default {
     registerAccount,
     activateAccount,
     createPasswordResetToken,
     resetPassword,
+    getAccountPasswordByEmail,
 };

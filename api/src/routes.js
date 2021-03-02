@@ -8,6 +8,7 @@ import {
     passwordResetRedirectValidators,
     resetPasswordValidators,
 } from './validators/accounts';
+import { loginValidators } from './validators/auth';
 import {
     searchCards,
     getCardByID,
@@ -23,6 +24,7 @@ import {
     passwordResetRedirect,
     resetPassword,
 } from './controllers/accounts';
+import { login } from './controllers/auth';
 import validate from './middleware/validate';
 
 const router = express.Router();
@@ -60,5 +62,6 @@ router.get('/decks/:publicID', getDeck);
 //     validate(),
 //     resetPassword,
 // );
+// router.post('/login', loginValidators, validate(), login);
 
 export default router;
