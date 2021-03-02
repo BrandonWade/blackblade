@@ -26,7 +26,7 @@ const registerAccount = async (req, res) => {
 };
 
 const activateAccount = async (req, res) => {
-    const token = req.query['t'];
+    const token = req.query['bb_at'];
 
     try {
         await AccountService.activateAccount(token);
@@ -42,8 +42,7 @@ const activateAccount = async (req, res) => {
         }
     }
 
-    // TODO: Redirect to login page
-    return res.redirect('/');
+    return res.redirect('/login');
 };
 
 const requestPasswordReset = async (req, res) => {

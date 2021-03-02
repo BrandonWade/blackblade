@@ -1,7 +1,8 @@
-import hashValue from '../helpers/hash';
+import { hashValue, compareValues } from '../helpers/hash';
 import generateToken from '../helpers/tokens';
 import AccountRepository from '../repositories/accounts';
 import EmailService from '../services/email';
+import UnauthorizedError from '../errors/unauthorized';
 
 const registerAccount = async (email, password) => {
     const passwordHash = await hashValue(password);
@@ -65,9 +66,30 @@ const resetPassword = async (token, password) => {
     return true;
 };
 
+const verifyAccount = async (email, password) => {
+    try {
+        const passwordHash = await AccountRepository.getAccountPasswordByEmail(
+            email,
+        );
+        const passwordsMatch = await compareValues(
+            password,
+            passwordHash.toString(),
+        );
+        if (!passwordsMatch) {
+            throw new UnauthorizedError('password does not match');
+        }
+
+        return true;
+    } catch (e) {
+        console.error('error verifying account', e);
+        throw e;
+    }
+};
+
 export default {
     registerAccount,
     activateAccount,
     requestPasswordReset,
     resetPassword,
+    verifyAccount,
 };
