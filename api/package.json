@@ -12,6 +12,8 @@
         "core-js": "^3.8.3",
         "debug": "~4.3.1",
         "express": "~4.17.1",
+        "express-mysql-session": "^2.1.5",
+        "express-session": "^1.17.1",
         "express-validator": "^6.9.2",
         "http-status-codes": "^2.1.4",
         "knex": "^0.21.16",
