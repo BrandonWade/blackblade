@@ -32,9 +32,11 @@ services:
             - DB_USERNAME=${DB_USERNAME:?err}
             - DB_PASSWORD=${DB_PASSWORD:?err}
             - DB_DATABASE=${DB_DATABASE:?err}
+            - DB_PORT=${DB_PORT:?err}
             - MAILJET_PUBLIC_KEY=${MAILJET_PUBLIC_KEY:?err}
             - MAILJET_PRIVATE_KEY=${MAILJET_PRIVATE_KEY:?err}
             - BLACKBLADE_DOMAIN=${BLACKBLADE_DOMAIN:?err}
+            - SESSION_SECRET=${SESSION_SECRET:?err}
     nginx:
         restart: always
         build:
