@@ -6,8 +6,8 @@ import AccountService from '../services/accounts';
 const login = async (req, res) => {
     try {
         await AccountService.verifyAccount(req.body.email, req.body.password);
-
-        // TODO: Set values in session
+        req.session.authenticated = true;
+        req.session.email = req.body.email;
     } catch (e) {
         if (e instanceof NotFoundError) {
             return res.status(StatusCodes.NOT_FOUND).json({
@@ -24,7 +24,14 @@ const login = async (req, res) => {
         }
     }
 
-    return res.redirect('/');
+    return res.send();
 };
 
-export { login };
+const logout = async (req, res) => {
+    req.session.authenticated = false;
+    delete req.session.email;
+
+    return res.send();
+};
+
+export { login, logout };

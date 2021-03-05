@@ -19,8 +19,25 @@ function useAuth() {
         }
     };
 
+    const logout = async () => {
+        const response = await fetchData('/api/logout', 'GET');
+
+        switch (response.status) {
+            case 200:
+                return {
+                    success: true,
+                };
+            default:
+                return {
+                    success: false,
+                    errors: await response.json(),
+                };
+        }
+    };
+
     return {
         login,
+        logout,
     };
 }
 
