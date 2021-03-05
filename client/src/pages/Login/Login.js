@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import AuthContext from '../../contexts/Auth';
 import Logo from '../../components/Logo';
 import { InputField } from '../../components/Input';
 import Link from '../../components/Link';
@@ -12,6 +13,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const history = useHistory();
     const { login } = useAuth();
+    const { setAuthenticated } = useContext(AuthContext);
 
     const onChangeEmail = e => {
         setEmail(e.target.value);
@@ -30,7 +32,7 @@ function Login() {
 
         const result = await login(email, password);
         if (result?.success) {
-            // TODO: Set authenticated prop
+            setAuthenticated(true);
             history.push('/');
         }
     };
