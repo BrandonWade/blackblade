@@ -28,9 +28,8 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    req.session.authenticated = false;
-    delete req.session.email;
-
+    req.session.destroy();
+    res.clearCookie('bb_session');
     return res.send();
 };
 

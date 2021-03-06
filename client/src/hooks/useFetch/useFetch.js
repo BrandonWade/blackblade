@@ -4,6 +4,7 @@ function useFetch() {
     const fetchData = useCallback(async (url = '', method = 'GET', body = {}, headers = {}) => {
         const options = {
             method,
+            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
                 ...headers,

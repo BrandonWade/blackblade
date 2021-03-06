@@ -13,6 +13,8 @@ if (!sessionSecret) {
     throw 'session secret not loaded';
 }
 
+const sessionCookieAge = 604800000; // 7 days
+const sessionCookieSecure = process.env.ENVIRONMENT !== 'develop';
 const sessionStore = MySQLStore(session);
 const sessionMiddleware = new session({
     key: 'bb_session',
@@ -21,8 +23,9 @@ const sessionMiddleware = new session({
     resave: false,
     saveUninitialized: false,
     cookie: {
+        maxAge: sessionCookieAge,
         httpOnly: true,
-        secure: true,
+        secure: sessionCookieSecure,
     },
 });
 

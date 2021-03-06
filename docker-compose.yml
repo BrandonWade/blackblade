@@ -27,6 +27,7 @@ services:
         ports:
             - '8000:8000'
         environment:
+            - ENVIRONMENT=${ENVIRONMENT:?err}
             - API_PORT=${API_PORT:?err}
             - DB_HOST=${DB_HOST:?err}
             - DB_USERNAME=${DB_USERNAME:?err}
