@@ -24,7 +24,7 @@ const sessionMiddleware = new session({
     saveUninitialized: false,
     cookie: {
         maxAge: sessionCookieAge,
-        httpOnly: true,
+        httpOnly: false,
         secure: sessionCookieSecure,
     },
 });

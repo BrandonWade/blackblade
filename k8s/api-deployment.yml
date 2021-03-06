@@ -18,6 +18,11 @@ spec:
                   ports:
                       - containerPort: 8000
                   env:
+                      - name: ENVIRONMENT
+                        valueFrom:
+                            secretKeyRef:
+                                name: environment
+                                key: ENVIRONMENT
                       - name: API_PORT
                         value: '8000'
                       - name: DB_HOST
@@ -46,5 +51,10 @@ spec:
                             secretKeyRef:
                                 name: blackbladedomain
                                 key: BLACKBLADE_DOMAIN
+                      - name: SESSION_SECRET
+                        valueFrom:
+                            secretKeyRef:
+                                name: sessionsecret
+                                key: SESSION_SECRET
             imagePullSecrets:
                 - name: regcred

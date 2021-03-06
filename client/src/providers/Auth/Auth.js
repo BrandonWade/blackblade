@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AuthContext from '../../contexts/Auth';
 
 function AuthProvider({ children = [] }) {
-    const [authenticated, setAuthenticated] = useState(false); // TODO: Check cookies for session
+    const [authenticated, setAuthenticated] = useState(document.cookie.includes('bb_session'));
 
     const props = {
         authenticated,
