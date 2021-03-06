@@ -20,8 +20,7 @@
         "lodash": "^4.17.20",
         "morgan": "~1.10.0",
         "mysql2": "^2.2.5",
-        "node-mailjet": "^3.3.1",
-        "regenerator-runtime": "^0.13.7"
+        "node-mailjet": "^3.3.1"
     },
     "devDependencies": {
         "@babel/cli": "^7.12.10",

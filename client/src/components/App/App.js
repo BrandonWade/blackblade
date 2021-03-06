@@ -6,6 +6,7 @@ import DeckBuilderProvider from '../../providers/DeckBuilder';
 import AdvancedSearchProvider from '../../providers/AdvancedSearch';
 import SearchProvider from '../../providers/Search';
 import CardProvider from '../../providers/Card';
+import AuthenticatedRoute from '../AuthenticatedRoute';
 import Home from '../../pages/Home';
 import Register from '../../pages/Register';
 import Login from '../../pages/Login';
@@ -31,15 +32,15 @@ function App() {
                                         <Switch>
                                             <Route path='/' exact component={Home} />
                                             {/* <Route path='/register' component={Register} /> */}
-                                            <Route path='/login' component={Login} />
-                                            <Route path='/logout' component={Logout} />
+                                            {/* <Route path='/login' component={Login} /> */}
+                                            {/* <Route path='/logout' component={Logout} /> */}
                                             <Route path='/about' component={About} />
                                             <Route path='/advanced' component={AdvancedSearch} />
                                             <Route path='/cards/search' exact component={SearchResults} />
                                             <Route path='/cards/:id' component={Card} />
-                                            <Route path='/decks' exact render={props => <DeckCreation {...props} editing={false} />} />
+                                            <AuthenticatedRoute path='/decks' exact editing={false} component={DeckCreation} />
                                             <Route path='/decks/:publicID' exact component={DeckBuilder} />
-                                            <Route path='/decks/:publicID/edit' exact render={props => <DeckCreation {...props} editing={true} />} />
+                                            <AuthenticatedRoute path='/decks/:publicID/edit' exact editing={true} component={DeckCreation} />
                                             <Redirect to='/' />
                                         </Switch>
                                     </BrowserRouter>
