@@ -39,7 +39,7 @@ router.put('/decks/:publicID', saveDeck);
 router.get('/decks/:publicID', getDeck);
 // router.post('/accounts', registerUserValidators, validate(), registerAccount);
 // router.get(
-//     '/accounts/activate',
+//     '/accounts/activate/:activationToken',
 //     activateAccountValidators,
 //     validate(),
 //     activateAccount,
@@ -51,7 +51,7 @@ router.get('/decks/:publicID', getDeck);
 //     requestPasswordReset,
 // );
 // router.get(
-//     '/accounts/password/forgot',
+//     '/accounts/password/forgot/:passwordResetToken',
 //     passwordResetRedirectValidators,
 //     validate('/'), // TODO: Redirect to the forgot password page
 //     passwordResetRedirect,

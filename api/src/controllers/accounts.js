@@ -26,7 +26,7 @@ const registerAccount = async (req, res) => {
 };
 
 const activateAccount = async (req, res) => {
-    const token = req.query['bb_at'];
+    const token = req.params['activationToken'];
 
     try {
         await AccountService.activateAccount(token);
@@ -66,16 +66,16 @@ const requestPasswordReset = async (req, res) => {
 };
 
 const passwordResetRedirect = async (req, res) => {
-    const token = req.query['bb_prt'];
+    const token = req.params['passwordResetToken'];
 
-    res.cookie('bb_prt', token, { maxAge: 3600, httpOnly: true, secure: true });
+    res.cookie('prt', token, { maxAge: 3600, httpOnly: true, secure: true });
 
     // TODO: Redirect to password reset page
     return res.redirect('/');
 };
 
 const resetPassword = async (req, res) => {
-    const token = req.cookies['bb_prt'];
+    const token = req.cookies['prt'];
     const password = req.body['password'];
 
     try {
