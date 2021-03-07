@@ -29,7 +29,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
     req.session.destroy();
-    res.clearCookie('bb_session');
+    res.clearCookie('session');
     return res.send();
 };
 
