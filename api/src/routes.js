@@ -26,6 +26,7 @@ import {
 } from './controllers/accounts';
 import { login, logout } from './controllers/auth';
 import validate from './middleware/validate';
+import authenticate from './middleware/authenticate';
 
 const router = express.Router();
 
@@ -34,8 +35,8 @@ router.get('/cards/random', getRandomCard);
 router.get('/cards/:id', cardValidators, validate(), getCardByID);
 router.get('/types', getCardTypes);
 router.get('/sets', getCardSets);
-router.post('/decks', createDeck);
-router.put('/decks/:publicID', saveDeck);
+router.post('/decks', authenticate, createDeck);
+router.put('/decks/:publicID', authenticate, saveDeck);
 router.get('/decks/:publicID', getDeck);
 // router.post('/accounts', registerUserValidators, validate(), registerAccount);
 // router.get(

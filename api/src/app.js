@@ -17,7 +17,7 @@ const sessionCookieAge = 604800000; // 7 days
 const sessionCookieSecure = process.env.ENVIRONMENT !== 'develop';
 const sessionStore = MySQLStore(session);
 const sessionMiddleware = new session({
-    key: 'session',
+    key: 'sid',
     secret: sessionSecret,
     store: new sessionStore({}, connection),
     resave: false,
