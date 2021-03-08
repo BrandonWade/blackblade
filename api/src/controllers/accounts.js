@@ -92,6 +92,7 @@ const resetPassword = async (req, res) => {
         }
     }
 
+    res.clearCookie('prt');
     return res.status(StatusCodes.OK).send();
 };
 
