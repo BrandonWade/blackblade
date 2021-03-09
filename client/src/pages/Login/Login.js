@@ -47,7 +47,7 @@ function Login() {
                         rowClassName='Login-inputRow'
                         labelClassName='Login-inputLabel'
                         className='Login-input'
-                        autoComplete='username'
+                        autoComplete='email'
                         value={email}
                         onChange={onChangeEmail}
                     />
@@ -68,7 +68,7 @@ function Login() {
                         Login
                     </Button>
                     <div className='Login-registerContainer'>
-                        Don't have an account yet? <Link>Register!</Link>
+                        Don't have an account yet? <Link to='/register'>Register!</Link>
                     </div>
                 </form>
             </div>
