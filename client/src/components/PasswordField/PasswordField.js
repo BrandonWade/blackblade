@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { InputField } from '../Input';
+import { Eye } from '../Icons';
 import './PasswordField.scss';
 
 function PasswordField({ label = '', value = '', labelClassName = '', rowClassName = '', className = '', onChange = () => {} }) {
+    const [revealed, setRevealed] = useState(false);
     const [inputClassName, descriptionClassName, description] = getDetails();
 
     function getDetails() {
@@ -14,19 +17,26 @@ function PasswordField({ label = '', value = '', labelClassName = '', rowClassNa
         }
     }
 
+    const toggleRevealed = () => {
+        setRevealed(!revealed);
+    };
+
     return (
-        <InputField
-            type='password'
-            rowClassName={rowClassName}
-            labelClassName={`PasswordField-label ${labelClassName}`}
-            className={`PasswordField-input ${inputClassName} ${className}`}
-            descriptionClassName={`PasswordField-description ${descriptionClassName}`}
-            label={label}
-            description={description}
-            autoComplete='new-password'
-            value={value}
-            onChange={onChange}
-        />
+        <div className='PasswordField-container'>
+            <InputField
+                type={revealed ? 'text' : 'password'}
+                rowClassName={rowClassName}
+                labelClassName={`PasswordField-label ${labelClassName}`}
+                className={`PasswordField-input ${inputClassName} ${className}`}
+                descriptionClassName={`PasswordField-description ${descriptionClassName}`}
+                label={label}
+                description={description}
+                autoComplete='new-password'
+                value={value}
+                onChange={onChange}
+            />
+            <Eye className='PasswordField-reveal' onClick={toggleRevealed} />
+        </div>
     );
 }
 
