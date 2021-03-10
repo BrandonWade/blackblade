@@ -23,10 +23,14 @@ function Register() {
         setConfirmPassword(e.target.value);
     };
 
+    const isFormValid = () => {
+        return email !== '' && password.trim().length >= 15 && password === confirmPassword;
+    };
+
     const onSubmit = async e => {
         e.preventDefault();
 
-        if (email === '' || password === '' || password !== confirmPassword) {
+        if (!isFormValid()) {
             return;
         }
 
@@ -65,7 +69,7 @@ function Register() {
                         value={confirmPassword}
                         onChange={onChangeConfirmPassword}
                     />
-                    <Button className='Register-submit' onClick={onSubmit}>
+                    <Button className='Register-submit' disabled={!isFormValid()} onClick={onSubmit}>
                         Register
                     </Button>
                     <div className='Register-loginContainer'>
