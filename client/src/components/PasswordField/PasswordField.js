@@ -3,12 +3,22 @@ import { InputField } from '../Input';
 import { Eye } from '../Icons';
 import './PasswordField.scss';
 
-function PasswordField({ label = '', value = '', labelClassName = '', rowClassName = '', className = '', onChange = () => {} }) {
+function PasswordField({
+    label = '',
+    value = '',
+    hideStrength = false,
+    labelClassName = '',
+    rowClassName = '',
+    className = '',
+    onChange = () => {},
+}) {
     const [revealed, setRevealed] = useState(false);
-    const [inputClassName, descriptionClassName, description] = getDetails();
+    let [inputClassName, descriptionClassName, description] = getDetails();
 
     function getDetails() {
-        if (value.length < 15) {
+        if (hideStrength) {
+            return [];
+        } else if (value.length < 15) {
             return ['PasswordField-input--weak', 'PasswordField-description--weak', 'Weak'];
         } else if (value.length < 25) {
             return ['PasswordField-input--okay', 'PasswordField-description--okay', 'Okay'];
@@ -35,7 +45,7 @@ function PasswordField({ label = '', value = '', labelClassName = '', rowClassNa
                 value={value}
                 onChange={onChange}
             />
-            <Eye className='PasswordField-reveal' onClick={toggleRevealed} />
+            <Eye className={`PasswordField-reveal ${hideStrength ? 'PasswordField-reveal--noDescription' : ''}`} onClick={toggleRevealed} />
         </div>
     );
 }

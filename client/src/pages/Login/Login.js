@@ -4,6 +4,7 @@ import useAuth from '../../hooks/useAuth';
 import AuthContext from '../../contexts/Auth';
 import Logo from '../../components/Logo';
 import { InputField } from '../../components/Input';
+import PasswordField from '../../components/PasswordField';
 import Link from '../../components/Link';
 import Button from '../../components/Button';
 import './Login.scss';
@@ -23,10 +24,14 @@ function Login() {
         setPassword(e.target.value);
     };
 
+    const isFormValid = () => {
+        return email.trim().length > 0 && password.trim().length >= 15;
+    };
+
     const onSubmit = async e => {
         e.preventDefault();
 
-        if (email === '' || password === '') {
+        if (!isFormValid()) {
             return;
         }
 
@@ -51,9 +56,9 @@ function Login() {
                         value={email}
                         onChange={onChangeEmail}
                     />
-                    <InputField
-                        type='password'
+                    <PasswordField
                         label='Password'
+                        hideStrength='true'
                         rowClassName='Login-inputRow'
                         labelClassName='Login-inputLabel'
                         className='Login-input'
@@ -64,7 +69,7 @@ function Login() {
                     <div className='Login-forgotPasswordContainer'>
                         <Link>Forgot your password?</Link>
                     </div>
-                    <Button className='Login-submit' onClick={onSubmit}>
+                    <Button className='Login-submit' disabled={!isFormValid()} onClick={onSubmit}>
                         Login
                     </Button>
                     <div className='Login-registerContainer'>

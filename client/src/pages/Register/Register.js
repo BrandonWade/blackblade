@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import useAccount from '../../hooks/useAccount';
 import Logo from '../../components/Logo';
 import { InputField } from '../../components/Input';
 import PasswordField from '../../components/PasswordField';
@@ -10,6 +11,7 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const { register } = useAccount();
 
     const onChangeEmail = e => {
         setEmail(e.target.value);
@@ -24,7 +26,7 @@ function Register() {
     };
 
     const isFormValid = () => {
-        return email !== '' && password.trim().length >= 15 && password === confirmPassword;
+        return email.trim().length > 0 && password.trim().length >= 15 && password === confirmPassword;
     };
 
     const onSubmit = async e => {
@@ -34,7 +36,8 @@ function Register() {
             return;
         }
 
-        // TODO: Call endpoint
+        await register(email, password, confirmPassword);
+        // TODO: Display response message
     };
 
     return (
