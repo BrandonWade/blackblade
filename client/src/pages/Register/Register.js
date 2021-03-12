@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useAccount from '../../hooks/useAccount';
 import Logo from '../../components/Logo';
 import { InputField } from '../../components/Input';
-import PasswordField from '../../components/PasswordField';
+import { PasswordField } from '../../components/PasswordInput';
 import Link from '../../components/Link';
 import Button from '../../components/Button';
 import './Register.scss';
