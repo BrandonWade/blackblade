@@ -4,7 +4,7 @@ import useAuth from '../../hooks/useAuth';
 import AuthContext from '../../contexts/Auth';
 import Logo from '../../components/Logo';
 import { InputField } from '../../components/Input';
-import PasswordField from '../../components/PasswordField';
+import { PasswordField } from '../../components/PasswordInput';
 import Link from '../../components/Link';
 import Button from '../../components/Button';
 import './Login.scss';
@@ -57,8 +57,8 @@ function Login() {
                         onChange={onChangeEmail}
                     />
                     <PasswordField
+                        hideStrength={true}
                         label='Password'
-                        hideStrength='true'
                         rowClassName='Login-inputRow'
                         labelClassName='Login-inputLabel'
                         className='Login-input'
