@@ -67,7 +67,7 @@ function Login() {
                         onChange={onChangePassword}
                     />
                     <div className='Login-forgotPasswordContainer'>
-                        <Link>Forgot your password?</Link>
+                        <Link to='/password/forgot'>Forgot your password?</Link>
                     </div>
                     <Button className='Login-submit' disabled={!isFormValid()} onClick={onSubmit}>
                         Login

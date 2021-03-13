@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import useAccount from '../../hooks/useAccount';
+import { isEmailValid } from '../../validators/email';
+import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
 import Logo from '../../components/Logo';
 import { InputField } from '../../components/Input';
 import { PasswordField } from '../../components/PasswordInput';
@@ -13,10 +15,10 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const { register } = useAccount();
-    const emailValid = /^[^@]+@[^.@]+\..{2,}$/.test(email);
-    const passwordValidLength = password.trim().length >= 15 && password.trim().length <= 50;
-    const passwordValidCharsOnly = /^[\w!@#$%^&*]+$/.test(password);
-    const passwordsMatch = password === confirmPassword;
+    const emailValid = isEmailValid(email);
+    const passwordLengthValid = isPasswordLengthValid(password);
+    const passwordValidCharsOnly = doesPasswordContainValidChars(password);
+    const passwordsMatch = doPasswordsMatch(password, confirmPassword);
 
     const onChangeEmail = e => {
         setEmail(e.target.value);
@@ -31,7 +33,7 @@ function Register() {
     };
 
     const isFormValid = () => {
-        return emailValid && passwordValidLength && passwordValidCharsOnly && passwordsMatch;
+        return emailValid && passwordLengthValid && passwordValidCharsOnly && passwordsMatch;
     };
 
     const onSubmit = async e => {
@@ -79,7 +81,7 @@ function Register() {
                     />
                     <div className='Register-validationRules'>
                         <ValidationRow valid={emailValid} description='Email is valid' />
-                        <ValidationRow valid={passwordValidLength} description='Password is between 15 and 50 characters' />
+                        <ValidationRow valid={passwordLengthValid} description='Password is between 15 and 50 characters' />
                         <ValidationRow valid={passwordValidCharsOnly} description='Password only contains letters, numbers, and !@#$%^&*' />
                         <ValidationRow valid={passwordsMatch} description='Passwords match' />
                     </div>
