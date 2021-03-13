@@ -54,7 +54,7 @@ router.get('/decks/:publicID', getDeck);
 // router.get(
 //     '/accounts/password/forgot/:passwordResetToken',
 //     passwordResetRedirectValidators,
-//     validate('/'), // TODO: Redirect to the forgot password page
+//     validate('/password/forgot'),
 //     passwordResetRedirect,
 // );
 // router.post(

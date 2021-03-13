@@ -9,6 +9,7 @@ import CardProvider from '../../providers/Card';
 import AuthenticatedRoute from '../AuthenticatedRoute';
 import Home from '../../pages/Home';
 import Register from '../../pages/Register';
+import ForgotPassword from '../../pages/ForgotPassword';
 import Login from '../../pages/Login';
 import Logout from '../../pages/Logout';
 import AdvancedSearch from '../../pages/AdvancedSearch';
@@ -32,6 +33,7 @@ function App() {
                                         <Switch>
                                             <Route path='/' exact component={Home} />
                                             {/* <Route path='/register' component={Register} /> */}
+                                            {/* <Route path='/password/forgot' component={ForgotPassword} /> */}
                                             {/* <Route path='/login' component={Login} /> */}
                                             {/* <Route path='/logout' component={Logout} /> */}
                                             <Route path='/about' component={About} />

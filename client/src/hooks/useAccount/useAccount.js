@@ -19,8 +19,25 @@ function useAccount() {
         }
     };
 
+    const requestPasswordReset = async (email = '') => {
+        const response = await fetchData('/api/accounts/password/forgot', 'POST', { email });
+
+        switch (response.status) {
+            case 200:
+                return {
+                    success: true,
+                };
+            default:
+                return {
+                    success: false,
+                    errors: await response.json(),
+                };
+        }
+    };
+
     return {
         register,
+        requestPasswordReset,
     };
 }
 
