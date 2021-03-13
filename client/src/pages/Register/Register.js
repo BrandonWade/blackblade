@@ -3,6 +3,7 @@ import useAccount from '../../hooks/useAccount';
 import Logo from '../../components/Logo';
 import { InputField } from '../../components/Input';
 import { PasswordField } from '../../components/PasswordInput';
+import ValidationRow from '../../components/ValidationRow/ValidationRow';
 import Link from '../../components/Link';
 import Button from '../../components/Button';
 import './Register.scss';
@@ -12,6 +13,10 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const { register } = useAccount();
+    const emailValid = /^[^@]+@[^.@]+\..{2,}$/.test(email);
+    const passwordValidLength = password.trim().length >= 15 && password.trim().length <= 50;
+    const passwordValidCharsOnly = /^[\w!@#$%^&*]+$/.test(password);
+    const passwordsMatch = password === confirmPassword;
 
     const onChangeEmail = e => {
         setEmail(e.target.value);
@@ -26,7 +31,7 @@ function Register() {
     };
 
     const isFormValid = () => {
-        return email.trim().length > 0 && password.trim().length >= 15 && password === confirmPassword;
+        return emailValid && passwordValidLength && passwordValidCharsOnly && passwordsMatch;
     };
 
     const onSubmit = async e => {
@@ -36,8 +41,8 @@ function Register() {
             return;
         }
 
-        await register(email, password, confirmPassword);
         // TODO: Display response message
+        await register(email, password, confirmPassword);
     };
 
     return (
@@ -72,6 +77,12 @@ function Register() {
                         value={confirmPassword}
                         onChange={onChangeConfirmPassword}
                     />
+                    <div className='Register-validationRules'>
+                        <ValidationRow valid={emailValid} description='Email is valid' />
+                        <ValidationRow valid={passwordValidLength} description='Password is between 15 and 50 characters' />
+                        <ValidationRow valid={passwordValidCharsOnly} description='Password only contains letters, numbers, and !@#$%^&*' />
+                        <ValidationRow valid={passwordsMatch} description='Passwords match' />
+                    </div>
                     <Button className='Register-submit' disabled={!isFormValid()} onClick={onSubmit}>
                         Register
                     </Button>

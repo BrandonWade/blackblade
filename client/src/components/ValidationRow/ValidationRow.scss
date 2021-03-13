@@ -1,0 +1,22 @@
+.ValidationRow {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+
+    &--invalid {
+        fill: var(--color-error);
+    }
+
+    &--valid {
+        fill: var(--color-okay);
+    }
+
+    &-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        min-width: 1.5rem;
+        min-height: 1.5rem;
+        margin-right: 0.5rem;
+    }
+}
