@@ -35,9 +35,26 @@ function useAccount() {
         }
     };
 
+    const resetPassword = async (password = '', confirmPassword = '') => {
+        const response = await fetchData('/api/accounts/password', 'POST', { password, confirm_password: confirmPassword });
+
+        switch (response.status) {
+            case 200:
+                return {
+                    success: true,
+                };
+            default:
+                return {
+                    success: false,
+                    errors: await response.json(),
+                };
+        }
+    };
+
     return {
         register,
         requestPasswordReset,
+        resetPassword,
     };
 }
 

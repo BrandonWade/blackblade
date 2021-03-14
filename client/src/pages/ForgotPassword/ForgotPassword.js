@@ -10,6 +10,7 @@ import './ForgotPassword.scss';
 function ForgotPassword() {
     const [email, setEmail] = useState('');
     const { requestPasswordReset } = useAccount();
+    const emailValid = isEmailValid(email);
 
     const onChangeEmail = e => {
         setEmail(e.target.value);
@@ -18,10 +19,11 @@ function ForgotPassword() {
     const onSubmit = async e => {
         e.preventDefault();
 
-        if (!isEmailValid(email)) {
+        if (!emailValid) {
             return;
         }
 
+        // TODO: Display response message
         await requestPasswordReset(email);
     };
 
@@ -40,7 +42,7 @@ function ForgotPassword() {
                         value={email}
                         onChange={onChangeEmail}
                     />
-                    <Button className='ForgotPassword-submit' disabled={!isEmailValid(email)} onClick={onSubmit}>
+                    <Button className='ForgotPassword-submit' disabled={!emailValid} onClick={onSubmit}>
                         Submit
                     </Button>
                     <div className='Login-registerContainer'>

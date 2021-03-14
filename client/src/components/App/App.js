@@ -10,6 +10,7 @@ import AuthenticatedRoute from '../AuthenticatedRoute';
 import Home from '../../pages/Home';
 import Register from '../../pages/Register';
 import ForgotPassword from '../../pages/ForgotPassword';
+import ResetPassword from '../../pages/ResetPassword';
 import Login from '../../pages/Login';
 import Logout from '../../pages/Logout';
 import AdvancedSearch from '../../pages/AdvancedSearch';
@@ -34,6 +35,7 @@ function App() {
                                             <Route path='/' exact component={Home} />
                                             {/* <Route path='/register' component={Register} /> */}
                                             {/* <Route path='/password/forgot' component={ForgotPassword} /> */}
+                                            {/* <Route path='/password/reset' component={ResetPassword} /> */}
                                             {/* <Route path='/login' component={Login} /> */}
                                             {/* <Route path='/logout' component={Logout} /> */}
                                             <Route path='/about' component={About} />

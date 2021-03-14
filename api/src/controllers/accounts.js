@@ -67,11 +67,16 @@ const requestPasswordReset = async (req, res) => {
 
 const passwordResetRedirect = async (req, res) => {
     const token = req.params['passwordResetToken'];
+    const cookieAge = 3600000; // 1 hour
+    const cookieSecure = process.env.ENVIRONMENT !== 'develop';
 
-    res.cookie('prt', token, { maxAge: 3600, httpOnly: true, secure: true });
+    res.cookie('prt', token, {
+        maxAge: cookieAge,
+        httpOnly: false,
+        secure: cookieSecure,
+    });
 
-    // TODO: Redirect to password reset page
-    return res.redirect('/');
+    return res.redirect('/password/reset');
 };
 
 const resetPassword = async (req, res) => {

@@ -190,7 +190,7 @@ const resetPassword = async (token, passwordHash) => {
     try {
         const [accountResult] = await tx.query(
             `UPDATE accounts a
-            INNER JOIN account_password_reset_tokens t ON a.id = t.id
+            INNER JOIN account_password_reset_tokens t ON a.id = t.account_id
             SET a.password_hash = ?
             WHERE t.reset_token = ?
             AND t.status = 'pending'
