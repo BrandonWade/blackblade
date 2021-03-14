@@ -1,5 +1,7 @@
 import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { isEmailValid } from '../../validators/email';
+import { isPasswordValid } from '../../validators/password';
 import useAuth from '../../hooks/useAuth';
 import AuthContext from '../../contexts/Auth';
 import Logo from '../../components/Logo';
@@ -15,6 +17,9 @@ function Login() {
     const history = useHistory();
     const { login } = useAuth();
     const { setAuthenticated } = useContext(AuthContext);
+    const emailValid = isEmailValid(email);
+    const passwordValid = isPasswordValid(password);
+    const isFormValid = emailValid && passwordValid;
 
     const onChangeEmail = e => {
         setEmail(e.target.value);
@@ -24,14 +29,10 @@ function Login() {
         setPassword(e.target.value);
     };
 
-    const isFormValid = () => {
-        return email.trim().length > 0 && password.trim().length >= 15;
-    };
-
     const onSubmit = async e => {
         e.preventDefault();
 
-        if (!isFormValid()) {
+        if (!isFormValid) {
             return;
         }
 
@@ -69,7 +70,7 @@ function Login() {
                     <div className='Login-forgotPasswordContainer'>
                         <Link to='/password/forgot'>Forgot your password?</Link>
                     </div>
-                    <Button className='Login-submit' disabled={!isFormValid()} onClick={onSubmit}>
+                    <Button className='Login-submit' disabled={!isFormValid} onClick={onSubmit}>
                         Login
                     </Button>
                     <div className='Login-registerContainer'>
