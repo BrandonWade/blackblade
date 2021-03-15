@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import DeckService from '../services/decks';
 
 const createDeck = async (req, res) => {
-    const accountID = 0; // TODO: Get from session
+    const { accountID } = req.session;
     const name = req.body.name || 'Untitled Deck';
     let result;
 

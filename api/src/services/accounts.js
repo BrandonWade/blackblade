@@ -68,18 +68,16 @@ const resetPassword = async (token, password) => {
 
 const verifyAccount = async (email, password) => {
     try {
-        const passwordHash = await AccountRepository.getAccountPasswordByEmail(
-            email,
-        );
+        const account = await AccountRepository.getAccountByEmail(email);
         const passwordsMatch = await compareValues(
             password,
-            passwordHash.toString(),
+            account.password_hash.toString(),
         );
         if (!passwordsMatch) {
             throw new UnauthorizedError('password does not match');
         }
 
-        return true;
+        return account.id;
     } catch (e) {
         console.error('error verifying account', e);
         throw e;
