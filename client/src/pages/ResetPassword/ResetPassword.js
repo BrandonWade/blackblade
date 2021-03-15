@@ -37,7 +37,6 @@ function ResetPassword() {
             return;
         }
 
-        // TODO: Display response message
         await resetPassword(password, confirmPassword);
     };
 

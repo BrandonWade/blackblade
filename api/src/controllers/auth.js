@@ -5,9 +5,10 @@ import AccountService from '../services/accounts';
 
 const login = async (req, res) => {
     try {
-        await AccountService.verifyAccount(req.body.email, req.body.password);
+        const { email, password } = req.body;
+        const accountID = await AccountService.verifyAccount(email, password);
         req.session.authenticated = true;
-        req.session.email = req.body.email;
+        req.session.accountID = accountID;
     } catch (e) {
         if (e instanceof NotFoundError) {
             return res.status(StatusCodes.NOT_FOUND).json({

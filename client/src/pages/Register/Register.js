@@ -40,7 +40,6 @@ function Register() {
             return;
         }
 
-        // TODO: Display response message
         await register(email, password, confirmPassword);
     };
 

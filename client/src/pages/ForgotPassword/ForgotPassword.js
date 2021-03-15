@@ -23,7 +23,6 @@ function ForgotPassword() {
             return;
         }
 
-        // TODO: Display response message
         await requestPasswordReset(email);
     };
 

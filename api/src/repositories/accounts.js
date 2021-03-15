@@ -227,24 +227,28 @@ const resetPassword = async (token, passwordHash) => {
     return success;
 };
 
-const getAccountPasswordByEmail = async (email) => {
+const getAccountByEmail = async (email) => {
     try {
         const [results] = await connection.query(
             `SELECT
-            a.password_hash
+            a.*
             FROM accounts a
             WHERE a.email = ?
             AND a.is_activated = 1
         `,
             [email],
         );
-        if (results.length !== 1 || !results?.[0]?.password_hash) {
+        if (
+            results.length !== 1 ||
+            !results?.[0]?.id ||
+            !results?.[0]?.password_hash
+        ) {
             throw new NotFoundError(
                 `could not find active account with email ${email}`,
             );
         }
 
-        return results[0].password_hash;
+        return results[0];
     } catch (e) {
         throw e;
     }
@@ -255,5 +259,5 @@ export default {
     activateAccount,
     createPasswordResetToken,
     resetPassword,
-    getAccountPasswordByEmail,
+    getAccountByEmail,
 };
