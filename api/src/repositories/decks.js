@@ -26,18 +26,20 @@ const getPublicIDByID = async (deckID) => {
     );
 };
 
-const saveDeck = async (deckID, name, deck) => {
+const saveDeck = async (accountID, deckID, name, deck) => {
     const conn = await connection.getConnection();
     await conn.beginTransaction();
 
     let success = false;
     try {
         await conn.query(
-            `DELETE
-            FROM deck_cards
-            WHERE deck_id = ?
+            `DELETE c
+            FROM deck_cards c
+            INNER JOIN decks d ON d.id = c.deck_id
+            WHERE d.account_id = ?
+            AND c.deck_id = ?
         `,
-            [deckID],
+            [accountID, deckID],
         );
 
         // Only run if there are any cards in the deck to save
@@ -67,9 +69,10 @@ const saveDeck = async (deckID, name, deck) => {
         await conn.query(
             `UPDATE decks
             SET name = ?
-            WHERE id = ?
+            WHERE account_id = ?
+            AND id = ?
         `,
-            [name, deckID],
+            [name, accountID, deckID],
         );
 
         await conn.commit();

@@ -18,12 +18,13 @@ const createDeck = async (req, res) => {
 };
 
 const saveDeck = async (req, res) => {
+    const { accountID } = req.session;
     const publicID = req.params['publicID'];
     const name = req.body.name;
     const cards = req.body.cards;
 
     try {
-        await DeckService.saveDeck(publicID, name, cards);
+        await DeckService.saveDeck(accountID, publicID, name, cards);
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: [{ msg: 'error saving deck' }],
