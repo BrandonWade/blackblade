@@ -16,7 +16,7 @@ const sendAccountActivationEmail = async (email, token) => {
             },
         ],
         Subject: 'Complete Registration',
-        TextPart: `Please visit the following URL to complete your registration: ${link}`,
+        HTMLPart: `Please visit the following URL to complete your registration: <a href="${link}">${link}</a>`,
     };
 
     await MailjetClient.send(email, message);
@@ -38,7 +38,7 @@ const sendPasswordResetEmail = async (email, token) => {
             },
         ],
         Subject: 'Password Reset',
-        TextPart: `Please visit the following URL to reset your password: ${link}`,
+        HTMLPart: `Please visit the following URL to reset your password: <a href="${link}">${link}</a>`,
     };
 
     await MailjetClient.send(email, message);
