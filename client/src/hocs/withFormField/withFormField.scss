@@ -8,11 +8,9 @@
 
     &:not(:last-of-type) {
         margin-bottom: 2rem;
-        padding-bottom: 2rem;
-        border-bottom: var(--line-transparent);
 
         @media only screen and (max-width: 52.125em) {
-            margin-bottom: 0;
+            margin-bottom: 2rem;
             border-bottom: none;
         }
     }
