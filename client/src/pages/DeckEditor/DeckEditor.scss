@@ -1,4 +1,4 @@
-.DeckCreation {
+.DeckEditor {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,6 +34,14 @@
             width: 90vw;
             height: 30vh;
         }
+    }
+
+    &-inputRow {
+        font-size: 1.4rem;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+        width: 100%;
     }
 
     &-deckName {
