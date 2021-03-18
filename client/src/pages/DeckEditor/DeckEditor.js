@@ -57,6 +57,7 @@ function DeckEditor({ editing = false }) {
             <form className='DeckEditor-form' onSubmit={onSubmit}>
                 <InputField
                     rowClassName='DeckEditor-inputRow'
+                    labelClassName='DeckEditor-label'
                     className='DeckEditor-deckName'
                     label='Name'
                     value={deckName}
@@ -64,6 +65,9 @@ function DeckEditor({ editing = false }) {
                 />
                 <SelectField
                     rowClassName='DeckEditor-inputRow'
+                    labelClassName='DeckEditor-label'
+                    className='DeckEditor-visibility'
+                    descriptionClassName='DeckEditor-description'
                     label='Visibility'
                     value={visibility}
                     description={renderVisibilityDescription()}
