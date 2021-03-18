@@ -10,7 +10,7 @@ function DeckActions() {
             <Link to={`/decks/${publicID}/edit`}>
                 <div className='DeckActions-button'>
                     <Pencil />
-                    <span className='DeckActions-buttonLabel'>Rename Deck</span>
+                    <span className='DeckActions-buttonLabel'>Edit Deck</span>
                 </div>
             </Link>
         </div>
