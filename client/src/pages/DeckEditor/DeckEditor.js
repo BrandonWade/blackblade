@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import useDeck from '../../hooks/useDeck';
@@ -15,15 +14,14 @@ function DeckEditor({ editing = false }) {
     const { publicID } = useParams();
     const { createDeck } = useDeck();
     const { addErrors } = useErrors();
-    const { deckName, setDeckName } = useContext(DeckBuilderContext);
-    const [visibility, setVisibility] = useState('private');
+    const { deckName, setDeckName, deckVisibility, setDeckVisibility } = useContext(DeckBuilderContext);
 
     const onChangeName = e => {
         setDeckName(e.target.value);
     };
 
     const onChangeVisibility = e => {
-        setVisibility(e.target.value);
+        setDeckVisibility(e.target.value);
     };
 
     const onSubmit = async e => {
@@ -32,7 +30,7 @@ function DeckEditor({ editing = false }) {
         let redirect = '/';
 
         if (!editing) {
-            const response = await createDeck(deckName);
+            const response = await createDeck(deckName, deckVisibility);
             if (!response.success) {
                 addErrors(response.errors);
                 return;
@@ -47,7 +45,7 @@ function DeckEditor({ editing = false }) {
     };
 
     const renderVisibilityDescription = () => {
-        return visibility === 'private'
+        return deckVisibility === 'private'
             ? 'This deck will only be visible to you, and only while logged in.'
             : 'This deck will be visible to everyone.';
     };
@@ -69,7 +67,7 @@ function DeckEditor({ editing = false }) {
                     className='DeckEditor-visibility'
                     descriptionClassName='DeckEditor-description'
                     label='Visibility'
-                    value={visibility}
+                    value={deckVisibility}
                     description={renderVisibilityDescription()}
                     onChange={onChangeVisibility}
                 >

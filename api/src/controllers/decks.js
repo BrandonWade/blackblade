@@ -1,13 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
+import NotFoundError from '../errors/not_found';
 import DeckService from '../services/decks';
 
 const createDeck = async (req, res) => {
     const { accountID } = req.session;
-    const name = req.body.name || 'Untitled Deck';
+    const { name = 'Untitled Deck', visibility = 'private' } = req.body;
     let result;
 
     try {
-        result = await DeckService.createDeck(accountID, name);
+        result = await DeckService.createDeck(accountID, name, visibility);
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: [{ msg: 'error creating new deck' }],
@@ -19,12 +20,17 @@ const createDeck = async (req, res) => {
 
 const saveDeck = async (req, res) => {
     const { accountID } = req.session;
-    const publicID = req.params['publicID'];
-    const name = req.body.name;
-    const cards = req.body.cards;
+    const { publicID } = req.params;
+    const { name = 'Untitled Deck', visibility = 'private', cards } = req.body;
 
     try {
-        await DeckService.saveDeck(accountID, publicID, name, cards);
+        await DeckService.saveDeck(
+            accountID,
+            publicID,
+            name,
+            visibility,
+            cards,
+        );
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: [{ msg: 'error saving deck' }],
@@ -35,18 +41,23 @@ const saveDeck = async (req, res) => {
 };
 
 const getDeck = async (req, res) => {
-    const publicID = req.params['publicID'];
-    let cards;
+    const { accountID } = req.session;
+    const { publicID } = req.params;
+    let deck;
 
     try {
-        cards = await DeckService.getDeck(publicID);
+        deck = await DeckService.getDeck(publicID, accountID);
     } catch (e) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error retrieving deck' }],
-        });
+        if (e instanceof NotFoundError) {
+            return res.status(StatusCodes.NOT_FOUND).send();
+        } else {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                errors: [{ msg: 'error retrieving deck' }],
+            });
+        }
     }
 
-    return res.status(StatusCodes.OK).json(cards);
+    return res.status(StatusCodes.OK).json(deck);
 };
 
 export { createDeck, saveDeck, getDeck };

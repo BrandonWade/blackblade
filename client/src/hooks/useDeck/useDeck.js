@@ -3,8 +3,8 @@ import useFetch from '../useFetch';
 function useDeck() {
     const { fetchData } = useFetch();
 
-    const createDeck = async (name = '') => {
-        const response = await fetchData('/api/decks', 'POST', { name });
+    const createDeck = async (name = '', visibility = 'private') => {
+        const response = await fetchData('/api/decks', 'POST', { name, visibility });
 
         switch (response.status) {
             case 200:
@@ -21,12 +21,12 @@ function useDeck() {
         }
     };
 
-    const saveDeck = async (publicID = '', name = '', deck = [], maybeboard = []) => {
+    const saveDeck = async (publicID = '', name = '', visibility = 'private', deck = [], maybeboard = []) => {
         const cards = [
             ...deck.map(card => ({ count: card.count, card_id: card.card_id, selection_type: card.selection_type, location: 'deck' })),
             ...maybeboard.map(card => ({ count: card.count, card_id: card.card_id, selection_type: card.selection_type, location: 'maybeboard' })),
         ];
-        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, cards });
+        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, cards });
 
         switch (response.status) {
             case 200:
@@ -49,8 +49,7 @@ function useDeck() {
                 const data = await response.json();
                 return {
                     success: true,
-                    name: data.name,
-                    cards: data.cards,
+                    ...data,
                 };
             default:
                 return {

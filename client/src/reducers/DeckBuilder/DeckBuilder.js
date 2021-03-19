@@ -1,6 +1,7 @@
 import { sortBy } from 'lodash';
 import {
     SET_DECK_NAME,
+    SET_DECK_VISIBILITY,
     SET_DECK_CARDS,
     UPDATE_DECK_CARD_COUNT,
     REMOVE_DECK_CARD,
@@ -8,6 +9,7 @@ import {
     UPDATE_MAYBEBOARD_CARD_COUNT,
     REMOVE_MAYBEBOARD_CARD,
     SET_UNMODIFIED_DECK_NAME,
+    SET_UNMODIFIED_DECK_VISIBILITY,
     SET_UNMODIFIED_DECK_CARDS,
     SET_UNMODIFIED_MAYBEBOARD_CARDS,
     SET_MAYBEBOARD_MODE,
@@ -21,6 +23,12 @@ function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 deckName: action.deckName,
+            };
+
+        case SET_DECK_VISIBILITY:
+            return {
+                ...state,
+                deckVisibility: action.deckVisibility,
             };
 
         case SET_DECK_CARDS:
@@ -81,6 +89,12 @@ function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 unmodifiedDeckName: state.deckName,
+            };
+
+        case SET_UNMODIFIED_DECK_VISIBILITY:
+            return {
+                ...state,
+                unmodifiedDeckVisibility: state.deckVisibility,
             };
 
         case SET_UNMODIFIED_DECK_CARDS:
