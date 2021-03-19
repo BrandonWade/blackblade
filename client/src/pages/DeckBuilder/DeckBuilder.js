@@ -19,12 +19,16 @@ function DeckBuilder() {
     const {
         deckName,
         setDeckName,
+        deckVisibility,
+        setDeckVisibility,
         deckCards,
         setDeckCards,
         maybeboardCards,
         setMaybeboardCards,
         unmodifiedDeckName,
         setUnmodifiedDeckName,
+        unmodifiedDeckVisibility,
+        setUnmodifiedDeckVisibility,
         unmodifiedDeckCards,
         setUnmodifiedDeckCards,
         unmodifiedMaybeboardCards,
@@ -35,7 +39,8 @@ function DeckBuilder() {
     const deckNotModified = isEqual(deckCards, unmodifiedDeckCards);
     const maybeboardNotModified = isEqual(maybeboardCards, unmodifiedMaybeboardCards);
     const nameNotModified = isEqual(deckName, unmodifiedDeckName);
-    const isUnmodified = deckNotModified && maybeboardNotModified && nameNotModified;
+    const visibilityNotModified = isEqual(deckVisibility, unmodifiedDeckVisibility);
+    const isUnmodified = deckNotModified && maybeboardNotModified && nameNotModified && visibilityNotModified;
 
     useEffect(() => {
         const fetchDeck = async () => {
@@ -44,12 +49,15 @@ function DeckBuilder() {
                 addErrors(result.errors);
                 return;
             }
+
             const deck = result.cards.filter(c => c.location === 'deck');
             const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
             setDeckName(result.name);
+            setDeckVisibility(result.visibility);
             setDeckCards(deck);
             setMaybeboardCards(maybeboard);
             setUnmodifiedDeckName();
+            setUnmodifiedDeckVisibility();
             setUnmodifiedDeckCards();
             setUnmodifiedMaybeboardCards();
         };
@@ -60,7 +68,7 @@ function DeckBuilder() {
     }, []);
 
     const onSaveDeck = async () => {
-        const result = await saveDeck(publicID, deckName, deckCards, maybeboardCards);
+        const result = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
         if (!result.success) {
             addErrors(result.errors);
             return;
@@ -68,6 +76,7 @@ function DeckBuilder() {
 
         // Once changes to the deck have been saved, update the unmodified state
         setUnmodifiedDeckName();
+        setUnmodifiedDeckVisibility();
         setUnmodifiedDeckCards();
         setUnmodifiedMaybeboardCards();
     };

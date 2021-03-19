@@ -1,10 +1,15 @@
 import DeckRepository from '../repositories/decks';
+import NotFoundError from '../errors/not_found';
 
-const createDeck = async (accountID, name) => {
+const createDeck = async (accountID, name, visibility) => {
     let publicID;
 
     try {
-        const [createResult] = await DeckRepository.createDeck(accountID, name);
+        const [createResult] = await DeckRepository.createDeck(
+            accountID,
+            name,
+            visibility,
+        );
         const deckID = createResult?.insertId || 0;
         if (!deckID) {
             throw 'error inserting new deck row';
@@ -25,7 +30,7 @@ const createDeck = async (accountID, name) => {
     };
 };
 
-const saveDeck = async (accountID, publicID, name, deck) => {
+const saveDeck = async (accountID, publicID, name, visibility, deck) => {
     try {
         const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
         const deckID = deckIDResult?.[0]?.id || 0;
@@ -37,6 +42,7 @@ const saveDeck = async (accountID, publicID, name, deck) => {
             accountID,
             deckID,
             name,
+            visibility,
             deck,
         );
         if (!saveResult) {
@@ -50,15 +56,16 @@ const saveDeck = async (accountID, publicID, name, deck) => {
     return;
 };
 
-const getDeck = async (publicID) => {
-    let name;
+const getDeck = async (publicID, accountID) => {
+    let deck;
     let cards;
 
     try {
-        const [deck] = await DeckRepository.getDeckByPublicID(publicID);
-        name = deck?.[0]?.name || '';
-        if (!name.length) {
-            throw `error getting name for deck with public id ${publicID}`;
+        [deck] = await DeckRepository.getDeckByPublicID(publicID, accountID);
+        if (deck.length !== 1) {
+            throw new NotFoundError(
+                `error getting deck with public id ${publicID} and account id ${accountID}`,
+            );
         }
 
         [cards] = await DeckRepository.getDeckCardsByPublicID(publicID);
@@ -68,7 +75,8 @@ const getDeck = async (publicID) => {
     }
 
     return {
-        name,
+        name: deck?.[0]?.name,
+        visibility: deck?.[0]?.visibility,
         cards,
     };
 };

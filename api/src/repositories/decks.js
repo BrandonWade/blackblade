@@ -1,18 +1,20 @@
 import { connection } from '../db';
 
-const createDeck = async (accountID, name) => {
+const createDeck = async (accountID, name, visibility) => {
     return connection.query(
         `INSERT INTO decks (
             public_id,
             account_id,
-            name
+            name,
+            visibility
         ) VALUES (
             LEFT(MD5(RAND()), 16),
+            ?,
             ?,
             ?
         )
     `,
-        [accountID, name],
+        [accountID, name, visibility],
     );
 };
 
@@ -26,7 +28,7 @@ const getPublicIDByID = async (deckID) => {
     );
 };
 
-const saveDeck = async (accountID, deckID, name, deck) => {
+const saveDeck = async (accountID, deckID, name, visibility, deck) => {
     const conn = await connection.getConnection();
     await conn.beginTransaction();
 
@@ -65,14 +67,15 @@ const saveDeck = async (accountID, deckID, name, deck) => {
             );
         }
 
-        // Update the deck name
+        // Update the deck info
         await conn.query(
             `UPDATE decks
-            SET name = ?
+            SET name = ?,
+            visibility = ?
             WHERE account_id = ?
             AND id = ?
         `,
-            [name, accountID, deckID],
+            [name, visibility, accountID, deckID],
         );
 
         await conn.commit();
@@ -87,13 +90,17 @@ const saveDeck = async (accountID, deckID, name, deck) => {
     return success;
 };
 
-const getDeckByPublicID = async (publicID) => {
+const getDeckByPublicID = async (publicID, accountID) => {
     return connection.query(
         `SELECT *
-        FROM decks
-        WHERE public_id = ?
+        FROM decks d
+        WHERE d.public_id = ?
+        AND (
+            d.visibility = 'public' OR
+            d.account_id = ?
+        )
     `,
-        [publicID],
+        [publicID, accountID],
     );
 };
 
