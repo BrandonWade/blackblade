@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import useRandomCard from '../../hooks/useRandomCard';
 import SearchContext from '../../contexts/Search';
+import AuthContext from '../../contexts/Auth';
 import { Documents } from '../Icons';
 import Logo from '../Logo';
 import Input from '../Input';
@@ -13,6 +14,7 @@ import './Header.scss';
 function Header() {
     const [query, setQuery] = useState('');
     const { setName } = useContext(SearchContext);
+    const { authenticated } = useContext(AuthContext);
     const { searchResultsRedirect } = useDisplayResults();
     const { displayRandomCard } = useRandomCard();
     const [menuOpen, setMenuOpen] = useState(false);
@@ -26,6 +28,18 @@ function Header() {
 
     const onChange = e => {
         setQuery(e.target.value);
+    };
+
+    const renderLoginLogoutLink = () => {
+        return authenticated ? (
+            <Link to='/logout'>
+                <Button className='Header-link'>Logout</Button>
+            </Link>
+        ) : (
+            <Link to='/login'>
+                <Button className='Header-link'>Login</Button>
+            </Link>
+        );
     };
 
     return (
@@ -49,6 +63,7 @@ function Header() {
                 <Link to='/about'>
                     <Button className='Header-link'>About</Button>
                 </Link>
+                {renderLoginLogoutLink()}
             </div>
             <span className='Header-randomCard'>
                 <Documents className='Header-randomIcon' onClick={displayRandomCard} />

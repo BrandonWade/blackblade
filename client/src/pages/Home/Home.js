@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import useRandomCard from '../../hooks/useRandomCard';
 import SearchContext from '../../contexts/Search';
+import AuthContext from '../../contexts/Auth';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -11,6 +12,7 @@ import './Home.scss';
 function Home() {
     const [query, setQuery] = useState('');
     const { setName } = useContext(SearchContext);
+    const { authenticated } = useContext(AuthContext);
     const { searchResultsRedirect } = useDisplayResults();
     const { displayRandomCard } = useRandomCard();
 
@@ -25,6 +27,18 @@ function Home() {
         setQuery(e.target.value);
     };
 
+    const renderLoginLogoutLink = () => {
+        return authenticated ? (
+            <Link className='Home-linkItem' to='/logout'>
+                <Button className='Home-link'>Logout</Button>
+            </Link>
+        ) : (
+            <Link className='Home-linkItem' to='/login'>
+                <Button className='Home-link'>Login</Button>
+            </Link>
+        );
+    };
+
     return (
         <div className='Home'>
             <div className='Home-content'>
@@ -33,15 +47,16 @@ function Home() {
                     <Input className='Home-searchBox' value={query} onChange={onChange} />
                 </form>
                 <div className='Home-linksContainer'>
-                    <Link to='/advanced'>
+                    <Link className='Home-linkItem' to='/advanced'>
                         <Button className='Home-link'>Advanced Search</Button>
                     </Link>
-                    <Link to='/decks'>
+                    <Link className='Home-linkItem' to='/decks'>
                         <Button className='Home-link'>Deck Builder</Button>
                     </Link>
-                    <Button className='Home-link' onClick={displayRandomCard}>
+                    <Button className='Home-linkItem Home-link' onClick={displayRandomCard}>
                         Random Card
                     </Button>
+                    {renderLoginLogoutLink()}
                 </div>
             </div>
         </div>
