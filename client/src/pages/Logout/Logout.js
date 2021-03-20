@@ -13,7 +13,7 @@ function Logout() {
             const result = await logout();
             if (result?.success) {
                 setAuthenticated(false);
-                history.push('/login');
+                history.replace('/login');
             }
         };
         logoutOfAccount();
