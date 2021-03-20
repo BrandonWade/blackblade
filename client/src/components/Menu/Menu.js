@@ -1,15 +1,31 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../contexts/Auth';
 import Overlay from '../Overlay';
 import Button from '../Button';
 import './Menu.scss';
 
 function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
+    const { authenticated } = useContext(AuthContext);
+
     const openMenu = () => {
         setMenuOpen(true);
     };
 
     const closeMenu = () => {
         setMenuOpen(false);
+    };
+
+    const renderLoginLogoutLink = () => {
+        return authenticated ? (
+            <li className='Menu-link' onClick={closeMenu}>
+                <Link to='/logout'>Logout</Link>
+            </li>
+        ) : (
+            <li className='Menu-link' onClick={closeMenu}>
+                <Link to='/login'>Login</Link>
+            </li>
+        );
     };
 
     return (
@@ -31,6 +47,7 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/About'>About</Link>
                     </li>
+                    {renderLoginLogoutLink()}
                 </ul>
             </Overlay>
         </>
