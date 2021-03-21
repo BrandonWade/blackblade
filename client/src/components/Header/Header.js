@@ -30,6 +30,14 @@ function Header() {
         setQuery(e.target.value);
     };
 
+    const renderDeckBuilderLink = () => {
+        return authenticated ? (
+            <Link to='/decks'>
+                <Button className='Header-link'>Deck Builder</Button>
+            </Link>
+        ) : null;
+    };
+
     const renderLoginLogoutLink = () => {
         return authenticated ? (
             <Link to='/logout'>
@@ -54,9 +62,7 @@ function Header() {
                 <Link to='/advanced'>
                     <Button className='Header-link'>Advanced Search</Button>
                 </Link>
-                <Link to='/decks'>
-                    <Button className='Header-link'>Deck Builder</Button>
-                </Link>
+                {renderDeckBuilderLink()}
                 <Button className='Header-link' onClick={displayRandomCard}>
                     Random Card
                 </Button>
