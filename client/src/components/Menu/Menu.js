@@ -16,6 +16,14 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
         setMenuOpen(false);
     };
 
+    const renderDeckBuilderLink = () => {
+        return authenticated ? (
+            <li className='Menu-link' onClick={closeMenu}>
+                <Link to='/decks'>Deck Builder</Link>
+            </li>
+        ) : null;
+    };
+
     const renderLoginLogoutLink = () => {
         return authenticated ? (
             <li className='Menu-link' onClick={closeMenu}>
@@ -41,9 +49,7 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/advanced'>Advanced Search</Link>
                     </li>
-                    <li className='Menu-link' onClick={closeMenu}>
-                        <Link to='/decks'>Deck Builder</Link>
-                    </li>
+                    {renderDeckBuilderLink()}
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/About'>About</Link>
                     </li>
