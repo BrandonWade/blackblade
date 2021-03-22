@@ -4,9 +4,15 @@ import UnauthorizedError from '../errors/unauthorized';
 import AccountService from '../services/accounts';
 
 const login = async (req, res) => {
+    let accountID;
+    let accountPublicID;
+
     try {
         const { email, password } = req.body;
-        const accountID = await AccountService.verifyAccount(email, password);
+        [accountID, accountPublicID] = await AccountService.verifyAccount(
+            email,
+            password,
+        );
         req.session.authenticated = true;
         req.session.accountID = accountID;
     } catch (e) {
@@ -25,7 +31,9 @@ const login = async (req, res) => {
         }
     }
 
-    return res.send();
+    return res.json({
+        account_public_id: accountPublicID,
+    });
 };
 
 const logout = async (req, res) => {

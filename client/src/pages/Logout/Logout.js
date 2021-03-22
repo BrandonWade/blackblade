@@ -6,13 +6,14 @@ import AuthContext from '../../contexts/Auth';
 function Logout() {
     const history = useHistory();
     const { logout } = useAuth();
-    const { setAuthenticated } = useContext(AuthContext);
+    const { setAuthenticated, setAccountPublicID } = useContext(AuthContext);
 
     useEffect(() => {
         const logoutOfAccount = async () => {
             const result = await logout();
             if (result?.success) {
                 setAuthenticated(false);
+                setAccountPublicID('');
                 history.replace('/login');
             }
         };

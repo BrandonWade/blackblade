@@ -77,7 +77,7 @@ const verifyAccount = async (email, password) => {
             throw new UnauthorizedError('password does not match');
         }
 
-        return account.id;
+        return [account.id, account.public_id];
     } catch (e) {
         console.error('error verifying account', e);
         throw e;

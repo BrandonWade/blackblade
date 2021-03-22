@@ -183,6 +183,7 @@ CREATE TABLE types (
 DROP TABLE IF EXISTS accounts;
 CREATE TABLE accounts (
   id int unsigned NOT NULL AUTO_INCREMENT,
+  public_id char(16) NOT NULL DEFAULT '',
   email varchar(256) NOT NULL DEFAULT '',
   password_hash varbinary(64) NOT NULL DEFAULT '',
   is_activated tinyint(1) NOT NULL DEFAULT 0,

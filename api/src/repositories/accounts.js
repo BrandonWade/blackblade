@@ -11,9 +11,11 @@ const registerAccount = async (email, passwordHash, activationToken) => {
     try {
         const [accountResult] = await tx.query(
             `INSERT INTO accounts (
+                public_id,
                 email,
                 password_hash
             ) VALUES (
+                LEFT(MD5(RAND()), 16),
                 ?,
                 ?
             )

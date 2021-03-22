@@ -35,16 +35,12 @@ function Home() {
         ) : null;
     };
 
-    const renderLoginLogoutLink = () => {
-        return authenticated ? (
-            <Link className='Home-linkItem' to='/logout'>
-                <Button className='Home-link'>Logout</Button>
-            </Link>
-        ) : (
+    const renderLoginLink = () => {
+        return !authenticated ? (
             <Link className='Home-linkItem' to='/login'>
                 <Button className='Home-link'>Login</Button>
             </Link>
-        );
+        ) : null;
     };
 
     return (
@@ -62,7 +58,7 @@ function Home() {
                     <Button className='Home-linkItem Home-link' onClick={displayRandomCard}>
                         Random Card
                     </Button>
-                    {renderLoginLogoutLink()}
+                    {renderLoginLink()}
                 </div>
             </div>
         </div>
