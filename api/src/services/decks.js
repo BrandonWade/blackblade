@@ -75,6 +75,7 @@ const getDeck = async (publicID, accountID) => {
     }
 
     return {
+        account_public_id: deck?.[0]?.account_public_id,
         name: deck?.[0]?.name,
         visibility: deck?.[0]?.visibility,
         cards,

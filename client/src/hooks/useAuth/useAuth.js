@@ -8,8 +8,10 @@ function useAuth() {
 
         switch (response.status) {
             case 200:
+                const data = await response.json();
                 return {
                     success: true,
+                    ...data,
                 };
             default:
                 return {

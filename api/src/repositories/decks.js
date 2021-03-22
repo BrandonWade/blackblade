@@ -92,8 +92,11 @@ const saveDeck = async (accountID, deckID, name, visibility, deck) => {
 
 const getDeckByPublicID = async (publicID, accountID) => {
     return connection.query(
-        `SELECT *
+        `SELECT
+        a.public_id account_public_id,
+        d.*
         FROM decks d
+        INNER JOIN accounts a ON a.id = d.account_id
         WHERE d.public_id = ?
         AND (
             d.visibility = 'public' OR

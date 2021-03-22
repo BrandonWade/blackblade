@@ -16,7 +16,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const history = useHistory();
     const { login } = useAuth();
-    const { setAuthenticated } = useContext(AuthContext);
+    const { setAuthenticated, setAccountPublicID } = useContext(AuthContext);
     const emailValid = isEmailValid(email);
     const passwordValid = isPasswordValid(password);
     const isFormValid = emailValid && passwordValid;
@@ -39,6 +39,7 @@ function Login() {
         const result = await login(email, password);
         if (result?.success) {
             setAuthenticated(true);
+            setAccountPublicID(result.account_public_id);
             history.push('/');
         }
     };
