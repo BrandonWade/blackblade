@@ -1,12 +1,12 @@
 import { createContext } from 'react';
 
 export const initialState = {
-    deckName: '',
-    deckVisibility: '',
+    deckName: 'Untitled Deck',
+    deckVisibility: 'private',
     deckCards: [],
     maybeboardCards: [],
-    unmodifiedDeckName: '',
-    unmodifiedDeckVisibility: '',
+    unmodifiedDeckName: 'Untitled Deck',
+    unmodifiedDeckVisibility: 'private',
     unmodifiedDeckCards: [],
     unmodifiedMaybeboardCards: [],
     maybeboardMode: false,

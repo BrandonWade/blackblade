@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import NotFoundError from '../errors/not_found';
+import UnauthorizedError from '../errors/unauthorized';
 import DeckService from '../services/decks';
 
 const createDeck = async (req, res) => {
@@ -32,9 +33,13 @@ const saveDeck = async (req, res) => {
             cards,
         );
     } catch (e) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error saving deck' }],
-        });
+        if (e instanceof UnauthorizedError) {
+            return res.status(StatusCodes.UNAUTHORIZED).send();
+        } else {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                errors: [{ msg: 'error saving deck' }],
+            });
+        }
     }
 
     return res.status(StatusCodes.OK).send();

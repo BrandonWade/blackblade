@@ -1,5 +1,6 @@
 import DeckRepository from '../repositories/decks';
 import NotFoundError from '../errors/not_found';
+import UnauthorizedError from '../errors/unauthorized';
 
 const createDeck = async (accountID, name, visibility) => {
     let publicID;
@@ -32,10 +33,20 @@ const createDeck = async (accountID, name, visibility) => {
 
 const saveDeck = async (accountID, publicID, name, visibility, deck) => {
     try {
-        const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
+        const [deckIDResult] = await DeckRepository.getDeckByPublicID(
+            publicID,
+            accountID,
+        );
         const deckID = deckIDResult?.[0]?.id || 0;
         if (!deckID) {
             throw `error getting deck with public id ${publicID}`;
+        }
+
+        const deckAccountID = deckIDResult?.[0]?.account_id || 0;
+        if (!deckAccountID || deckAccountID !== accountID) {
+            throw new UnauthorizedError(
+                'account id and deck account id do not match',
+            );
         }
 
         const saveResult = await DeckRepository.saveDeck(
