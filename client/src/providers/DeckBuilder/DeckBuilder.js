@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 import DeckBuilderReducer from '../../reducers/DeckBuilder';
 import DeckBuilderContext, { initialState } from '../../contexts/DeckBuilder';
 import {
+    SET_DECK_ACCOUNT_PUBLIC_ID,
     SET_DECK_NAME,
     SET_DECK_VISIBILITY,
     SET_DECK_CARDS,
@@ -22,6 +23,7 @@ import {
 function DeckBuilderProvider({ children = [] }) {
     const [state, dispatch] = useReducer(DeckBuilderReducer, initialState);
 
+    const setDeckAccountPublicID = deckAccountPublicID => dispatch({ type: SET_DECK_ACCOUNT_PUBLIC_ID, deckAccountPublicID });
     const setDeckName = deckName => dispatch({ type: SET_DECK_NAME, deckName });
     const setDeckVisibility = deckVisibility => dispatch({ type: SET_DECK_VISIBILITY, deckVisibility });
     const setDeckCards = deckCards => dispatch({ type: SET_DECK_CARDS, deckCards });
@@ -40,6 +42,7 @@ function DeckBuilderProvider({ children = [] }) {
 
     const props = {
         ...state,
+        setDeckAccountPublicID,
         setDeckName,
         setDeckVisibility,
         setDeckCards,

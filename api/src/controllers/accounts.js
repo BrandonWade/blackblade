@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import AlreadyExistsError from '../errors/already_exists';
 import NotFoundError from '../errors/not_found';
 import AccountService from '../services/accounts';
+import cookieOptions, { DURATION_ONE_HOUR } from '../helpers/cookies';
 
 const registerAccount = async (req, res) => {
     try {
@@ -67,14 +68,8 @@ const requestPasswordReset = async (req, res) => {
 
 const passwordResetRedirect = async (req, res) => {
     const token = req.params['passwordResetToken'];
-    const cookieAge = 3600000; // 1 hour
-    const cookieSecure = process.env.ENVIRONMENT !== 'develop';
 
-    res.cookie('prt', token, {
-        maxAge: cookieAge,
-        httpOnly: false,
-        secure: cookieSecure,
-    });
+    res.cookie('prt', token, cookieOptions(DURATION_ONE_HOUR));
 
     return res.redirect('/password/reset');
 };

@@ -1,4 +1,5 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import DeckActionButton from './DeckActionButton';
 import { Pencil } from '../Icons';
 import './DeckActions.scss';
 
@@ -7,12 +8,10 @@ function DeckActions() {
 
     return (
         <div className='DeckActions'>
-            <Link to={`/decks/${publicID}/edit`}>
-                <div className='DeckActions-button'>
-                    <Pencil />
-                    <span className='DeckActions-buttonLabel'>Edit Deck</span>
-                </div>
-            </Link>
+            <DeckActionButton to={`/decks/${publicID}/edit`}>
+                <Pencil />
+                <span className='DeckActions-buttonLabel'>Edit Deck</span>
+            </DeckActionButton>
         </div>
     );
 }
