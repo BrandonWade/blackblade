@@ -5,6 +5,7 @@ import session from 'express-session';
 import MySQLStore from 'express-mysql-session';
 import { connection } from './db';
 import router from './routes';
+import cookieOptions from './helpers/cookies';
 
 const app = express();
 
@@ -13,8 +14,6 @@ if (!sessionSecret) {
     throw 'session secret not loaded';
 }
 
-const sessionCookieAge = 604800000; // 7 days
-const sessionCookieSecure = process.env.ENVIRONMENT !== 'develop';
 const sessionStore = MySQLStore(session);
 const sessionMiddleware = new session({
     key: 'sid',
@@ -22,11 +21,7 @@ const sessionMiddleware = new session({
     store: new sessionStore({}, connection),
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        maxAge: sessionCookieAge,
-        httpOnly: false,
-        secure: sessionCookieSecure,
-    },
+    cookie: cookieOptions(),
 });
 
 app.use(logger('dev'));

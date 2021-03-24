@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import useDeck from '../../hooks/useDeck';
 import useErrors from '../../hooks/useErrors';
+import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardArtSelector from '../../components/CardArtSelector';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
@@ -16,7 +17,10 @@ function DeckBuilder() {
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDeck();
     const { addErrors } = useErrors();
+    const { accountPublicID } = useContext(AuthContext);
     const {
+        deckAccountPublicID,
+        setDeckAccountPublicID,
         deckName,
         setDeckName,
         deckVisibility,
@@ -52,6 +56,7 @@ function DeckBuilder() {
 
             const deck = result.cards.filter(c => c.location === 'deck');
             const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
+            setDeckAccountPublicID(result.account_public_id);
             setDeckName(result.name);
             setDeckVisibility(result.visibility);
             setDeckCards(deck);

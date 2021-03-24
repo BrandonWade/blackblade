@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
 import AccountService from '../services/accounts';
+import cookieOptions from '../helpers/cookies';
 
 const login = async (req, res) => {
     let accountID;
@@ -31,6 +32,8 @@ const login = async (req, res) => {
         }
     }
 
+    res.cookie('apid', accountPublicID, cookieOptions());
+
     return res.json({
         account_public_id: accountPublicID,
     });
@@ -39,6 +42,7 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
     req.session.destroy();
     res.clearCookie('sid');
+    res.clearCookie('apid');
     return res.send();
 };
 

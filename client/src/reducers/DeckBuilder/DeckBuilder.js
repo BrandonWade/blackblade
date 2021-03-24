@@ -1,5 +1,6 @@
 import { sortBy } from 'lodash';
 import {
+    SET_DECK_ACCOUNT_PUBLIC_ID,
     SET_DECK_NAME,
     SET_DECK_VISIBILITY,
     SET_DECK_CARDS,
@@ -19,6 +20,12 @@ import {
 
 function DeckBuilderReducer(state = {}, action = {}) {
     switch (action.type) {
+        case SET_DECK_ACCOUNT_PUBLIC_ID:
+            return {
+                ...state,
+                deckAccountPublicID: action.deckAccountPublicID,
+            };
+
         case SET_DECK_NAME:
             return {
                 ...state,

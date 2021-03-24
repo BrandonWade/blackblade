@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import cookies from 'js-cookie';
 import AuthContext from '../../contexts/Auth';
 
 function AuthProvider({ children = [] }) {
-    const [authenticated, setAuthenticated] = useState(document.cookie.includes('sid'));
-    // const [authenticated, setAuthenticated] = useState(true);
-    const [accountPublicID, setAccountPublicID] = useState('');
+    const [authenticated, setAuthenticated] = useState(cookies.get('sid') !== undefined);
+    const [accountPublicID, setAccountPublicID] = useState(cookies.get('apid'));
 
     const props = {
         authenticated,
