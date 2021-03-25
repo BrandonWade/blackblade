@@ -39,6 +39,12 @@
     &-input {
         line-height: 2;
         text-align: center;
+
+        &--readonly {
+            line-height: 2;
+            text-align: center;
+            font-size: 1.2rem;
+        }
     }
 
     &-selectArt,

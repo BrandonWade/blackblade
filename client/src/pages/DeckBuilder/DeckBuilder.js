@@ -19,7 +19,6 @@ function DeckBuilder() {
     const { addErrors } = useErrors();
     const { accountPublicID } = useContext(AuthContext);
     const {
-        deckAccountPublicID,
         setDeckAccountPublicID,
         deckName,
         setDeckName,

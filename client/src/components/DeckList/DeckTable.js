@@ -1,13 +1,19 @@
+import { useContext } from 'react';
+import AuthContext from '../../contexts/Auth';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 import DeckSection from './DeckSection';
 import './DeckTable.scss';
 
 function DeckTable({ deckCards = [], maybeboardCards = [], maybeboardMode = false, setMaybeboardMode = () => {} }) {
+    const { accountPublicID } = useContext(AuthContext);
+    const { deckAccountPublicID } = useContext(DeckBuilderContext);
     const creatures = deckCards.filter(card => ['creature'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
     const spells = deckCards.filter(card => ['creature', 'land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === false);
     const land = deckCards.filter(card => ['land'].includes(card.sets_json[0]?.card_faces?.[0].derived_type) === true);
+    const ownsDeck = accountPublicID === deckAccountPublicID;
 
     const toggleMaybeboardMode = () => {
-        setMaybeboardMode(!maybeboardMode);
+        setMaybeboardMode(ownsDeck && !maybeboardMode);
     };
 
     return (
