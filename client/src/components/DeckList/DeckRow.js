@@ -46,29 +46,47 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
         removeCard(card.card_id);
     };
 
+    const renderCardCount = () => {
+        return ownsDeck ? (
+            <td className='DeckTable-count'>
+                <Input className='DeckTable-input' value={count} onChange={onCountChange} />
+            </td>
+        ) : (
+            <td className='DeckTable-count'>
+                <p className='DeckTable-input--readonly'>{count}</p>
+            </td>
+        );
+    };
+
+    const renderSelectArtButton = () => {
+        return ownsDeck ? (
+            <td className='DeckTable-selectArt' onClick={onSelectArt}>
+                <Images className='DeckTable-selectArtIcon' />
+            </td>
+        ) : null;
+    };
+
+    const renderSwitchSectionButton = () => {
+        return ownsDeck ? (
+            <td className='DeckTable-switchSection' onClick={onSwitchSection}>
+                {isMaybeboardSection ? <ArrowUp className='DeckTable-switchSectionIcon' /> : <ArrowDown className='DeckTable-switchSectionIcon' />}
+            </td>
+        ) : null;
+    };
+
+    const renderRemoveButton = () => {
+        return ownsDeck ? (
+            <td className='DeckTable-remove' onClick={onRemoveCard}>
+                &#x2715;
+            </td>
+        ) : null;
+    };
+
     return (
         <tr key={card.card_id} className='DeckTable-cardRow'>
-            <td className='DeckTable-count'>
-                {ownsDeck ? (
-                    <Input className='DeckTable-input' value={count} onChange={onCountChange} />
-                ) : (
-                    <p className='DeckTable-input--readonly'>{count}</p>
-                )}
-            </td>
-            {ownsDeck ? (
-                <>
-                    <td className='DeckTable-selectArt' onClick={onSelectArt}>
-                        <Images className='DeckTable-selectArtIcon' />
-                    </td>
-                    <td className='DeckTable-switchSection' onClick={onSwitchSection}>
-                        {isMaybeboardSection ? (
-                            <ArrowUp className='DeckTable-switchSectionIcon' />
-                        ) : (
-                            <ArrowDown className='DeckTable-switchSectionIcon' />
-                        )}
-                    </td>
-                </>
-            ) : null}
+            {renderCardCount()}
+            {renderSelectArtButton()}
+            {renderSwitchSectionButton()}
             <td className='DeckTable-manaCosts'>
                 {cardFaces.map((face, i) => (
                     <DeckRowManaCost key={i} manaCost={face.mana_cost} />
@@ -83,11 +101,7 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
                     </div>
                 ))}
             </td>
-            {ownsDeck ? (
-                <td className='DeckTable-remove' onClick={onRemoveCard}>
-                    &#x2715;
-                </td>
-            ) : null}
+            {renderRemoveButton()}
         </tr>
     );
 }

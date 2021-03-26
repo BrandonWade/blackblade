@@ -32,7 +32,7 @@ function DeckTable({ deckCards = [], maybeboardCards = [], maybeboardMode = fals
                 heading='Maybeboard'
                 type='maybeboard'
                 visible={true}
-                className={maybeboardMode ? '' : 'u-faded'}
+                className={ownsDeck && !maybeboardMode ? 'u-faded' : ''}
                 headingClassName={`DeckTable-maybeboardHeading ${maybeboardMode ? 'DeckTable-headingRow--active' : ''}`}
                 onHeadingClick={toggleMaybeboardMode}
             />
