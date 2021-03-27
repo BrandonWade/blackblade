@@ -1,6 +1,7 @@
 import express from 'express';
 import { searchValidators } from './validators/search';
 import { cardValidators } from './validators/card';
+import { createDeckValidators, saveDeckValidators } from './validators/deck';
 import {
     registerUserValidators,
     activateAccountValidators,
@@ -35,8 +36,20 @@ router.get('/cards/random', getRandomCard);
 router.get('/cards/:id', cardValidators, validate(), getCardByID);
 router.get('/types', getCardTypes);
 router.get('/sets', getCardSets);
-router.post('/decks', authenticate, createDeck);
-router.put('/decks/:publicID', authenticate, saveDeck);
+router.post(
+    '/decks',
+    createDeckValidators,
+    validate(),
+    authenticate,
+    createDeck,
+);
+router.put(
+    '/decks/:publicID',
+    saveDeckValidators,
+    validate(),
+    authenticate,
+    saveDeck,
+);
 router.get('/decks/:publicID', getDeck);
 // router.post('/accounts', registerUserValidators, validate(), registerAccount);
 // router.get(

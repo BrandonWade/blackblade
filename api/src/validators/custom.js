@@ -119,3 +119,15 @@ export function passwordsMatch(password, { req }) {
 
     return true;
 }
+
+export function visibilityValidValue(visibility) {
+    const visibilityValues = ['public', 'private'];
+
+    if (!visibilityValues.includes(visibility)) {
+        throw new Error(
+            `visibility must be one of: ${visibilityValues.join(', ')}`,
+        );
+    }
+
+    return true;
+}
