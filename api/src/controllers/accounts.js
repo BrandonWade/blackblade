@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import AlreadyExistsError from '../errors/already_exists';
+import UnauthorizedError from '../errors/unauthorized';
 import NotFoundError from '../errors/not_found';
 import AccountService from '../services/accounts';
 import cookieOptions, { DURATION_ONE_HOUR } from '../helpers/cookies';
@@ -8,15 +9,7 @@ const registerAccount = async (req, res) => {
     try {
         await AccountService.registerAccount(req.body.email, req.body.password);
     } catch (e) {
-        if (e instanceof NotFoundError) {
-            return res.status(StatusCodes.NOT_FOUND).json({
-                errors: [{ msg: e.message }],
-            });
-        } else if (e instanceof AlreadyExistsError) {
-            return res.status(StatusCodes.CONFLICT).json({
-                errors: [{ msg: e.message }],
-            });
-        } else {
+        if (!(e instanceof AlreadyExistsError)) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 errors: [{ msg: 'error registering account' }],
             });
@@ -52,11 +45,7 @@ const requestPasswordReset = async (req, res) => {
     try {
         await AccountService.requestPasswordReset(email);
     } catch (e) {
-        if (e instanceof NotFoundError) {
-            return res.status(StatusCodes.NOT_FOUND).json({
-                errors: [{ msg: e.message }],
-            });
-        } else {
+        if (!(e instanceof NotFoundError)) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 errors: [{ msg: 'error requesting password reset' }],
             });
@@ -81,7 +70,11 @@ const resetPassword = async (req, res) => {
     try {
         await AccountService.resetPassword(token, password);
     } catch (e) {
-        if (e instanceof NotFoundError) {
+        if (e instanceof UnauthorizedError) {
+            return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+                errors: [{ msg: e.message }],
+            });
+        } else if (e instanceof NotFoundError) {
             return res.status(StatusCodes.NOT_FOUND).json({
                 errors: [{ msg: e.message }],
             });

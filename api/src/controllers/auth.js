@@ -17,11 +17,7 @@ const login = async (req, res) => {
         req.session.authenticated = true;
         req.session.accountID = accountID;
     } catch (e) {
-        if (e instanceof NotFoundError) {
-            return res.status(StatusCodes.NOT_FOUND).json({
-                errors: [{ msg: e.message }],
-            });
-        } else if (e instanceof UnauthorizedError) {
+        if (e instanceof UnauthorizedError || e instanceof NotFoundError) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 errors: [{ msg: e.message }],
             });
