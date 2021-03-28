@@ -1,5 +1,6 @@
 import { connection } from '../db';
 import NotFoundError from '../errors/not_found';
+import UnauthorizedError from '../errors/unauthorized';
 import AlreadyExistsError from '../errors/already_exists';
 
 const registerAccount = async (email, passwordHash, activationToken) => {
@@ -196,12 +197,14 @@ const resetPassword = async (token, passwordHash) => {
             SET a.password_hash = ?
             WHERE t.reset_token = ?
             AND t.status = 'pending'
+            AND TIMESTAMPDIFF(MINUTE, CURRENT_TIMESTAMP, t.expires_at) >= 0
+            AND TIMESTAMPDIFF(MINUTE, CURRENT_TIMESTAMP, t.expires_at) <= 60
         `,
             [passwordHash, token],
         );
         if (accountResult?.affectedRows !== 1) {
-            throw new NotFoundError(
-                `could not find account associated with reset token ${token}`,
+            throw new UnauthorizedError(
+                `reset token ${token} expired or invalid`,
             );
         }
 
