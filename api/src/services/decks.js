@@ -3,7 +3,8 @@ import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
 
 const createDeck = async (accountID, name, visibility) => {
-    let publicID;
+    let deckPublicID;
+    let accountPublicID;
 
     try {
         const [createResult] = await DeckRepository.createDeck(
@@ -16,10 +17,11 @@ const createDeck = async (accountID, name, visibility) => {
             throw 'error inserting new deck row';
         }
 
-        const [deckResult] = await DeckRepository.getPublicIDByID(deckID);
-        publicID = deckResult?.[0]?.public_id || 0;
-        if (!publicID) {
-            throw `error getting public id for deck ${deckID}`;
+        const [publicIDsResult] = await DeckRepository.getPublicIDsByID(deckID);
+        deckPublicID = publicIDsResult?.[0]?.deck_public_id || 0;
+        accountPublicID = publicIDsResult?.[0]?.account_public_id || 0;
+        if (!deckPublicID || !accountPublicID) {
+            throw `error getting public ids for deck ${deckID}`;
         }
     } catch (e) {
         console.error('error creating deck', e);
@@ -27,7 +29,8 @@ const createDeck = async (accountID, name, visibility) => {
     }
 
     return {
-        deck_uri: `/decks/${publicID}`,
+        deck_uri: `/decks/${deckPublicID}`,
+        account_public_id: accountPublicID,
     };
 };
 

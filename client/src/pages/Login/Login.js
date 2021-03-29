@@ -39,7 +39,7 @@ function Login() {
         const result = await login(email, password);
         if (result?.success) {
             setAuthenticated(true);
-            setAccountPublicID(result.account_public_id);
+            setAccountPublicID(result.accountPublicID);
             history.push('/');
         }
     };

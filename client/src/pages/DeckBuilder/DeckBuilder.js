@@ -53,7 +53,7 @@ function DeckBuilder() {
 
             const deck = result.cards.filter(c => c.location === 'deck');
             const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
-            setDeckAccountPublicID(result.account_public_id);
+            setDeckAccountPublicID(result.accountPublicID);
             setDeckName(result.name);
             setDeckVisibility(result.visibility);
             setDeckCards(deck);

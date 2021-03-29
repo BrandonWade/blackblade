@@ -11,7 +11,7 @@ function useAuth() {
                 const data = await response.json();
                 return {
                     success: true,
-                    ...data,
+                    accountPublicID: data.account_public_id,
                 };
             default:
                 return {
