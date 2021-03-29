@@ -18,11 +18,14 @@ const createDeck = async (accountID, name, visibility) => {
     );
 };
 
-const getPublicIDByID = async (deckID) => {
+const getPublicIDsByID = async (deckID) => {
     return connection.query(
-        `SELECT public_id
-        FROM decks
-        WHERE id = ?
+        `SELECT
+        d.public_id deck_public_id,
+        a.public_id account_public_id
+        FROM decks d
+        INNER JOIN accounts a ON d.account_id = a.id
+        WHERE d.id = ?
     `,
         [deckID],
     );
@@ -130,7 +133,7 @@ const getDeckCardsByPublicID = async (publicID) => {
 
 export default {
     createDeck,
-    getPublicIDByID,
+    getPublicIDsByID,
     saveDeck,
     getDeckByPublicID,
     getDeckCardsByPublicID,

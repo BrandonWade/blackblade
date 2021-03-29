@@ -1,5 +1,5 @@
-import { useHistory, useParams } from 'react-router-dom';
 import { useContext } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import useDeck from '../../hooks/useDeck';
 import useErrors from '../../hooks/useErrors';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
@@ -14,7 +14,7 @@ function DeckEditor({ editing = false }) {
     const { publicID } = useParams();
     const { createDeck } = useDeck();
     const { addErrors } = useErrors();
-    const { deckName, setDeckName, deckVisibility, setDeckVisibility } = useContext(DeckBuilderContext);
+    const { setDeckAccountPublicID, deckName, setDeckName, deckVisibility, setDeckVisibility } = useContext(DeckBuilderContext);
 
     const onChangeName = e => {
         setDeckName(e.target.value);
@@ -37,6 +37,7 @@ function DeckEditor({ editing = false }) {
             }
 
             redirect = response.deckURI;
+            setDeckAccountPublicID(response.accountPublicID);
         } else {
             redirect = `/decks/${publicID}`;
         }

@@ -12,6 +12,7 @@ function useDeck() {
                 return {
                     success: true,
                     deckURI: data.deck_uri,
+                    accountPublicID: data.account_public_id,
                 };
             default:
                 return {
@@ -49,7 +50,10 @@ function useDeck() {
                 const data = await response.json();
                 return {
                     success: true,
-                    ...data,
+                    accountPublicID: data.account_public_id,
+                    name: data.name,
+                    visibility: data.visibility,
+                    cards: data.cards,
                 };
             default:
                 return {
