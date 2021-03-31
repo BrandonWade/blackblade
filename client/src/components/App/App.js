@@ -33,11 +33,11 @@ function App() {
                                     <BrowserRouter>
                                         <Switch>
                                             <Route path='/' exact component={Home} />
-                                            {/* <Route path='/register' component={Register} /> */}
-                                            {/* <Route path='/password/forgot' component={ForgotPassword} /> */}
-                                            {/* <Route path='/password/reset' component={ResetPassword} /> */}
-                                            {/* <Route path='/login' component={Login} /> */}
-                                            {/* <Route path='/logout' component={Logout} /> */}
+                                            <Route path='/register' component={Register} />
+                                            <Route path='/password/forgot' component={ForgotPassword} />
+                                            <Route path='/password/reset' component={ResetPassword} />
+                                            <Route path='/login' component={Login} />
+                                            <Route path='/logout' component={Logout} />
                                             <Route path='/about' component={About} />
                                             <Route path='/advanced' component={AdvancedSearch} />
                                             <Route path='/cards/search' exact component={SearchResults} />

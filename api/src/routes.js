@@ -51,32 +51,32 @@ router.put(
     saveDeck,
 );
 router.get('/decks/:publicID', getDeck);
-// router.post('/accounts', registerUserValidators, validate(), registerAccount);
-// router.get(
-//     '/accounts/activate/:activationToken',
-//     activateAccountValidators,
-//     validate(),
-//     activateAccount,
-// );
-// router.post(
-//     '/accounts/password/forgot',
-//     requestPasswordResetValidators,
-//     validate(),
-//     requestPasswordReset,
-// );
-// router.get(
-//     '/accounts/password/forgot/:passwordResetToken',
-//     passwordResetRedirectValidators,
-//     validate('/password/forgot'),
-//     passwordResetRedirect,
-// );
-// router.post(
-//     '/accounts/password',
-//     resetPasswordValidators,
-//     validate(),
-//     resetPassword,
-// );
-// router.post('/login', loginValidators, validate(), login);
-// router.get('/logout', logout);
+router.post('/accounts', registerUserValidators, validate(), registerAccount);
+router.get(
+    '/accounts/activate/:activationToken',
+    activateAccountValidators,
+    validate(),
+    activateAccount,
+);
+router.post(
+    '/accounts/password/forgot',
+    requestPasswordResetValidators,
+    validate(),
+    requestPasswordReset,
+);
+router.get(
+    '/accounts/password/forgot/:passwordResetToken',
+    passwordResetRedirectValidators,
+    validate('/password/forgot'),
+    passwordResetRedirect,
+);
+router.post(
+    '/accounts/password',
+    resetPasswordValidators,
+    validate(),
+    resetPassword,
+);
+router.post('/login', loginValidators, validate(), login);
+router.get('/logout', logout);
 
 export default router;
