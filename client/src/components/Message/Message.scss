@@ -1,0 +1,19 @@
+.Message {
+    width: 100%;
+
+    &--error {
+        border: 1px solid var(--color-error);
+    }
+
+    &--warning {
+        border: 1px solid var(--color-warning);
+    }
+
+    &--success {
+        border: 1px solid var(--color-success);
+    }
+
+    &--info {
+        border: 1px solid var(--color-info);
+    }
+}
