@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { isEmpty } from 'lodash';
 import useAccount from '../../hooks/useAccount';
 import { isEmailValid } from '../../validators/email';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
 import Logo from '../../components/Logo';
+import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import { PasswordField } from '../../components/PasswordInput';
 import ValidationRow from '../../components/ValidationRow/ValidationRow';
@@ -14,6 +16,7 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [message, setMessage] = useState({});
     const { register } = useAccount();
     const emailValid = isEmailValid(email);
     const passwordLengthValid = isPasswordLengthValid(password);
@@ -40,13 +43,17 @@ function Register() {
             return;
         }
 
-        await register(email, password, confirmPassword);
+        const response = await register(email, password, confirmPassword);
+        if (response?.success) {
+            setMessage(response?.message);
+        }
     };
 
     return (
         <div className='Register'>
             <div className='Register-content'>
                 <Logo className='Register-logo' size='large' />
+                <Message type={message.type} text={message.text} visible={!isEmpty(message)} />
                 <form className='Register-form'>
                     <InputField
                         label='Email'

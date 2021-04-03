@@ -6,8 +6,10 @@ import AccountService from '../services/accounts';
 import cookieOptions, { DURATION_ONE_HOUR } from '../helpers/cookies';
 
 const registerAccount = async (req, res) => {
+    const { email, password } = req.body;
+
     try {
-        await AccountService.registerAccount(req.body.email, req.body.password);
+        await AccountService.registerAccount(email, password);
     } catch (e) {
         if (!(e instanceof AlreadyExistsError)) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -16,7 +18,12 @@ const registerAccount = async (req, res) => {
         }
     }
 
-    return res.status(StatusCodes.OK).send();
+    return res.status(StatusCodes.OK).json({
+        message: {
+            type: 'info',
+            message: `We've sent a link to ${email}. To complete registration, please check your inbox.`,
+        },
+    });
 };
 
 const activateAccount = async (req, res) => {
