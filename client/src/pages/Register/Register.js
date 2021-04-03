@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { isEmpty } from 'lodash';
 import useAccount from '../../hooks/useAccount';
 import { isEmailValid } from '../../validators/email';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
@@ -53,7 +52,7 @@ function Register() {
         <div className='Register'>
             <div className='Register-content'>
                 <Logo className='Register-logo' size='large' />
-                <Message type={message.type} text={message.text} visible={!isEmpty(message)} />
+                <Message type={message.type} text={message.text} />
                 <form className='Register-form'>
                     <InputField
                         label='Email'

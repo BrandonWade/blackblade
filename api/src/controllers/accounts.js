@@ -4,6 +4,7 @@ import UnauthorizedError from '../errors/unauthorized';
 import NotFoundError from '../errors/not_found';
 import AccountService from '../services/accounts';
 import cookieOptions, { DURATION_ONE_HOUR } from '../helpers/cookies';
+import { errorMessage, infoMessage } from '../helpers/messages';
 
 const registerAccount = async (req, res) => {
     const { email, password } = req.body;
@@ -13,16 +14,17 @@ const registerAccount = async (req, res) => {
     } catch (e) {
         if (!(e instanceof AlreadyExistsError)) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                errors: [{ msg: 'error registering account' }],
+                message: errorMessage(
+                    'An error occured while registering your account.',
+                ),
             });
         }
     }
 
     return res.status(StatusCodes.OK).json({
-        message: {
-            type: 'info',
-            message: `We've sent a link to ${email}. To complete registration, please check your inbox.`,
-        },
+        message: infoMessage(
+            `We've sent a link to ${email}. To complete registration, please check your inbox.`,
+        ),
     });
 };
 
@@ -47,19 +49,25 @@ const activateAccount = async (req, res) => {
 };
 
 const requestPasswordReset = async (req, res) => {
-    const email = req.body['email'];
+    const { email } = req.body;
 
     try {
         await AccountService.requestPasswordReset(email);
     } catch (e) {
         if (!(e instanceof NotFoundError)) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                errors: [{ msg: 'error requesting password reset' }],
+                message: errorMessage(
+                    'An error occured while requesting a password reset.',
+                ),
             });
         }
     }
 
-    return res.status(StatusCodes.OK).send();
+    return res.status(StatusCodes.OK).json({
+        message: infoMessage(
+            `We've sent a link to ${email}. To reset your password, please check your inbox.`,
+        ),
+    });
 };
 
 const passwordResetRedirect = async (req, res) => {

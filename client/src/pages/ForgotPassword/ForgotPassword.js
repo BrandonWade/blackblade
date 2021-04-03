@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useAccount from '../../hooks/useAccount';
 import { isEmailValid } from '../../validators/email';
 import Logo from '../../components/Logo';
+import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import Link from '../../components/Link';
 import Button from '../../components/Button';
@@ -9,6 +10,7 @@ import './ForgotPassword.scss';
 
 function ForgotPassword() {
     const [email, setEmail] = useState('');
+    const [message, setMessage] = useState({});
     const { requestPasswordReset } = useAccount();
     const emailValid = isEmailValid(email);
 
@@ -23,13 +25,17 @@ function ForgotPassword() {
             return;
         }
 
-        await requestPasswordReset(email);
+        const response = await requestPasswordReset(email);
+        if (response?.success) {
+            setMessage(response?.message);
+        }
     };
 
     return (
         <div className='ForgotPassword'>
             <div className='ForgotPassword-content'>
                 <Logo className='ForgotPassword-logo' size='large' />
+                <Message type={message.type} text={message.text} />
                 <form className='ForgotPassword-form'>
                     <p className='ForgotPassword-description'>Enter your email below and we'll send you a link to reset your password.</p>
                     <InputField
