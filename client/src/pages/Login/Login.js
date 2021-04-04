@@ -1,10 +1,12 @@
-import { useState, useContext } from 'react';
+import cookies from 'js-cookie';
+import { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { isEmailValid } from '../../validators/email';
 import { isPasswordValid } from '../../validators/password';
 import useAuth from '../../hooks/useAuth';
 import AuthContext from '../../contexts/Auth';
 import Logo from '../../components/Logo';
+import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import { PasswordField } from '../../components/PasswordInput';
 import Link from '../../components/Link';
@@ -14,12 +16,25 @@ import './Login.scss';
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState({});
     const history = useHistory();
     const { login } = useAuth();
     const { setAuthenticated, setAccountPublicID } = useContext(AuthContext);
     const emailValid = isEmailValid(email);
     const passwordValid = isPasswordValid(password);
     const isFormValid = emailValid && passwordValid;
+
+    useEffect(() => {
+        const rm = cookies.get('rm');
+        if (rm === undefined) {
+            return null;
+        }
+
+        cookies.remove('rm');
+
+        const message = JSON.parse(rm);
+        setMessage(message);
+    }, []);
 
     const onChangeEmail = e => {
         setEmail(e.target.value);
@@ -31,15 +46,16 @@ function Login() {
 
     const onSubmit = async e => {
         e.preventDefault();
+        setMessage({});
 
         if (!isFormValid) {
             return;
         }
 
-        const result = await login(email, password);
-        if (result?.success) {
+        const response = await login(email, password);
+        if (response?.success) {
             setAuthenticated(true);
-            setAccountPublicID(result.accountPublicID);
+            setAccountPublicID(response.accountPublicID);
             history.push('/');
         }
     };
@@ -48,6 +64,7 @@ function Login() {
         <div className='Login'>
             <div className='Login-content'>
                 <Logo className='Login-logo' size='large' />
+                <Message type={message.type} text={message.text} />
                 <form className='Login-form'>
                     <InputField
                         label='Email'

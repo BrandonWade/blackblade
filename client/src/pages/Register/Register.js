@@ -37,6 +37,7 @@ function Register() {
 
     const onSubmit = async e => {
         e.preventDefault();
+        setMessage({});
 
         if (!isFormValid) {
             return;

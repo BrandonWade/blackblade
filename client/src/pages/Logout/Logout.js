@@ -10,8 +10,8 @@ function Logout() {
 
     useEffect(() => {
         const logoutOfAccount = async () => {
-            const result = await logout();
-            if (result?.success) {
+            const response = await logout();
+            if (response?.success) {
                 setAuthenticated(false);
                 setAccountPublicID('');
                 history.replace('/login');
