@@ -20,6 +20,7 @@ function ForgotPassword() {
 
     const onSubmit = async e => {
         e.preventDefault();
+        setMessage({});
 
         if (!emailValid) {
             return;

@@ -3,6 +3,7 @@ import { useHistory, Redirect } from 'react-router-dom';
 import useAccount from '../../hooks/useAccount';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
 import Logo from '../../components/Logo';
+import Message from '../../components/Message';
 import { PasswordField } from '../../components/PasswordInput';
 import ValidationRow from '../../components/ValidationRow/ValidationRow';
 import Button from '../../components/Button';
@@ -11,6 +12,7 @@ import './ResetPassword.scss';
 function ResetPassword() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [message, setMessage] = useState({});
     const history = useHistory();
     const { resetPassword } = useAccount();
     const passwordLengthValid = isPasswordLengthValid(password);
@@ -33,14 +35,17 @@ function ResetPassword() {
 
     const onSubmit = async e => {
         e.preventDefault();
+        setMessage({});
 
         if (!isFormValid) {
             return;
         }
 
-        const result = await resetPassword(password, confirmPassword);
-        if (result?.success) {
+        const response = await resetPassword(password, confirmPassword);
+        if (response?.success) {
             history.push('/login');
+        } else {
+            setMessage(response.message);
         }
     };
 
@@ -49,6 +54,7 @@ function ResetPassword() {
             {checkPasswordResetTokenCookie()}
             <div className='ResetPassword-content'>
                 <Logo className='ResetPassword-logo' size='large' />
+                <Message type={message.type} text={message.text} />
                 <form className='ResetPassword-form'>
                     <PasswordField
                         label='New Password'

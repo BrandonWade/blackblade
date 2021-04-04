@@ -41,15 +41,14 @@ function useAccount() {
 
     const resetPassword = async (password = '', confirmPassword = '') => {
         const response = await fetchData('/api/accounts/password', 'POST', { password, confirm_password: confirmPassword });
-        const data = await response.json();
 
         switch (response.status) {
             case 200:
                 return {
                     success: true,
-                    message: data.message,
                 };
             default:
+                const data = await response.json();
                 return {
                     success: false,
                     message: data.message,

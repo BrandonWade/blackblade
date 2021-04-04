@@ -4,7 +4,7 @@ import UnauthorizedError from '../errors/unauthorized';
 import NotFoundError from '../errors/not_found';
 import AccountService from '../services/accounts';
 import cookieOptions, { DURATION_ONE_HOUR } from '../helpers/cookies';
-import { errorMessage, infoMessage } from '../helpers/messages';
+import { errorMessage, successMessage, infoMessage } from '../helpers/messages';
 
 const registerAccount = async (req, res) => {
     const { email, password } = req.body;
@@ -29,22 +29,30 @@ const registerAccount = async (req, res) => {
 };
 
 const activateAccount = async (req, res) => {
-    const token = req.params['activationToken'];
+    const { activationToken } = req.params;
 
     try {
-        await AccountService.activateAccount(token);
+        await AccountService.activateAccount(activationToken);
     } catch (e) {
         if (e instanceof NotFoundError) {
             return res.status(StatusCodes.NOT_FOUND).json({
-                errors: [{ msg: e.message }],
+                message: errorMessage(
+                    'Your activation link is invalid. Please try again.',
+                ),
             });
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                errors: [{ msg: 'error activating account' }],
+                message: errorMessage(
+                    'An error occured while activating your account.',
+                ),
             });
         }
     }
 
+    const message = successMessage(
+        'Your account has been successfully activated. Please log in.',
+    );
+    res.cookie('rm', JSON.stringify(message), cookieOptions(DURATION_ONE_HOUR));
     return res.redirect('/login');
 };
 
@@ -71,36 +79,46 @@ const requestPasswordReset = async (req, res) => {
 };
 
 const passwordResetRedirect = async (req, res) => {
-    const token = req.params['passwordResetToken'];
+    const { passwordResetToken } = req.params;
 
-    res.cookie('prt', token, cookieOptions(DURATION_ONE_HOUR));
+    res.cookie('prt', passwordResetToken, cookieOptions(DURATION_ONE_HOUR));
 
     return res.redirect('/password/reset');
 };
 
 const resetPassword = async (req, res) => {
-    const token = req.cookies['prt'];
-    const password = req.body['password'];
+    const { prt: token } = req.cookies;
+    const { password } = req.body;
 
     try {
         await AccountService.resetPassword(token, password);
     } catch (e) {
         if (e instanceof UnauthorizedError) {
             return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
-                errors: [{ msg: e.message }],
+                message: errorMessage(
+                    'Your reset link has either expired or is invalid. Please try again.',
+                ),
             });
         } else if (e instanceof NotFoundError) {
             return res.status(StatusCodes.NOT_FOUND).json({
-                errors: [{ msg: e.message }],
+                message: errorMessage(
+                    'Your reset link is invalid. Please try again.',
+                ),
             });
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                errors: [{ msg: 'error resetting password' }],
+                message: errorMessage(
+                    'An error occured while resetting your password.',
+                ),
             });
         }
     }
 
     res.clearCookie('prt');
+    const message = successMessage(
+        'Your password has been successfully reset. Please log in.',
+    );
+    res.cookie('rm', JSON.stringify(message), cookieOptions(DURATION_ONE_HOUR));
     return res.status(StatusCodes.OK).send();
 };
 
