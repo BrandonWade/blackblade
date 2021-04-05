@@ -1,32 +1,35 @@
 import { StatusCodes } from 'http-status-codes';
 import NotFoundError from '../errors/not_found';
 import SearchService from '../services/search';
+import { errorMessage } from '../helpers/messages';
 
 const searchCards = async (req, res) => {
-    const name = req.query['name'];
-    const text = req.query['text'];
-    const selectedTypes = req.query['selectedTypes'];
-    const white = req.query['white'];
-    const blue = req.query['blue'];
-    const black = req.query['black'];
-    const red = req.query['red'];
-    const green = req.query['green'];
-    const colorless = req.query['colorless'];
-    const matchType = req.query['matchType'];
-    const selectedSets = req.query['selectedSets'];
-    const cmcComparator = req.query['cmcComparator'];
+    const {
+        name,
+        text,
+        selectedTypes,
+        white,
+        blue,
+        black,
+        red,
+        green,
+        colorless,
+        matchType,
+        selectedSets,
+        cmcComparator,
+        powerComparator,
+        toughnessComparator,
+        loyaltyComparator,
+        common,
+        uncommon,
+        rare,
+        mythic,
+        flavorText,
+    } = req.query;
     const cmcValue = parseInt(req.query['cmcValue']);
-    const powerComparator = req.query['powerComparator'];
     const powerValue = parseInt(req.query['powerValue']);
-    const toughnessComparator = req.query['toughnessComparator'];
     const toughnessValue = parseInt(req.query['toughnessValue']);
-    const loyaltyComparator = req.query['loyaltyComparator'];
     const loyaltyValue = parseInt(req.query['loyaltyValue']);
-    const common = req.query['common'];
-    const uncommon = req.query['uncommon'];
-    const rare = req.query['rare'];
-    const mythic = req.query['mythic'];
-    const flavorText = req.query['flavorText'];
     const page = parseInt(req.query['page']);
     let results;
 
@@ -52,7 +55,9 @@ const searchCards = async (req, res) => {
         });
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error searching cards' }],
+            message: errorMessage(
+                'An error occurred while performing your search.',
+            ),
         });
     }
 
@@ -60,7 +65,7 @@ const searchCards = async (req, res) => {
 };
 
 const getCardByID = async (req, res) => {
-    const id = req.params['id'];
+    const { id } = req.params;
     let results;
 
     try {
@@ -70,7 +75,9 @@ const getCardByID = async (req, res) => {
             return res.status(StatusCodes.NOT_FOUND).send();
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                errors: [{ msg: 'error searching by card id' }],
+                message: errorMessage(
+                    'An error occurred while searching for this card.',
+                ),
             });
         }
     }
@@ -85,7 +92,9 @@ const getRandomCard = async (_, res) => {
         results = await SearchService.getRandomCard();
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error getting random card' }],
+            message: errorMessage(
+                'An error occurred while retrieving a random card.',
+            ),
         });
     }
 
@@ -99,7 +108,9 @@ const getCardTypes = async (_, res) => {
         results = await SearchService.getCardTypes();
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error getting card types' }],
+            message: errorMessage(
+                'An error occurred while retrieving available card types.',
+            ),
         });
     }
 
@@ -113,7 +124,9 @@ const getCardSets = async (_, res) => {
         results = await SearchService.getCardSets();
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error getting card sets' }],
+            message: errorMessage(
+                'An error occurred while retrieving available card sets.',
+            ),
         });
     }
 
