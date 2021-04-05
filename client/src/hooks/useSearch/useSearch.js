@@ -103,28 +103,29 @@ function useSearch() {
                     redirect: '/',
                 };
             default:
+                const data = await response.json();
                 return {
                     success: false,
-                    errors: await response.json(),
+                    message: data.message,
                 };
         }
     };
 
     const getRandomCard = async () => {
         const response = await fetchData('/api/cards/random');
+        const data = await response.json();
 
         switch (response.status) {
             case 200:
-                const results = await response.json();
                 return {
                     success: true,
-                    redirect: `/cards/${results.card_id}`,
-                    results,
+                    redirect: `/cards/${data.card_id}`,
+                    results: data,
                 };
             default:
                 return {
                     success: false,
-                    errors: await response.json(),
+                    message: data.message,
                 };
         }
     };
@@ -134,15 +135,14 @@ function useSearch() {
         if (paramString === undefined) {
             return {
                 success: false,
-                errors: ['invalid params'],
             };
         }
 
         const response = await fetchData(`/api/search?${paramString}`);
+        const data = await response.json();
 
         switch (response.status) {
             case 200:
-                const data = await response.json();
                 return {
                     success: true,
                     totalResults: data.total_results,
@@ -152,7 +152,8 @@ function useSearch() {
             default:
                 return {
                     success: false,
-                    errors: await response.json(),
+                    message: data.message,
+                    errors: data?.errors || [],
                 };
         }
     };
