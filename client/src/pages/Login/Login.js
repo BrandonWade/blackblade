@@ -57,6 +57,8 @@ function Login() {
             setAuthenticated(true);
             setAccountPublicID(response.accountPublicID);
             history.push('/');
+        } else {
+            setMessage(response?.message);
         }
     };
 
