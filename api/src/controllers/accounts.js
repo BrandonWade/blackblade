@@ -15,7 +15,7 @@ const registerAccount = async (req, res) => {
         if (!(e instanceof AlreadyExistsError)) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage(
-                    'An error occured while registering your account.',
+                    'An error occurred while registering your account.',
                 ),
             });
         }
@@ -43,7 +43,7 @@ const activateAccount = async (req, res) => {
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage(
-                    'An error occured while activating your account.',
+                    'An error occurred while activating your account.',
                 ),
             });
         }
@@ -65,7 +65,7 @@ const requestPasswordReset = async (req, res) => {
         if (!(e instanceof NotFoundError)) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage(
-                    'An error occured while requesting a password reset.',
+                    'An error occurred while requesting a password reset.',
                 ),
             });
         }
@@ -108,7 +108,7 @@ const resetPassword = async (req, res) => {
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage(
-                    'An error occured while resetting your password.',
+                    'An error occurred while resetting your password.',
                 ),
             });
         }

@@ -5,10 +5,10 @@ function useDeck() {
 
     const createDeck = async (name = '', visibility = 'private') => {
         const response = await fetchData('/api/decks', 'POST', { name, visibility });
+        const data = await response.json();
 
         switch (response.status) {
             case 200:
-                const data = await response.json();
                 return {
                     success: true,
                     deckURI: data.deck_uri,
@@ -17,7 +17,7 @@ function useDeck() {
             default:
                 return {
                     success: false,
-                    errors: await response.json(),
+                    message: data.message,
                 };
         }
     };
@@ -34,10 +34,15 @@ function useDeck() {
                 return {
                     success: true,
                 };
-            default:
+            case 401:
                 return {
                     success: false,
-                    errors: await response.json(),
+                };
+            default:
+                const data = await response.json();
+                return {
+                    success: false,
+                    message: data.message,
                 };
         }
     };
@@ -46,7 +51,7 @@ function useDeck() {
         const response = await fetchData(`/api/decks/${publicID}`);
 
         switch (response.status) {
-            case 200:
+            case 200: {
                 const data = await response.json();
                 return {
                     success: true,
@@ -55,11 +60,18 @@ function useDeck() {
                     visibility: data.visibility,
                     cards: data.cards,
                 };
-            default:
+            }
+            case 401:
                 return {
                     success: false,
-                    errors: await response.json(),
                 };
+            default: {
+                const data = await response.json();
+                return {
+                    success: false,
+                    message: data.message,
+                };
+            }
         }
     };
 
