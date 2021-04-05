@@ -3,6 +3,7 @@ import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
 import AccountService from '../services/accounts';
 import cookieOptions from '../helpers/cookies';
+import { errorMessage } from '../helpers/messages';
 
 const login = async (req, res) => {
     let accountID;
@@ -19,11 +20,11 @@ const login = async (req, res) => {
     } catch (e) {
         if (e instanceof UnauthorizedError || e instanceof NotFoundError) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
-                errors: [{ msg: e.message }],
+                message: errorMessage('Invalid email or password.'),
             });
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                errors: [{ msg: 'error logging in' }],
+                message: errorMessage('An error occured while logging in.'),
             });
         }
     }

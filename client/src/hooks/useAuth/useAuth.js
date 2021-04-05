@@ -5,10 +5,10 @@ function useAuth() {
 
     const login = async (email = '', password = '') => {
         const response = await fetchData('/api/login', 'POST', { email, password });
+        const data = await response.json();
 
         switch (response.status) {
             case 200:
-                const data = await response.json();
                 return {
                     success: true,
                     accountPublicID: data.account_public_id,
@@ -16,7 +16,7 @@ function useAuth() {
             default:
                 return {
                     success: false,
-                    errors: await response.json(),
+                    message: data.message,
                 };
         }
     };
@@ -32,7 +32,6 @@ function useAuth() {
             default:
                 return {
                     success: false,
-                    errors: await response.json(),
                 };
         }
     };

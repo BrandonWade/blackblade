@@ -45,7 +45,7 @@ function ResetPassword() {
         if (response?.success) {
             history.push('/login');
         } else {
-            setMessage(response.message);
+            setMessage(response?.message);
         }
     };
 
