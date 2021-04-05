@@ -1,15 +1,17 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import useDeck from '../../hooks/useDeck';
 import useErrors from '../../hooks/useErrors';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
+import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import { SelectField } from '../../components/Select';
 import Button from '../../components/Button';
 import './DeckEditor.scss';
 
 function DeckEditor({ editing = false }) {
+    const [message, setMessage] = useState({});
     const history = useHistory();
     const { publicID } = useParams();
     const { createDeck } = useDeck();
@@ -26,6 +28,7 @@ function DeckEditor({ editing = false }) {
 
     const onSubmit = async e => {
         e.preventDefault();
+        setMessage({});
 
         let redirect = '/';
 
@@ -53,30 +56,33 @@ function DeckEditor({ editing = false }) {
 
     return (
         <HeaderPage className='DeckEditor'>
-            <form className='DeckEditor-form' onSubmit={onSubmit}>
-                <InputField
-                    rowClassName='DeckEditor-inputRow'
-                    labelClassName='DeckEditor-label'
-                    className='DeckEditor-deckName'
-                    label='Name'
-                    value={deckName}
-                    onChange={onChangeName}
-                />
-                <SelectField
-                    rowClassName='DeckEditor-inputRow'
-                    labelClassName='DeckEditor-label'
-                    className='DeckEditor-visibility'
-                    descriptionClassName='DeckEditor-description'
-                    label='Visibility'
-                    value={deckVisibility}
-                    description={renderVisibilityDescription()}
-                    onChange={onChangeVisibility}
-                >
-                    <option value='private'>Private</option>
-                    <option value='public'>Public</option>
-                </SelectField>
-                <Button className='DeckEditor-createButton'>{`${editing ? 'Update' : 'Create'}`}</Button>
-            </form>
+            <div className='DeckEditor-content'>
+                <Message type={message.type} text={message.text} />
+                <form className='DeckEditor-form' onSubmit={onSubmit}>
+                    <InputField
+                        rowClassName='DeckEditor-inputRow'
+                        labelClassName='DeckEditor-label'
+                        className='DeckEditor-deckName'
+                        label='Name'
+                        value={deckName}
+                        onChange={onChangeName}
+                    />
+                    <SelectField
+                        rowClassName='DeckEditor-inputRow'
+                        labelClassName='DeckEditor-label'
+                        className='DeckEditor-visibility'
+                        descriptionClassName='DeckEditor-description'
+                        label='Visibility'
+                        value={deckVisibility}
+                        description={renderVisibilityDescription()}
+                        onChange={onChangeVisibility}
+                    >
+                        <option value='private'>Private</option>
+                        <option value='public'>Public</option>
+                    </SelectField>
+                    <Button className='DeckEditor-createButton'>{`${editing ? 'Update' : 'Create'}`}</Button>
+                </form>
+            </div>
         </HeaderPage>
     );
 }

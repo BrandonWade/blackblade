@@ -24,7 +24,7 @@ const login = async (req, res) => {
             });
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: errorMessage('An error occured while logging in.'),
+                message: errorMessage('An error occurred while logging in.'),
             });
         }
     }

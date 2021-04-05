@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
 import DeckService from '../services/decks';
+import { errorMessage } from '../helpers/messages';
 
 const createDeck = async (req, res) => {
     const { accountID } = req.session;
@@ -12,7 +13,9 @@ const createDeck = async (req, res) => {
         result = await DeckService.createDeck(accountID, name, visibility);
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: [{ msg: 'error creating new deck' }],
+            message: errorMessage(
+                'An error occurred while creating your deck.',
+            ),
         });
     }
 
@@ -37,7 +40,7 @@ const saveDeck = async (req, res) => {
             return res.status(StatusCodes.UNAUTHORIZED).send();
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                errors: [{ msg: 'error saving deck' }],
+                message: errorMessage('An error occurred saving your deck.'),
             });
         }
     }
@@ -57,7 +60,9 @@ const getDeck = async (req, res) => {
             return res.status(StatusCodes.NOT_FOUND).send();
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                errors: [{ msg: 'error retrieving deck' }],
+                message: errorMessage(
+                    'An error occurred retrieving this deck.',
+                ),
             });
         }
     }
