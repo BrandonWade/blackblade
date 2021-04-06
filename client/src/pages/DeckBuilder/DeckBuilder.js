@@ -82,7 +82,7 @@ function DeckBuilder() {
     return (
         <div className='DeckBuilder'>
             <CardArtSelector />
-            <div className='DeckBuilder-searchPanel'>
+            <div className='DeckBuilder-displayPanel'>
                 <DeckBuilderSearch />
             </div>
             <div className='DeckBuilder-deckPanel'>
