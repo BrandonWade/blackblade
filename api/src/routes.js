@@ -40,14 +40,18 @@ router.post(
     '/decks',
     createDeckValidators,
     validate(),
-    authenticate,
+    authenticate(
+        'You must be logged in to create a deck. Please log in and try again.',
+    ),
     createDeck,
 );
 router.put(
     '/decks/:publicID',
     saveDeckValidators,
     validate(),
-    authenticate,
+    authenticate(
+        'You do not have permission to modify this deck. If this deck is yours, please log in and try again.',
+    ),
     saveDeck,
 );
 router.get('/decks/:publicID', getDeck);
