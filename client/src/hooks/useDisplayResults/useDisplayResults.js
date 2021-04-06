@@ -1,14 +1,12 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearch from '../useSearch';
-import useErrors from '../useErrors';
 import CardContext from '../../contexts/Card';
 import SearchContext from '../../contexts/Search';
 
 function useDisplayResults() {
     const history = useHistory();
     const { getParamString } = useSearch();
-    const { addErrors } = useErrors();
     const { setCard } = useContext(CardContext);
     const { setTotalResults, setSearchResults, setNumberOfPages } = useContext(SearchContext);
 
@@ -30,7 +28,6 @@ function useDisplayResults() {
 
     const displayCard = (response = {}) => {
         if (!response.success) {
-            addErrors(response.errors);
             return;
         }
 
@@ -39,7 +36,6 @@ function useDisplayResults() {
 
     const displayResults = (response = {}) => {
         if (!response.success) {
-            addErrors(response.errors);
             return;
         }
 

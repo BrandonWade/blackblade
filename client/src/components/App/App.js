@@ -1,5 +1,4 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import ErrorProvider from '../../providers/Error';
 import AuthProvider from '../../providers/Auth';
 import CardArtSelectorProvider from '../../providers/CardArtSelector';
 import DeckBuilderProvider from '../../providers/DeckBuilder';
@@ -23,38 +22,36 @@ import './App.scss';
 
 function App() {
     return (
-        <ErrorProvider>
-            <AuthProvider>
-                <CardArtSelectorProvider>
-                    <DeckBuilderProvider>
-                        <AdvancedSearchProvider>
-                            <SearchProvider>
-                                <CardProvider>
-                                    <BrowserRouter>
-                                        <Switch>
-                                            <Route path='/' exact component={Home} />
-                                            <Route path='/register' component={Register} />
-                                            <Route path='/password/forgot' component={ForgotPassword} />
-                                            <Route path='/password/reset' component={ResetPassword} />
-                                            <Route path='/login' component={Login} />
-                                            <Route path='/logout' component={Logout} />
-                                            <Route path='/about' component={About} />
-                                            <Route path='/advanced' component={AdvancedSearch} />
-                                            <Route path='/cards/search' exact component={SearchResults} />
-                                            <Route path='/cards/:id' component={Card} />
-                                            <AuthenticatedRoute path='/decks' exact editing={false} component={DeckEditor} />
-                                            <Route path='/decks/:publicID' exact component={DeckBuilder} />
-                                            <AuthenticatedRoute path='/decks/:publicID/edit' exact editing={true} component={DeckEditor} />
-                                            <Redirect to='/' />
-                                        </Switch>
-                                    </BrowserRouter>
-                                </CardProvider>
-                            </SearchProvider>
-                        </AdvancedSearchProvider>
-                    </DeckBuilderProvider>
-                </CardArtSelectorProvider>
-            </AuthProvider>
-        </ErrorProvider>
+        <AuthProvider>
+            <CardArtSelectorProvider>
+                <DeckBuilderProvider>
+                    <AdvancedSearchProvider>
+                        <SearchProvider>
+                            <CardProvider>
+                                <BrowserRouter>
+                                    <Switch>
+                                        <Route path='/' exact component={Home} />
+                                        <Route path='/register' component={Register} />
+                                        <Route path='/password/forgot' component={ForgotPassword} />
+                                        <Route path='/password/reset' component={ResetPassword} />
+                                        <Route path='/login' component={Login} />
+                                        <Route path='/logout' component={Logout} />
+                                        <Route path='/about' component={About} />
+                                        <Route path='/advanced' component={AdvancedSearch} />
+                                        <Route path='/cards/search' exact component={SearchResults} />
+                                        <Route path='/cards/:id' component={Card} />
+                                        <AuthenticatedRoute path='/decks' exact editing={false} component={DeckEditor} />
+                                        <Route path='/decks/:publicID' exact component={DeckBuilder} />
+                                        <AuthenticatedRoute path='/decks/:publicID/edit' exact editing={true} component={DeckEditor} />
+                                        <Redirect to='/' />
+                                    </Switch>
+                                </BrowserRouter>
+                            </CardProvider>
+                        </SearchProvider>
+                    </AdvancedSearchProvider>
+                </DeckBuilderProvider>
+            </CardArtSelectorProvider>
+        </AuthProvider>
     );
 }
 

@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import useDeck from '../../hooks/useDeck';
-import useErrors from '../../hooks/useErrors';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
 import Message from '../../components/Message';
@@ -15,7 +14,6 @@ function DeckEditor({ editing = false }) {
     const history = useHistory();
     const { publicID } = useParams();
     const { createDeck } = useDeck();
-    const { addErrors } = useErrors();
     const { setDeckAccountPublicID, deckName, setDeckName, deckVisibility, setDeckVisibility } = useContext(DeckBuilderContext);
 
     const onChangeName = e => {
@@ -35,7 +33,6 @@ function DeckEditor({ editing = false }) {
         if (!editing) {
             const response = await createDeck(deckName, deckVisibility);
             if (!response.success) {
-                addErrors(response.errors);
                 return;
             }
 

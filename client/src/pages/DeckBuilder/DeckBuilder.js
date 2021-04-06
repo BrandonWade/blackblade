@@ -2,7 +2,6 @@ import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { isEqual } from 'lodash';
 import useDeck from '../../hooks/useDeck';
-import useErrors from '../../hooks/useErrors';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardArtSelector from '../../components/CardArtSelector';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
@@ -15,7 +14,6 @@ import './DeckBuilder.scss';
 function DeckBuilder() {
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDeck();
-    const { addErrors } = useErrors();
     const {
         setDeckAccountPublicID,
         deckName,
@@ -47,7 +45,6 @@ function DeckBuilder() {
         const fetchDeck = async () => {
             const result = await getDeck(publicID);
             if (!result.success) {
-                addErrors(result.errors);
                 return;
             }
 
@@ -72,7 +69,6 @@ function DeckBuilder() {
     const onSaveDeck = async () => {
         const result = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
         if (!result.success) {
-            addErrors(result.errors);
             return;
         }
 
