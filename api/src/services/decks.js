@@ -36,17 +36,14 @@ const createDeck = async (accountID, name, visibility) => {
 
 const saveDeck = async (accountID, publicID, name, visibility, deck) => {
     try {
-        const [deckIDResult] = await DeckRepository.getDeckByPublicID(
-            publicID,
-            accountID,
-        );
+        const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
         const deckID = deckIDResult?.[0]?.id || 0;
-        if (!deckID) {
+        const deckAccountID = deckIDResult?.[0]?.account_id || 0;
+        if (!deckID || !deckAccountID) {
             throw `error getting deck with public id ${publicID}`;
         }
 
-        const deckAccountID = deckIDResult?.[0]?.account_id || 0;
-        if (!deckAccountID || deckAccountID !== accountID) {
+        if (deckAccountID !== accountID) {
             throw new UnauthorizedError(
                 'account id and deck account id do not match',
             );
@@ -75,10 +72,17 @@ const getDeck = async (publicID, accountID) => {
     let cards;
 
     try {
-        [deck] = await DeckRepository.getDeckByPublicID(publicID, accountID);
+        [deck] = await DeckRepository.getDeckByPublicID(publicID);
         if (deck.length !== 1) {
             throw new NotFoundError(
                 `error getting deck with public id ${publicID} and account id ${accountID}`,
+            );
+        }
+
+        deck = deck[0];
+        if (deck.visibility !== 'public' && deck.account_id !== accountID) {
+            throw new UnauthorizedError(
+                `user does not have permission to view deck ${publicID}`,
             );
         }
 
@@ -89,9 +93,9 @@ const getDeck = async (publicID, accountID) => {
     }
 
     return {
-        account_public_id: deck?.[0]?.account_public_id,
-        name: deck?.[0]?.name,
-        visibility: deck?.[0]?.visibility,
+        account_public_id: deck?.account_public_id,
+        name: deck?.name,
+        visibility: deck?.visibility,
         cards,
     };
 };

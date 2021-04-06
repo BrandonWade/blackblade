@@ -37,7 +37,11 @@ const saveDeck = async (req, res) => {
         );
     } catch (e) {
         if (e instanceof UnauthorizedError) {
-            return res.status(StatusCodes.UNAUTHORIZED).send();
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                message: errorMessage(
+                    'You do not have permission to modify this deck. If this deck is yours, please log in and try again.',
+                ),
+            });
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage('An error occurred saving your deck.'),
@@ -56,7 +60,7 @@ const getDeck = async (req, res) => {
     try {
         deck = await DeckService.getDeck(publicID, accountID);
     } catch (e) {
-        if (e instanceof NotFoundError) {
+        if (e instanceof NotFoundError || e instanceof UnauthorizedError) {
             return res.status(StatusCodes.NOT_FOUND).send();
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
