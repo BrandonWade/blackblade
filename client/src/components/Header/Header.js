@@ -32,7 +32,7 @@ function Header() {
 
     const renderDeckBuilderLink = () => {
         return authenticated ? (
-            <Link to='/decks'>
+            <Link to='/decks/new'>
                 <Button className='Header-link'>Deck Builder</Button>
             </Link>
         ) : null;

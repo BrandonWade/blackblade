@@ -19,7 +19,7 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
     const renderDeckBuilderLink = () => {
         return authenticated ? (
             <li className='Menu-link' onClick={closeMenu}>
-                <Link to='/decks'>Deck Builder</Link>
+                <Link to='/decks/new'>Deck Builder</Link>
             </li>
         ) : null;
     };

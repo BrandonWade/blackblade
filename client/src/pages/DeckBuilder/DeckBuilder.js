@@ -7,7 +7,7 @@ import CardArtSelector from '../../components/CardArtSelector';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
 import DeckActions from '../../components/DeckActions';
 import DeckStats from '../../components/DeckStats';
-import DeckTable from '../../components/DeckList/DeckTable';
+import DeckTable from '../../components/DeckTable';
 import Button from '../../components/Button';
 import './DeckBuilder.scss';
 
