@@ -40,7 +40,7 @@ function App() {
                                         <Route path='/advanced' component={AdvancedSearch} />
                                         <Route path='/cards/search' exact component={SearchResults} />
                                         <Route path='/cards/:id' component={Card} />
-                                        <AuthenticatedRoute path='/decks' exact editing={false} component={DeckEditor} />
+                                        <AuthenticatedRoute path='/decks/new' exact editing={false} component={DeckEditor} />
                                         <Route path='/decks/:publicID' exact component={DeckBuilder} />
                                         <AuthenticatedRoute path='/decks/:publicID/edit' exact editing={true} component={DeckEditor} />
                                         <Redirect to='/' />
