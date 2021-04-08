@@ -1,0 +1,154 @@
+.DeckTable {
+    &-headingRow {
+        height: 3rem;
+        font-size: 1.4rem;
+        border-bottom: var(--line);
+        background-color: var(--color-primary-light);
+
+        &--active {
+            background-color: var(--color-highlight);
+        }
+    }
+
+    &-maybeboardHeading {
+        cursor: pointer;
+    }
+
+    &-cardRow {
+        border-bottom: var(--line);
+        background-color: var(--color-primary-dark);
+    }
+
+    &-deck {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--color-primary);
+    }
+
+    &-count {
+        padding: 0.25rem;
+        width: 4rem;
+        min-width: 4rem;
+
+        @media only screen and (max-width: 37.5em) {
+            width: 3.5rem;
+            min-width: 3.5rem;
+        }
+    }
+
+    &-input {
+        line-height: 2;
+        text-align: center;
+
+        &--readonly {
+            line-height: 2;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+    }
+
+    &-selectArt,
+    &-switchSection {
+        cursor: pointer;
+        width: 4rem;
+        min-width: 4rem;
+
+        @media only screen and (max-width: 37.5em) {
+            width: 3rem;
+            min-width: 3rem;
+        }
+
+        &:hover {
+            background-color: var(--color-primary-lighter);
+
+            & > .DeckTable-selectArtIcon {
+                opacity: 1;
+            }
+        }
+    }
+
+    &-selectArtIcon,
+    &-switchSectionIcon {
+        display: block;
+        width: 2rem;
+        height: 2rem;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    &-manaCosts {
+        text-align: right;
+    }
+
+    &-names {
+        font-size: 1.3rem;
+
+        @media only screen and (max-width: 37.5em) {
+            font-size: 1.1rem;
+        }
+    }
+
+    &-subRow {
+        height: 2rem;
+        display: flex;
+        align-items: center;
+
+        @media only screen and (max-width: 37.5em) {
+            height: 1.75rem;
+        }
+    }
+
+    &-manaSubRow {
+        justify-content: flex-end;
+
+        & > .CardSymbol {
+            width: 1.3em;
+            height: 1.3em;
+
+            @media only screen and (max-width: 37.5em) {
+                width: 1.1em;
+                height: 1.1em;
+            }
+        }
+    }
+
+    &-cardLink {
+        cursor: pointer;
+        display: block;
+        max-width: 18rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        @media only screen and (max-width: 75em) {
+            max-width: 10rem;
+        }
+
+        @media only screen and (max-width: 52.125em) {
+            max-width: 100%;
+        }
+    }
+
+    &-manaCosts,
+    &-names {
+        padding: 0.5rem;
+
+        @media only screen and (max-width: 37.5em) {
+            padding: 0 0.25rem;
+        }
+    }
+
+    &-remove {
+        width: 3rem;
+        min-width: 3rem;
+        font-size: 1.3rem;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+        transition: all 0.2s;
+
+        &:hover {
+            background-color: var(--color-primary-lighter);
+        }
+    }
+}

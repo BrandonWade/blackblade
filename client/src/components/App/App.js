@@ -15,6 +15,7 @@ import Logout from '../../pages/Logout';
 import AdvancedSearch from '../../pages/AdvancedSearch';
 import SearchResults from '../../pages/SearchResults';
 import Card from '../../pages/Card';
+import DeckList from '../../pages/DeckList';
 import DeckEditor from '../../pages/DeckEditor';
 import DeckBuilder from '../../pages/DeckBuilder';
 import About from '../../pages/About';
@@ -40,6 +41,7 @@ function App() {
                                         <Route path='/advanced' component={AdvancedSearch} />
                                         <Route path='/cards/search' exact component={SearchResults} />
                                         <Route path='/cards/:id' component={Card} />
+                                        <AuthenticatedRoute path='/decks' exact component={DeckList} />
                                         <AuthenticatedRoute path='/decks/new' exact editing={false} component={DeckEditor} />
                                         <Route path='/decks/:publicID' exact component={DeckBuilder} />
                                         <AuthenticatedRoute path='/decks/:publicID/edit' exact editing={true} component={DeckEditor} />

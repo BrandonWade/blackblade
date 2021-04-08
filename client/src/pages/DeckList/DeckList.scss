@@ -1,0 +1,42 @@
+.DeckList {
+    &-content {
+        padding: 4rem;
+    }
+
+    &-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: 2.5rem;
+        grid-row-gap: 2.5rem;
+    }
+
+    &-deck {
+        padding: 1.5rem;
+        border: var(--line);
+        background-color: var(--color-primary-dark);
+        transition: 0.2s all;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--color-primary-lighter);
+        }
+    }
+
+    &-deckName {
+        font-size: 1.8rem;
+        line-height: 2rem;
+        margin-bottom: 0.25rem;
+    }
+
+    &-deckSize {
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    &-color {
+        display: inline-block;
+        width: 1.8rem;
+        margin-right: 0.25rem;
+    }
+}
