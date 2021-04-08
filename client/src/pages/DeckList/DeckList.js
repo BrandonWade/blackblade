@@ -20,7 +20,7 @@ function DeckList() {
             size: 99,
         },
         {
-            name: 'Untitled Deck 5',
+            name: 'Untitled Deck 5 asdfasdfasdf asdfadsfasdfasdfasdfasdfasdfasdfsdsdfsdfsdfsdfsdfsdf 123123 asad easd asfas dafasd',
             size: 0,
         },
     ];
