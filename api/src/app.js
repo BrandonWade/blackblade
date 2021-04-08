@@ -14,6 +14,10 @@ if (!sessionSecret) {
     throw 'session secret not loaded';
 }
 
+if (process.env.ENVIRONMENT !== 'develop') {
+    app.set('trust proxy', 1);
+}
+
 const sessionStore = MySQLStore(session);
 const sessionMiddleware = new session({
     key: 'sid',
