@@ -1,6 +1,6 @@
 .DeckList {
     &-content {
-        padding: 4rem;
+        padding: 2.5rem;
     }
 
     &-list {
@@ -11,6 +11,7 @@
     }
 
     &-deck {
+        position: relative;
         padding: 1.5rem;
         border: var(--line);
         background-color: var(--color-primary-dark);
@@ -20,6 +21,14 @@
         &:hover {
             background-color: var(--color-primary-lighter);
         }
+    }
+
+    &-delete {
+        position: absolute;
+        top: 0.65rem;
+        right: 0.75rem;
+        font-size: 2rem;
+        line-height: 1.5rem;
     }
 
     &-deckName {
