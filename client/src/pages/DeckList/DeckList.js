@@ -1,43 +1,22 @@
+import { useContext } from 'react';
+import DeckListContext from '../../contexts/DeckList';
 import HeaderPage from '../../components/HeaderPage';
+import Deck from './Deck';
 import './DeckList.scss';
 
 function DeckList() {
-    const decks = [
-        {
-            name: 'Untitled Deck 1',
-            size: 60,
-        },
-        {
-            name: 'Untitled Deck 2',
-            size: 17,
-        },
-        {
-            name: 'Untitled Deck 3',
-            size: 200,
-        },
-        {
-            name: 'Untitled Deck 4',
-            size: 99,
-        },
-        {
-            name: 'Untitled Deck 5 asdfasdfasdf asdfadsfasdfasdfasdfasdfasdfasdfsdsdfsdfsdfsdfsdfsdf 123123 asad easd asfas dafasd',
-            size: 0,
-        },
-    ];
+    const { deckList, setDeckList } = useContext(DeckListContext);
+
+    const removeDeck = publicID => {
+        setDeckList(deckList.filter(d => d.public_id !== publicID));
+    };
 
     return (
         <HeaderPage className='DeckList'>
             <div className='DeckList-content'>
                 <div className='DeckList-list'>
-                    {decks.map(deck => (
-                        <div className='DeckList-deck'>
-                            <div className='DeckList-deckName'>{deck.name}</div>
-                            <div className='DeckList-deckSize'>{`${deck.size} cards`}</div>
-                            <div className='DeckList-deckColors'>
-                                <img class='DeckList-color' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/G.svg' alt='Symbol G' />
-                                <img class='DeckList-color' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/U.svg' alt='Symbol U' />
-                            </div>
-                        </div>
+                    {deckList.map(deck => (
+                        <Deck publicID={deck.public_id} name={deck.name} size={deck.size} colors={{}} removeDeck={removeDeck} />
                     ))}
                 </div>
             </div>
