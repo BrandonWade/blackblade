@@ -65,7 +65,7 @@ const getDeck = async (req, res) => {
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage(
-                    'An error occurred retrieving this deck.',
+                    'An error occurred retrieving your deck.',
                 ),
             });
         }
@@ -74,4 +74,21 @@ const getDeck = async (req, res) => {
     return res.status(StatusCodes.OK).json(deck);
 };
 
-export { createDeck, saveDeck, getDeck };
+const listDecks = async (req, res) => {
+    const { accountID } = req.session;
+    let deck;
+
+    try {
+        deck = await DeckService.listDecks(accountID);
+    } catch (e) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            message: errorMessage(
+                'An error occurred retrieving your deck list.',
+            ),
+        });
+    }
+
+    return res.status(StatusCodes.OK).json(deck);
+};
+
+export { createDeck, saveDeck, getDeck, listDecks };

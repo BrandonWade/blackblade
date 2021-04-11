@@ -17,7 +17,7 @@ import {
     getCardTypes,
     getCardSets,
 } from './controllers/search';
-import { createDeck, saveDeck, getDeck } from './controllers/decks';
+import { createDeck, saveDeck, getDeck, listDecks } from './controllers/decks';
 import {
     registerAccount,
     activateAccount,
@@ -53,6 +53,13 @@ router.put(
         'You do not have permission to modify this deck. If this deck is yours, please log in and try again.',
     ),
     saveDeck,
+);
+router.get(
+    '/decks',
+    authenticate(
+        'You must be logged in to view your decks. Please log in and try again.',
+    ),
+    listDecks,
 );
 router.get('/decks/:publicID', getDeck);
 router.post('/accounts', registerUserValidators, validate(), registerAccount);

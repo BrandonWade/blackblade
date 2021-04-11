@@ -49,11 +49,16 @@ const saveDeck = async (accountID, publicID, name, visibility, deck) => {
             );
         }
 
+        const count = 0; // TODO: Calculate
+        const colors = ''; // TODO: Calculate
+
         const saveResult = await DeckRepository.saveDeck(
             accountID,
             deckID,
             name,
             visibility,
+            count,
+            colors,
             deck,
         );
         if (!saveResult) {
@@ -100,8 +105,22 @@ const getDeck = async (publicID, accountID) => {
     };
 };
 
+const listDecks = async (accountID) => {
+    let decks;
+
+    try {
+        [decks] = await DeckRepository.listDecksByAccountID(accountID);
+    } catch (e) {
+        console.error('error retriving deck', e);
+        throw e;
+    }
+
+    return decks;
+};
+
 export default {
     createDeck,
     saveDeck,
     getDeck,
+    listDecks,
 };
