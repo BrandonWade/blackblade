@@ -16,7 +16,7 @@ function DeckList() {
             <div className='DeckList-content'>
                 <div className='DeckList-list'>
                     {deckList.map(deck => (
-                        <Deck publicID={deck.public_id} name={deck.name} size={deck.size} colors={{}} removeDeck={removeDeck} />
+                        <Deck publicID={deck.public_id} name={deck.name} size={deck.size} colors={deck.colors} removeDeck={removeDeck} />
                     ))}
                 </div>
             </div>
