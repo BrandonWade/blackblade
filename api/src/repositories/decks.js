@@ -31,7 +31,15 @@ const getPublicIDsByID = async (deckID) => {
     );
 };
 
-const saveDeck = async (accountID, deckID, name, visibility, deck) => {
+const saveDeck = async (
+    accountID,
+    deckID,
+    name,
+    visibility,
+    count,
+    colors,
+    deck,
+) => {
     const conn = await connection.getConnection();
     await conn.beginTransaction();
 
@@ -74,11 +82,13 @@ const saveDeck = async (accountID, deckID, name, visibility, deck) => {
         await conn.query(
             `UPDATE decks
             SET name = ?,
-            visibility = ?
+            visibility = ?,
+            count = ?,
+            colors = ?
             WHERE account_id = ?
             AND id = ?
         `,
-            [name, visibility, accountID, deckID],
+            [name, visibility, count, colors, accountID, deckID],
         );
 
         await conn.commit();
@@ -127,10 +137,25 @@ const getDeckCardsByPublicID = async (publicID) => {
     );
 };
 
+const listDecksByAccountID = async (accountID) => {
+    return connection.query(
+        `SELECT
+        d.public_id,
+        d.name,
+        d.size,
+        d.colors
+        FROM decks d
+        WHERE d.account_id = ?
+    `,
+        [accountID],
+    );
+};
+
 export default {
     createDeck,
     getPublicIDsByID,
     saveDeck,
     getDeckByPublicID,
     getDeckCardsByPublicID,
+    listDecksByAccountID,
 };
