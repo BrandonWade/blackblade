@@ -137,13 +137,15 @@ export function cardValuesValid(cards) {
 
     cards.forEach((c) => {
         if (!Number.isInteger(parseInt(c.count))) {
-            errors = errors.concat(`count value ${c.count} is invalid`);
+            errors = errors.concat(
+                `${c.combined_name} (${c.location}) has invalid count value ${c.count}`,
+            );
         }
     });
 
     if (errors.length > 0) {
         throw new Error(
-            `deck contains the following errors: ${errors.join(', ')}`,
+            `deck contains the following errors: ${errors.join('\n')}`,
         );
     }
 
