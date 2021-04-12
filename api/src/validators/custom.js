@@ -131,3 +131,21 @@ export function visibilityValidValue(visibility) {
 
     return true;
 }
+
+export function cardValuesValid(cards) {
+    let errors = [];
+
+    cards.forEach((c) => {
+        if (!Number.isInteger(parseInt(c.count))) {
+            errors = errors.concat(`count value ${c.count} is invalid`);
+        }
+    });
+
+    if (errors.length > 0) {
+        throw new Error(
+            `deck contains the following errors: ${errors.join(', ')}`,
+        );
+    }
+
+    return true;
+}

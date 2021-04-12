@@ -36,7 +36,7 @@ const saveDeck = async (
     deckID,
     name,
     visibility,
-    count,
+    size,
     colors,
     deck,
 ) => {
@@ -83,12 +83,12 @@ const saveDeck = async (
             `UPDATE decks
             SET name = ?,
             visibility = ?,
-            count = ?,
+            size = ?,
             colors = ?
             WHERE account_id = ?
             AND id = ?
         `,
-            [name, visibility, count, colors, accountID, deckID],
+            [name, visibility, size, colors, accountID, deckID],
         );
 
         await conn.commit();

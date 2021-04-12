@@ -24,8 +24,18 @@ function useDeck() {
 
     const saveDeck = async (publicID = '', name = '', visibility = 'private', deck = [], maybeboard = []) => {
         const cards = [
-            ...deck.map(card => ({ count: card.count, card_id: card.card_id, selection_type: card.selection_type, location: 'deck' })),
-            ...maybeboard.map(card => ({ count: card.count, card_id: card.card_id, selection_type: card.selection_type, location: 'maybeboard' })),
+            ...deck.map(card => ({
+                count: card.count,
+                card_id: card.card_id,
+                selection_type: card.selection_type,
+                location: 'deck',
+            })),
+            ...maybeboard.map(card => ({
+                count: card.count,
+                card_id: card.card_id,
+                selection_type: card.selection_type,
+                location: 'maybeboard',
+            })),
         ];
         const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, cards });
 
