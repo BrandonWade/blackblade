@@ -23,20 +23,18 @@ function useDeck() {
     };
 
     const saveDeck = async (publicID = '', name = '', visibility = 'private', deck = [], maybeboard = []) => {
-        const cards = [
-            ...deck.map(card => ({
+        function processCards(cards, location) {
+            return cards.map(card => ({
                 count: card.count,
+                combined_name: card?.sets_json?.[0]?.card_faces?.map(f => f.name).join(' // '),
+                combined_cost: card?.sets_json?.[0]?.card_faces?.map(f => f.mana_cost).join(''),
                 card_id: card.card_id,
                 selection_type: card.selection_type,
-                location: 'deck',
-            })),
-            ...maybeboard.map(card => ({
-                count: card.count,
-                card_id: card.card_id,
-                selection_type: card.selection_type,
-                location: 'maybeboard',
-            })),
-        ];
+                location,
+            }));
+        }
+
+        const cards = [...processCards(deck, 'deck'), ...processCards(maybeboard, 'maybeboard')];
         const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, cards });
 
         switch (response.status) {
