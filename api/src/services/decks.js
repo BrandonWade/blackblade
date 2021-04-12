@@ -1,3 +1,4 @@
+import { sumBy } from 'lodash';
 import DeckRepository from '../repositories/decks';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
@@ -49,7 +50,7 @@ const saveDeck = async (accountID, publicID, name, visibility, deck) => {
             );
         }
 
-        const count = 0; // TODO: Calculate
+        const size = sumBy(deck, (c) => parseInt(c.count));
         const colors = ''; // TODO: Calculate
 
         const saveResult = await DeckRepository.saveDeck(
@@ -57,7 +58,7 @@ const saveDeck = async (accountID, publicID, name, visibility, deck) => {
             deckID,
             name,
             visibility,
-            count,
+            size,
             colors,
             deck,
         );
