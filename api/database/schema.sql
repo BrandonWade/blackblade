@@ -145,7 +145,7 @@ CREATE TABLE decks (
     name varchar(64) NOT NULL DEFAULT '',
     visibility enum('private', 'public') DEFAULT 'private',
     size int unsigned NOT NULL DEFAULT 0,
-    colors varchar(18) NOT NULL DEFAULT '',
+    colors varchar(22) NOT NULL DEFAULT '',
     PRIMARY KEY (id),
     UNIQUE KEY U_public_id (public_id)
 ) CHARSET=utf8mb4;
