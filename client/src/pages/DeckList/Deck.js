@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import useSymbols from '../../hooks/useSymbols';
 
 function Deck({ publicID = '', name = '', size = 0, colors = '', removeDeck = () => {} }) {
-    const onRemoveClick = () => {
-        removeDeck(publicID);
+    const onRemoveClick = e => {
+        removeDeck(e, publicID);
     };
 
     return (

@@ -1,4 +1,5 @@
 import { connection } from '../db';
+import NotFoundError from '../errors/not_found';
 
 const createDeck = async (accountID, name, visibility) => {
     return connection.query(
@@ -151,6 +152,45 @@ const listDecksByAccountID = async (accountID) => {
     );
 };
 
+const deleteDeckByPublicID = async (publicID, accountID) => {
+    const conn = await connection.getConnection();
+    await conn.beginTransaction();
+
+    try {
+        await conn.query(
+            `DELETE c
+            FROM deck_cards c
+            INNER JOIN decks d ON d.id = c.deck_id
+            WHERE d.account_id = ?
+            AND d.public_id = ?
+        `,
+            [accountID, publicID],
+        );
+
+        const [deckResult] = await conn.query(
+            `DELETE d
+            FROM decks d
+            WHERE d.account_id = ?
+            AND d.public_id = ?
+        `,
+            [accountID, publicID],
+        );
+        if (deckResult?.affectedRows !== 1) {
+            throw new NotFoundError(
+                `error deleting deck with public id ${publicID} and account id ${accountID}`,
+            );
+        }
+
+        await conn.commit();
+    } catch (e) {
+        throw e;
+    } finally {
+        await conn.release();
+    }
+
+    return;
+};
+
 export default {
     createDeck,
     getPublicIDsByID,
@@ -158,4 +198,5 @@ export default {
     getDeckByPublicID,
     getDeckCardsByPublicID,
     listDecksByAccountID,
+    deleteDeckByPublicID,
 };
