@@ -7,7 +7,7 @@ import Deck from './Deck';
 import './DeckList.scss';
 
 function DeckList() {
-    const { listDecks } = useDeck();
+    const { listDecks, deleteDeck } = useDeck();
     const { deckList, setDeckList } = useContext(DeckListContext);
 
     useEffect(() => {
@@ -23,7 +23,14 @@ function DeckList() {
         fetchDeckList();
     }, []);
 
-    const removeDeck = publicID => {
+    const removeDeck = async (e, publicID) => {
+        e.preventDefault();
+
+        const result = await deleteDeck(publicID);
+        if (!result.success) {
+            return;
+        }
+
         setDeckList(deckList.filter(d => d.public_id !== publicID));
     };
 

@@ -95,7 +95,7 @@ const getDeck = async (publicID, accountID) => {
 
         [cards] = await DeckRepository.getDeckCardsByPublicID(publicID);
     } catch (e) {
-        console.error('error retriving deck', e);
+        console.error('error getting deck', e);
         throw e;
     }
 
@@ -113,7 +113,7 @@ const listDecks = async (accountID) => {
     try {
         [decks] = await DeckRepository.listDecksByAccountID(accountID);
     } catch (e) {
-        console.error('error retriving deck', e);
+        console.error('error listing decks', e);
         throw e;
     }
 
@@ -122,9 +122,21 @@ const listDecks = async (accountID) => {
     };
 };
 
+const deleteDeck = async (publicID, accountID) => {
+    try {
+        await DeckRepository.deleteDeckByPublicID(publicID, accountID);
+    } catch (e) {
+        console.error('error deleting deck', e);
+        throw e;
+    }
+
+    return;
+};
+
 export default {
     createDeck,
     saveDeck,
     getDeck,
     listDecks,
+    deleteDeck,
 };

@@ -108,11 +108,29 @@ function useDeck() {
         }
     };
 
+    const deleteDeck = async (publicID = '') => {
+        const response = await fetchData(`/api/decks/${publicID}`, 'DELETE');
+
+        switch (response.status) {
+            case 204:
+                return {
+                    success: true,
+                };
+            default:
+                const data = await response.json();
+                return {
+                    success: false,
+                    message: data.message,
+                };
+        }
+    };
+
     return {
         createDeck,
         saveDeck,
         getDeck,
         listDecks,
+        deleteDeck,
     };
 }
 

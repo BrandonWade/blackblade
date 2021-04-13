@@ -17,7 +17,13 @@ import {
     getCardTypes,
     getCardSets,
 } from './controllers/search';
-import { createDeck, saveDeck, getDeck, listDecks } from './controllers/decks';
+import {
+    createDeck,
+    saveDeck,
+    getDeck,
+    listDecks,
+    deleteDeck,
+} from './controllers/decks';
 import {
     registerAccount,
     activateAccount,
@@ -62,6 +68,7 @@ router.get(
     listDecks,
 );
 router.get('/decks/:publicID', getDeck);
+router.delete('/decks/:publicID', deleteDeck);
 router.post('/accounts', registerUserValidators, validate(), registerAccount);
 router.get(
     '/accounts/activate/:activationToken',

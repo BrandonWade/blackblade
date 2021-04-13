@@ -91,4 +91,27 @@ const listDecks = async (req, res) => {
     return res.status(StatusCodes.OK).json(deck);
 };
 
-export { createDeck, saveDeck, getDeck, listDecks };
+const deleteDeck = async (req, res) => {
+    const { accountID } = req.session;
+    const { publicID } = req.params;
+
+    try {
+        await DeckService.deleteDeck(publicID, accountID);
+    } catch (e) {
+        if (e instanceof NotFoundError || e instanceof UnauthorizedError) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                message: errorMessage(
+                    'You do not have permission to delete this deck. If this deck is yours, please log in and try again.',
+                ),
+            });
+        } else {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: errorMessage('An error occurred deleting your deck.'),
+            });
+        }
+    }
+
+    return res.status(StatusCodes.NO_CONTENT).send();
+};
+
+export { createDeck, saveDeck, getDeck, listDecks, deleteDeck };
