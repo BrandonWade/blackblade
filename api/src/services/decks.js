@@ -117,7 +117,9 @@ const listDecks = async (accountID) => {
         throw e;
     }
 
-    return decks;
+    return {
+        decks,
+    };
 };
 
 export default {

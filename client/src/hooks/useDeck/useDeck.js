@@ -83,10 +83,36 @@ function useDeck() {
         }
     };
 
+    const listDecks = async () => {
+        const response = await fetchData('/api/decks');
+        const data = await response.json();
+
+        switch (response.status) {
+            case 200: {
+                return {
+                    success: true,
+                    decks: data.decks,
+                };
+            }
+            case 401:
+                return {
+                    success: false,
+                    message: data.message,
+                };
+            default: {
+                return {
+                    success: false,
+                    message: data.message,
+                };
+            }
+        }
+    };
+
     return {
         createDeck,
         saveDeck,
         getDeck,
+        listDecks,
     };
 }
 
