@@ -44,7 +44,14 @@ function DeckList() {
                         </div>
                     </Link>
                     {deckList.map(deck => (
-                        <Deck publicID={deck.public_id} name={deck.name} size={deck.size} colors={deck.colors} removeDeck={removeDeck} />
+                        <Deck
+                            key={deck.public_id}
+                            publicID={deck.public_id}
+                            name={deck.name}
+                            size={deck.size}
+                            colors={deck.colors}
+                            removeDeck={removeDeck}
+                        />
                     ))}
                 </div>
             </div>
