@@ -49,8 +49,12 @@
 
     &-deckName {
         font-size: 1.4rem;
-        padding: 0.75rem;
+        padding: 1rem 0.75rem;
         min-height: 3rem;
+
+        @media only screen and (max-width: 52.125em) {
+            padding: 0.75rem;
+        }
     }
 
     &-createButton {
