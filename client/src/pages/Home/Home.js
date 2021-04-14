@@ -27,10 +27,10 @@ function Home() {
         setQuery(e.target.value);
     };
 
-    const renderDeckBuilderLink = () => {
+    const renderMyDecksLink = () => {
         return authenticated ? (
-            <Link className='Home-linkItem' to='/decks/new'>
-                <Button className='Home-link'>Deck Builder</Button>
+            <Link className='Home-linkItem' to='/decks'>
+                <Button className='Home-link'>My Decks</Button>
             </Link>
         ) : null;
     };
@@ -54,7 +54,7 @@ function Home() {
                     <Link className='Home-linkItem' to='/advanced'>
                         <Button className='Home-link'>Advanced Search</Button>
                     </Link>
-                    {renderDeckBuilderLink()}
+                    {renderMyDecksLink()}
                     <Button className='Home-linkItem Home-link' onClick={displayRandomCard}>
                         Random Card
                     </Button>

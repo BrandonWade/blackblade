@@ -16,10 +16,10 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
         setMenuOpen(false);
     };
 
-    const renderDeckBuilderLink = () => {
+    const renderMyDecksLink = () => {
         return authenticated ? (
             <li className='Menu-link' onClick={closeMenu}>
-                <Link to='/decks/new'>Deck Builder</Link>
+                <Link to='/decks'>My Decks</Link>
             </li>
         ) : null;
     };
@@ -49,7 +49,7 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/advanced'>Advanced Search</Link>
                     </li>
-                    {renderDeckBuilderLink()}
+                    {renderMyDecksLink()}
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/About'>About</Link>
                     </li>
