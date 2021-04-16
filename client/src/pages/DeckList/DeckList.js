@@ -5,6 +5,7 @@ import DeckListContext from '../../contexts/DeckList';
 import HeaderPage from '../../components/HeaderPage';
 import Deck from './Deck';
 import './DeckList.scss';
+import Dialog from '../../components/Dialog';
 
 function DeckList() {
     const { listDecks, deleteDeck } = useDeck();
@@ -36,6 +37,7 @@ function DeckList() {
 
     return (
         <HeaderPage className='DeckList'>
+            <Dialog />
             <div className='DeckList-content'>
                 <div className='DeckList-list'>
                     <Link to='/decks/new' className='DeckList-deck'>
