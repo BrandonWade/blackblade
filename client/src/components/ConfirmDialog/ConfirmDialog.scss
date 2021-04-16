@@ -1,0 +1,28 @@
+.ConfirmDialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-content {
+        display: flex;
+        flex-direction: column;
+        width: 40rem;
+        min-height: 15rem;
+        padding: 1.5rem;
+        background-color: var(--color-primary);
+        border: var(--line);
+        z-index: 1;
+    }
+
+    &-message {
+        flex: 1;
+        margin-bottom: 2rem;
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    &-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+}
