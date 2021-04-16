@@ -1,6 +1,4 @@
 .Menu {
-    padding: 2rem;
-
     &-openButton {
         display: none;
 
@@ -40,6 +38,7 @@
     }
 
     &-links {
+        margin: 0 2rem 0;
         list-style: none;
         position: relative;
         top: -12vh;

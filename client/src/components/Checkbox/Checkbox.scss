@@ -14,12 +14,12 @@
         & .Checkbox--checked {
             background-color: var(--color-primary-dark);
 
-            &:after {
+            &::after {
                 display: block;
             }
         }
 
-        & .Checkbox-checkmark:after {
+        & .Checkbox-checkmark::after {
             left: 0.8rem;
             top: 0.5rem;
             width: 0.7rem;
@@ -40,7 +40,7 @@
         border: var(--line);
         border-radius: var(--border-radius);
 
-        &:after {
+        &::after {
             content: '';
             position: absolute;
             display: none;
