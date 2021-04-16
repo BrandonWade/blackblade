@@ -2,7 +2,8 @@ import { useContext } from 'react';
 import CardArtSelectorContext from '../../contexts/CardArtSelector';
 import CardContext from '../../contexts/Card';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
-import Overlay from '../Overlay';
+import Backdrop from '../Backdrop';
+import CloseButton from '../CloseButton';
 import CardGrid from '../CardGrid';
 import './CardArtSelector.scss';
 
@@ -25,13 +26,14 @@ function CardArtSelector() {
         setArtSelectorVisible(false);
     };
 
-    return artSelectorVisible ? (
-        <div className='CardArtSelector'>
-            <Overlay className='CardArtSelector-content' visible={true} setVisible={setArtSelectorVisible}>
+    return (
+        <Backdrop visible={artSelectorVisible}>
+            <div className='CardArtSelector'>
+                <CloseButton className='CardArtSelector-closeButton' onClose={setArtSelectorVisible} />
                 <CardGrid className='CardArtSelector-cardGrid' cards={sets} currentCardID={card.card_id} onClick={onSelectCard} />
-            </Overlay>
-        </div>
-    ) : null;
+            </div>
+        </Backdrop>
+    );
 }
 
 export default CardArtSelector;

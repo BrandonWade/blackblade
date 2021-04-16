@@ -1,0 +1,17 @@
+.Backdrop {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background-color: var(--color-primary-dark);
+    opacity: 0.95;
+
+    &--closed {
+        display: none;
+    }
+}

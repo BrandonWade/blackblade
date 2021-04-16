@@ -1,10 +1,13 @@
+import Backdrop from '../Backdrop';
+import CloseButton from '../CloseButton';
 import './Dialog.scss';
 
-function Dialog() {
+function Dialog({ visible = false, setVisible = () => {}, children = [] }) {
     return (
-        <div className='Dialog-backdrop'>
-            <div className='Dialog-content'>Dialog</div>
-        </div>
+        <Backdrop visible={visible}>
+            <CloseButton onClose={setVisible} />
+            <div className='Dialog-content'>{children}</div>
+        </Backdrop>
     );
 }
 
