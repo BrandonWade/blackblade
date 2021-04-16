@@ -1,8 +1,9 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../contexts/Auth';
-import Overlay from '../Overlay';
 import Button from '../Button';
+import Backdrop from '../Backdrop';
+import CloseButton from '../CloseButton';
 import './Menu.scss';
 
 function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
@@ -41,7 +42,8 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
             <Button className='Menu-openButton' onClick={openMenu}>
                 <span className='Menu-openIcon' />
             </Button>
-            <Overlay visible={menuOpen} setVisible={setMenuOpen}>
+            <Backdrop className='Menu' visible={menuOpen}>
+                <CloseButton onClose={setMenuOpen} />
                 <ul className='Menu-links'>
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/'>Home</Link>
@@ -55,7 +57,7 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
                     </li>
                     {renderLoginLogoutLink()}
                 </ul>
-            </Overlay>
+            </Backdrop>
         </>
     );
 }

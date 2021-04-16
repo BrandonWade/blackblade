@@ -6,30 +6,29 @@
     z-index: 1;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 6rem;
+    padding: 4rem;
+    overflow-y: scroll;
 
-    @media only screen and (max-width: 56.25em) {
-        padding: 0;
-        align-self: flex-start;
+    @media only screen and (max-width: 75em) {
+        padding: 2rem;
     }
 
-    &-content {
-        position: relative;
-        width: 100%;
+    @media only screen and (max-width: 37.5em) {
+        padding: 0.5rem;
+    }
+
+    & > .CardGrid {
+        padding: 0;
         height: 100%;
-        background-color: var(--color-primary-dark);
-        overflow-y: scroll;
 
-        & > .CardGrid {
-            padding: 0;
-            height: 100%;
-
-            @media only screen and (max-width: 56.25em) {
-                grid-row-gap: 0.25rem;
-                grid-column-gap: 0.25rem;
-            }
+        @media only screen and (max-width: 56.25em) {
+            grid-row-gap: 0.25rem;
+            grid-column-gap: 0.25rem;
         }
+    }
+
+    &-closeButton {
+        opacity: 0.9;
     }
 
     &-cardGrid {

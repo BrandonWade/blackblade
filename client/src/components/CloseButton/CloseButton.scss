@@ -1,0 +1,38 @@
+.CloseButton {
+    position: fixed;
+    top: 3rem;
+    right: 3rem;
+    padding: 0;
+    width: 5rem;
+    height: 5rem;
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+
+    @media only screen and (max-width: 56.25em) {
+        position: fixed;
+        top: 1.25rem;
+        right: 1.25rem;
+    }
+
+    &-icon::before {
+        top: 0.5rem;
+        transform: rotate(45deg);
+    }
+
+    &-icon::after {
+        top: -1.3rem;
+        transform: rotate(-45deg);
+    }
+
+    &-icon::before,
+    &-icon::after {
+        content: '';
+        width: 3.5rem;
+        display: inline-block;
+        background-color: rgba(118, 118, 118, 1);
+        height: 0.2rem;
+        position: relative;
+    }
+}
