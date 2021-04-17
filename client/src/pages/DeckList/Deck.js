@@ -3,7 +3,8 @@ import useSymbols from '../../hooks/useSymbols';
 
 function Deck({ publicID = '', name = '', size = 0, colors = '', removeDeck = () => {} }) {
     const onRemoveClick = e => {
-        removeDeck(e, publicID);
+        e.preventDefault();
+        removeDeck(publicID);
     };
 
     return (

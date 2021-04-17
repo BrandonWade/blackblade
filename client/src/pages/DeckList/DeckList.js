@@ -1,12 +1,15 @@
-import { useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useDeck from '../../hooks/useDeck';
 import DeckListContext from '../../contexts/DeckList';
 import HeaderPage from '../../components/HeaderPage';
+import ConfirmDialog from '../../components/ConfirmDialog';
 import Deck from './Deck';
 import './DeckList.scss';
 
 function DeckList() {
+    const [publicIDToDelete, setPublicIDToDelete] = useState(null);
+    const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
     const { listDecks, deleteDeck } = useDeck();
     const { deckList, setDeckList } = useContext(DeckListContext);
 
@@ -23,19 +26,33 @@ function DeckList() {
         fetchDeckList();
     }, []);
 
-    const removeDeck = async (e, publicID) => {
-        e.preventDefault();
+    const removeDeck = async publicID => {
+        setPublicIDToDelete(publicID);
+        setDeleteDialogVisible(true);
+    };
 
-        const result = await deleteDeck(publicID);
+    const onCancelDelete = () => {
+        setPublicIDToDelete(null);
+    };
+
+    const onConfirmDelete = async () => {
+        const result = await deleteDeck(publicIDToDelete);
         if (!result.success) {
             return;
         }
 
-        setDeckList(deckList.filter(d => d.public_id !== publicID));
+        setDeckList(deckList.filter(d => d.public_id !== publicIDToDelete));
     };
 
     return (
         <HeaderPage className='DeckList'>
+            <ConfirmDialog
+                message='This will permanently delete your deck and cannot be undone. Are you sure?'
+                visible={deleteDialogVisible}
+                onCancel={onCancelDelete}
+                onConfirm={onConfirmDelete}
+                setVisible={setDeleteDialogVisible}
+            />
             <div className='DeckList-content'>
                 <div className='DeckList-list'>
                     <Link to='/decks/new' className='DeckList-deck'>
