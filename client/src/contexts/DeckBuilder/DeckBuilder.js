@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 
 export const initialState = {
+    deckPublicID: '',
     deckAccountPublicID: '',
     deckName: 'Untitled Deck',
     deckVisibility: 'private',

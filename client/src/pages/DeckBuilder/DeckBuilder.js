@@ -15,6 +15,7 @@ function DeckBuilder() {
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDeck();
     const {
+        setDeckPublicID,
         setDeckAccountPublicID,
         deckName,
         setDeckName,
@@ -50,6 +51,7 @@ function DeckBuilder() {
 
             const deck = result.cards.filter(c => c.location === 'deck');
             const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
+            setDeckPublicID(result.deckPublicID);
             setDeckAccountPublicID(result.accountPublicID);
             setDeckName(result.name);
             setDeckVisibility(result.visibility);

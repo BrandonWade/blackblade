@@ -2,16 +2,18 @@ import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useDeck from '../../hooks/useDeck';
 import DeckListContext from '../../contexts/DeckList';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
 import ConfirmDialog from '../../components/ConfirmDialog';
 import Deck from './Deck';
 import './DeckList.scss';
 
 function DeckList() {
-    const [publicIDToDelete, setPublicIDToDelete] = useState(null);
+    const [deckPublicIDToDelete, setDeckPublicIDToDelete] = useState(null);
     const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
     const { listDecks, deleteDeck } = useDeck();
     const { deckList, setDeckList } = useContext(DeckListContext);
+    const { deckPublicID, resetDeckBuilder } = useContext(DeckBuilderContext);
 
     useEffect(() => {
         const fetchDeckList = async () => {
@@ -27,21 +29,24 @@ function DeckList() {
     }, []);
 
     const removeDeck = async publicID => {
-        setPublicIDToDelete(publicID);
+        setDeckPublicIDToDelete(publicID);
         setDeleteDialogVisible(true);
     };
 
     const onCancelDelete = () => {
-        setPublicIDToDelete(null);
+        setDeckPublicIDToDelete(null);
     };
 
     const onConfirmDelete = async () => {
-        const result = await deleteDeck(publicIDToDelete);
+        const result = await deleteDeck(deckPublicIDToDelete);
         if (!result.success) {
             return;
         }
 
-        setDeckList(deckList.filter(d => d.public_id !== publicIDToDelete));
+        setDeckList(deckList.filter(d => d.public_id !== deckPublicIDToDelete));
+        if (deckPublicID === deckPublicIDToDelete) {
+            resetDeckBuilder();
+        }
     };
 
     return (

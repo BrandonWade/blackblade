@@ -11,7 +11,7 @@ function useDeck() {
             case 200:
                 return {
                     success: true,
-                    deckURI: data.deck_uri,
+                    deckPublicID: data.deck_public_id,
                     accountPublicID: data.account_public_id,
                 };
             default:
@@ -63,6 +63,7 @@ function useDeck() {
                 const data = await response.json();
                 return {
                     success: true,
+                    deckPublicID: data.deck_public_id,
                     accountPublicID: data.account_public_id,
                     name: data.name,
                     visibility: data.visibility,

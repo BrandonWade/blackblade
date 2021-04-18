@@ -14,7 +14,9 @@ function DeckEditor({ editing = false }) {
     const history = useHistory();
     const { publicID } = useParams();
     const { createDeck } = useDeck();
-    const { setDeckAccountPublicID, deckName, setDeckName, deckVisibility, setDeckVisibility } = useContext(DeckBuilderContext);
+    const { setDeckPublicID, setDeckAccountPublicID, deckName, setDeckName, deckVisibility, setDeckVisibility, resetDeckBuilder } = useContext(
+        DeckBuilderContext
+    );
 
     const onChangeName = e => {
         setDeckName(e.target.value);
@@ -28,21 +30,19 @@ function DeckEditor({ editing = false }) {
         e.preventDefault();
         setMessage({});
 
-        let redirect = '/';
-
         if (!editing) {
             const response = await createDeck(deckName, deckVisibility);
             if (!response.success) {
                 return;
             }
 
-            redirect = response.deckURI;
+            resetDeckBuilder();
+            setDeckPublicID(response.deckPublicID);
             setDeckAccountPublicID(response.accountPublicID);
+            history.push(`/decks/${response.deckPublicID}`);
         } else {
-            redirect = `/decks/${publicID}`;
+            history.push(`/decks/${publicID}`);
         }
-
-        history.push(redirect);
     };
 
     const renderVisibilityDescription = () => {
