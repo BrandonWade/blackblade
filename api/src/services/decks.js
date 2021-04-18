@@ -31,7 +31,7 @@ const createDeck = async (accountID, name, visibility) => {
     }
 
     return {
-        deck_uri: `/decks/${deckPublicID}`,
+        deck_public_id: deckPublicID,
         account_public_id: accountPublicID,
     };
 };
@@ -100,6 +100,7 @@ const getDeck = async (publicID, accountID) => {
     }
 
     return {
+        deck_public_id: deck?.public_id,
         account_public_id: deck?.account_public_id,
         name: deck?.name,
         visibility: deck?.visibility,

@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 import DeckBuilderReducer from '../../reducers/DeckBuilder';
 import DeckBuilderContext, { initialState } from '../../contexts/DeckBuilder';
 import {
+    SET_DECK_PUBLIC_ID,
     SET_DECK_ACCOUNT_PUBLIC_ID,
     SET_DECK_NAME,
     SET_DECK_VISIBILITY,
@@ -18,11 +19,13 @@ import {
     SET_MAYBEBOARD_MODE,
     MOVE_TO_DECK,
     MOVE_TO_MAYBEBOARD,
+    RESET_DECK_BUILDER,
 } from '../../actions/DeckBuilder';
 
 function DeckBuilderProvider({ children = [] }) {
     const [state, dispatch] = useReducer(DeckBuilderReducer, initialState);
 
+    const setDeckPublicID = deckPublicID => dispatch({ type: SET_DECK_PUBLIC_ID, deckPublicID });
     const setDeckAccountPublicID = deckAccountPublicID => dispatch({ type: SET_DECK_ACCOUNT_PUBLIC_ID, deckAccountPublicID });
     const setDeckName = deckName => dispatch({ type: SET_DECK_NAME, deckName });
     const setDeckVisibility = deckVisibility => dispatch({ type: SET_DECK_VISIBILITY, deckVisibility });
@@ -39,9 +42,11 @@ function DeckBuilderProvider({ children = [] }) {
     const setMaybeboardMode = maybeboardMode => dispatch({ type: SET_MAYBEBOARD_MODE, maybeboardMode });
     const moveToDeck = (cardID, count) => dispatch({ type: MOVE_TO_DECK, cardID, count });
     const moveToMaybeboard = (cardID, count) => dispatch({ type: MOVE_TO_MAYBEBOARD, cardID, count });
+    const resetDeckBuilder = () => dispatch({ type: RESET_DECK_BUILDER });
 
     const props = {
         ...state,
+        setDeckPublicID,
         setDeckAccountPublicID,
         setDeckName,
         setDeckVisibility,
@@ -58,6 +63,7 @@ function DeckBuilderProvider({ children = [] }) {
         setMaybeboardMode,
         moveToDeck,
         moveToMaybeboard,
+        resetDeckBuilder,
     };
 
     return <DeckBuilderContext.Provider value={props}>{children}</DeckBuilderContext.Provider>;

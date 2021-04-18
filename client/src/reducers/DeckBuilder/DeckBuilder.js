@@ -1,5 +1,6 @@
 import { sortBy } from 'lodash';
 import {
+    SET_DECK_PUBLIC_ID,
     SET_DECK_ACCOUNT_PUBLIC_ID,
     SET_DECK_NAME,
     SET_DECK_VISIBILITY,
@@ -16,10 +17,18 @@ import {
     SET_MAYBEBOARD_MODE,
     MOVE_TO_DECK,
     MOVE_TO_MAYBEBOARD,
+    RESET_DECK_BUILDER,
 } from '../../actions/DeckBuilder';
+import { initialState } from '../../contexts/DeckBuilder';
 
 function DeckBuilderReducer(state = {}, action = {}) {
     switch (action.type) {
+        case SET_DECK_PUBLIC_ID:
+            return {
+                ...state,
+                deckPublicID: action.deckPublicID,
+            };
+
         case SET_DECK_ACCOUNT_PUBLIC_ID:
             return {
                 ...state,
@@ -191,6 +200,12 @@ function DeckBuilderReducer(state = {}, action = {}) {
                 ...state,
                 deckCards,
                 maybeboardCards,
+            };
+        }
+
+        case RESET_DECK_BUILDER: {
+            return {
+                ...initialState,
             };
         }
 
