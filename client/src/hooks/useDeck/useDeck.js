@@ -70,7 +70,7 @@ function useDeck() {
                     cards: data.cards,
                 };
             }
-            case 401:
+            case 404:
                 return {
                     success: false,
                 };
