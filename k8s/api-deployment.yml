@@ -36,6 +36,8 @@ spec:
                                 key: MYSQL_PASSWORD
                       - name: DB_DATABASE
                         value: blackblade
+                      - name: DB_PORT
+                        value: '3306'
                       - name: MAILJET_PUBLIC_KEY
                         valueFrom:
                             secretKeyRef:
