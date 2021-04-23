@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import DeckActionButton from './DeckActionButton';
-import { Pencil } from '../Icons';
+import { Pencil, Export } from '../Icons';
 import './DeckActions.scss';
 
 function DeckActions() {
@@ -17,6 +17,10 @@ function DeckActions() {
             <DeckActionButton to={`/decks/${publicID}/edit`} visible={ownsDeck}>
                 <Pencil />
                 <span className='DeckActions-buttonLabel'>Edit Deck</span>
+            </DeckActionButton>
+            <DeckActionButton to={`/decks/${publicID}/export`}>
+                <Export />
+                <span className='DeckActions-buttonLabel'>Export Deck</span>
             </DeckActionButton>
         </div>
     );
