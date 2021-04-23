@@ -18,7 +18,7 @@ function DeckActions() {
                 <Pencil />
                 <span className='DeckActions-buttonLabel'>Edit Deck</span>
             </DeckActionButton>
-            <DeckActionButton to={`/decks/${publicID}/export`}>
+            <DeckActionButton>
                 <Export />
                 <span className='DeckActions-buttonLabel'>Export Deck</span>
             </DeckActionButton>

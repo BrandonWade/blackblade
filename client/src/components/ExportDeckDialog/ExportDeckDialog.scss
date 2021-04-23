@@ -1,0 +1,9 @@
+.ExportDeckDialog {
+    &-content {
+        width: 30vw;
+        height: 60vh;
+        padding: 2rem;
+        background-color: var(--color-primary);
+        z-index: 1;
+    }
+}
