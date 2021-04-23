@@ -1,5 +1,6 @@
 .DeckActions {
     display: flex;
+    justify-content: space-between;
     padding: 0 0.5rem 0.5rem;
     font-size: 1.4rem;
     background-color: var(--color-primary-dark);
