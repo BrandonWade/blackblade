@@ -4,6 +4,7 @@ import { isEqual } from 'lodash';
 import useDeck from '../../hooks/useDeck';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardArtSelector from '../../components/CardArtSelector';
+import ExportDeckDialog from '../../components/ExportDeckDialog';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
 import DeckActions from '../../components/DeckActions';
 import DeckStats from '../../components/DeckStats';
@@ -84,6 +85,7 @@ function DeckBuilder() {
     return (
         <div className='DeckBuilder'>
             <CardArtSelector />
+            <ExportDeckDialog exportList='' visible={true} />
             <div className='DeckBuilder-displayPanel'>
                 <DeckBuilderSearch />
             </div>
