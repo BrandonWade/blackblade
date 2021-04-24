@@ -14,6 +14,7 @@ function ExportDeckDialog({ exportList = '' }) {
     const { visible, setVisible } = useContext(ExportDeckDialogContext);
 
     const onClose = () => {
+        setMessage({});
         setVisible(false);
     };
 
