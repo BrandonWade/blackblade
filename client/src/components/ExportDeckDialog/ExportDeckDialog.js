@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { isEmpty } from 'lodash';
+import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
 import Backdrop from '../Backdrop';
 import TextArea from '../TextArea';
 import Message from '../Message';
@@ -8,8 +9,13 @@ import { Copy, Download } from '../Icons';
 import Button from '../Button';
 import './ExportDeckDialog.scss';
 
-function ExportDeckDialog({ visible = false, exportList = '', onClose = () => {} }) {
+function ExportDeckDialog({ exportList = '' }) {
     const [message, setMessage] = useState({});
+    const { visible, setVisible } = useContext(ExportDeckDialogContext);
+
+    const onClose = () => {
+        setVisible(false);
+    };
 
     const onCopy = async e => {
         e.preventDefault();
@@ -33,7 +39,9 @@ function ExportDeckDialog({ visible = false, exportList = '', onClose = () => {}
     return ReactDOM.createPortal(
         <Backdrop className='ExportDeckDialog' visible={visible}>
             <div className='ExportDeckDialog-content'>
-                <div className='ExportDeckDialog-close'>&#x2715;</div>
+                <div className='ExportDeckDialog-close' onClick={onClose}>
+                    &#x2715;
+                </div>
                 <TextArea className='ExportDeckDialog-deck' value={exportList} readOnly={true} />
                 <Message type={message.type} text={message.text} visible={!isEmpty(message)} />
                 <div className='ExportDeckDialog-options'>
