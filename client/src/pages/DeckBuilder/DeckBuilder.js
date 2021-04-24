@@ -92,7 +92,7 @@ Sideboard
     return (
         <div className='DeckBuilder'>
             <CardArtSelector />
-            <ExportDeckDialog exportList={exportList} visible={true} />
+            <ExportDeckDialog exportList={exportList} />
             <div className='DeckBuilder-displayPanel'>
                 <DeckBuilderSearch />
             </div>
