@@ -34,10 +34,14 @@
 
     &-delete {
         position: absolute;
-        top: 0.65rem;
-        right: 0.75rem;
+        top: 0.4rem;
+        right: 0.4rem;
         font-size: 2rem;
-        line-height: 1.5rem;
+        line-height: 2rem;
+        width: 2rem;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
     }
 
     &-deckName {

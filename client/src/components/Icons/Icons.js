@@ -230,3 +230,25 @@ export function Export({ className = '', onClick = () => {} }) {
         </span>
     );
 }
+
+export function Copy({ className = '', onClick = () => {} }) {
+    return (
+        <span className={`Icon ${className}`} onClick={onClick}>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
+                <title>copy</title>
+                <path d='M11 0h-8c-0.553 0-1 0.447-1 1v12c0 0.552 0.447 1 1 1h5v2h2v-2h-1.999v-2h1.999v-2h-2v2h-4v-10h6v4h2v-5c0-0.552-0.447-1-1-1zM8 7v1h2v-2h-1c-0.553 0-1 0.447-1 1zM12 20h2v-2h-2v2zM12 8h2v-2h-2v2zM8 19c0 0.552 0.447 1 1 1h1v-2h-2v1zM17 6h-1v2h2v-1c0-0.552-0.447-1-1-1zM16 20h1c0.553 0 1-0.448 1-1v-1h-2v2zM16 12h2v-2h-2v2zM16 16h2v-2h-2v2z'></path>
+            </svg>
+        </span>
+    );
+}
+
+export function Download({ className = '', onClick = () => {} }) {
+    return (
+        <span className={`Icon ${className}`} onClick={onClick}>
+            <svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'>
+                <title>download</title>
+                <path d='M19.059 10.898l-3.171-7.927c-0.234-0.587-0.802-0.971-1.434-0.971h-2.434l0.38 4.065h2.7l-5.1 4.228-5.1-4.228h2.7l0.38-4.065h-2.434c-0.632 0-1.2 0.384-1.434 0.971l-3.171 7.927c-0.288 0.721-0.373 1.507-0.246 2.272l0.59 3.539c0.124 0.745 0.768 1.291 1.523 1.291h14.383c0.755 0 1.399-0.546 1.523-1.291l0.59-3.539c0.129-0.765 0.044-1.551-0.245-2.272zM16.959 15.245c-0.072 0.436-0.449 0.755-0.891 0.755h-12.136c-0.442 0-0.819-0.319-0.891-0.755l-0.365-2.193c-0.093-0.551 0.332-1.052 0.891-1.052h12.867c0.558 0 0.983 0.501 0.891 1.052l-0.366 2.193z'></path>
+            </svg>
+        </span>
+    );
+}
