@@ -82,10 +82,17 @@ function DeckBuilder() {
         setUnmodifiedMaybeboardCards();
     };
 
+    const exportList = `Deck
+4 Korlash, Heir to Blackblade
+20 Swamp
+
+Sideboard
+4 Dark Ritual`;
+
     return (
         <div className='DeckBuilder'>
             <CardArtSelector />
-            <ExportDeckDialog exportList='' visible={true} />
+            <ExportDeckDialog exportList={exportList} visible={true} />
             <div className='DeckBuilder-displayPanel'>
                 <DeckBuilderSearch />
             </div>
