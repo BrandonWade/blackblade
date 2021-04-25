@@ -2,9 +2,9 @@ import './Backdrop.scss';
 
 function Backdrop({ className = '', visible = false, children = [] }) {
     return visible ? (
-        <div className={`Backdrop ${className}`}>
+        <div className='Backdrop'>
             <div className='Backdrop-shroud' />
-            {children}
+            <div className={`Backdrop-content ${className}`}>{children}</div>
         </div>
     ) : null;
 }
