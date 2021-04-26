@@ -15,7 +15,7 @@ function ConfirmDialog({ message = '', visible = false, onCancel = () => {}, onC
     };
 
     return ReactDOM.createPortal(
-        <Backdrop className='ConfirmDialog' visible={visible}>
+        <Backdrop className='ConfirmDialog' visible={visible} onClick={onCancelClick}>
             <div className='ConfirmDialog-content'>
                 <div className='ConfirmDialog-message'>{message}</div>
                 <div className='ConfirmDialog-buttons'>
