@@ -65,7 +65,7 @@ const getDeck = async (req, res) => {
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage(
-                    'An error occurred retrieving your deck.',
+                    'An error occurred retrieving this deck.',
                 ),
             });
         }
@@ -114,4 +114,23 @@ const deleteDeck = async (req, res) => {
     return res.status(StatusCodes.NO_CONTENT).send();
 };
 
-export { createDeck, saveDeck, getDeck, listDecks, deleteDeck };
+const exportDeck = async (req, res) => {
+    const { publicID } = req.params;
+    let deck;
+
+    try {
+        deck = await DeckService.exportDeck(publicID);
+    } catch (e) {
+        if (e instanceof NotFoundError) {
+            return res.status(StatusCodes.NOT_FOUND).send();
+        } else {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: errorMessage('An error occurred exporting this deck.'),
+            });
+        }
+    }
+
+    return res.status(StatusCodes.OK).json(deck);
+};
+
+export { createDeck, saveDeck, getDeck, listDecks, deleteDeck, exportDeck };

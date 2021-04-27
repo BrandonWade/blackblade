@@ -82,12 +82,7 @@ function DeckBuilder() {
         setUnmodifiedMaybeboardCards();
     };
 
-    const exportList = `Deck
-4 Korlash, Heir to Blackblade
-20 Swamp
-
-Sideboard
-4 Dark Ritual`;
+    const exportList = '1 Aegis Angel\n1 Who // What // When // Where // Why\n1 Korlash, Heir to Blackblade [PFUT] 87★\n1 Island [STX] 368';
 
     return (
         <div className='DeckBuilder'>

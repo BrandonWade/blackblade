@@ -1,3 +1,4 @@
+import { EOL } from 'os';
 import { sumBy } from 'lodash';
 import DeckRepository from '../repositories/decks';
 import NotFoundError from '../errors/not_found';
@@ -134,10 +135,56 @@ const deleteDeck = async (publicID, accountID) => {
     return;
 };
 
+const exportDeck = async (publicID) => {
+    let deckExport;
+
+    const formatRow = (
+        count,
+        name,
+        setCode,
+        collectorNumber,
+        selectionType,
+    ) => {
+        if (selectionType === 'automatic') {
+            return `${count} ${name}`;
+        } else {
+            return `${count} ${name} [${setCode.toUpperCase()}] ${collectorNumber}`;
+        }
+    };
+
+    try {
+        const [deck] = await DeckRepository.getDeckByPublicID(publicID);
+        if (deck.length !== 1) {
+            throw new NotFoundError(`deck ${publicID} not found`);
+        }
+
+        const [results] = await DeckRepository.exportDeckByPublicID(publicID);
+        const rows = results.map((r) =>
+            formatRow(
+                r.count,
+                r.name,
+                r.set_code,
+                r.collector_number,
+                r.selection_type,
+            ),
+        );
+
+        deckExport = rows.join(EOL);
+    } catch (e) {
+        console.error('error exporting deck', e);
+        throw e;
+    }
+
+    return {
+        export: deckExport,
+    };
+};
+
 export default {
     createDeck,
     saveDeck,
     getDeck,
     listDecks,
     deleteDeck,
+    exportDeck,
 };
