@@ -41,6 +41,7 @@ CREATE TABLE cards (
     card_sets_list_id bigint unsigned DEFAULT NULL,
     card_rulings_list_id bigint unsigned DEFAULT NULL,
     cmc decimal(10, 2) NOT NULL DEFAULT 0,
+    name varchar(256) NOT NULL DEFAULT '',
     set_code varchar(8) NOT NULL DEFAULT '',
     set_name varchar(64) NOT NULL DEFAULT '',
     faces_json json DEFAULT NULL,
