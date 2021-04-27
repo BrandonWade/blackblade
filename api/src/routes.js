@@ -23,6 +23,7 @@ import {
     getDeck,
     listDecks,
     deleteDeck,
+    exportDeck,
 } from './controllers/decks';
 import {
     registerAccount,
@@ -69,6 +70,7 @@ router.get(
 );
 router.get('/decks/:publicID', getDeck);
 router.delete('/decks/:publicID', deleteDeck);
+router.get('/decks/:publicID/export', exportDeck);
 router.post('/accounts', registerUserValidators, validate(), registerAccount);
 router.get(
     '/accounts/activate/:activationToken',

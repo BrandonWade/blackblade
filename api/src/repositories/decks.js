@@ -125,7 +125,9 @@ const getDeckCardsByPublicID = async (publicID) => {
         k.selection_type,
         k.location,
         c.id card_id,
+        c.set_code,
         c.cmc,
+        c.collector_number,
         c.layout,
         s.sets_json
         FROM deck_cards k
@@ -191,6 +193,23 @@ const deleteDeckByPublicID = async (publicID, accountID) => {
     return;
 };
 
+const exportDeckByPublicID = async (publicID) => {
+    return connection.query(
+        `SELECT
+        k.count,
+        k.selection_type,
+        c.name,
+        c.set_code,
+        c.collector_number
+        FROM decks d
+        INNER JOIN deck_cards k ON d.id = k.deck_id
+        INNER JOIN cards c ON c.id = k.card_id
+        WHERE d.public_id = ?
+    `,
+        [publicID],
+    );
+};
+
 export default {
     createDeck,
     getPublicIDsByID,
@@ -199,4 +218,5 @@ export default {
     getDeckCardsByPublicID,
     listDecksByAccountID,
     deleteDeckByPublicID,
+    exportDeckByPublicID,
 };
