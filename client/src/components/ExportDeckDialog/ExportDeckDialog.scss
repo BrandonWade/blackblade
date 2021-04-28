@@ -5,15 +5,13 @@
         position: relative;
         width: 75vw;
         max-width: 45rem;
-        height: 60vh;
+        height: 50vh;
         padding: 3.75rem 1rem 1rem;
         background-color: var(--color-primary);
         border: var(--line);
 
         @media only screen and (max-width: 37.5em) {
-            padding: 3.75rem 1rem 1rem;
             width: 95vw;
-            height: 50vh;
         }
     }
 

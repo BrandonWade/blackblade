@@ -9,9 +9,9 @@ import { Copy, Download } from '../Icons';
 import Button from '../Button';
 import './ExportDeckDialog.scss';
 
-function ExportDeckDialog({ exportList = '' }) {
+function ExportDeckDialog() {
     const [message, setMessage] = useState({});
-    const { visible, setVisible } = useContext(ExportDeckDialogContext);
+    const { deckExport, visible, setVisible } = useContext(ExportDeckDialogContext);
 
     const onClose = () => {
         setMessage({});
@@ -22,7 +22,7 @@ function ExportDeckDialog({ exportList = '' }) {
         e.preventDefault();
 
         try {
-            await navigator.clipboard.writeText(exportList);
+            await navigator.clipboard.writeText(deckExport);
         } catch (e) {
             setMessage({
                 type: 'error',
@@ -43,7 +43,7 @@ function ExportDeckDialog({ exportList = '' }) {
                 <div className='ExportDeckDialog-close' onClick={onClose}>
                     &#x2715;
                 </div>
-                <TextArea className='ExportDeckDialog-deck' value={exportList} readOnly={true} />
+                <TextArea className='ExportDeckDialog-deck' value={deckExport} readOnly={true} />
                 <Message type={message.type} text={message.text} visible={!isEmpty(message)} />
                 <div className='ExportDeckDialog-options'>
                     <Button onClick={onCopy}>

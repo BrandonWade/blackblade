@@ -126,12 +126,38 @@ function useDeck() {
         }
     };
 
+    const exportDeck = async (publicID = '') => {
+        const response = await fetchData(`/api/decks/${publicID}/export`, 'GET');
+
+        switch (response.status) {
+            case 200: {
+                const data = await response.json();
+                return {
+                    success: true,
+                    deckExport: data.deck_export,
+                };
+            }
+            case 404:
+                return {
+                    success: false,
+                };
+            default: {
+                const data = await response.json();
+                return {
+                    success: false,
+                    message: data.message,
+                };
+            }
+        }
+    };
+
     return {
         createDeck,
         saveDeck,
         getDeck,
         listDecks,
         deleteDeck,
+        exportDeck,
     };
 }
 

@@ -82,12 +82,10 @@ function DeckBuilder() {
         setUnmodifiedMaybeboardCards();
     };
 
-    const exportList = '1 Aegis Angel\n1 Who // What // When // Where // Why\n1 Korlash, Heir to Blackblade [PFUT] 87★\n1 Island [STX] 368';
-
     return (
         <div className='DeckBuilder'>
             <CardArtSelector />
-            <ExportDeckDialog exportList={exportList} />
+            <ExportDeckDialog />
             <div className='DeckBuilder-displayPanel'>
                 <DeckBuilderSearch />
             </div>
