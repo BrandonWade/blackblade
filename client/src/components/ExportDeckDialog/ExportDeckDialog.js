@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { isEmpty } from 'lodash';
 import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
@@ -11,6 +12,7 @@ import './ExportDeckDialog.scss';
 
 function ExportDeckDialog() {
     const [message, setMessage] = useState({});
+    const { publicID } = useParams();
     const { deckExport, visible, setVisible } = useContext(ExportDeckDialogContext);
 
     const onClose = () => {
@@ -45,15 +47,17 @@ function ExportDeckDialog() {
                 </div>
                 <TextArea className='ExportDeckDialog-deck' value={deckExport} readOnly={true} />
                 <Message type={message.type} text={message.text} visible={!isEmpty(message)} />
-                <div className='ExportDeckDialog-options'>
+                <div className='ExportDeckDialog-buttons'>
                     <Button onClick={onCopy}>
                         <Copy className='ExportDeckDialog-icon' />
                         Copy
                     </Button>
-                    <Button>
-                        <Download className='ExportDeckDialog-icon' />
-                        Download
-                    </Button>
+                    <a href={`/api/decks/${publicID}/download`}>
+                        <Button>
+                            <Download className='ExportDeckDialog-icon' />
+                            Download
+                        </Button>
+                    </a>
                 </div>
             </div>
         </Backdrop>,

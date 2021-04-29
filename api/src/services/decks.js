@@ -175,9 +175,7 @@ const exportDeck = async (publicID) => {
         throw e;
     }
 
-    return {
-        deck_export: deckExport,
-    };
+    return deckExport;
 };
 
 export default {
