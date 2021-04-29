@@ -116,6 +116,27 @@ const deleteDeck = async (req, res) => {
 
 const exportDeck = async (req, res) => {
     const { publicID } = req.params;
+    let deckExport;
+
+    try {
+        deckExport = await DeckService.exportDeck(publicID);
+    } catch (e) {
+        if (e instanceof NotFoundError) {
+            return res.status(StatusCodes.NOT_FOUND).send();
+        } else {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: errorMessage('An error occurred exporting this deck.'),
+            });
+        }
+    }
+
+    return res.status(StatusCodes.OK).json({
+        deck_export: deckExport,
+    });
+};
+
+const downloadDeck = async (req, res) => {
+    const { publicID } = req.params;
     let deck;
 
     try {
@@ -130,7 +151,18 @@ const exportDeck = async (req, res) => {
         }
     }
 
-    return res.status(StatusCodes.OK).json(deck);
+    res.set('Content-Type', 'text/plain');
+    res.set('Content-Disposition', `attachment; filename=${publicID}.txt`);
+
+    return res.status(StatusCodes.OK).send(deck);
 };
 
-export { createDeck, saveDeck, getDeck, listDecks, deleteDeck, exportDeck };
+export {
+    createDeck,
+    saveDeck,
+    getDeck,
+    listDecks,
+    deleteDeck,
+    exportDeck,
+    downloadDeck,
+};
