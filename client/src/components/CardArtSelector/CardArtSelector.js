@@ -10,19 +10,22 @@ import './CardArtSelector.scss';
 function CardArtSelector() {
     const { artSelectorVisible, setArtSelectorVisible } = useContext(CardArtSelectorContext);
     const { card, setCard } = useContext(CardContext);
-    const { deckCards, setDeckCards } = useContext(DeckBuilderContext);
+    const { deckCards, setDeckCards, maybeboardCards, setMaybeboardCards } = useContext(DeckBuilderContext);
+    const inDeck = card.location === 'deck';
     const sets = card.sets_json || [];
 
     const onSelectCard = cardVariant => {
-        const index = deckCards.findIndex(c => c.card_id === card.card_id);
+        const cardList = inDeck ? deckCards : maybeboardCards;
+        const updateCardList = inDeck ? setDeckCards : setMaybeboardCards;
+        const index = cardList.findIndex(c => c.card_id === card.card_id);
         const updatedCard = {
-            ...deckCards[index],
+            ...cardList[index],
             ...cardVariant,
             selection_type: 'manual',
         };
-        const cards = [...deckCards.slice(0, index), updatedCard, ...deckCards.slice(index + 1)];
+        const cards = [...cardList.slice(0, index), updatedCard, ...cardList.slice(index + 1)];
         setCard(updatedCard);
-        setDeckCards(cards);
+        updateCardList(cards);
         setArtSelectorVisible(false);
     };
 
