@@ -40,7 +40,7 @@ function ExportDeckDialog() {
     };
 
     return ReactDOM.createPortal(
-        <Backdrop className='ExportDeckDialog' visible={visible} onClick={onClose}>
+        <Backdrop className='ExportDeckDialog' visible={visible} onClose={onClose}>
             <div className='ExportDeckDialog-content'>
                 <div className='ExportDeckDialog-close' onClick={onClose}>
                     &#x2715;

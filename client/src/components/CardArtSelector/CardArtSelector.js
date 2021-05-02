@@ -14,6 +14,8 @@ function CardArtSelector() {
     const inDeck = card.location === 'deck';
     const sets = card.sets_json || [];
 
+    const onClose = () => setArtSelectorVisible(false);
+
     const onSelectCard = cardVariant => {
         const cardList = inDeck ? deckCards : maybeboardCards;
         const updateCardList = inDeck ? setDeckCards : setMaybeboardCards;
@@ -30,7 +32,7 @@ function CardArtSelector() {
     };
 
     return (
-        <Backdrop visible={artSelectorVisible}>
+        <Backdrop visible={artSelectorVisible} onClose={onClose}>
             <div className='CardArtSelector'>
                 <CloseButton className='CardArtSelector-closeButton' onClose={setArtSelectorVisible} />
                 <CardGrid className='CardArtSelector-cardGrid' cards={sets} currentCardID={card.card_id} onClick={onSelectCard} />
