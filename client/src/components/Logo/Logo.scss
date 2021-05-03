@@ -1,4 +1,8 @@
 .Logo {
+    & > a {
+        color: var(--color-primary-text);
+    }
+
     &--small {
         font-size: 1.5rem;
     }
