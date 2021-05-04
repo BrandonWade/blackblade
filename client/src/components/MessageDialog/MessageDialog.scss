@@ -1,0 +1,36 @@
+.MessageDialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-content {
+        display: flex;
+        flex-direction: column;
+        width: 40rem;
+        min-height: 15rem;
+        padding: 1.5rem;
+        background-color: var(--color-primary);
+        border: var(--line);
+
+        @media only screen and (max-width: 37.5em) {
+            width: 90vw;
+        }
+    }
+
+    &-message {
+        flex: 1;
+        margin-bottom: 2rem;
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    &-buttons {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &-okButton {
+        text-align: center;
+        padding: 0.75rem 2.5rem;
+    }
+}

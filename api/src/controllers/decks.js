@@ -44,7 +44,9 @@ const saveDeck = async (req, res) => {
             });
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: errorMessage('An error occurred saving your deck.'),
+                message: errorMessage(
+                    'An error occurred while saving your deck.',
+                ),
             });
         }
     }
@@ -65,7 +67,7 @@ const getDeck = async (req, res) => {
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage(
-                    'An error occurred retrieving this deck.',
+                    'An error occurred while retrieving this deck.',
                 ),
             });
         }
@@ -83,7 +85,7 @@ const listDecks = async (req, res) => {
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: errorMessage(
-                'An error occurred retrieving your deck list.',
+                'An error occurred while retrieving your deck list.',
             ),
         });
     }
@@ -106,7 +108,9 @@ const deleteDeck = async (req, res) => {
             });
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: errorMessage('An error occurred deleting your deck.'),
+                message: errorMessage(
+                    'An error occurred while deleting your deck.',
+                ),
             });
         }
     }
@@ -125,7 +129,9 @@ const exportDeck = async (req, res) => {
             return res.status(StatusCodes.NOT_FOUND).send();
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: errorMessage('An error occurred exporting this deck.'),
+                message: errorMessage(
+                    'An error occurred while exporting this deck.',
+                ),
             });
         }
     }
@@ -146,7 +152,9 @@ const downloadDeck = async (req, res) => {
             return res.status(StatusCodes.NOT_FOUND).send();
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: errorMessage('An error occurred exporting this deck.'),
+                message: errorMessage(
+                    'An error occurred while downloading this deck.',
+                ),
             });
         }
     }
