@@ -77,7 +77,14 @@
     }
 
     &-manaCosts {
+        min-width: 10rem;
+        max-width: 10rem;
         text-align: right;
+
+        @media only screen and (max-width: 52.125em) {
+            min-width: 8rem;
+            max-width: 8rem;
+        }
     }
 
     &-names {
@@ -89,16 +96,13 @@
     }
 
     &-subRow {
-        height: 2rem;
         display: flex;
         align-items: center;
-
-        @media only screen and (max-width: 37.5em) {
-            height: 1.75rem;
-        }
     }
 
     &-manaSubRow {
+        padding: 0.25rem;
+        flex-wrap: wrap;
         justify-content: flex-end;
 
         & > .CardSymbol {
@@ -114,19 +118,6 @@
 
     &-cardLink {
         cursor: pointer;
-        display: block;
-        max-width: 18rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        @media only screen and (max-width: 75em) {
-            max-width: 10rem;
-        }
-
-        @media only screen and (max-width: 52.125em) {
-            max-width: 100%;
-        }
     }
 
     &-manaCosts,
@@ -134,7 +125,7 @@
         padding: 0.5rem;
 
         @media only screen and (max-width: 37.5em) {
-            padding: 0 0.25rem;
+            padding: 0.25rem;
         }
     }
 
