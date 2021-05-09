@@ -61,7 +61,7 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
     const renderSelectArtButton = () => {
         return ownsDeck ? (
             <td className='DeckTable-selectArt' onClick={onSelectArt}>
-                <Images className='DeckTable-selectArtIcon' />
+                <Images className='DeckTable-selectArtIcon' altText='Select card art' />
             </td>
         ) : null;
     };
@@ -69,7 +69,11 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
     const renderSwitchSectionButton = () => {
         return ownsDeck ? (
             <td className='DeckTable-switchSection' onClick={onSwitchSection}>
-                {isMaybeboardSection ? <ArrowUp className='DeckTable-switchSectionIcon' /> : <ArrowDown className='DeckTable-switchSectionIcon' />}
+                {isMaybeboardSection ? (
+                    <ArrowUp className='DeckTable-switchSectionIcon' altText='Move to deck' />
+                ) : (
+                    <ArrowDown className='DeckTable-switchSectionIcon' altText='Move to maybeboard' />
+                )}
             </td>
         ) : null;
     };
