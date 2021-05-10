@@ -77,14 +77,9 @@
     }
 
     &-manaCosts {
-        min-width: 10rem;
-        max-width: 10rem;
+        min-width: 8rem;
+        max-width: 8rem;
         text-align: right;
-
-        @media only screen and (max-width: 52.125em) {
-            min-width: 8rem;
-            max-width: 8rem;
-        }
     }
 
     &-names {
