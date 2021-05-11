@@ -46,7 +46,7 @@ function Deck({ publicID = '', name = '', size = 0, colors = '', removeDeck = ()
     };
 
     const onRemoveClick = e => {
-        e.preventDefault();
+        e.stopPropagation();
         removeDeck(publicID);
     };
 
