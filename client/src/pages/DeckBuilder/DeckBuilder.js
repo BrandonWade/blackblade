@@ -1,8 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { isEqual } from 'lodash';
 import useDeck from '../../hooks/useDeck';
-import DeckBuilderContext from '../../contexts/DeckBuilder';
+import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
 import MessageDialog from '../../components/MessageDialog';
 import CardArtSelector from '../../components/CardArtSelector';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
@@ -39,11 +38,16 @@ function DeckBuilder() {
         maybeboardMode,
         setMaybeboardMode,
     } = useContext(DeckBuilderContext);
-    const deckNotModified = isEqual(deckCards, unmodifiedDeckCards);
-    const maybeboardNotModified = isEqual(maybeboardCards, unmodifiedMaybeboardCards);
-    const nameNotModified = isEqual(deckName, unmodifiedDeckName);
-    const visibilityNotModified = isEqual(deckVisibility, unmodifiedDeckVisibility);
-    const isUnmodified = deckNotModified && maybeboardNotModified && nameNotModified && visibilityNotModified;
+    const isUnmodified = isDeckUnmodified(
+        deckName,
+        deckVisibility,
+        deckCards,
+        maybeboardCards,
+        unmodifiedDeckName,
+        unmodifiedDeckVisibility,
+        unmodifiedDeckCards,
+        unmodifiedMaybeboardCards
+    );
 
     useEffect(() => {
         const fetchDeck = async () => {
