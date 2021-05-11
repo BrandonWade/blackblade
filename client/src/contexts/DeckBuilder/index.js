@@ -1,1 +1,1 @@
-export { default, initialState } from './DeckBuilder';
+export { default, initialState, isDeckUnmodified } from './DeckBuilder';
