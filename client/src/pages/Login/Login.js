@@ -5,7 +5,7 @@ import { isEmailValid } from '../../validators/email';
 import { isPasswordValid } from '../../validators/password';
 import useAuth from '../../hooks/useAuth';
 import AuthContext from '../../contexts/Auth';
-import Logo from '../../components/Logo';
+import Panel from '../../components/Panel';
 import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import { PasswordField } from '../../components/PasswordInput';
@@ -64,15 +64,14 @@ function Login() {
 
     return (
         <div className='Login'>
-            <div className='Login-content'>
-                <Logo className='Login-logo' size='large' />
+            <Panel wrapperClassName='Login-wrapper' className='' showLogo={true}>
                 <Message type={message.type} text={message.text} />
                 <form className='Login-form'>
                     <InputField
                         label='Email'
-                        rowClassName='Login-inputRow'
-                        labelClassName='Login-inputLabel'
-                        className='Login-input'
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='Panel-input'
                         autoComplete='email'
                         value={email}
                         onChange={onChangeEmail}
@@ -80,9 +79,9 @@ function Login() {
                     <PasswordField
                         hideStrength={true}
                         label='Password'
-                        rowClassName='Login-inputRow'
-                        labelClassName='Login-inputLabel'
-                        className='Login-input'
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='Panel-input'
                         autoComplete='current-password'
                         value={password}
                         onChange={onChangePassword}
@@ -97,7 +96,7 @@ function Login() {
                         Don't have an account yet? <Link to='/register'>Register!</Link>
                     </div>
                 </form>
-            </div>
+            </Panel>
         </div>
     );
 }
