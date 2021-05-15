@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useAccount from '../../hooks/useAccount';
 import { isEmailValid } from '../../validators/email';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
-import Logo from '../../components/Logo';
+import Panel from '../../components/Panel';
 import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import { PasswordField } from '../../components/PasswordInput';
@@ -51,33 +51,32 @@ function Register() {
 
     return (
         <div className='Register'>
-            <div className='Register-content'>
-                <Logo className='Register-logo' size='large' />
+            <Panel wrapperClassName='Register-wrapper' showLogo={true}>
                 <Message type={message.type} text={message.text} />
                 <form className='Register-form'>
                     <InputField
                         label='Email'
-                        rowClassName='Register-inputRow'
-                        labelClassName='Register-inputLabel'
-                        className='Register-input'
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='Panel-input'
                         autoComplete='email'
                         value={email}
                         onChange={onChangeEmail}
                     />
                     <PasswordField
                         label='Password'
-                        rowClassName='Register-inputRow'
-                        labelClassName='Register-inputLabel'
-                        className='Register-input'
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='Panel-input'
                         autoComplete='new-password'
                         value={password}
                         onChange={onChangePassword}
                     />
                     <PasswordField
                         label='Confirm Password'
-                        rowClassName='Register-inputRow'
-                        labelClassName='Register-inputLabel'
-                        className='Register-input'
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='Panel-input'
                         autoComplete='new-password'
                         value={confirmPassword}
                         onChange={onChangeConfirmPassword}
@@ -95,7 +94,7 @@ function Register() {
                         Already have an account? <Link to='/login'>Login!</Link>
                     </div>
                 </form>
-            </div>
+            </Panel>
         </div>
     );
 }

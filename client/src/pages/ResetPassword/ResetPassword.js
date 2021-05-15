@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import useAccount from '../../hooks/useAccount';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
-import Logo from '../../components/Logo';
+import Panel from '../../components/Panel';
 import Message from '../../components/Message';
 import { PasswordField } from '../../components/PasswordInput';
 import ValidationRow from '../../components/ValidationRow/ValidationRow';
@@ -52,24 +52,23 @@ function ResetPassword() {
     return (
         <div className='ResetPassword'>
             {checkPasswordResetTokenCookie()}
-            <div className='ResetPassword-content'>
-                <Logo className='ResetPassword-logo' size='large' />
+            <Panel wrapperClassName='ResetPassword-wrapper' showLogo={true}>
                 <Message type={message.type} text={message.text} />
                 <form className='ResetPassword-form'>
                     <PasswordField
                         label='New Password'
-                        rowClassName='ResetPassword-inputRow'
-                        labelClassName='ResetPassword-inputLabel'
-                        className='ResetPassword-input'
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='Panel-input'
                         autoComplete='new-password'
                         value={password}
                         onChange={onChangePassword}
                     />
                     <PasswordField
                         label='Confirm Password'
-                        rowClassName='ResetPassword-inputRow'
-                        labelClassName='ResetPassword-inputLabel'
-                        className='ResetPassword-input'
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='Panel-input'
                         autoComplete='new-password'
                         value={confirmPassword}
                         onChange={onChangeConfirmPassword}
@@ -83,7 +82,7 @@ function ResetPassword() {
                         Reset Password
                     </Button>
                 </form>
-            </div>
+            </Panel>
         </div>
     );
 }
