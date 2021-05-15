@@ -64,7 +64,7 @@ function Login() {
 
     return (
         <div className='Login'>
-            <Panel wrapperClassName='Login-wrapper' className='' showLogo={true}>
+            <Panel wrapperClassName='Login-wrapper' showLogo={true}>
                 <Message type={message.type} text={message.text} />
                 <form className='Login-form'>
                     <InputField

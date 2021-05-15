@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useAccount from '../../hooks/useAccount';
 import { isEmailValid } from '../../validators/email';
-import Logo from '../../components/Logo';
+import Panel from '../../components/Panel';
 import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import Link from '../../components/Link';
@@ -34,16 +34,15 @@ function ForgotPassword() {
 
     return (
         <div className='ForgotPassword'>
-            <div className='ForgotPassword-content'>
-                <Logo className='ForgotPassword-logo' size='large' />
+            <Panel wrapperClassName='ForgotPassword-wrapper' showLogo={true}>
                 <Message type={message.type} text={message.text} />
                 <form className='ForgotPassword-form'>
                     <p className='ForgotPassword-description'>Enter your email below and we'll send you a link to reset your password.</p>
                     <InputField
                         label='Email'
-                        rowClassName='ForgotPassword-inputRow'
-                        labelClassName='ForgotPassword-inputLabel'
-                        className='ForgotPassword-input'
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='Panel-input'
                         autoComplete='email'
                         value={email}
                         onChange={onChangeEmail}
@@ -55,7 +54,7 @@ function ForgotPassword() {
                         Don't have an account yet? <Link to='/register'>Register!</Link>
                     </div>
                 </form>
-            </div>
+            </Panel>
         </div>
     );
 }
