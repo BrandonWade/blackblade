@@ -3,36 +3,25 @@
     justify-content: center;
     align-items: flex-start;
 
-    &-content {
+    &-wrapper {
+        width: 40rem;
         margin-top: 20vh;
+
+        @media only screen and (max-width: 37.5em) {
+            width: 90vw;
+            max-width: 40rem;
+        }
     }
 
     &-form {
-        width: 90vw;
-        max-width: 40rem;
-        padding: 2rem;
-        border: var(--line);
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        background-color: var(--color-primary-dark);
-    }
-
-    &-inputRow {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 2rem;
-        width: 100%;
-    }
-
-    &-label {
-        font-size: 1.4rem;
-        display: block;
-        margin-bottom: 0.5rem;
     }
 
     &-visibility {
+        display: block;
         font-size: 1.6rem;
         min-width: 15rem;
 
@@ -44,16 +33,6 @@
     &-description {
         margin-top: 0.5rem;
         font-size: 1.2rem;
-    }
-
-    &-deckName {
-        font-size: 1.6rem;
-        padding: 1rem 0.75rem;
-        min-height: 3rem;
-
-        @media only screen and (max-width: 52.125em) {
-            padding: 0.75rem;
-        }
     }
 
     &-createButton {
