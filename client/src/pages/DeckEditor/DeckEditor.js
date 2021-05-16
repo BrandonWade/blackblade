@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import useDeck from '../../hooks/useDeck';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
+import Panel from '../../components/Panel';
 import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import { SelectField } from '../../components/Select';
@@ -53,21 +54,21 @@ function DeckEditor({ editing = false }) {
 
     return (
         <HeaderPage className='DeckEditor'>
-            <div className='DeckEditor-content'>
+            <Panel wrapperClassName='DeckEditor-wrapper'>
                 <Message type={message.type} text={message.text} />
                 <form className='DeckEditor-form' onSubmit={onSubmit}>
                     <InputField
-                        rowClassName='DeckEditor-inputRow'
-                        labelClassName='DeckEditor-label'
-                        className='DeckEditor-deckName'
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='Panel-input'
                         label='Name'
                         value={deckName}
                         onChange={onChangeName}
                     />
                     <SelectField
-                        rowClassName='DeckEditor-inputRow'
-                        labelClassName='DeckEditor-label'
-                        className='DeckEditor-visibility'
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='Panel-input'
                         descriptionClassName='DeckEditor-description'
                         label='Visibility'
                         value={deckVisibility}
@@ -79,7 +80,7 @@ function DeckEditor({ editing = false }) {
                     </SelectField>
                     <Button className='DeckEditor-createButton'>{`${editing ? 'Update' : 'Create'}`}</Button>
                 </form>
-            </div>
+            </Panel>
         </HeaderPage>
     );
 }
