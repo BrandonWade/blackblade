@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { isEmpty } from 'lodash';
 import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
 import Backdrop from '../Backdrop';
+import Panel from '../Panel';
 import TextArea from '../TextArea';
 import Message from '../Message';
 import { Copy, Download } from '../Icons';
@@ -41,7 +42,7 @@ function ExportDeckDialog() {
 
     return ReactDOM.createPortal(
         <Backdrop className='ExportDeckDialog' visible={visible} onClose={onClose}>
-            <div className='ExportDeckDialog-content'>
+            <Panel className='ExportDeckDialog-content'>
                 <div className='ExportDeckDialog-close' onClick={onClose}>
                     &#x2715;
                 </div>
@@ -59,7 +60,7 @@ function ExportDeckDialog() {
                         </Button>
                     </a>
                 </div>
-            </div>
+            </Panel>
         </Backdrop>,
         document.getElementById('portal-root')
     );
