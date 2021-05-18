@@ -76,10 +76,6 @@
         margin: 0 auto;
     }
 
-    &-manaCosts {
-        text-align: right;
-    }
-
     &-names {
         width: 100%;
         font-size: 1.3rem;
@@ -89,14 +85,11 @@
         }
     }
 
-    &-subRow {
-        display: flex;
-        align-items: center;
-    }
-
-    &-manaSubRow {
+    &-manaCostSymbols {
         padding: 0.25rem;
         min-width: 8rem;
+        display: flex;
+        align-items: center;
         flex-wrap: wrap;
         justify-content: flex-end;
 
