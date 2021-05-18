@@ -98,11 +98,9 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
             </td>
             <td className='DeckTable-names'>
                 {cardFaces.map((face, i) => (
-                    <div key={i} className='DeckTable-subRow'>
-                        <Link to={`/cards/${card.card_id}`}>
-                            <span className='DeckTable-cardLink'>{face.name}</span>
-                        </Link>
-                    </div>
+                    <Link key={i} to={`/cards/${card.card_id}`}>
+                        <div className='DeckTable-cardLink'>{face.name}</div>
+                    </Link>
                 ))}
             </td>
             {renderRemoveButton()}
