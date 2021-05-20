@@ -3,6 +3,7 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MySQLStore from 'express-mysql-session';
+import csrf from 'csurf';
 import { connection } from './db';
 import router from './routes';
 import cookieOptions from './helpers/cookies';
@@ -28,12 +29,20 @@ const sessionMiddleware = new session({
     cookie: cookieOptions(),
 });
 
+const csrfMiddleware = csrf({ cookie: true });
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(sessionMiddleware);
+app.use(csrfMiddleware);
 
 app.use('/', router);
+
+// app.use((req, res) => {
+// res.cookie('XSRF-TOKEN', req.csrfToken());
+// res.render('index');
+// });
 
 export default app;
