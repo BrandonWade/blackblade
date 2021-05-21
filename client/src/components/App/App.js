@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 import AuthProvider from '../../providers/Auth';
 import ExportDeckDialogProvider from '../../providers/ExportDeckDialog';
 import DeckListProvider from '../../providers/DeckList';
@@ -24,6 +26,17 @@ import About from '../../pages/About';
 import './App.scss';
 
 function App() {
+    const { getCSRFToken } = useAuth();
+
+    useEffect(() => {
+        const setupCSRF = async () => {
+            await getCSRFToken();
+            // TODO: Show error on failure
+        };
+
+        setupCSRF();
+    }, []);
+
     return (
         <AuthProvider>
             <ExportDeckDialogProvider>

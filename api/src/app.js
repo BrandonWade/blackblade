@@ -6,7 +6,10 @@ import MySQLStore from 'express-mysql-session';
 import csrf from 'csurf';
 import { connection } from './db';
 import router from './routes';
-import cookieOptions from './helpers/cookies';
+import cookieOptions, {
+    DURATION_ONE_HOUR,
+    SECURE_NON_DEVELOP,
+} from './helpers/cookies';
 
 const app = express();
 
@@ -28,8 +31,9 @@ const sessionMiddleware = new session({
     saveUninitialized: false,
     cookie: cookieOptions(),
 });
-
-const csrfMiddleware = csrf({ cookie: true });
+const csrfMiddleware = csrf({
+    cookie: cookieOptions(DURATION_ONE_HOUR, SECURE_NON_DEVELOP, true),
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -38,11 +42,12 @@ app.use(cookieParser());
 app.use(sessionMiddleware);
 app.use(csrfMiddleware);
 
-app.use('/', router);
+// TODO: move to middleware
+app.use((req, res, next) => {
+    res.cookie('csrf', req.csrfToken());
+    next();
+});
 
-// app.use((req, res) => {
-// res.cookie('XSRF-TOKEN', req.csrfToken());
-// res.render('index');
-// });
+app.use('/', router);
 
 export default app;
