@@ -33,12 +33,14 @@ import {
     passwordResetRedirect,
     resetPassword,
 } from './controllers/accounts';
-import { login, logout } from './controllers/auth';
+import { csrf, login, logout } from './controllers/auth';
 import validate from './middleware/validate';
 import authenticate from './middleware/authenticate';
 
 const router = express.Router();
 
+// TODO: Set up subrouters
+router.get('/csrf', csrf);
 router.get('/search', searchValidators, validate(), searchCards);
 router.get('/cards/random', getRandomCard);
 router.get('/cards/:id', cardValidators, validate(), getCardByID);

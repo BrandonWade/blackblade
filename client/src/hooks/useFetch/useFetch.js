@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import cookies from 'js-cookie';
 
 function useFetch() {
     const fetchData = useCallback(async (url = '', method = 'GET', body = {}, headers = {}) => {
@@ -7,6 +8,7 @@ function useFetch() {
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRF-Token': cookies.get('csrf'),
                 ...headers,
             },
         };

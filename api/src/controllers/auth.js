@@ -5,6 +5,10 @@ import AccountService from '../services/accounts';
 import cookieOptions from '../helpers/cookies';
 import { errorMessage } from '../helpers/messages';
 
+const csrf = (_, res) => {
+    return res.send();
+};
+
 const login = async (req, res) => {
     let accountID;
     let accountPublicID;
@@ -43,4 +47,4 @@ const logout = async (req, res) => {
     return res.send();
 };
 
-export { login, logout };
+export { csrf, login, logout };
