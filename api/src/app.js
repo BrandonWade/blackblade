@@ -5,6 +5,7 @@ import session from 'express-session';
 import MySQLStore from 'express-mysql-session';
 import csrf from 'csurf';
 import { connection } from './db';
+import csrfCookie from './middleware/csrf';
 import router from './routes';
 import cookieOptions, {
     DURATION_ONE_HOUR,
@@ -41,12 +42,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(sessionMiddleware);
 app.use(csrfMiddleware);
-
-// TODO: move to middleware
-app.use((req, res, next) => {
-    res.cookie('csrf', req.csrfToken());
-    next();
-});
+app.use(csrfCookie);
 
 app.use('/', router);
 
