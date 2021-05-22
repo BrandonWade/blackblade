@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import AuthProvider from '../../providers/Auth';
@@ -23,56 +23,67 @@ import DeckList from '../../pages/DeckList';
 import DeckEditor from '../../pages/DeckEditor';
 import DeckBuilder from '../../pages/DeckBuilder';
 import About from '../../pages/About';
+import MessageDialog from '../MessageDialog';
 import './App.scss';
 
 function App() {
+    const [message, setMessage] = useState('');
     const { getCSRFToken } = useAuth();
 
     useEffect(() => {
         const setupCSRF = async () => {
-            await getCSRFToken();
-            // TODO: Show error on failure
+            const result = await getCSRFToken();
+            if (!result.success) {
+                setMessage(result.message);
+            }
         };
 
         setupCSRF();
     }, []);
 
+    const onCloseMessageDialog = () => {
+        setMessage('');
+    };
+
     return (
-        <AuthProvider>
-            <ExportDeckDialogProvider>
-                <DeckListProvider>
-                    <CardArtSelectorProvider>
-                        <DeckBuilderProvider>
-                            <AdvancedSearchProvider>
-                                <SearchProvider>
-                                    <CardProvider>
-                                        <BrowserRouter>
-                                            <Switch>
-                                                <Route path='/' exact component={Home} />
-                                                <Route path='/register' component={Register} />
-                                                <Route path='/password/forgot' component={ForgotPassword} />
-                                                <Route path='/password/reset' component={ResetPassword} />
-                                                <Route path='/login' component={Login} />
-                                                <Route path='/logout' component={Logout} />
-                                                <Route path='/about' component={About} />
-                                                <Route path='/advanced' component={AdvancedSearch} />
-                                                <Route path='/cards/search' exact component={SearchResults} />
-                                                <Route path='/cards/:id' component={Card} />
-                                                <AuthenticatedRoute path='/decks' exact component={DeckList} />
-                                                <AuthenticatedRoute path='/decks/new' exact editing={false} component={DeckEditor} />
-                                                <Route path='/decks/:publicID' exact component={DeckBuilder} />
-                                                <AuthenticatedRoute path='/decks/:publicID/edit' exact editing={true} component={DeckEditor} />
-                                                <Redirect to='/' />
-                                            </Switch>
-                                        </BrowserRouter>
-                                    </CardProvider>
-                                </SearchProvider>
-                            </AdvancedSearchProvider>
-                        </DeckBuilderProvider>
-                    </CardArtSelectorProvider>
-                </DeckListProvider>
-            </ExportDeckDialogProvider>
-        </AuthProvider>
+        <>
+            <MessageDialog message={message} visible={message !== ''} onClose={onCloseMessageDialog} />
+            <AuthProvider>
+                <ExportDeckDialogProvider>
+                    <DeckListProvider>
+                        <CardArtSelectorProvider>
+                            <DeckBuilderProvider>
+                                <AdvancedSearchProvider>
+                                    <SearchProvider>
+                                        <CardProvider>
+                                            <BrowserRouter>
+                                                <Switch>
+                                                    <Route path='/' exact component={Home} />
+                                                    <Route path='/register' component={Register} />
+                                                    <Route path='/password/forgot' component={ForgotPassword} />
+                                                    <Route path='/password/reset' component={ResetPassword} />
+                                                    <Route path='/login' component={Login} />
+                                                    <Route path='/logout' component={Logout} />
+                                                    <Route path='/about' component={About} />
+                                                    <Route path='/advanced' component={AdvancedSearch} />
+                                                    <Route path='/cards/search' exact component={SearchResults} />
+                                                    <Route path='/cards/:id' component={Card} />
+                                                    <AuthenticatedRoute path='/decks' exact component={DeckList} />
+                                                    <AuthenticatedRoute path='/decks/new' exact editing={false} component={DeckEditor} />
+                                                    <Route path='/decks/:publicID' exact component={DeckBuilder} />
+                                                    <AuthenticatedRoute path='/decks/:publicID/edit' exact editing={true} component={DeckEditor} />
+                                                    <Redirect to='/' />
+                                                </Switch>
+                                            </BrowserRouter>
+                                        </CardProvider>
+                                    </SearchProvider>
+                                </AdvancedSearchProvider>
+                            </DeckBuilderProvider>
+                        </CardArtSelectorProvider>
+                    </DeckListProvider>
+                </ExportDeckDialogProvider>
+            </AuthProvider>
+        </>
     );
 }
 
