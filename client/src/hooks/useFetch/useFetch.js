@@ -8,7 +8,7 @@ function useFetch() {
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-Token': cookies.get('csrf'),
+                'X-CSRF-Token': cookies.get('ct'),
                 ...headers,
             },
         };
