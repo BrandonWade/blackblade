@@ -1,8 +1,8 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useDeck from '../../hooks/useDeck';
 import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
-import MessageDialog from '../../components/MessageDialog';
+import MessageDialogContext from '../../contexts/MessageDialog';
 import CardArtSelector from '../../components/CardArtSelector';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
@@ -13,7 +13,6 @@ import Button from '../../components/Button';
 import './DeckBuilder.scss';
 
 function DeckBuilder() {
-    const [message, setMessage] = useState('');
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDeck();
     const {
@@ -38,6 +37,7 @@ function DeckBuilder() {
         maybeboardMode,
         setMaybeboardMode,
     } = useContext(DeckBuilderContext);
+    const { setMessage } = useContext(MessageDialogContext);
     const isUnmodified = isDeckUnmodified(
         deckName,
         deckVisibility,
@@ -79,10 +79,6 @@ function DeckBuilder() {
         }
     }, []);
 
-    const onCloseMessageDialog = () => {
-        setMessage('');
-    };
-
     const onSaveDeck = async () => {
         const result = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
         if (!result.success) {
@@ -102,7 +98,6 @@ function DeckBuilder() {
 
     return (
         <div className='DeckBuilder'>
-            <MessageDialog message={message} visible={message !== ''} onClose={onCloseMessageDialog} />
             <CardArtSelector />
             <ExportDeckDialog />
             <div className='DeckBuilder-displayPanel'>
