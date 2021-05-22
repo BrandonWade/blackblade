@@ -9,6 +9,6 @@ export const csrfMiddleware = csrf({
 });
 
 export const csrfCookieMiddleware = (req, res, next) => {
-    res.cookie('csrf', req.csrfToken());
+    res.cookie('ct', req.csrfToken());
     next();
 };
