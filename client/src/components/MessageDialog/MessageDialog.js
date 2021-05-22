@@ -1,11 +1,19 @@
+import { useContext } from 'react';
 import ReactDOM from 'react-dom';
+import MessageDialogContext from '../../contexts/MessageDialog';
 import Backdrop from '../Backdrop';
 import Button from '../Button';
 import './MessageDialog.scss';
 
-function MessageDialog({ message = '', visible = false, onClose = () => {} }) {
+function MessageDialog() {
+    const { message, setMessage } = useContext(MessageDialogContext);
+
+    const onClose = () => {
+        setMessage('');
+    };
+
     return ReactDOM.createPortal(
-        <Backdrop className='MessageDialog' visible={visible} onClose={onClose}>
+        <Backdrop className='MessageDialog' visible={message !== ''} onClose={onClose}>
             <div className='MessageDialog-content'>
                 <div className='MessageDialog-message'>{message}</div>
                 <div className='MessageDialog-buttons'>
