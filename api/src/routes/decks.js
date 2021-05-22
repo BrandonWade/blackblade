@@ -15,7 +15,7 @@ import {
 const decks = express.Router();
 
 decks.post(
-    '/decks',
+    '/',
     createDeckValidators,
     validate(),
     authenticate(
@@ -24,7 +24,7 @@ decks.post(
     createDeck,
 );
 decks.put(
-    '/decks/:publicID',
+    '/:publicID',
     saveDeckValidators,
     validate(),
     authenticate(
@@ -33,15 +33,15 @@ decks.put(
     saveDeck,
 );
 decks.get(
-    '/decks',
+    '/',
     authenticate(
         'You must be logged in to view your decks. Please log in and try again.',
     ),
     listDecks,
 );
-decks.get('/decks/:publicID', getDeck);
-decks.delete('/decks/:publicID', deleteDeck);
-decks.get('/decks/:publicID/export', exportDeck);
-decks.get('/decks/:publicID/download', downloadDeck);
+decks.get('/:publicID', getDeck);
+decks.delete('/:publicID', deleteDeck);
+decks.get('/:publicID/export', exportDeck);
+decks.get('/:publicID/download', downloadDeck);
 
 export default decks;

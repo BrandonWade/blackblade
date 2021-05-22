@@ -16,30 +16,25 @@ import {
 } from '../controllers/accounts';
 const accounts = express.Router();
 
-accounts.post('/accounts', registerUserValidators, validate(), registerAccount);
+accounts.post('/', registerUserValidators, validate(), registerAccount);
 accounts.get(
-    '/accounts/activate/:activationToken',
+    '/activate/:activationToken',
     activateAccountValidators,
     validate(),
     activateAccount,
 );
 accounts.post(
-    '/accounts/password/forgot',
+    '/password/forgot',
     requestPasswordResetValidators,
     validate(),
     requestPasswordReset,
 );
 accounts.get(
-    '/accounts/password/forgot/:passwordResetToken',
+    '/password/forgot/:passwordResetToken',
     passwordResetRedirectValidators,
     validate('/password/forgot'),
     passwordResetRedirect,
 );
-accounts.post(
-    '/accounts/password',
-    resetPasswordValidators,
-    validate(),
-    resetPassword,
-);
+accounts.post('/password', resetPasswordValidators, validate(), resetPassword);
 
 export default accounts;
