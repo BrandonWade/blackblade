@@ -41,8 +41,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(sessionMiddleware);
-app.use(csrfMiddleware);
-app.use(csrfCookie);
+
+if (process.env.ENVIRONMENT !== 'develop') {
+    app.use(csrfMiddleware);
+    app.use(csrfCookie);
+}
 
 app.use('/', router);
 
