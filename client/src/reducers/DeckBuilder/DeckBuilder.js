@@ -15,6 +15,11 @@ import {
     SET_UNMODIFIED_DECK_CARDS,
     SET_UNMODIFIED_MAYBEBOARD_CARDS,
     SET_MAYBEBOARD_MODE,
+    SET_NAME,
+    SET_PAGE,
+    SET_TOTAL_RESULTS,
+    SET_SEARCH_RESULTS,
+    SET_NUMBER_OF_PAGES,
     MOVE_TO_DECK,
     MOVE_TO_MAYBEBOARD,
     RESET_DECK_BUILDER,
@@ -129,6 +134,36 @@ function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 maybeboardMode: action.maybeboardMode,
+            };
+
+        case SET_NAME:
+            return {
+                ...state,
+                name: action.name,
+            };
+
+        case SET_PAGE:
+            return {
+                ...state,
+                page: action.page,
+            };
+
+        case SET_TOTAL_RESULTS:
+            return {
+                ...state,
+                totalResults: action.totalResults,
+            };
+
+        case SET_SEARCH_RESULTS:
+            return {
+                ...state,
+                searchResults: action.searchResults,
+            };
+
+        case SET_NUMBER_OF_PAGES:
+            return {
+                ...state,
+                numberOfPages: action.numberOfPages,
             };
 
         case MOVE_TO_DECK: {

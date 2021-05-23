@@ -2,13 +2,14 @@ import { useContext } from 'react';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/Search';
+import DeckBuilder from '../../contexts/DeckBuilder';
 import Paginator from '../../components/Paginator';
 import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
-function PaginatedResults({ className = '', onSelectResult = () => {}, redirect = true }) {
+function PaginatedResults({ className = '', onSelectResult = () => {}, redirect = true, deckBuilder = false }) {
     const {
-        name,
+        name: searchName,
         text,
         selectedTypes,
         colors,
@@ -20,11 +21,28 @@ function PaginatedResults({ className = '', onSelectResult = () => {}, redirect 
         loyalty,
         rarities,
         flavorText,
-        searchResults,
-        setPage,
+        page: searchPage,
+        totalResults: searchTotalResults,
+        searchResults: searchSearchResults,
+        numberOfPages: searchNumberOfPages,
+        setPage: searchSetPage,
     } = useContext(SearchContext);
+    const {
+        name: deckBuilderName,
+        page: deckBuilderPage,
+        totalResults: deckBuilderTotalResults,
+        searchResults: deckBuilderSearchResults,
+        numberOfPages: deckBuilderNumberOfPages,
+        setPage: setDeckBuilderPage,
+    } = useContext(DeckBuilder);
     const { searchCards } = useSearch();
     const { searchResultsRedirect, displayResults } = useDisplayResults();
+    const name = deckBuilder ? deckBuilderName : searchName;
+    const page = deckBuilder ? deckBuilderPage : searchPage;
+    const totalResults = deckBuilder ? deckBuilderTotalResults : searchTotalResults;
+    const searchResults = deckBuilder ? deckBuilderSearchResults : searchSearchResults;
+    const numberOfPages = deckBuilder ? deckBuilderNumberOfPages : searchNumberOfPages;
+    const setPage = deckBuilder ? setDeckBuilderPage : searchSetPage;
 
     const fetchResults = async (page = 1) => {
         if (redirect === true) {
@@ -45,7 +63,7 @@ function PaginatedResults({ className = '', onSelectResult = () => {}, redirect 
             });
         } else {
             const response = await searchCards({ name, page });
-            displayResults(response);
+            displayResults(response, true);
         }
     };
 
@@ -56,7 +74,13 @@ function PaginatedResults({ className = '', onSelectResult = () => {}, redirect 
 
     return (
         <div className={`PaginatedResults-content ${className}`}>
-            <Paginator className='PaginatedResults-paginator' onPageChange={onPageChange} />
+            <Paginator
+                className='PaginatedResults-paginator'
+                totalResults={totalResults}
+                numberOfPages={numberOfPages}
+                page={page}
+                onPageChange={onPageChange}
+            />
             <CardGrid cards={searchResults} onClick={onSelectResult} />
         </div>
     );

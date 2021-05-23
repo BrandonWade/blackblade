@@ -3,12 +3,18 @@ import { useHistory } from 'react-router-dom';
 import useSearch from '../useSearch';
 import CardContext from '../../contexts/Card';
 import SearchContext from '../../contexts/Search';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 
 function useDisplayResults() {
     const history = useHistory();
     const { getParamString } = useSearch();
     const { setCard } = useContext(CardContext);
     const { setTotalResults, setSearchResults, setNumberOfPages } = useContext(SearchContext);
+    const {
+        setTotalResults: setDeckBuilderTotalResults,
+        setSearchResults: setDeckBuilderSearchResults,
+        setNumberOfPages: setDeckBuilderNumberOfPages,
+    } = useContext(DeckBuilderContext);
 
     const cardRedirect = (card = {}) => {
         history.replace(`/cards/${card.card_id}`);
@@ -34,17 +40,17 @@ function useDisplayResults() {
         setCard(response?.results?.[0] || {});
     };
 
-    const displayResults = (response = {}) => {
+    const displayResults = (response = {}, deckBuilder = false) => {
         if (!response.success) {
             return;
         }
 
-        const numberOfPages = response.pages || 1;
-        const totalResults = response.totalResults || 0;
-        const results = response.results || [];
-        setSearchResults(results);
-        setNumberOfPages(numberOfPages);
-        setTotalResults(totalResults);
+        const updateSearchResults = deckBuilder ? setDeckBuilderSearchResults : setSearchResults;
+        const updateNumberOfPages = deckBuilder ? setDeckBuilderNumberOfPages : setNumberOfPages;
+        const updateTotalResults = deckBuilder ? setDeckBuilderTotalResults : setTotalResults;
+        updateSearchResults(response.results || []);
+        updateNumberOfPages(response.pages || 1);
+        updateTotalResults(response.totalResults || 0);
     };
 
     return {

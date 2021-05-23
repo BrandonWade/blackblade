@@ -13,6 +13,11 @@ export const initialState = {
     unmodifiedDeckCards: [],
     unmodifiedMaybeboardCards: [],
     maybeboardMode: false,
+    name: '',
+    page: 1,
+    totalResults: 0,
+    searchResults: [],
+    numberOfPages: 1,
 };
 
 export const isDeckUnmodified = (

@@ -1,11 +1,8 @@
-import { useContext } from 'react';
-import SearchContext from '../../contexts/Search';
 import { ChevronLeft, ChevronRight, ChevronCircleLeft, ChevronCircleRight } from '../Icons';
 import Button from '../Button';
 import './Paginator.scss';
 
-function Paginator({ className = '', onPageChange = () => {} }) {
-    const { totalResults, numberOfPages, page } = useContext(SearchContext);
+function Paginator({ className = '', totalResults = 0, numberOfPages = 1, page = 1, onPageChange = () => {} }) {
     const firstEnabled = page > 1;
     const previousEnabled = page > 1;
     const nextEnabled = page < numberOfPages;
