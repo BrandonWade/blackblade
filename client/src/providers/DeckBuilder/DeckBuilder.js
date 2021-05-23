@@ -17,6 +17,11 @@ import {
     SET_UNMODIFIED_DECK_CARDS,
     SET_UNMODIFIED_MAYBEBOARD_CARDS,
     SET_MAYBEBOARD_MODE,
+    SET_NAME,
+    SET_PAGE,
+    SET_TOTAL_RESULTS,
+    SET_SEARCH_RESULTS,
+    SET_NUMBER_OF_PAGES,
     MOVE_TO_DECK,
     MOVE_TO_MAYBEBOARD,
     RESET_DECK_BUILDER,
@@ -40,6 +45,11 @@ function DeckBuilderProvider({ children = [] }) {
     const setUnmodifiedDeckCards = () => dispatch({ type: SET_UNMODIFIED_DECK_CARDS });
     const setUnmodifiedMaybeboardCards = () => dispatch({ type: SET_UNMODIFIED_MAYBEBOARD_CARDS });
     const setMaybeboardMode = maybeboardMode => dispatch({ type: SET_MAYBEBOARD_MODE, maybeboardMode });
+    const setName = name => dispatch({ type: SET_NAME, name });
+    const setPage = page => dispatch({ type: SET_PAGE, page });
+    const setTotalResults = totalResults => dispatch({ type: SET_TOTAL_RESULTS, totalResults });
+    const setSearchResults = searchResults => dispatch({ type: SET_SEARCH_RESULTS, searchResults });
+    const setNumberOfPages = numberOfPages => dispatch({ type: SET_NUMBER_OF_PAGES, numberOfPages });
     const moveToDeck = (cardID, count) => dispatch({ type: MOVE_TO_DECK, cardID, count });
     const moveToMaybeboard = (cardID, count) => dispatch({ type: MOVE_TO_MAYBEBOARD, cardID, count });
     const resetDeckBuilder = () => dispatch({ type: RESET_DECK_BUILDER });
@@ -61,6 +71,11 @@ function DeckBuilderProvider({ children = [] }) {
         setUnmodifiedDeckCards,
         setUnmodifiedMaybeboardCards,
         setMaybeboardMode,
+        setName,
+        setPage,
+        setTotalResults,
+        setSearchResults,
+        setNumberOfPages,
         moveToDeck,
         moveToMaybeboard,
         resetDeckBuilder,

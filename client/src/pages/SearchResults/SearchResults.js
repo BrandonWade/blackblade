@@ -121,7 +121,7 @@ function SearchResults({ location }) {
 
     return (
         <HeaderPage className='SearchResults'>
-            <PaginatedResults onSelectResult={onSelectResult} redirect={true} />
+            <PaginatedResults onSelectResult={onSelectResult} redirect={true} deckBuilder={false} />
         </HeaderPage>
     );
 }
