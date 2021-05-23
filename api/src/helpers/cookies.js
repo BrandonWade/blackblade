@@ -6,10 +6,12 @@ export default function cookieOptions(
     maxAge = DURATION_ONE_WEEK,
     secure = SECURE_NON_DEVELOP,
     httpOnly = false,
+    sameSite = 'lax',
 ) {
     return {
         maxAge,
         secure,
         httpOnly,
+        sameSite,
     };
 }
