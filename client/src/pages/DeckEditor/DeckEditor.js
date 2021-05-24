@@ -44,9 +44,9 @@ function DeckEditor({ editing = false }) {
             resetDeckBuilder();
             setDeckPublicID(response.deckPublicID);
             setDeckAccountPublicID(response.accountPublicID);
-            history.push(`/decks/${response.deckPublicID}`);
+            history.replace(`/decks/${response.deckPublicID}`);
         } else {
-            history.push(`/decks/${publicID}`);
+            history.replace(`/decks/${publicID}`);
         }
     };
 
