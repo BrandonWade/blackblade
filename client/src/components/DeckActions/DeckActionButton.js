@@ -1,19 +1,9 @@
-import { Link } from 'react-router-dom';
-
-function DeckActionButton({ to = '', visible = true, children = [], onClick = () => {} }) {
-    const renderButton = () => {
-        return to !== '' ? (
-            <Link to={to}>
-                <div className='DeckActions-button'>{children}</div>
-            </Link>
-        ) : (
-            <div className='DeckActions-button' onClick={onClick}>
-                {children}
-            </div>
-        );
-    };
-
-    return visible ? renderButton() : null;
+function DeckActionButton({ visible = true, children = [], onClick = () => {} }) {
+    return visible ? (
+        <div className='DeckActions-button' onClick={onClick}>
+            {children}
+        </div>
+    ) : null;
 }
 
 export default DeckActionButton;
