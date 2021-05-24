@@ -18,21 +18,25 @@ function DeckEditor({ editing = false }) {
     const { setDeckPublicID, setDeckAccountPublicID, deckName, setDeckName, deckVisibility, setDeckVisibility, resetDeckBuilder } = useContext(
         DeckBuilderContext
     );
+    const [name, setName] = useState(editing ? deckName : 'Untitled Deck');
+    const [visibility, setVisibility] = useState(editing ? deckVisibility : 'private');
 
     const onChangeName = e => {
-        setDeckName(e.target.value);
+        setName(e.target.value);
     };
 
     const onChangeVisibility = e => {
-        setDeckVisibility(e.target.value);
+        setVisibility(e.target.value);
     };
 
     const onSubmit = async e => {
         e.preventDefault();
         setMessage({});
+        setDeckName(name);
+        setDeckVisibility(visibility);
 
         if (!editing) {
-            const response = await createDeck(deckName, deckVisibility);
+            const response = await createDeck(name, visibility);
             if (!response.success) {
                 return;
             }
@@ -62,7 +66,7 @@ function DeckEditor({ editing = false }) {
                         labelClassName='Panel-inputLabel'
                         className='Panel-input'
                         label='Name'
-                        value={deckName}
+                        value={name}
                         onChange={onChangeName}
                     />
                     <SelectField
@@ -71,7 +75,7 @@ function DeckEditor({ editing = false }) {
                         className='Panel-input'
                         descriptionClassName='DeckEditor-description'
                         label='Visibility'
-                        value={deckVisibility}
+                        value={visibility}
                         description={renderVisibilityDescription()}
                         onChange={onChangeVisibility}
                     >
