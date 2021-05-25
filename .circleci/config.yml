@@ -1,5 +1,16 @@
 version: 2.1
 
+workflows:
+    build_and_deploy:
+        jobs:
+            - build_and_deploy:
+                  context:
+                      - blackblade
+                  filters:
+                      branches:
+                          only:
+                              - master
+
 jobs:
     build_and_deploy:
         docker:
@@ -35,12 +46,3 @@ jobs:
                   command: |
                       kubectl set image deployments/api-deployment blackblade-api=brandonwade/blackblade-api:$CIRCLE_SHA1
                       kubectl set image deployments/client-deployment blackblade-client=brandonwade/blackblade-client:$CIRCLE_SHA1
-workflows:
-    version: 2.1
-    build_and_deploy:
-        jobs:
-            - build_and_deploy:
-                  filters:
-                      branches:
-                          only:
-                              - master
