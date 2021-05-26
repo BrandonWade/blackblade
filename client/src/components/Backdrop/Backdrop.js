@@ -1,19 +1,30 @@
 import { useEffect } from 'react';
 import './Backdrop.scss';
 
-function Backdrop({ className = '', visible = false, children = [], onClose = () => {}, closeOnClick = true, closeOnEscape = true }) {
+function Backdrop({ className = '', visible = false, children = [], onClose = () => {}, closeOnClick = true }) {
     useEffect(() => {
-        if (closeOnEscape) {
-            const onEscapePress = e => {
-                if (e.keyCode === 27) {
-                    onClose();
-                }
-            };
+        const onEscapePress = e => {
+            if (e.keyCode === 27) {
+                onClose();
+            }
+        };
 
-            document.addEventListener('keydown', onEscapePress, false);
-            return () => document.removeEventListener('keydown', onEscapePress, false);
-        }
+        document.addEventListener('keydown', onEscapePress, false);
+
+        return () => {
+            document.removeEventListener('keydown', onEscapePress, false);
+        };
     }, []);
+
+    useEffect(() => {
+        if (visible) {
+            document.body.style.overflow = 'hidden';
+        }
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [visible]);
 
     const onClick = () => {
         if (closeOnClick) {
