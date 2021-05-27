@@ -11,6 +11,7 @@ function CardGridImage({ card = {}, selected = false, onClick = () => {} }) {
             src={cardFace.image || ''}
             alt={cardFace.name || ''}
             className={`CardGrid-image ${selected ? 'CardGrid-selected' : ''}`}
+            loading='lazy'
             onClick={onImageClick}
         />
     );
