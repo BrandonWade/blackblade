@@ -115,13 +115,9 @@ function SearchResults({ location }) {
         });
     }, [search]);
 
-    const onSelectResult = card => {
-        history.push(`/cards/${card.card_id}`);
-    };
-
     return (
         <HeaderPage className='SearchResults'>
-            <PaginatedResults onSelectResult={onSelectResult} redirect={true} deckBuilder={false} />
+            <PaginatedResults isLink={true} redirect={true} deckBuilder={false} />
         </HeaderPage>
     );
 }

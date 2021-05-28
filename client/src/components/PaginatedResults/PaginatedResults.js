@@ -7,7 +7,7 @@ import Paginator from '../../components/Paginator';
 import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
-function PaginatedResults({ className = '', onSelectResult = () => {}, redirect = true, deckBuilder = false }) {
+function PaginatedResults({ className = '', onSelectResult = () => {}, isLink = false, redirect = true, deckBuilder = false }) {
     const {
         name: searchName,
         text,
@@ -81,7 +81,7 @@ function PaginatedResults({ className = '', onSelectResult = () => {}, redirect 
                 page={page}
                 onPageChange={onPageChange}
             />
-            <CardGrid cards={searchResults} onClick={onSelectResult} />
+            <CardGrid cards={searchResults} isLink={isLink} onClick={onSelectResult} />
         </div>
     );
 }
