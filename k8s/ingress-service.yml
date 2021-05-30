@@ -10,10 +10,10 @@ metadata:
 spec:
     tls:
         - hosts:
-              - blackblade.ca
+              - bwade.dev
           secretName: blackblade-ca
     rules:
-        - host: blackblade.ca
+        - host: bwade.dev
           http:
               paths:
                   - path: /?(.*)
