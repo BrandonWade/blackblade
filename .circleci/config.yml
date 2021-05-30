@@ -1,58 +1,61 @@
 version: 2.1
 
 orbs:
-    doctl: digitalocean/cli@0.1.1
+    digitalocean: digitalocean/cli@0.1.1
+    kubernetes: digitalocean/k8s@0.1.1
 
 workflows:
     build_and_deploy:
         jobs:
-            # - build:
-            #       context:
-            #           - blackblade
-            #       filters:
-            #           branches:
-            #               only:
-            #                   - master
-            - doctl/install_and_initialize_cli:
-                  context: blackblade
+            - build:
+                  context:
+                      - blackblade
+                  filters:
+                      branches:
+                          only:
+                              - master
+            - deploy:
+                  requires:
+                      - build
+                  context:
+                      - blackblade
+                  filters:
+                      branches:
+                          only:
+                              - master
+jobs:
+    build:
+        machine: true
+        steps:
+            - checkout
+            - run:
+                  name: 'Build & push images to Dockerhub'
+                  command: |
+                      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                      docker build -t brandonwade/blackblade-api:latest -t brandonwade/blackblade-api:$CIRCLE_SHA1 -f ./api/Dockerfile ./api
+                      docker build -t brandonwade/blackblade-client:latest -t brandonwade/blackblade-client:$CIRCLE_SHA1 -f ./client/Dockerfile ./client
+                      docker push brandonwade/blackblade-api:latest
+                      docker push brandonwade/blackblade-api:$CIRCLE_SHA1
+                      docker push brandonwade/blackblade-client:latest
+                      docker push brandonwade/blackblade-client:$CIRCLE_SHA1
+    deploy:
+        executor: digitalocean/default
+        steps:
+            - checkout
+            - kubernetes/install
+            - kubernetes/initialize:
+                  cluster: $DO_CLUSTER_NAME
                   digitalocean-access-token: DO_SERVICE_ACCOUNT_TOKEN
-            # - deploy:
-            #       requires:
-            #           - build
-            #       context:
-            #           - blackblade
-            #       filters:
-            #           branches:
-            #               only:
-            #                   - master
-# jobs:
-#     build:
-#         machine: true
-#         steps:
-#             - checkout
-#             - run:
-#                   name: 'Build & push images to Dockerhub'
-#                   command: |
-#                       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#                       docker build -t brandonwade/blackblade-api:latest -t brandonwade/blackblade-api:$CIRCLE_SHA1 -f ./api/Dockerfile ./api
-#                       docker build -t brandonwade/blackblade-client:latest -t brandonwade/blackblade-client:$CIRCLE_SHA1 -f ./client/Dockerfile ./client
-#                       docker push brandonwade/blackblade-api:latest
-#                       docker push brandonwade/blackblade-api:$CIRCLE_SHA1
-#                       docker push brandonwade/blackblade-client:latest
-#                       docker push brandonwade/blackblade-client:$CIRCLE_SHA1
-#     deploy:
-#         executor: doctl/default
-#         steps:
-#             - run:
-#                   name: 'Set up Digital Ocean cluster configs'
-#                   command: |
-#                       doctl kubernetes cluster kubeconfig save $DO_CLUSTER_ID
-#             - run:
-#                   name: 'Update Kubernetes with the latest configs'
-#                   command: |
-#                       kubectl apply -f ./k8s
-#             - run:
-#                   name: 'Update pods with the latest image versions'
-#                   command: |
-#                       kubectl set image deployments/api-deployment blackblade-api=brandonwade/blackblade-api:$CIRCLE_SHA1
-#                       kubectl set image deployments/client-deployment blackblade-client=brandonwade/blackblade-client:$CIRCLE_SHA1
+            - run:
+                  name: 'Set up Digital Ocean cluster configs'
+                  command: |
+                      doctl kubernetes cluster kubeconfig save $DO_CLUSTER_ID
+            - run:
+                  name: 'Update Kubernetes with the latest configs'
+                  command: |
+                      kubectl apply -f ./k8s
+            - run:
+                  name: 'Update pods with the latest image versions'
+                  command: |
+                      kubectl set image deployments/api-deployment blackblade-api=brandonwade/blackblade-api:$CIRCLE_SHA1
+                      kubectl set image deployments/client-deployment blackblade-client=brandonwade/blackblade-client:$CIRCLE_SHA1
