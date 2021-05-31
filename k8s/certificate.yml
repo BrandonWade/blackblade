@@ -7,6 +7,6 @@ spec:
     issuerRef:
         name: letsencrypt-prod
         kind: ClusterIssuer
-    commonName: bwade.dev
+    commonName: brandonwade.ca
     dnsNames:
-        - bwade.dev
+        - brandonwade.ca
