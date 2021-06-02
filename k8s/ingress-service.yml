@@ -11,10 +11,10 @@ metadata:
 spec:
     tls:
         - hosts:
-              - brandonwade.ca
+              - blackblade.ca
           secretName: blackblade-ca
     rules:
-        - host: brandonwade.ca
+        - host: blackblade.ca
           http:
               paths:
                   - path: /?(.*)
