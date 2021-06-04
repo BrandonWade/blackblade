@@ -1,5 +1,4 @@
 import { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/Search';
@@ -8,7 +7,6 @@ import PaginatedResults from '../../components/PaginatedResults';
 import './SearchResults.scss';
 
 function SearchResults({ location }) {
-    const history = useHistory();
     const {
         setName,
         setText,
