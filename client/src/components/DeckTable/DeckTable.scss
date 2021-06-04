@@ -53,11 +53,6 @@
         width: 4rem;
         min-width: 4rem;
 
-        @media only screen and (max-width: 37.5em) {
-            width: 3rem;
-            min-width: 3rem;
-        }
-
         &:hover {
             background-color: var(--color-primary-lighter);
 
@@ -79,14 +74,10 @@
     &-names {
         width: 100%;
         font-size: 1.3rem;
-
-        @media only screen and (max-width: 37.5em) {
-            font-size: 1.1rem;
-        }
     }
 
     &-manaCostSymbols {
-        padding: 0.25rem;
+        padding: 0.35rem;
         min-width: 8rem;
         display: flex;
         align-items: center;
@@ -122,8 +113,8 @@
     }
 
     &-remove {
-        width: 3rem;
-        min-width: 3rem;
+        width: 4rem;
+        min-width: 4rem;
         font-size: 1.5rem;
         text-align: center;
         cursor: pointer;
