@@ -128,26 +128,19 @@ function useDeck() {
 
     const exportDeck = async (publicID = '') => {
         const response = await fetchData(`/api/decks/${publicID}/export`, 'GET');
+        const data = await response.json();
 
         switch (response.status) {
-            case 200: {
-                const data = await response.json();
+            case 200:
                 return {
                     success: true,
                     deckExport: data.deck_export,
                 };
-            }
-            case 404:
-                return {
-                    success: false,
-                };
-            default: {
-                const data = await response.json();
+            default:
                 return {
                     success: false,
                     message: data.message,
                 };
-            }
         }
     };
 
