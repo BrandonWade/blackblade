@@ -4,6 +4,7 @@ import useDeck from '../../hooks/useDeck';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
+import MessageDialogContext from '../../contexts/MessageDialog';
 import DeckActionButton from './DeckActionButton';
 import { Pencil, Export } from '../Icons';
 import './DeckActions.scss';
@@ -15,6 +16,7 @@ function DeckActions() {
     const { accountPublicID } = useContext(AuthContext);
     const { deckAccountPublicID, deckCards, maybeboardCards } = useContext(DeckBuilderContext);
     const { setDeckExport, setVisible } = useContext(ExportDeckDialogContext);
+    const { setMessage } = useContext(MessageDialogContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
     const hasCards = deckCards.length > 0 || maybeboardCards.length > 0;
 
@@ -25,6 +27,7 @@ function DeckActions() {
     const onExportDeck = async () => {
         const result = await exportDeck(publicID);
         if (!result.success) {
+            setMessage(result.message.text);
             return;
         }
 

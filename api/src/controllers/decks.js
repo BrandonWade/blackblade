@@ -100,10 +100,16 @@ const deleteDeck = async (req, res) => {
     try {
         await DeckService.deleteDeck(publicID, accountID);
     } catch (e) {
-        if (e instanceof NotFoundError || e instanceof UnauthorizedError) {
+        if (e instanceof UnauthorizedError) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 message: errorMessage(
                     'You do not have permission to delete this deck. If this deck is yours, please log in and try again.',
+                ),
+            });
+        } else if (e instanceof NotFoundError) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                message: errorMessage(
+                    'This deck could not be deleted (it may have been deleted already).',
                 ),
             });
         } else {
@@ -126,7 +132,11 @@ const exportDeck = async (req, res) => {
         deckExport = await DeckService.exportDeck(publicID);
     } catch (e) {
         if (e instanceof NotFoundError) {
-            return res.status(StatusCodes.NOT_FOUND).send();
+            return res.status(StatusCodes.NOT_FOUND).send({
+                message: errorMessage(
+                    'This deck could not be exported (it may have been deleted already).',
+                ),
+            });
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage(
