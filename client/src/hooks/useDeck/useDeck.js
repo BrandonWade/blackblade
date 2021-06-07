@@ -42,10 +42,6 @@ function useDeck() {
                 return {
                     success: true,
                 };
-            case 401:
-                return {
-                    success: false,
-                };
             default:
                 const data = await response.json();
                 return {

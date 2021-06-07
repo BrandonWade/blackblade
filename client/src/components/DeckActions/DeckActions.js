@@ -12,9 +12,19 @@ import './DeckActions.scss';
 function DeckActions() {
     const { publicID } = useParams();
     const history = useHistory();
-    const { exportDeck } = useDeck();
+    const { saveDeck, exportDeck } = useDeck();
     const { accountPublicID } = useContext(AuthContext);
-    const { deckAccountPublicID, deckCards, maybeboardCards } = useContext(DeckBuilderContext);
+    const {
+        deckAccountPublicID,
+        name,
+        deckVisibility,
+        deckCards,
+        maybeboardCards,
+        setUnmodifiedDeckName,
+        setUnmodifiedDeckVisibility,
+        setUnmodifiedDeckCards,
+        setUnmodifiedMaybeboardCards,
+    } = useContext(DeckBuilderContext);
     const { setDeckExport, setVisible } = useContext(ExportDeckDialogContext);
     const { setMessage } = useContext(MessageDialogContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
@@ -25,13 +35,26 @@ function DeckActions() {
     };
 
     const onExportDeck = async () => {
-        const result = await exportDeck(publicID);
-        if (!result.success) {
-            setMessage(result.message.text);
+        // Since the deck export comes from the backend, ensure we persist the latest deck state before exporting
+        const saveResult = await saveDeck(publicID, name, deckVisibility, deckCards, maybeboardCards);
+        if (!saveResult?.success) {
+            setMessage(saveResult?.message?.text);
             return;
         }
 
-        setDeckExport(result.deckExport);
+        // Once changes to the deck have been saved, update the unmodified state
+        setUnmodifiedDeckName();
+        setUnmodifiedDeckVisibility();
+        setUnmodifiedDeckCards();
+        setUnmodifiedMaybeboardCards();
+
+        const exportRsult = await exportDeck(publicID);
+        if (!exportRsult.success) {
+            setMessage(exportRsult.message.text);
+            return;
+        }
+
+        setDeckExport(exportRsult.deckExport);
         setVisible(true);
     };
 
