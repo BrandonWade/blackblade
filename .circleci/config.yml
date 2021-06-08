@@ -45,7 +45,6 @@ jobs:
             - kubernetes/install
             - kubernetes/initialize:
                   cluster: $DO_CLUSTER_NAME
-                  digitalocean-access-token: DO_SERVICE_ACCOUNT_TOKEN
             - run:
                   name: 'Set up Digital Ocean cluster configs'
                   command: |
