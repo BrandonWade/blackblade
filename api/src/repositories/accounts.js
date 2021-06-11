@@ -9,6 +9,7 @@ const registerAccount = async (email, passwordHash, activationToken) => {
     const tx = await connection.getConnection();
     await tx.beginTransaction();
 
+    // TODO: Add support for handling case where email is resent
     try {
         const [accountResult] = await tx.query(
             `INSERT INTO accounts (
@@ -239,15 +240,10 @@ const getAccountByEmail = async (email) => {
             a.*
             FROM accounts a
             WHERE a.email = ?
-            AND a.is_activated = 1
         `,
             [email],
         );
-        if (
-            results.length !== 1 ||
-            !results?.[0]?.id ||
-            !results?.[0]?.password_hash
-        ) {
+        if (results.length !== 1) {
             throw new NotFoundError(
                 `could not find active account with email ${email}`,
             );
