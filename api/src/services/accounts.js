@@ -22,7 +22,7 @@ const registerAccount = async (email, password) => {
         }
     }
 
-    await EmailService.sendAccountActivationEmail(email, activationToken);
+    // await EmailService.sendAccountActivationEmail(email, activationToken);
 
     return true;
 };

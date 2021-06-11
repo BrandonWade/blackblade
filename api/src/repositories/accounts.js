@@ -9,10 +9,27 @@ const registerAccount = async (email, passwordHash, activationToken) => {
     const tx = await connection.getConnection();
     await tx.beginTransaction();
 
-    // TODO: Add support for handling case where email is resent
+    let accountResult;
+    let accountID;
+
     try {
-        const [accountResult] = await tx.query(
-            `INSERT INTO accounts (
+        // Check if a row already exists
+        [accountResult] = await tx.query(
+            `SELECT *
+            FROM accounts a
+            WHERE a.email = ?
+        `,
+            [email],
+        );
+        if (accountResult?.affectedRows === 1 && accountResult?.insertId) {
+            accountID = accountResult?.insertId;
+        }
+
+        // If not, create a new account instead
+        if (!accountResult?.insertId) {
+            console.log('@@@ case 2');
+            [accountResult] = await tx.query(
+                `INSERT INTO accounts (
                 public_id,
                 email,
                 password_hash
@@ -20,15 +37,14 @@ const registerAccount = async (email, passwordHash, activationToken) => {
                 LEFT(MD5(RAND()), 16),
                 ?,
                 ?
-            )
-        `,
-            [email, passwordHash],
-        );
-        if (accountResult?.affectedRows !== 1 && !accountResult?.insertId) {
-            throw `error creating account with email ${email}`;
+            )`,
+                [email, passwordHash],
+            );
+            if (accountResult?.insertId) {
+                accountID = accountResult?.id;
+            }
         }
 
-        const accountID = accountResult.insertId;
         const [tokenResults] = await tx.query(
             `INSERT INTO account_activation_tokens(
                 account_id,
@@ -48,7 +64,7 @@ const registerAccount = async (email, passwordHash, activationToken) => {
 
         success = true;
     } catch (e) {
-        if (e.toString().indexOf('Duplicate entry') !== -1) {
+        if (e.code === 'ER_DUP_ENTRY') {
             throw new AlreadyExistsError(
                 `account with email ${email} already exists`,
             );
