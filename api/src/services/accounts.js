@@ -2,6 +2,7 @@ import { hashValue, compareValues } from '../helpers/hash';
 import generateToken from '../helpers/tokens';
 import AccountRepository from '../repositories/accounts';
 import EmailService from '../services/email';
+import AlreadyExistsError from '../errors/already_exists';
 import UnauthorizedError from '../errors/unauthorized';
 
 const registerAccount = async (email, password) => {
@@ -14,12 +15,14 @@ const registerAccount = async (email, password) => {
             passwordHash,
             activationToken,
         );
-
-        await EmailService.sendAccountActivationEmail(email, activationToken);
     } catch (e) {
-        console.error('error registering account', e);
-        throw e;
+        if (!(e instanceof AlreadyExistsError)) {
+            console.error('error registering account', e);
+            throw e;
+        }
     }
+
+    await EmailService.sendAccountActivationEmail(email, activationToken);
 
     return true;
 };
@@ -69,6 +72,11 @@ const resetPassword = async (token, password) => {
 const verifyAccount = async (email, password) => {
     try {
         const account = await AccountRepository.getAccountByEmail(email);
+        if (account.is_activated !== 1) {
+            // TODO: Resend activation email
+            throw new UnauthorizedError('account is not activated');
+        }
+
         const passwordsMatch = await compareValues(
             password,
             account.password_hash.toString(),

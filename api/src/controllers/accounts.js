@@ -1,5 +1,4 @@
 import { StatusCodes } from 'http-status-codes';
-import AlreadyExistsError from '../errors/already_exists';
 import UnauthorizedError from '../errors/unauthorized';
 import NotFoundError from '../errors/not_found';
 import AccountService from '../services/accounts';
@@ -12,13 +11,11 @@ const registerAccount = async (req, res) => {
     try {
         await AccountService.registerAccount(email, password);
     } catch (e) {
-        if (!(e instanceof AlreadyExistsError)) {
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: errorMessage(
-                    'An error occurred while registering your account.',
-                ),
-            });
-        }
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            message: errorMessage(
+                'An error occurred while registering your account.',
+            ),
+        });
     }
 
     return res.status(StatusCodes.OK).json({
