@@ -27,6 +27,7 @@ function useAuth() {
             case 200:
                 return {
                     success: true,
+                    message: data.message,
                     accountPublicID: data.account_public_id,
                 };
             default:
