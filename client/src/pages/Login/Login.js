@@ -53,7 +53,7 @@ function Login() {
         }
 
         const response = await login(email, password);
-        if (response?.success) {
+        if (response?.success && response?.accountPublicID) {
             setAuthenticated(true);
             setAccountPublicID(response.accountPublicID);
             history.push('/');

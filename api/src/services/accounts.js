@@ -4,6 +4,7 @@ import AccountRepository from '../repositories/accounts';
 import EmailService from '../services/email';
 import AlreadyExistsError from '../errors/already_exists';
 import UnauthorizedError from '../errors/unauthorized';
+import NotActivatedError from '../errors/not_activated';
 
 const registerAccount = async (email, password) => {
     const passwordHash = await hashValue(password);
@@ -72,17 +73,18 @@ const resetPassword = async (token, password) => {
 const verifyAccount = async (email, password) => {
     try {
         const account = await AccountRepository.getAccountByEmail(email);
-        if (account.is_activated !== 1) {
-            // TODO: Resend activation email
-            throw new UnauthorizedError('account is not activated');
-        }
-
         const passwordsMatch = await compareValues(
             password,
             account.password_hash.toString(),
         );
+
         if (!passwordsMatch) {
             throw new UnauthorizedError('password does not match');
+        }
+
+        if (account?.id && !account.is_activated) {
+            await registerAccount(email, password);
+            throw new NotActivatedError('account is not activated');
         }
 
         return [account.id, account.public_id];
