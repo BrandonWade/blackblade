@@ -9,26 +9,26 @@ const registerAccount = async (email, passwordHash, activationToken) => {
     const tx = await connection.getConnection();
     await tx.beginTransaction();
 
-    let accountResult;
-    let accountID;
-
     try {
+        let accountID;
+
         // Check if a row already exists
-        [accountResult] = await tx.query(
-            `SELECT *
+        const [selectResult] = await tx.query(
+            `SELECT
+            a.*
             FROM accounts a
             WHERE a.email = ?
+            AND a.is_activated = 0
         `,
             [email],
         );
-        if (accountResult?.affectedRows === 1 && accountResult?.insertId) {
-            accountID = accountResult?.insertId;
+        if (selectResult?.length === 1 && selectResult?.[0]?.id) {
+            accountID = selectResult[0].id;
         }
 
         // If not, create a new account instead
-        if (!accountResult?.insertId) {
-            console.log('@@@ case 2');
-            [accountResult] = await tx.query(
+        if (!accountID) {
+            const [insertResult] = await tx.query(
                 `INSERT INTO accounts (
                 public_id,
                 email,
@@ -40,8 +40,8 @@ const registerAccount = async (email, passwordHash, activationToken) => {
             )`,
                 [email, passwordHash],
             );
-            if (accountResult?.insertId) {
-                accountID = accountResult?.id;
+            if (insertResult?.insertId) {
+                accountID = insertResult.insertId;
             }
         }
 
