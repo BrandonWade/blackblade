@@ -62,7 +62,7 @@ function DeckList() {
                 <div className='DeckList-list'>
                     <Link to='/decks/new' className='DeckList-deck'>
                         <div className='DeckList-newDeck'>
-                            <div>New Deck</div>
+                            <div className='DeckList-newDeckText'>New Deck</div>
                         </div>
                     </Link>
                     {deckList.map(deck => (
