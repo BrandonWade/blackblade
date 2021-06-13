@@ -5,25 +5,29 @@ import EmailService from '../services/email';
 import AlreadyExistsError from '../errors/already_exists';
 import UnauthorizedError from '../errors/unauthorized';
 import NotActivatedError from '../errors/not_activated';
+import NotFoundError from '../errors/not_found';
 
 const registerAccount = async (email, password) => {
+    const account = await AccountRepository.getAccountByEmail(email);
     const passwordHash = await hashValue(password);
     const activationToken = generateToken();
 
-    try {
-        await AccountRepository.registerAccount(
-            email,
-            passwordHash,
-            activationToken,
-        );
-    } catch (e) {
-        if (!(e instanceof AlreadyExistsError)) {
-            console.error('error registering account', e);
-            throw e;
+    if (!account || !account?.is_activated) {
+        try {
+            await AccountRepository.registerAccount(
+                email,
+                passwordHash,
+                activationToken,
+            );
+        } catch (e) {
+            if (!(e instanceof AlreadyExistsError)) {
+                console.error('error registering account', e);
+                throw e;
+            }
         }
-    }
 
-    await EmailService.sendAccountActivationEmail(email, activationToken);
+        await EmailService.sendAccountActivationEmail(email, activationToken);
+    }
 
     return true;
 };
@@ -73,13 +77,17 @@ const resetPassword = async (token, password) => {
 const verifyAccount = async (email, password) => {
     try {
         const account = await AccountRepository.getAccountByEmail(email);
+        if (!account) {
+            throw new NotFoundError(`account with email '${email}' not found`);
+        }
+
         const passwordsMatch = await compareValues(
             password,
             account.password_hash.toString(),
         );
 
         if (!passwordsMatch) {
-            throw new UnauthorizedError('password does not match');
+            throw new UnauthorizedError('passwords do not match');
         }
 
         if (account?.id && !account.is_activated) {

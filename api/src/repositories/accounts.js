@@ -250,25 +250,20 @@ const resetPassword = async (token, passwordHash) => {
 };
 
 const getAccountByEmail = async (email) => {
-    try {
-        const [results] = await connection.query(
-            `SELECT
-            a.*
-            FROM accounts a
-            WHERE a.email = ?
-        `,
-            [email],
-        );
-        if (results.length !== 1) {
-            throw new NotFoundError(
-                `could not find active account with email ${email}`,
-            );
-        }
+    const [results] = await connection.query(
+        `SELECT
+        a.*
+        FROM accounts a
+        WHERE a.email = ?
+    `,
+        [email],
+    );
 
+    if (results.length === 1) {
         return results[0];
-    } catch (e) {
-        throw e;
     }
+
+    return null;
 };
 
 export default {
