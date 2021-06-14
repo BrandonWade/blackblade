@@ -35,8 +35,9 @@ function About() {
                     <h3 className='About-sectionHeading'>Source Code</h3>
                     <p className='About-sectionText'>
                         Blackblade is open source. You can find the code for the website{' '}
-                        <Link to='https://github.com/BrandonWade/blackblade'>here</Link>, and the code for the batch that retrieves Scryfall's data
-                        weekly can be found <Link to='https://github.com/BrandonWade/blackblade-batch'>here</Link>.
+                        <Link to='https://github.com/BrandonWade/blackblade'>here</Link>. The code for the infrastructure can be found{' '}
+                        <Link to='https://github.com/BrandonWade/blackblade-infrastructure'>here</Link>, and the code for the batch that retrieves
+                        Scryfall's data weekly can be found <Link to='https://github.com/BrandonWade/blackblade-batch'>here</Link>.
                     </p>
                 </section>
             </div>
