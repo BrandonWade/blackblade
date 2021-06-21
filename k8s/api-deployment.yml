@@ -24,11 +24,20 @@ spec:
                                 name: environment
                                 key: ENVIRONMENT
                       - name: API_PORT
-                        value: '8000'
+                        valueFrom:
+                            secretKeyRef:
+                                name: apiport
+                                key: API_PORT
                       - name: DB_HOST
-                        value: db-cluster-ip-service
+                        valueFrom:
+                            secretKeyRef:
+                                name: dbhost
+                                key: DB_HOST
                       - name: DB_USERNAME
-                        value: blackblade
+                        valueFrom:
+                            secretKeyRef:
+                                name: mysqluser
+                                key: MYSQL_USER
                       - name: DB_PASSWORD
                         valueFrom:
                             secretKeyRef:
@@ -37,7 +46,10 @@ spec:
                       - name: DB_DATABASE
                         value: blackblade
                       - name: DB_PORT
-                        value: '3306'
+                        valueFrom:
+                            secretKeyRef:
+                                name: dbport
+                                key: DB_PORT
                       - name: MAILJET_PUBLIC_KEY
                         valueFrom:
                             secretKeyRef:
