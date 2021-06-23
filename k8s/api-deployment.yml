@@ -70,5 +70,3 @@ spec:
                             secretKeyRef:
                                 name: sessionsecret
                                 key: SESSION_SECRET
-            imagePullSecrets:
-                - name: regcred
