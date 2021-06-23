@@ -17,5 +17,3 @@ spec:
                   image: brandonwade/blackblade-client:latest
                   ports:
                       - containerPort: 8200
-            imagePullSecrets:
-                - name: regcred
