@@ -48,13 +48,13 @@ function Router() {
                     <Route path='/logout' component={Logout} />
                     <Route path='/about' component={About} />
                     <Route path='/advanced' component={AdvancedSearch} />
-                    <AuthenticatedRoute path='/cards' exact component={CardList} /> {/* TODO: Consider prefixing route? (e.g. /account/cards) */}
                     <Route path='/cards/search' exact component={SearchResults} />
                     <Route path='/cards/:id' component={Card} />
-                    <AuthenticatedRoute path='/decks' exact component={DeckList} /> {/* TODO: Consider prefixing route? (e.g. /account/decks) */}
                     <AuthenticatedRoute path='/decks/new' exact editing={false} component={DeckEditor} />
                     <Route path='/decks/:publicID' exact component={DeckBuilder} />
                     <AuthenticatedRoute path='/decks/:publicID/edit' exact editing={true} component={DeckEditor} />
+                    <AuthenticatedRoute path='/account/decks' exact component={DeckList} />
+                    <AuthenticatedRoute path='/account/cards' exact component={CardList} />
                     <Redirect to='/' />
                 </Switch>
             </BrowserRouter>

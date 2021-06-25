@@ -20,7 +20,7 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
     const renderMyDecksLink = () => {
         return authenticated ? (
             <li className='Menu-link' onClick={closeMenu}>
-                <Link to='/decks'>My Decks</Link>
+                <Link to='/account/decks'>My Decks</Link>
             </li>
         ) : null;
     };
