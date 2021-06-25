@@ -32,7 +32,7 @@ function Header() {
 
     const renderMyDecksLink = () => {
         return authenticated ? (
-            <Link to='/decks'>
+            <Link to='/account/decks'>
                 <Button className='Header-link'>My Decks</Button>
             </Link>
         ) : null;

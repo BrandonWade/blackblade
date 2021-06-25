@@ -29,7 +29,7 @@ function Home() {
 
     const renderMyDecksLink = () => {
         return authenticated ? (
-            <Link className='Home-linkItem' to='/decks'>
+            <Link className='Home-linkItem' to='/account/decks'>
                 <Button className='Home-link'>My Decks</Button>
             </Link>
         ) : null;
