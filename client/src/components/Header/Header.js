@@ -38,6 +38,14 @@ function Header() {
         ) : null;
     };
 
+    const renderMyCardsLink = () => {
+        return authenticated ? (
+            <Link to='/account/cards'>
+                <Button className='Header-link'>My Cards</Button>
+            </Link>
+        ) : null;
+    };
+
     const renderLoginLogoutLink = () => {
         return authenticated ? (
             <Link to='/logout'>
@@ -63,6 +71,7 @@ function Header() {
                     <Button className='Header-link'>Advanced Search</Button>
                 </Link>
                 {renderMyDecksLink()}
+                {renderMyCardsLink()}
                 <Button className='Header-link' onClick={displayRandomCard}>
                     Random Card
                 </Button>

@@ -35,6 +35,14 @@ function Home() {
         ) : null;
     };
 
+    const renderMyCardsLink = () => {
+        return authenticated ? (
+            <Link className='Home-linkItem' to='/account/cards'>
+                <Button className='Home-link'>My Cards</Button>
+            </Link>
+        ) : null;
+    };
+
     const renderLoginLink = () => {
         return !authenticated ? (
             <Link className='Home-linkItem' to='/login'>
@@ -55,6 +63,7 @@ function Home() {
                         <Button className='Home-link'>Advanced Search</Button>
                     </Link>
                     {renderMyDecksLink()}
+                    {renderMyCardsLink()}
                     <Button className='Home-linkItem Home-link' onClick={displayRandomCard}>
                         Random Card
                     </Button>
