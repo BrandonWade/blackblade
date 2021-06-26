@@ -25,6 +25,14 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
         ) : null;
     };
 
+    const renderMyCardsLink = () => {
+        return authenticated ? (
+            <li className='Menu-link' onClick={closeMenu}>
+                <Link to='/account/cards'>My Cards</Link>
+            </li>
+        ) : null;
+    };
+
     const renderLoginLogoutLink = () => {
         return authenticated ? (
             <li className='Menu-link' onClick={closeMenu}>
@@ -52,6 +60,7 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
                         <Link to='/advanced'>Advanced Search</Link>
                     </li>
                     {renderMyDecksLink()}
+                    {renderMyCardsLink()}
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/About'>About</Link>
                     </li>
