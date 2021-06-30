@@ -28,10 +28,22 @@
         }
     }
 
-    &-card {
+    &-cardBlock {
+        position: relative;
+    }
+
+    &-removeCardButton {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        opacity: 0.8;
+    }
+
+    &-cardLink {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-bottom: 0.5rem;
     }
 
     &-cardImage {
@@ -48,7 +60,6 @@
     }
 
     &-cardName {
-        margin-top: 0.5rem;
         font-size: 1.5rem;
         text-align: center;
 
