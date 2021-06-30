@@ -29,6 +29,9 @@
     }
 
     &-closeButton {
+        position: fixed;
+        top: 3rem;
+        right: 3rem;
         opacity: 0.9;
     }
 

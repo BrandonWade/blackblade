@@ -51,7 +51,7 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
                 <span className='Menu-openIcon' />
             </Button>
             <Backdrop className='Menu' visible={menuOpen}>
-                <CloseButton onClose={setMenuOpen} />
+                <CloseButton className='Menu-closeButton' onClose={setMenuOpen} />
                 <ul className='Menu-links'>
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/'>Home</Link>

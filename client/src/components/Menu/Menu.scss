@@ -39,6 +39,12 @@
         position: absolute;
     }
 
+    &-closeButton {
+        position: fixed;
+        top: 3rem;
+        right: 3rem;
+    }
+
     &-links {
         margin: 0 2rem 0;
         list-style: none;
