@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import AuthContext from '../../contexts/Auth';
 import Button from '../Button';
 import Backdrop from '../Backdrop';
-import CloseButton from '../CloseButton';
+import XButton from '../XButton';
 import './Menu.scss';
 
 function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
@@ -51,7 +51,7 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
                 <span className='Menu-openIcon' />
             </Button>
             <Backdrop className='Menu' visible={menuOpen}>
-                <CloseButton className='Menu-closeButton' onClose={setMenuOpen} />
+                <XButton className='Menu-closeButton' onClose={setMenuOpen} />
                 <ul className='Menu-links'>
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/'>Home</Link>

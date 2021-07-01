@@ -1,4 +1,4 @@
-import CloseButton from '../../components/CloseButton';
+import XButton from '../../components/XButton';
 
 function Card({ cardID = 0, image = '', name = '', tags = [] }) {
     return (
@@ -10,7 +10,7 @@ function Card({ cardID = 0, image = '', name = '', tags = [] }) {
             {tags.map(tag => (
                 <div key={tag.id}>{tag.text}</div>
             ))}
-            <CloseButton className='CardList-removeCardButton' />
+            <XButton className='CardList-removeCardButton' />
         </div>
     );
 }
