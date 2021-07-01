@@ -1,11 +1,7 @@
 import Button from '../Button';
 import './XButton.scss';
 
-function XButton({ className = '', onClose = () => {} }) {
-    const onClick = () => {
-        onClose(false);
-    };
-
+function XButton({ className = '', onClick = () => {} }) {
     return (
         <Button className={`XButton ${className}`} onClick={onClick}>
             <span className='XButton-icon' />

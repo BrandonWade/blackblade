@@ -34,7 +34,7 @@ function CardArtSelector() {
     return (
         <Backdrop visible={artSelectorVisible} onClose={onClose}>
             <div className='CardArtSelector'>
-                <XButton className='CardArtSelector-closeButton' onClose={setArtSelectorVisible} />
+                <XButton className='CardArtSelector-closeButton' onClick={onClose} />
                 <CardGrid className='CardArtSelector-cardGrid' cards={sets} currentCardID={card.card_id} onClick={onSelectCard} />
             </div>
         </Backdrop>
