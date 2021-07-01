@@ -3,7 +3,7 @@ import CardArtSelectorContext from '../../contexts/CardArtSelector';
 import CardContext from '../../contexts/Card';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import Backdrop from '../Backdrop';
-import CloseButton from '../CloseButton';
+import XButton from '../XButton';
 import CardGrid from '../CardGrid';
 import './CardArtSelector.scss';
 
@@ -34,7 +34,7 @@ function CardArtSelector() {
     return (
         <Backdrop visible={artSelectorVisible} onClose={onClose}>
             <div className='CardArtSelector'>
-                <CloseButton className='CardArtSelector-closeButton' onClose={setArtSelectorVisible} />
+                <XButton className='CardArtSelector-closeButton' onClose={setArtSelectorVisible} />
                 <CardGrid className='CardArtSelector-cardGrid' cards={sets} currentCardID={card.card_id} onClick={onSelectCard} />
             </div>
         </Backdrop>
