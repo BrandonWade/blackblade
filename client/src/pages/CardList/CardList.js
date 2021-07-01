@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import HeaderPage from '../../components/HeaderPage';
 import Card from './Card';
 import './CardList.scss';
 
 function CardList() {
-    const cards = [
+    const [cards, setCards] = useState([
         {
             id: 1,
             card_id: 31042,
@@ -53,14 +54,18 @@ function CardList() {
             name: 'B.F.M. (Big Furry Monster)',
             tags: [],
         },
-    ];
+    ]);
+
+    const onRemoveCard = cardID => {
+        setCards(cards.filter(card => card.card_id !== cardID));
+    };
 
     return (
         <HeaderPage className='CardList'>
             <div className='CardList-content'>
                 <div className='CardList-list'>
                     {cards.map(card => (
-                        <Card key={card.id} cardID={card.card_id} image={card.image} name={card.name} tags={card.tags} />
+                        <Card key={card.id} cardID={card.card_id} image={card.image} name={card.name} tags={card.tags} onRemoveCard={onRemoveCard} />
                     ))}
                 </div>
             </div>
