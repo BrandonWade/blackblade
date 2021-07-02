@@ -1,6 +1,7 @@
 import AuthProvider from '../../providers/Auth';
 import MessageDialogProvider from '../../providers/MessageDialog';
 import ExportDeckDialogProvider from '../../providers/ExportDeckDialog';
+import CardListProvider from '../../providers/CardList';
 import DeckListProvider from '../../providers/DeckList';
 import CardArtSelectorProvider from '../../providers/CardArtSelector';
 import DeckBuilderProvider from '../../providers/DeckBuilder';
@@ -15,19 +16,21 @@ function App() {
         <AuthProvider>
             <MessageDialogProvider>
                 <ExportDeckDialogProvider>
-                    <DeckListProvider>
-                        <CardArtSelectorProvider>
-                            <DeckBuilderProvider>
-                                <AdvancedSearchProvider>
-                                    <SearchProvider>
-                                        <CardProvider>
-                                            <Router />
-                                        </CardProvider>
-                                    </SearchProvider>
-                                </AdvancedSearchProvider>
-                            </DeckBuilderProvider>
-                        </CardArtSelectorProvider>
-                    </DeckListProvider>
+                    <CardListProvider>
+                        <DeckListProvider>
+                            <CardArtSelectorProvider>
+                                <DeckBuilderProvider>
+                                    <AdvancedSearchProvider>
+                                        <SearchProvider>
+                                            <CardProvider>
+                                                <Router />
+                                            </CardProvider>
+                                        </SearchProvider>
+                                    </AdvancedSearchProvider>
+                                </DeckBuilderProvider>
+                            </CardArtSelectorProvider>
+                        </DeckListProvider>
+                    </CardListProvider>
                 </ExportDeckDialogProvider>
             </MessageDialogProvider>
         </AuthProvider>
