@@ -1,7 +1,7 @@
 import AuthProvider from '../../providers/Auth';
 import MessageDialogProvider from '../../providers/MessageDialog';
 import ExportDeckDialogProvider from '../../providers/ExportDeckDialog';
-import CardListProvider from '../../providers/CardList';
+import BookmarkListProvider from '../../providers/BookmarkList';
 import DeckListProvider from '../../providers/DeckList';
 import CardArtSelectorProvider from '../../providers/CardArtSelector';
 import DeckBuilderProvider from '../../providers/DeckBuilder';
@@ -16,7 +16,7 @@ function App() {
         <AuthProvider>
             <MessageDialogProvider>
                 <ExportDeckDialogProvider>
-                    <CardListProvider>
+                    <BookmarkListProvider>
                         <DeckListProvider>
                             <CardArtSelectorProvider>
                                 <DeckBuilderProvider>
@@ -30,7 +30,7 @@ function App() {
                                 </DeckBuilderProvider>
                             </CardArtSelectorProvider>
                         </DeckListProvider>
-                    </CardListProvider>
+                    </BookmarkListProvider>
                 </ExportDeckDialogProvider>
             </MessageDialogProvider>
         </AuthProvider>

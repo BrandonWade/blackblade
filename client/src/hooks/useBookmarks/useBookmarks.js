@@ -1,17 +1,17 @@
 import useFetch from '../useFetch';
 
-function useCard() {
+function useBookmarks() {
     const { fetchData } = useFetch();
 
-    const listCards = async () => {
-        const response = await fetchData('/api/cards');
+    const listBookmarks = async () => {
+        const response = await fetchData('/api/bookmarks');
         const data = await response.json();
 
         switch (response.status) {
             case 200: {
                 return {
                     success: true,
-                    cards: data.cards,
+                    bookmarks: data.bookmarks,
                 };
             }
             case 401:
@@ -28,8 +28,8 @@ function useCard() {
         }
     };
 
-    const deleteCard = async (cardID = '') => {
-        const response = await fetchData(`/api/cards/${cardID}`, 'DELETE');
+    const deleteBookmark = async (bookmarkID = '') => {
+        const response = await fetchData(`/api/bookmarks/${bookmarkID}`, 'DELETE');
 
         switch (response.status) {
             case 204:
@@ -46,9 +46,9 @@ function useCard() {
     };
 
     return {
-        listCards,
-        deleteCard,
+        listBookmarks,
+        deleteBookmark,
     };
 }
 
-export default useCard;
+export default useBookmarks;

@@ -30,18 +30,18 @@ function Header() {
         setQuery(e.target.value);
     };
 
-    const renderMyDecksLink = () => {
+    const renderDecksLink = () => {
         return authenticated ? (
-            <Link to='/account/decks'>
-                <Button className='Header-link'>My Decks</Button>
+            <Link to='/decks'>
+                <Button className='Header-link'>Decks</Button>
             </Link>
         ) : null;
     };
 
-    const renderMyCardsLink = () => {
+    const renderBookmarksLink = () => {
         return authenticated ? (
-            <Link to='/account/cards'>
-                <Button className='Header-link'>My Cards</Button>
+            <Link to='/bookmarks'>
+                <Button className='Header-link'>Bookmarks</Button>
             </Link>
         ) : null;
     };
@@ -70,8 +70,8 @@ function Header() {
                 <Link to='/advanced'>
                     <Button className='Header-link'>Advanced Search</Button>
                 </Link>
-                {renderMyDecksLink()}
-                {renderMyCardsLink()}
+                {renderDecksLink()}
+                {renderBookmarksLink()}
                 <Button className='Header-link' onClick={displayRandomCard}>
                     Random Card
                 </Button>

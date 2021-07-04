@@ -11,7 +11,7 @@ import ResetPassword from '../../pages/ResetPassword';
 import Login from '../../pages/Login';
 import Logout from '../../pages/Logout';
 import AdvancedSearch from '../../pages/AdvancedSearch';
-import CardList from '../../pages/CardList';
+import BookmarkList from '../../pages/BookmarkList';
 import SearchResults from '../../pages/SearchResults';
 import Card from '../../pages/Card';
 import DeckList from '../../pages/DeckList';
@@ -50,11 +50,11 @@ function Router() {
                     <Route path='/advanced' component={AdvancedSearch} />
                     <Route path='/cards/search' exact component={SearchResults} />
                     <Route path='/cards/:id' component={Card} />
+                    <AuthenticatedRoute path='/decks' exact component={DeckList} />
                     <AuthenticatedRoute path='/decks/new' exact editing={false} component={DeckEditor} />
                     <Route path='/decks/:publicID' exact component={DeckBuilder} />
                     <AuthenticatedRoute path='/decks/:publicID/edit' exact editing={true} component={DeckEditor} />
-                    <AuthenticatedRoute path='/account/decks' exact component={DeckList} />
-                    <AuthenticatedRoute path='/account/cards' exact component={CardList} />
+                    <AuthenticatedRoute path='/bookmarks' exact component={BookmarkList} />
                     <Redirect to='/' />
                 </Switch>
             </BrowserRouter>
