@@ -1,4 +1,4 @@
-.CardList {
+.BookmarkList {
     &-content {
         padding: 2.5rem;
 
@@ -28,25 +28,25 @@
         }
     }
 
-    &-cardBlock {
+    &-bookmarkBlock {
         position: relative;
     }
 
-    &-removeCardButton {
+    &-removeBookmarkButton {
         position: absolute;
         top: -1rem;
         right: -1rem;
         opacity: 0.8;
     }
 
-    &-cardLink {
+    &-bookmarkLink {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-bottom: 0.5rem;
     }
 
-    &-cardImage {
+    &-bookmarkImage {
         width: 100%;
         border-radius: 1.25rem;
 
@@ -59,7 +59,7 @@
         }
     }
 
-    &-cardName {
+    &-bookmarkName {
         font-size: 1.5rem;
         text-align: center;
 

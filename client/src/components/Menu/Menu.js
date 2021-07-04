@@ -17,18 +17,18 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
         setMenuOpen(false);
     };
 
-    const renderMyDecksLink = () => {
+    const renderDecksLink = () => {
         return authenticated ? (
             <li className='Menu-link' onClick={closeMenu}>
-                <Link to='/account/decks'>My Decks</Link>
+                <Link to='/decks'>Decks</Link>
             </li>
         ) : null;
     };
 
-    const renderMyCardsLink = () => {
+    const renderBookmarksLink = () => {
         return authenticated ? (
             <li className='Menu-link' onClick={closeMenu}>
-                <Link to='/account/cards'>My Cards</Link>
+                <Link to='/bookmarks'>Bookmarks</Link>
             </li>
         ) : null;
     };
@@ -59,8 +59,8 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/advanced'>Advanced Search</Link>
                     </li>
-                    {renderMyDecksLink()}
-                    {renderMyCardsLink()}
+                    {renderDecksLink()}
+                    {renderBookmarksLink()}
                     <li className='Menu-link' onClick={closeMenu}>
                         <Link to='/About'>About</Link>
                     </li>
