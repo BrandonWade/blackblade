@@ -140,7 +140,7 @@ const getDeckCardsByPublicID = async (publicID) => {
     );
 };
 
-const listDecksByAccountID = async (accountID) => {
+const listDecks = async (accountID) => {
     return connection.query(
         `SELECT
         d.public_id,
@@ -216,7 +216,7 @@ export default {
     saveDeck,
     getDeckByPublicID,
     getDeckCardsByPublicID,
-    listDecksByAccountID,
+    listDecks,
     deleteDeckByPublicID,
     exportDeckByPublicID,
 };

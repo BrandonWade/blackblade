@@ -113,7 +113,7 @@ const listDecks = async (accountID) => {
     let decks;
 
     try {
-        [decks] = await DeckRepository.listDecksByAccountID(accountID);
+        [decks] = await DeckRepository.listDecks(accountID);
     } catch (e) {
         console.error('error listing decks', e);
         throw e;

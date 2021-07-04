@@ -78,10 +78,10 @@ const getDeck = async (req, res) => {
 
 const listDecks = async (req, res) => {
     const { accountID } = req.session;
-    let deck;
+    let decks;
 
     try {
-        deck = await DeckService.listDecks(accountID);
+        decks = await DeckService.listDecks(accountID);
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: errorMessage(
@@ -90,7 +90,7 @@ const listDecks = async (req, res) => {
         });
     }
 
-    return res.status(StatusCodes.OK).json(deck);
+    return res.status(StatusCodes.OK).json(decks);
 };
 
 const deleteDeck = async (req, res) => {
