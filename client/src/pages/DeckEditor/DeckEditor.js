@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import useDeck from '../../hooks/useDeck';
+import useDecks from '../../hooks/useDecks';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
 import Panel from '../../components/Panel';
@@ -14,10 +14,9 @@ function DeckEditor({ editing = false }) {
     const [message, setMessage] = useState({});
     const history = useHistory();
     const { publicID } = useParams();
-    const { createDeck } = useDeck();
-    const { setDeckPublicID, setDeckAccountPublicID, deckName, setDeckName, deckVisibility, setDeckVisibility, resetDeckBuilder } = useContext(
-        DeckBuilderContext
-    );
+    const { createDeck } = useDecks();
+    const { setDeckPublicID, setDeckAccountPublicID, deckName, setDeckName, deckVisibility, setDeckVisibility, resetDeckBuilder } =
+        useContext(DeckBuilderContext);
     const [name, setName] = useState(editing ? deckName : 'Untitled Deck');
     const [visibility, setVisibility] = useState(editing ? deckVisibility : 'private');
 

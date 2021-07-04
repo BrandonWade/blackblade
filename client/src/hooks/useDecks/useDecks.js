@@ -1,6 +1,6 @@
 import useFetch from '../useFetch';
 
-function useDeck() {
+function useDecks() {
     const { fetchData } = useFetch();
 
     const createDeck = async (name = '', visibility = 'private') => {
@@ -150,4 +150,4 @@ function useDeck() {
     };
 }
 
-export default useDeck;
+export default useDecks;

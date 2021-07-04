@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import useDeck from '../../hooks/useDeck';
+import useDecks from '../../hooks/useDecks';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
@@ -12,7 +12,7 @@ import './DeckActions.scss';
 function DeckActions() {
     const { publicID } = useParams();
     const history = useHistory();
-    const { saveDeck, exportDeck } = useDeck();
+    const { saveDeck, exportDeck } = useDecks();
     const { accountPublicID } = useContext(AuthContext);
     const {
         deckAccountPublicID,

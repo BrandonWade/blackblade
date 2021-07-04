@@ -1,6 +1,6 @@
 import useFetch from '../useFetch';
 
-function useAccount() {
+function useAccounts() {
     const { fetchData } = useFetch();
 
     const register = async (email = '', password = '', confirmPassword = '') => {
@@ -63,4 +63,4 @@ function useAccount() {
     };
 }
 
-export default useAccount;
+export default useAccounts;

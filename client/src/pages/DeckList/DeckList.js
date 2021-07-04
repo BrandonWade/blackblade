@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import useDeck from '../../hooks/useDeck';
+import useDecks from '../../hooks/useDecks';
 import DeckListContext from '../../contexts/DeckList';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
@@ -11,7 +11,7 @@ import './DeckList.scss';
 function DeckList() {
     const [deckPublicIDToDelete, setDeckPublicIDToDelete] = useState(null);
     const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
-    const { listDecks, deleteDeck } = useDeck();
+    const { listDecks, deleteDeck } = useDecks();
     const { deckList, setDeckList } = useContext(DeckListContext);
     const { deckPublicID, resetDeckBuilder } = useContext(DeckBuilderContext);
 
