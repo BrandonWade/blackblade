@@ -1,13 +1,33 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import useCard from '../../hooks/useCard';
 import CardListContext from '../../contexts/CardList';
 import HeaderPage from '../../components/HeaderPage';
 import Card from './Card';
 import './CardList.scss';
 
 function CardList() {
+    const { listCards, deleteCard } = useCard();
     const { cardList, setCardList } = useContext(CardListContext);
 
-    const onRemoveCard = cardID => {
+    useEffect(() => {
+        const fetchCardList = async () => {
+            const result = await listCards();
+            if (!result.success) {
+                return;
+            }
+
+            setCardList(result.cards);
+        };
+
+        fetchCardList();
+    }, []);
+
+    const onRemoveCard = async cardID => {
+        const result = await deleteCard(cardID);
+        if (!result.success) {
+            return;
+        }
+
         setCardList(cardList.filter(card => card.card_id !== cardID));
     };
 
