@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useDeck from '../../hooks/useDeck';
+import useDecks from '../../hooks/useDecks';
 import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
 import MessageDialogContext from '../../contexts/MessageDialog';
 import CardArtSelector from '../../components/CardArtSelector';
@@ -14,7 +14,7 @@ import './DeckBuilder.scss';
 
 function DeckBuilder() {
     const { publicID } = useParams();
-    const { saveDeck, getDeck } = useDeck();
+    const { saveDeck, getDeck } = useDecks();
     const {
         setDeckPublicID,
         setDeckAccountPublicID,

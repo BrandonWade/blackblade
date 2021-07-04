@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useAccount from '../../hooks/useAccount';
+import useAccounts from '../../hooks/useAccounts';
 import { isEmailValid } from '../../validators/email';
 import Panel from '../../components/Panel';
 import Message from '../../components/Message';
@@ -11,7 +11,7 @@ import './ForgotPassword.scss';
 function ForgotPassword() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState({});
-    const { requestPasswordReset } = useAccount();
+    const { requestPasswordReset } = useAccounts();
     const emailValid = isEmailValid(email);
 
     const onChangeEmail = e => {

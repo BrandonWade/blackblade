@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
-import useAccount from '../../hooks/useAccount';
+import useAccounts from '../../hooks/useAccounts';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
 import Panel from '../../components/Panel';
 import Message from '../../components/Message';
@@ -14,7 +14,7 @@ function ResetPassword() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState({});
     const history = useHistory();
-    const { resetPassword } = useAccount();
+    const { resetPassword } = useAccounts();
     const passwordLengthValid = isPasswordLengthValid(password);
     const passwordValidCharsOnly = doesPasswordContainValidChars(password);
     const passwordsMatch = doPasswordsMatch(password, confirmPassword);

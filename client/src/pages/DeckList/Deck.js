@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import useDeck from '../../hooks/useDeck';
+import useDecks from '../../hooks/useDecks';
 import useSymbols from '../../hooks/useSymbols';
 import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
 
 function Deck({ publicID = '', name = '', size = 0, colors = '', removeDeck = () => {} }) {
     const history = useHistory();
-    const { saveDeck } = useDeck();
+    const { saveDeck } = useDecks();
     const {
         deckPublicID,
         deckName,
