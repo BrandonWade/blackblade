@@ -1,6 +1,11 @@
 import { connection } from '../db';
 
 // TODO: Implement
+const createBookmark = async (cardID, accountID) => {
+    return;
+};
+
+// TODO: Implement
 const listBookmarks = async (accountID) => {
     return [];
 };

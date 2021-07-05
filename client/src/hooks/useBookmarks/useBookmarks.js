@@ -3,6 +3,24 @@ import useFetch from '../useFetch';
 function useBookmarks() {
     const { fetchData } = useFetch();
 
+    const createBookmark = async (cardID = 0) => {
+        const response = await fetchData('/api/bookmarks', 'POST', { cardID });
+
+        switch (response.status) {
+            case 201:
+                return {
+                    success: true,
+                };
+            default: {
+                const data = await response.json();
+                return {
+                    success: false,
+                    message: data.message,
+                };
+            }
+        }
+    };
+
     const listBookmarks = async () => {
         const response = await fetchData('/api/bookmarks');
         const data = await response.json();
@@ -46,6 +64,7 @@ function useBookmarks() {
     };
 
     return {
+        createBookmark,
         listBookmarks,
         deleteBookmark,
     };

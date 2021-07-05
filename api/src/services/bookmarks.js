@@ -1,5 +1,16 @@
 import BookmarkRepository from '../repositories/bookmarks';
 
+const createBookmark = async (cardID, accountID) => {
+    try {
+        await BookmarkRepository.createBookmark(cardID, accountID);
+    } catch (e) {
+        console.error('error creating bookmark', e);
+        throw e;
+    }
+
+    return;
+};
+
 const listBookmarks = async (accountID) => {
     let bookmarks;
 
@@ -27,6 +38,7 @@ const deleteBookmark = async (bookmarkID, accountID) => {
 };
 
 export default {
+    createBookmark,
     listBookmarks,
     deleteBookmark,
 };
