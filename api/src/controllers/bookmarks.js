@@ -4,6 +4,23 @@ import UnauthorizedError from '../errors/unauthorized';
 import BookmarkService from '../services/bookmarks';
 import { errorMessage } from '../helpers/messages';
 
+const createBookmark = async (req, res) => {
+    const { accountID } = req.session;
+    const { cardID } = req.body;
+
+    try {
+        await BookmarkService.createBookmark(cardID, accountID);
+    } catch (e) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            message: errorMessage(
+                'An error occurred while creating your bookmark.',
+            ),
+        });
+    }
+
+    return res.status(StatusCodes.CREATED).send();
+};
+
 const listBookmarks = async (req, res) => {
     const { accountID } = req.session;
     let bookmarks;
@@ -52,4 +69,4 @@ const deleteBookmark = async (req, res) => {
     return res.status(StatusCodes.NO_CONTENT).send();
 };
 
-export { listBookmarks, deleteBookmark };
+export { createBookmark, listBookmarks, deleteBookmark };

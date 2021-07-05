@@ -19,7 +19,7 @@ const createDeck = async (req, res) => {
         });
     }
 
-    return res.status(StatusCodes.OK).json(result);
+    return res.status(StatusCodes.CREATED).json(result);
 };
 
 const saveDeck = async (req, res) => {

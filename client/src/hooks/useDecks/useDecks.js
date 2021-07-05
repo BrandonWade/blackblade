@@ -8,7 +8,7 @@ function useDecks() {
         const data = await response.json();
 
         switch (response.status) {
-            case 200:
+            case 201:
                 return {
                     success: true,
                     deckPublicID: data.deck_public_id,
