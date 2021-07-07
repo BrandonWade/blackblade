@@ -1,21 +1,48 @@
 import { connection } from '../db';
 
-// TODO: Implement
 const createBookmark = async (cardID, accountID) => {
-    return;
+    return connection.query(
+        `INSERT INTO bookmarks (
+            card_id,
+            account_id
+        ) VALUES (
+            ?,
+            ?
+        )
+    `,
+        [cardID, accountID],
+    );
 };
 
-// TODO: Implement
+// TODO: Get card image
 const listBookmarks = async (accountID) => {
-    return [];
+    return connection.query(
+        `SELECT
+        b.id,
+        b.card_id,
+        '' AS image,
+        c.name
+        FROM bookmarks b
+        INNER JOIN cards c ON c.id = b.card_id
+        WHERE b.account_id = ?
+    `,
+        [accountID],
+    );
 };
 
-// TODO: Implement
 const deleteBookmark = async (bookmarkID, accountID) => {
-    return;
+    return connection.query(
+        `DELETE b
+        FROM bookmarks b
+        WHERE b.id = ?
+        AND b.account_id = ?
+    `,
+        [bookmarkID, accountID],
+    );
 };
 
 export default {
+    createBookmark,
     listBookmarks,
     deleteBookmark,
 };

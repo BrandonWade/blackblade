@@ -14,6 +14,7 @@ import {
     passwordResetRedirect,
     resetPassword,
 } from '../controllers/accounts';
+
 const accounts = express.Router();
 
 accounts.post('/', registerUserValidators, validate(), registerAccount);
