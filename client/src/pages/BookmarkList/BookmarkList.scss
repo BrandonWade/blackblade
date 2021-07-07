@@ -37,6 +37,10 @@
         top: -0.75rem;
         right: -0.75rem;
         opacity: 0.7;
+
+        &:hover {
+            opacity: 0.9;
+        }
     }
 
     &-bookmarkLink {
