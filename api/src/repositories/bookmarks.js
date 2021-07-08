@@ -2,7 +2,7 @@ import { connection } from '../db';
 
 const createBookmark = async (cardID, accountID) => {
     return connection.query(
-        `INSERT INTO bookmarks (
+        `INSERT IGNORE INTO bookmarks (
             card_id,
             account_id
         ) VALUES (
