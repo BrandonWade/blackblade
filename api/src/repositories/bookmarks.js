@@ -14,13 +14,12 @@ const createBookmark = async (cardID, accountID) => {
     );
 };
 
-// TODO: Get card image
 const listBookmarks = async (accountID) => {
     return connection.query(
         `SELECT
         b.id,
         b.card_id,
-        '' AS image,
+        c.faces_json,
         c.name
         FROM bookmarks b
         INNER JOIN cards c ON c.id = b.card_id
