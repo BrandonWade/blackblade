@@ -1,5 +1,6 @@
 import XButton from '../../components/XButton';
 
+// TODO: Support multi-faced cards
 function Bookmark({ id = 0, cardID = 0, image = '', name = '', tags = [], onRemoveBookmark = () => {} }) {
     const onRemoveBookmarkClick = () => {
         onRemoveBookmark(id);

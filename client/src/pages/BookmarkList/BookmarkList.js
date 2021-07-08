@@ -28,7 +28,7 @@ function BookmarkList() {
             return;
         }
 
-        setBookmarkList(bookmarkList.filter(bookmark => bookmark.bookmark_id !== bookmarkID));
+        setBookmarkList(bookmarkList.filter(bookmark => bookmark.id !== bookmarkID));
     };
 
     return (
@@ -40,7 +40,7 @@ function BookmarkList() {
                             key={bookmark.id}
                             id={bookmark.id}
                             cardID={bookmark.card_id}
-                            image={bookmark.image}
+                            image={bookmark.faces_json?.[0]?.image}
                             name={bookmark.name}
                             tags={bookmark.tags}
                             onRemoveBookmark={onRemoveBookmark}
