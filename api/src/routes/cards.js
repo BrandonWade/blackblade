@@ -1,6 +1,6 @@
 import express from 'express';
 import validate from '../middleware/validate';
-import { cardValidators } from '../validators/card';
+import { cardValidators } from '../validators/cards';
 import { getCardByID, getRandomCard } from '../controllers/search';
 
 const cards = express.Router();
