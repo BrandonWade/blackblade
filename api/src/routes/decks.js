@@ -1,7 +1,7 @@
 import express from 'express';
 import validate from '../middleware/validate';
 import authenticate from '../middleware/authenticate';
-import { createDeckValidators, saveDeckValidators } from '../validators/deck';
+import { createDeckValidators, saveDeckValidators } from '../validators/decks';
 import {
     createDeck,
     saveDeck,

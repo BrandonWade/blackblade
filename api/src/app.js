@@ -7,6 +7,7 @@ import auth from './routes/auth';
 import search from './routes/search';
 import cards from './routes/cards';
 import decks from './routes/decks';
+import bookmarks from './routes/bookmarks';
 import accounts from './routes/accounts';
 
 const app = express();
@@ -32,6 +33,7 @@ app.use('/', auth);
 app.use('/', search);
 app.use('/cards', cards);
 app.use('/decks', decks);
+app.use('/bookmarks', bookmarks);
 app.use('/accounts', accounts);
 
 export default app;
