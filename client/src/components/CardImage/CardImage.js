@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import useBookmarks from '../../hooks/useBookmarks';
 import Button from '../Button';
-import { RotateCW, RotateCCW, FlipRotate } from '../Icons';
+import { RotateCW, RotateCCW, FlipRotate, Bookmark } from '../Icons';
 import './CardImage.scss';
 
-function CardImage({ cardFaces = [], layout = '' }) {
+function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
+    const { createBookmark } = useBookmarks();
     const [flipped, setFlipped] = useState(false);
     const [rotatedCW, setRotatedCW] = useState(false);
     const [rotatedCCW, setRotatedCCW] = useState(false);
@@ -25,6 +27,10 @@ function CardImage({ cardFaces = [], layout = '' }) {
         setTransformed(false);
     }, [cardFaces]);
 
+    const onCreateBookmark = () => {
+        createBookmark(cardID);
+    };
+
     const onFlip = () => {
         setFlipped(!flipped);
     };
@@ -41,7 +47,18 @@ function CardImage({ cardFaces = [], layout = '' }) {
         setTransformed(!transformed);
     };
 
-    const renderButton = () => {
+    // TODO: Only display when logged in
+    // TODO: Indicate when bookmark already exists
+    const renderBookmarkButton = () => {
+        return (
+            <Button className='CardImage-button' onClick={onCreateBookmark}>
+                <Bookmark className='CardImage-buttonIcon' />
+                Bookmark
+            </Button>
+        );
+    };
+
+    const renderTransformButton = () => {
         if (canFlip) {
             return (
                 <Button className='CardImage-button' onClick={onFlip}>
@@ -85,7 +102,10 @@ function CardImage({ cardFaces = [], layout = '' }) {
             {canTransform && (
                 <img className={`CardImage-imageBack ${transformBackClassName}`} src={cardFaces?.[1]?.image || ''} alt={cardFaces?.[1]?.name || ''} />
             )}
-            {renderButton()}
+            <div className='CardImage-buttonContainer'>
+                {renderBookmarkButton()}
+                {renderTransformButton()}
+            </div>
         </div>
     );
 }

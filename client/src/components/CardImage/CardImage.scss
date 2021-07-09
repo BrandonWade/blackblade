@@ -1,8 +1,6 @@
 .CardImage {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     position: relative;
 
     &-imageFront,
@@ -72,7 +70,9 @@
         }
     }
 
-    &-button {
+    &-buttonContainer {
+        display: flex;
+        justify-content: space-evenly;
         margin-top: 2rem;
     }
 
