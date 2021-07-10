@@ -1,6 +1,6 @@
+import { Link } from 'react-router-dom';
 import XButton from '../../components/XButton';
 
-// TODO: Support multi-faced cards
 function Bookmark({ id = 0, cardID = 0, image = '', name = '', tags = [], onRemoveBookmark = () => {} }) {
     const onRemoveBookmarkClick = () => {
         onRemoveBookmark(id);
@@ -8,9 +8,9 @@ function Bookmark({ id = 0, cardID = 0, image = '', name = '', tags = [], onRemo
 
     return (
         <div className='BookmarkList-bookmarkBlock'>
-            <a className='BookmarkList-bookmarkLink' href={`/cards/${cardID}`}>
+            <Link className='BookmarkList-bookmarkLink' to={`/cards/${cardID}`}>
                 <img className='BookmarkList-bookmarkImage' src={image} alt={name} />
-            </a>
+            </Link>
             <div className='BookmarkList-bookmarkName'>{name}</div>
             {tags.map(tag => (
                 <div key={tag.id}>{tag.text}</div>
