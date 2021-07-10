@@ -46,7 +46,7 @@ function useBookmarks() {
         }
     };
 
-    const deleteBookmark = async (bookmarkID = '') => {
+    const deleteBookmark = async (bookmarkID = 0) => {
         const response = await fetchData(`/api/bookmarks/${bookmarkID}`, 'DELETE');
 
         switch (response.status) {
