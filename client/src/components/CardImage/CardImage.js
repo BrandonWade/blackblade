@@ -4,7 +4,7 @@ import BookmarkListContext from '../../contexts/BookmarkList';
 import MessageDialogContext from '../../contexts/MessageDialog';
 import useBookmarks from '../../hooks/useBookmarks';
 import Button from '../Button';
-import { RotateCW, RotateCCW, FlipRotate, Bookmark } from '../Icons';
+import { RotateCW, RotateCCW, FlipRotate, StarEmpty, StarFilled } from '../Icons';
 import './CardImage.scss';
 
 function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
@@ -75,19 +75,18 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
             return null;
         }
 
-        // TODO: Get proper icon
         const isBookmarked = bookmarkList.some(b => b.card_id === cardID);
         if (isBookmarked) {
             return (
                 <Button className='CardImage-button' onClick={onRemoveBookmark}>
-                    <Bookmark className='CardImage-buttonIcon' />
+                    <StarFilled className='CardImage-buttonIcon' />
                     Remove Bookmark
                 </Button>
             );
         } else {
             return (
                 <Button className='CardImage-button' onClick={onCreateBookmark}>
-                    <Bookmark className='CardImage-buttonIcon' />
+                    <StarEmpty className='CardImage-buttonIcon' />
                     Add Bookmark
                 </Button>
             );
