@@ -1,7 +1,10 @@
 import { useContext, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import useBookmarks from '../../hooks/useBookmarks';
+import AuthContext from '../../contexts/Auth';
 import MessageDialogContext from '../../contexts/MessageDialog';
+import BookmarkListContext from '../../contexts/BookmarkList';
 import MessageDialog from '../MessageDialog';
 import AuthenticatedRoute from '../AuthenticatedRoute';
 import Home from '../../pages/Home';
@@ -20,8 +23,11 @@ import DeckBuilder from '../../pages/DeckBuilder';
 import About from '../../pages/About';
 
 function Router() {
+    const { accountPublicID } = useContext(AuthContext);
     const { setMessage } = useContext(MessageDialogContext);
+    const { bookmarkList, setBookmarkList } = useContext(BookmarkListContext);
     const { getCSRFToken } = useAuth();
+    const { listBookmarks } = useBookmarks();
 
     // Run any initial config needed when the app boots
     useEffect(() => {
@@ -31,9 +37,23 @@ function Router() {
                 setMessage(result.message);
             }
         };
-
         setupCSRF();
     }, []);
+
+    useEffect(() => {
+        const fetchBookmarkList = async () => {
+            const result = await listBookmarks();
+            if (!result.success) {
+                setMessage(result.message);
+            }
+
+            setBookmarkList(result.bookmarks);
+        };
+
+        if (accountPublicID) {
+            fetchBookmarkList();
+        }
+    }, [accountPublicID]);
 
     return (
         <>
