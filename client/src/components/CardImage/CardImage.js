@@ -1,13 +1,17 @@
 import { useState, useContext, useEffect } from 'react';
 import AuthContext from '../../contexts/Auth';
+import BookmarkListContext from '../../contexts/BookmarkList';
+import MessageDialogContext from '../../contexts/MessageDialog';
 import useBookmarks from '../../hooks/useBookmarks';
 import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate, Bookmark } from '../Icons';
 import './CardImage.scss';
 
 function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
-    const { createBookmark } = useBookmarks();
+    const { createBookmark, deleteBookmark } = useBookmarks();
     const { authenticated } = useContext(AuthContext);
+    const { bookmarkList, setBookmarkList } = useContext(BookmarkListContext);
+    const { setMessage } = useContext(MessageDialogContext);
     const [flipped, setFlipped] = useState(false);
     const [rotatedCW, setRotatedCW] = useState(false);
     const [rotatedCCW, setRotatedCCW] = useState(false);
@@ -29,8 +33,25 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
         setTransformed(false);
     }, [cardFaces]);
 
-    const onCreateBookmark = () => {
-        createBookmark(cardID);
+    const onCreateBookmark = async () => {
+        const result = await createBookmark(cardID);
+        if (!result.success) {
+            setMessage(result.message);
+        }
+    };
+
+    const onRemoveBookmark = async () => {
+        const bookmark = bookmarkList.find(b => b.card_id === cardID);
+
+        if (bookmark) {
+            const result = await deleteBookmark(bookmark.id);
+            if (!result.success) {
+                setMessage(result.message);
+                return;
+            }
+
+            setBookmarkList(bookmarkList.filter(b => b.id !== bookmark.id));
+        }
     };
 
     const onFlip = () => {
@@ -49,14 +70,28 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
         setTransformed(!transformed);
     };
 
-    // TODO: Indicate when bookmark already exists
     const renderBookmarkButton = () => {
-        return authenticated ? (
-            <Button className='CardImage-button' onClick={onCreateBookmark}>
-                <Bookmark className='CardImage-buttonIcon' />
-                Bookmark
-            </Button>
-        ) : null;
+        if (!authenticated) {
+            return null;
+        }
+
+        // TODO: Get proper icon
+        const isBookmarked = bookmarkList.some(b => b.card_id === cardID);
+        if (isBookmarked) {
+            return (
+                <Button className='CardImage-button' onClick={onRemoveBookmark}>
+                    <Bookmark className='CardImage-buttonIcon' />
+                    Remove Bookmark
+                </Button>
+            );
+        } else {
+            return (
+                <Button className='CardImage-button' onClick={onCreateBookmark}>
+                    <Bookmark className='CardImage-buttonIcon' />
+                    Add Bookmark
+                </Button>
+            );
+        }
     };
 
     const renderTransformButton = () => {
