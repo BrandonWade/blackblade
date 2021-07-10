@@ -25,7 +25,7 @@ import About from '../../pages/About';
 function Router() {
     const { accountPublicID } = useContext(AuthContext);
     const { setMessage } = useContext(MessageDialogContext);
-    const { bookmarkList, setBookmarkList } = useContext(BookmarkListContext);
+    const { setBookmarkList } = useContext(BookmarkListContext);
     const { getCSRFToken } = useAuth();
     const { listBookmarks } = useBookmarks();
 
