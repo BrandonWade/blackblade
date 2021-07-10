@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import AuthContext from '../../contexts/Auth';
 import useBookmarks from '../../hooks/useBookmarks';
 import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate, Bookmark } from '../Icons';
@@ -6,6 +7,7 @@ import './CardImage.scss';
 
 function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
     const { createBookmark } = useBookmarks();
+    const { authenticated } = useContext(AuthContext);
     const [flipped, setFlipped] = useState(false);
     const [rotatedCW, setRotatedCW] = useState(false);
     const [rotatedCCW, setRotatedCCW] = useState(false);
@@ -47,15 +49,14 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
         setTransformed(!transformed);
     };
 
-    // TODO: Only display when logged in
     // TODO: Indicate when bookmark already exists
     const renderBookmarkButton = () => {
-        return (
+        return authenticated ? (
             <Button className='CardImage-button' onClick={onCreateBookmark}>
                 <Bookmark className='CardImage-buttonIcon' />
                 Bookmark
             </Button>
-        );
+        ) : null;
     };
 
     const renderTransformButton = () => {
