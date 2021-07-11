@@ -41,7 +41,7 @@ const getBookmarkByCardID = async (cardID, accountID) => {
         WHERE b.account_id = ?
         AND b.card_id = ?
     `,
-        [cardID, accountID],
+        [accountID, cardID],
     );
 };
 
