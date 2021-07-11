@@ -38,6 +38,8 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
         if (!result.success) {
             setMessage(result.message);
         }
+
+        setBookmarkList(bookmarkList.concat(result.bookmark));
     };
 
     const onRemoveBookmark = async () => {

@@ -5,19 +5,20 @@ function useBookmarks() {
 
     const createBookmark = async (cardID = 0) => {
         const response = await fetchData('/api/bookmarks', 'POST', { cardID });
+        const data = await response.json();
 
         switch (response.status) {
+            case 200:
             case 201:
                 return {
                     success: true,
+                    bookmark: data.bookmark,
                 };
-            default: {
-                const data = await response.json();
+            default:
                 return {
                     success: false,
                     message: data.message,
                 };
-            }
         }
     };
 

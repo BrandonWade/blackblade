@@ -7,9 +7,10 @@ import { errorMessage } from '../helpers/messages';
 const createBookmark = async (req, res) => {
     const { accountID } = req.session;
     const { cardID } = req.body;
+    let result;
 
     try {
-        await BookmarkService.createBookmark(cardID, accountID);
+        result = await BookmarkService.createBookmark(cardID, accountID);
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: errorMessage(
@@ -18,7 +19,12 @@ const createBookmark = async (req, res) => {
         });
     }
 
-    return res.status(StatusCodes.CREATED).send();
+    const { created, ...bookmark } = result;
+    if (created) {
+        return res.status(StatusCodes.CREATED).json(bookmark);
+    } else {
+        return res.status(StatusCodes.OK).json(bookmark);
+    }
 };
 
 const listBookmarks = async (req, res) => {
