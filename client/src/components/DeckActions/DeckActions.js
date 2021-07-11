@@ -16,7 +16,7 @@ function DeckActions() {
     const { accountPublicID } = useContext(AuthContext);
     const {
         deckAccountPublicID,
-        name,
+        deckName,
         deckVisibility,
         deckCards,
         maybeboardCards,
@@ -36,7 +36,7 @@ function DeckActions() {
 
     const onExportDeck = async () => {
         // Since the deck export comes from the backend, ensure we persist the latest deck state before exporting
-        const saveResult = await saveDeck(publicID, name, deckVisibility, deckCards, maybeboardCards);
+        const saveResult = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
         if (!saveResult?.success) {
             setMessage(saveResult?.message?.text);
             return;
