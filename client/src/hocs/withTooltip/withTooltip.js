@@ -16,14 +16,14 @@ function withTooltip(BaseComponent) {
 
         return (
             <>
-                <BaseComponent {...props} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                    {children}
-                </BaseComponent>
                 {visible ? (
                     <div className='Tooltip'>
                         <img className='Tooltip-image' src={tooltipImage} alt='' />
                     </div>
                 ) : null}
+                <BaseComponent {...props} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                    {children}
+                </BaseComponent>
             </>
         );
     };
