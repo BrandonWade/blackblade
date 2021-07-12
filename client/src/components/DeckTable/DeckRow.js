@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import withTooltip from '../../hocs/withTooltip';
+import withImagePreview from '../../hocs/withImagePreview';
 import CardContext from '../../contexts/Card';
 import CardArtSelectorContext from '../../contexts/CardArtSelector';
 import AuthContext from '../../contexts/Auth';
@@ -110,8 +110,8 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
                         );
                     };
 
-                    const CardName = withTooltip(name);
-                    return <CardName tooltipImage={face.image} />;
+                    const CardName = withImagePreview(name);
+                    return <CardName image={face.image} />;
                 })}
             </td>
             {renderRemoveButton()}

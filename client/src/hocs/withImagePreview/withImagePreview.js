@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import './withTooltip.scss';
+import './withImagePreview.scss';
 
-function withTooltip(BaseComponent) {
-    const Tooltip = props => {
+function withImagePreview(BaseComponent) {
+    const ImagePreview = props => {
         const [visible, setVisible] = useState(false);
-        const { children = [], tooltipImage = '' } = props;
+        const { children = [], image = '', alt = '' } = props;
 
         const onMouseEnter = () => {
             setVisible(true);
@@ -17,8 +17,8 @@ function withTooltip(BaseComponent) {
         return (
             <>
                 {visible ? (
-                    <div className='Tooltip'>
-                        <img className='Tooltip-image' src={tooltipImage} alt='' />
+                    <div className='ImagePreview'>
+                        <img className='ImagePreview-image' src={image} alt={alt} />
                     </div>
                 ) : null}
                 <BaseComponent {...props} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
@@ -28,7 +28,7 @@ function withTooltip(BaseComponent) {
         );
     };
 
-    return Tooltip;
+    return ImagePreview;
 }
 
-export default withTooltip;
+export default withImagePreview;
