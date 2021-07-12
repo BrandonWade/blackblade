@@ -1,11 +1,12 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import withTooltip from '../../hocs/withTooltip';
 import CardContext from '../../contexts/Card';
 import CardArtSelectorContext from '../../contexts/CardArtSelector';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import DeckRowManaCost from './DeckRowManaCost';
-import Input from '../../components/Input';
+import Input from '../Input';
 import { Images, ArrowUp, ArrowDown } from '../Icons';
 
 function DeckRow({ card = {}, count = 0, sectionType = '' }) {
@@ -97,11 +98,21 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
                 ))}
             </td>
             <td className='DeckTable-names'>
-                {cardFaces.map((face, i) => (
-                    <Link key={i} to={`/cards/${card.card_id}`}>
-                        <div className='DeckTable-cardLink'>{face.name}</div>
-                    </Link>
-                ))}
+                {cardFaces.map((face, i) => {
+                    // TODO: Clean this up
+                    const name = function ({ onMouseEnter, onMouseLeave }) {
+                        return (
+                            <Link key={i} to={`/cards/${card.card_id}`}>
+                                <div className='DeckTable-cardLink' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                                    {face.name}
+                                </div>
+                            </Link>
+                        );
+                    };
+
+                    const CardName = withTooltip(name);
+                    return <CardName tooltipImage={face.image} />;
+                })}
             </td>
             {renderRemoveButton()}
         </tr>
