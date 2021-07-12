@@ -1,13 +1,6 @@
 .Tooltip {
     position: absolute;
     z-index: 1;
-    right: 24rem;
-    // top: 16rem;
-
-    // TODO: Rename; this should be the top level
-    // &-wrapper {
-    //     position: relative;
-    // }
 
     &-image {
         width: 23rem; // TODO: Remove
