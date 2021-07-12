@@ -1,6 +1,8 @@
-.Tooltip {
+.ImagePreview {
     position: absolute;
     z-index: 1;
+    // top: 10rem;
+    right: 20rem;
 
     &-image {
         width: 23rem; // TODO: Remove
