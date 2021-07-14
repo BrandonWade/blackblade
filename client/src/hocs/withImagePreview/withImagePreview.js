@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './withImagePreview.scss';
 
 function withImagePreview(BaseComponent) {
-    const ImagePreview = props => {
+    const ImagePreview = ({ children = [], image = '', alt = '', ...rest }) => {
         const [visible, setVisible] = useState(false);
-        const { children = [], image = '', alt = '' } = props;
+        const ref = useRef({ x: null, y: null });
 
-        const onMouseEnter = () => {
+        const onMouseEnter = e => {
             setVisible(true);
         };
 
-        const onMouseLeave = () => {
+        const onMouseLeave = e => {
             setVisible(false);
         };
 
@@ -21,7 +21,7 @@ function withImagePreview(BaseComponent) {
                         <img className='ImagePreview-image' src={image} alt={alt} />
                     </div>
                 ) : null}
-                <BaseComponent {...props} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                <BaseComponent {...rest} ref={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                     {children}
                 </BaseComponent>
             </>
