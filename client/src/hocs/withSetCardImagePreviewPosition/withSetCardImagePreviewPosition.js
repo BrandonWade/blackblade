@@ -1,17 +1,19 @@
 import { useRef, useContext } from 'react';
 import CardImagePreviewContext from '../../contexts/CardImagePreview/CardImagePreview';
+import useCSSVariableValue from '../../hooks/useCSSVariableValue';
 
 function withSetCardImagePreviewPosition(BaseComponent) {
     return ({ children = [], image = '', ...rest }) => {
         const ref = useRef();
         const { setTop, setLeft, setImage, setVisible } = useContext(CardImagePreviewContext);
+        const imageWidth = useCSSVariableValue('--card-image-preview-image-width');
+        const imageHeight = useCSSVariableValue('--card-image-preview-image-height');
 
         const onMouseEnter = () => {
-            const { x, y } = ref.current.getBoundingClientRect();
+            const { x, y, height } = ref.current.getBoundingClientRect();
 
-            // TODO: Calculate these using card dimentions
-            const offsetX = 235; // card width plus padding (TODO: Calculate this)
-            const offsetY = 125; // approximately half of card height
+            const offsetX = imageWidth + 5; // add a small gap between preview and component
+            const offsetY = imageHeight / 2 - height / 2; // to center vertically
 
             let top = y - offsetY;
             let left = x - offsetX;
