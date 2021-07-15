@@ -6,6 +6,7 @@ import AuthContext from '../../contexts/Auth';
 import MessageDialogContext from '../../contexts/MessageDialog';
 import BookmarkListContext from '../../contexts/BookmarkList';
 import MessageDialog from '../MessageDialog';
+import CardImagePreview from '../CardImagePreview';
 import AuthenticatedRoute from '../AuthenticatedRoute';
 import Home from '../../pages/Home';
 import Register from '../../pages/Register';
@@ -58,6 +59,7 @@ function Router() {
     return (
         <>
             <MessageDialog />
+            <CardImagePreview />
             <BrowserRouter>
                 <Switch>
                     <Route path='/' exact component={Home} />

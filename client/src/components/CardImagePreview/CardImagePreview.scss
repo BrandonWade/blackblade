@@ -1,0 +1,10 @@
+.CardImagePreview {
+    position: absolute;
+    z-index: 1;
+
+    &-image {
+        width: 23rem; // TODO: Remove
+        height: 32rem; // TODO: Remove
+        border-radius: 1rem;
+    }
+}
