@@ -1,11 +1,13 @@
-import { useState, useRef } from 'react';
-import './withImagePreview.scss';
+import { useRef, useContext } from 'react';
+import CardImagePreviewContext from '../../contexts/CardImagePreview/CardImagePreview';
+import './withSetCardImagePreviewPosition.scss';
 
 function withImagePreview(BaseComponent) {
     const ImagePreview = ({ children = [], image = '', alt = '', ...rest }) => {
-        const [visible, setVisible] = useState(false);
-        const [styles, setStyles] = useState({});
-        const ref = useRef({ x: null, y: null });
+        const ref = useRef();
+        const { setTop, setLeft, setImage, setVisible } = useContext(CardImagePreviewContext);
+
+        // const [styles, setStyles] = useState({});
 
         const onMouseEnter = () => {
             const { x, y } = ref.current.getBoundingClientRect();
@@ -19,11 +21,15 @@ function withImagePreview(BaseComponent) {
 
             // TODO: Bound top and left with viewport
 
-            setStyles({
-                top,
-                left,
-            });
+            setTop(top);
+            setLeft(left);
+            setImage(image); // TODO: Get image(s) from hovered link
             setVisible(true);
+
+            // setStyles({
+            //     top,
+            //     left,
+            // });
         };
 
         const onMouseLeave = () => {
