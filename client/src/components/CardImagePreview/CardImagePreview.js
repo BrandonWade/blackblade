@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import './CardImagePreview.scss';
 
-function CardImagePreview({}) {
+function CardImagePreview() {
     const [styles, setStyles] = useState({});
     const { top, left, image, visible } = useContext(CardImagePreviewContext);
 
