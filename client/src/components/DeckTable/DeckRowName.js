@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import withImagePreview from '../../hocs/withImagePreview';
+import withSetCardImagePreviewPosition from '../../hocs/withSetCardImagePreviewPosition';
 
 function DeckRowName({ innerRef = null, cardID = 0, name = '', onMouseEnter = () => {}, onMouseLeave = () => {} }) {
     return (
@@ -11,4 +11,4 @@ function DeckRowName({ innerRef = null, cardID = 0, name = '', onMouseEnter = ()
     );
 }
 
-export default withImagePreview(DeckRowName);
+export default withSetCardImagePreviewPosition(DeckRowName);

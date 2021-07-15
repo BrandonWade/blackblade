@@ -1,13 +1,10 @@
 import { useRef, useContext } from 'react';
 import CardImagePreviewContext from '../../contexts/CardImagePreview/CardImagePreview';
-import './withSetCardImagePreviewPosition.scss';
 
-function withImagePreview(BaseComponent) {
-    const ImagePreview = ({ children = [], image = '', alt = '', ...rest }) => {
+function withSetCardImagePreviewPosition(BaseComponent) {
+    return ({ children = [], image = '', ...rest }) => {
         const ref = useRef();
         const { setTop, setLeft, setImage, setVisible } = useContext(CardImagePreviewContext);
-
-        // const [styles, setStyles] = useState({});
 
         const onMouseEnter = () => {
             const { x, y } = ref.current.getBoundingClientRect();
@@ -25,11 +22,6 @@ function withImagePreview(BaseComponent) {
             setLeft(left);
             setImage(image); // TODO: Get image(s) from hovered link
             setVisible(true);
-
-            // setStyles({
-            //     top,
-            //     left,
-            // });
         };
 
         const onMouseLeave = () => {
@@ -37,20 +29,11 @@ function withImagePreview(BaseComponent) {
         };
 
         return (
-            <>
-                {visible ? (
-                    <div className='ImagePreview' style={styles}>
-                        <img className='ImagePreview-image' src={image} alt={alt} />
-                    </div>
-                ) : null}
-                <BaseComponent {...rest} innerRef={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                    {children}
-                </BaseComponent>
-            </>
+            <BaseComponent {...rest} innerRef={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                {children}
+            </BaseComponent>
         );
     };
-
-    return ImagePreview;
 }
 
-export default withImagePreview;
+export default withSetCardImagePreviewPosition;
