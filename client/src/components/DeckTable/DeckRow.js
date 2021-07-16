@@ -98,7 +98,7 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
             </td>
             <td className='DeckTable-names'>
                 {cardFaces.map((face, i) => {
-                    return <DeckRowName key={i} cardID={card.card_id} name={face.name} image={face.image} />;
+                    return <DeckRowName key={i} previewImage={face.image} cardID={card.card_id} name={face.name} image={face.image} />;
                 })}
             </td>
             {renderRemoveButton()}

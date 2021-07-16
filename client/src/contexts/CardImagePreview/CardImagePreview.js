@@ -3,7 +3,7 @@ import { createContext } from 'react';
 export const initialState = {
     top: 0,
     left: 0,
-    image: '', // TODO: Convert to array
+    image: '',
     visible: false,
 };
 
