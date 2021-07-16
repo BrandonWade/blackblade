@@ -3,8 +3,10 @@ import { useParams } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
 import MessageDialogContext from '../../contexts/MessageDialog';
+import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import CardArtSelector from '../../components/CardArtSelector';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
+import CardImagePreview from '../../components/CardImagePreview';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
 import DeckActions from '../../components/DeckActions';
 import DeckStats from '../../components/DeckStats';
@@ -38,6 +40,7 @@ function DeckBuilder() {
         setMaybeboardMode,
     } = useContext(DeckBuilderContext);
     const { setMessage } = useContext(MessageDialogContext);
+    const { setVisible } = useContext(CardImagePreviewContext);
     const isUnmodified = isDeckUnmodified(
         deckName,
         deckVisibility,
@@ -77,6 +80,8 @@ function DeckBuilder() {
         if (isUnmodified) {
             fetchDeck();
         }
+
+        return () => setVisible(false);
     }, []);
 
     const onSaveDeck = async () => {
@@ -100,6 +105,7 @@ function DeckBuilder() {
         <div className='DeckBuilder'>
             <CardArtSelector />
             <ExportDeckDialog />
+            <CardImagePreview />
             <div className='DeckBuilder-displayPanel'>
                 <DeckBuilderSearch />
             </div>
