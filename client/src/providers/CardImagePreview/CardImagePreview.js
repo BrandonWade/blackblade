@@ -4,7 +4,7 @@ import CardImagePreviewContext, { initialState } from '../../contexts/CardImageP
 function CardImagePreviewProvider({ children = [] }) {
     const [top, setTop] = useState(initialState.top);
     const [left, setLeft] = useState(initialState.left);
-    const [image, setImage] = useState(initialState.image); // TODO: Convert to array
+    const [image, setImage] = useState(initialState.image);
     const [visible, setVisible] = useState(initialState.visible);
 
     const props = {

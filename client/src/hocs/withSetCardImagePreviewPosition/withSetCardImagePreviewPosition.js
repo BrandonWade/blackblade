@@ -3,7 +3,7 @@ import CardImagePreviewContext from '../../contexts/CardImagePreview/CardImagePr
 import useCSSVariableValue from '../../hooks/useCSSVariableValue';
 
 function withSetCardImagePreviewPosition(BaseComponent) {
-    return ({ children = [], image = '', ...rest }) => {
+    return ({ children = [], ...rest }) => {
         const ref = useRef();
         const { setTop, setLeft, setImage, setVisible } = useContext(CardImagePreviewContext);
         const imageWidth = useCSSVariableValue('--card-image-preview-image-width');
@@ -12,8 +12,9 @@ function withSetCardImagePreviewPosition(BaseComponent) {
 
         const onMouseEnter = () => {
             const { x, y, height: componentHeight } = ref.current.getBoundingClientRect();
+            const { previewImage } = ref.current.dataset;
             const offsetX = imageWidth + 5; // include a small gap between preview and component
-            const offsetY = halfImageHeight - componentHeight / 2; // to center vertically
+            const offsetY = halfImageHeight - componentHeight / 2; // center vertically
 
             // Calculate the "normal" top and left
             let top = y - offsetY;
@@ -45,7 +46,7 @@ function withSetCardImagePreviewPosition(BaseComponent) {
 
             setTop(top);
             setLeft(left);
-            setImage(image); // TODO: Get image(s) from hovered link
+            setImage(previewImage);
             setVisible(true);
         };
 
