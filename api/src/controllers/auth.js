@@ -3,7 +3,7 @@ import NotActivatedError from '../errors/not_activated';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
 import AccountService from '../services/accounts';
-import cookieOptions from '../helpers/cookies';
+import cookieOptions, { DURATION_ONE_WEEK } from '../helpers/cookies';
 import { errorMessage, infoMessage } from '../helpers/messages';
 
 const csrf = (_, res) => {
@@ -40,7 +40,11 @@ const login = async (req, res) => {
         }
     }
 
-    res.cookie('apid', accountPublicID, cookieOptions());
+    res.cookie(
+        'apid',
+        accountPublicID,
+        cookieOptions({ maxAge: DURATION_ONE_WEEK }),
+    );
 
     return res.json({
         account_public_id: accountPublicID,

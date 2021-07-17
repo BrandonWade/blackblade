@@ -49,7 +49,11 @@ const activateAccount = async (req, res) => {
     const message = successMessage(
         'Your account has been successfully activated. Please log in.',
     );
-    res.cookie('rm', JSON.stringify(message), cookieOptions(DURATION_ONE_HOUR));
+    res.cookie(
+        'rm',
+        JSON.stringify(message),
+        cookieOptions({ maxAge: DURATION_ONE_HOUR }),
+    );
     return res.redirect('/login');
 };
 
@@ -78,7 +82,11 @@ const requestPasswordReset = async (req, res) => {
 const passwordResetRedirect = async (req, res) => {
     const { passwordResetToken } = req.params;
 
-    res.cookie('prt', passwordResetToken, cookieOptions(DURATION_ONE_HOUR));
+    res.cookie(
+        'prt',
+        passwordResetToken,
+        cookieOptions({ maxAge: DURATION_ONE_HOUR }),
+    );
 
     return res.redirect('/password/reset');
 };
@@ -115,7 +123,11 @@ const resetPassword = async (req, res) => {
     const message = successMessage(
         'Your password has been successfully reset. Please log in.',
     );
-    res.cookie('rm', JSON.stringify(message), cookieOptions(DURATION_ONE_HOUR));
+    res.cookie(
+        'rm',
+        JSON.stringify(message),
+        cookieOptions({ maxAge: DURATION_ONE_HOUR }),
+    );
     return res.status(StatusCodes.OK).send();
 };
 

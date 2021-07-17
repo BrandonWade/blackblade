@@ -1,7 +1,7 @@
 import session from 'express-session';
 import MySQLStore from 'express-mysql-session';
 import { connection } from '../db';
-import cookieOptions from '../helpers/cookies';
+import cookieOptions, { DURATION_ONE_WEEK } from '../helpers/cookies';
 
 const sessionSecret = process.env.SESSION_SECRET || '';
 if (!sessionSecret) {
@@ -16,5 +16,5 @@ export default new session({
     store: new sessionStore({}, connection),
     resave: false,
     saveUninitialized: false,
-    cookie: cookieOptions(),
+    cookie: cookieOptions({ maxAge: DURATION_ONE_WEEK }),
 });

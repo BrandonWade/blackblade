@@ -23,10 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(sessionMiddleware);
 
-if (process.env.ENVIRONMENT !== 'develop') {
-    app.use(csrfMiddleware);
-    app.use(csrfCookieMiddleware);
-}
+app.use(csrfMiddleware);
+app.use(csrfCookieMiddleware);
 
 // Routes
 app.use('/', auth);
