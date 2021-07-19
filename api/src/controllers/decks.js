@@ -125,13 +125,20 @@ const deleteDeck = async (req, res) => {
 };
 
 const exportDeck = async (req, res) => {
+    const { accountID } = req.session;
     const { publicID } = req.params;
     let deckExport;
 
     try {
-        deckExport = await DeckService.exportDeck(publicID);
+        deckExport = await DeckService.exportDeck(publicID, accountID);
     } catch (e) {
-        if (e instanceof NotFoundError) {
+        if (e instanceof UnauthorizedError) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                message: errorMessage(
+                    "You do not have permission to export this deck. If this deck is yours, please log in and try again or set it's visibility to 'public'.",
+                ),
+            });
+        } else if (e instanceof NotFoundError) {
             return res.status(StatusCodes.NOT_FOUND).send({
                 message: errorMessage(
                     'This deck could not be exported (it may have been deleted already).',
@@ -152,13 +159,20 @@ const exportDeck = async (req, res) => {
 };
 
 const downloadDeck = async (req, res) => {
+    const { accountID } = req.session;
     const { publicID } = req.params;
     let deck;
 
     try {
-        deck = await DeckService.exportDeck(publicID);
+        deck = await DeckService.exportDeck(publicID, accountID);
     } catch (e) {
-        if (e instanceof NotFoundError) {
+        if (e instanceof UnauthorizedError) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                message: errorMessage(
+                    "You do not have permission to download this deck. If this deck is yours, please log in and try again or set it's visibility to 'public'.",
+                ),
+            });
+        } else if (e instanceof NotFoundError) {
             return res.status(StatusCodes.NOT_FOUND).send();
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

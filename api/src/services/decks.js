@@ -135,7 +135,7 @@ const deleteDeck = async (publicID, accountID) => {
     return;
 };
 
-const exportDeck = async (publicID) => {
+const exportDeck = async (publicID, accountID) => {
     let deckExport;
 
     const formatRow = (
@@ -153,9 +153,16 @@ const exportDeck = async (publicID) => {
     };
 
     try {
-        const [deck] = await DeckRepository.getDeckByPublicID(publicID);
+        let [deck] = await DeckRepository.getDeckByPublicID(publicID);
         if (deck.length !== 1) {
             throw new NotFoundError(`deck ${publicID} not found`);
+        }
+
+        deck = deck[0];
+        if (deck.visibility !== 'public' && deck.account_id !== accountID) {
+            throw new UnauthorizedError(
+                `user does not have permission to export deck ${publicID}`,
+            );
         }
 
         const [results] = await DeckRepository.exportDeckByPublicID(publicID);
