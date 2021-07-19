@@ -48,13 +48,13 @@ function DeckActions() {
         setUnmodifiedDeckCards();
         setUnmodifiedMaybeboardCards();
 
-        const exportRsult = await exportDeck(publicID);
-        if (!exportRsult.success) {
-            setMessage(exportRsult.message.text);
+        const exportResult = await exportDeck(publicID);
+        if (!exportResult.success) {
+            setMessage(exportResult.message.text);
             return;
         }
 
-        setDeckExport(exportRsult.deckExport);
+        setDeckExport(exportResult.deckExport);
         setVisible(true);
     };
 
