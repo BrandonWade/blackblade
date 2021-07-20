@@ -1,21 +1,20 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import useDisplayResults from '../../hooks/useDisplayResults';
-import useRandomCard from '../../hooks/useRandomCard';
 import SearchContext from '../../contexts/Search';
-import AuthContext from '../../contexts/Auth';
+import useDisplayResults from '../../hooks/useDisplayResults';
+import useMenuItems from '../../hooks/useMenuItems';
+import useRandomCard from '../../hooks/useRandomCard';
 import { Documents } from '../Icons';
 import Logo from '../Logo';
 import Input from '../Input';
-import Button from '../Button';
 import Menu from '../Menu';
 import './Header.scss';
 
 function Header() {
     const [query, setQuery] = useState('');
     const { setName } = useContext(SearchContext);
-    const { authenticated } = useContext(AuthContext);
     const { searchResultsRedirect } = useDisplayResults();
+    const menuItems = useMenuItems();
     const { displayRandomCard } = useRandomCard();
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -30,34 +29,6 @@ function Header() {
         setQuery(e.target.value);
     };
 
-    const renderDecksLink = () => {
-        return authenticated ? (
-            <Link to='/decks'>
-                <Button className='Header-link'>Decks</Button>
-            </Link>
-        ) : null;
-    };
-
-    const renderBookmarksLink = () => {
-        return authenticated ? (
-            <Link to='/bookmarks'>
-                <Button className='Header-link'>Bookmarks</Button>
-            </Link>
-        ) : null;
-    };
-
-    const renderLoginLogoutLink = () => {
-        return authenticated ? (
-            <Link to='/logout'>
-                <Button className='Header-link'>Logout</Button>
-            </Link>
-        ) : (
-            <Link to='/login'>
-                <Button className='Header-link'>Login</Button>
-            </Link>
-        );
-    };
-
     return (
         <div className='Header'>
             <div className='Header-content'>
@@ -67,18 +38,13 @@ function Header() {
                 </form>
             </div>
             <div className='Header-linksContainer'>
-                <Link to='/advanced'>
-                    <Button className='Header-link'>Advanced Search</Button>
-                </Link>
-                {renderDecksLink()}
-                {renderBookmarksLink()}
-                <Button className='Header-link' onClick={displayRandomCard}>
-                    Random Card
-                </Button>
-                <Link to='/about'>
-                    <Button className='Header-link'>About</Button>
-                </Link>
-                {renderLoginLogoutLink()}
+                {menuItems.map(item =>
+                    item.renderInHeader ? (
+                        <Link key={item.text} className='Header-link' to={item.to} onClick={item.onClick}>
+                            {item.text}
+                        </Link>
+                    ) : null
+                )}
             </div>
             <span className='Header-randomCard'>
                 <Documents className='Header-randomIcon' onClick={displayRandomCard} />

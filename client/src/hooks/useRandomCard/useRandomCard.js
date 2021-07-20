@@ -15,7 +15,7 @@ function useRandomCard() {
         }
 
         setCard(response.results);
-        history.push(response.redirect);
+        history.replace(response.redirect);
     };
 
     return {
