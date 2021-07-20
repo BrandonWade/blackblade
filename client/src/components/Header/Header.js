@@ -12,11 +12,11 @@ import './Header.scss';
 
 function Header() {
     const [query, setQuery] = useState('');
+    const [menuOpen, setMenuOpen] = useState(false);
     const { setName } = useContext(SearchContext);
     const { searchResultsRedirect } = useDisplayResults();
     const menuItems = useMenuItems();
     const { displayRandomCard } = useRandomCard();
-    const [menuOpen, setMenuOpen] = useState(false);
 
     const onSubmit = async e => {
         e.preventDefault();
