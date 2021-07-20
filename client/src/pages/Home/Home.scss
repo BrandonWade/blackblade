@@ -43,33 +43,36 @@
         }
     }
 
-    &-linkItem {
+    &-link {
         margin-right: 1.5rem;
+        font-size: 1.3rem;
+        padding: 1rem 2rem;
+        height: 100%;
+        border: var(--line);
+        border-radius: var(--border-radius);
+        background-color: var(--color-primary-dark);
+        cursor: pointer;
+        transition: all 0.2s;
 
         &:last-child {
             margin-right: 0;
         }
 
-        @media only screen and (max-width: 37.5em) {
-            margin-bottom: 1.5rem;
-            margin-right: 0;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
+        &:hover {
+            background-color: var(--color-primary-lighter);
         }
-    }
-
-    &-link {
-        font-size: 1.3rem;
-        padding: 1rem 2rem;
-        height: 100%;
 
         @media only screen and (max-width: 37.5em) {
             width: 100%;
             display: flex;
             justify-content: center;
             padding: 1.25rem 2rem;
+            margin-bottom: 1.5rem;
+            margin-right: 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 }

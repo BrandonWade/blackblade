@@ -26,7 +26,7 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
                 <ul className='Menu-links'>
                     {menuItems.map(item =>
                         item.renderInPanelMenu ? (
-                            <li className='Menu-link' onClick={closeMenu}>
+                            <li key={item.text} className='Menu-link' onClick={closeMenu}>
                                 <Link to={item.to}>{item.text}</Link>
                             </li>
                         ) : null

@@ -1,20 +1,17 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import useRandomCard from '../../hooks/useRandomCard';
+import useMenuItems from '../../hooks/useMenuItems';
 import SearchContext from '../../contexts/Search';
-import AuthContext from '../../contexts/Auth';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
-import Button from '../../components/Button';
 import './Home.scss';
 
 function Home() {
     const [query, setQuery] = useState('');
     const { setName } = useContext(SearchContext);
-    const { authenticated } = useContext(AuthContext);
     const { searchResultsRedirect } = useDisplayResults();
-    const { displayRandomCard } = useRandomCard();
+    const menuItems = useMenuItems();
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -27,30 +24,6 @@ function Home() {
         setQuery(e.target.value);
     };
 
-    const renderDecksLink = () => {
-        return authenticated ? (
-            <Link className='Home-linkItem' to='/decks'>
-                <Button className='Home-link'>Decks</Button>
-            </Link>
-        ) : null;
-    };
-
-    const renderBookmarksLink = () => {
-        return authenticated ? (
-            <Link className='Home-linkItem' to='/bookmarks'>
-                <Button className='Home-link'>Bookmarks</Button>
-            </Link>
-        ) : null;
-    };
-
-    const renderLoginLink = () => {
-        return !authenticated ? (
-            <Link className='Home-linkItem' to='/login'>
-                <Button className='Home-link'>Login</Button>
-            </Link>
-        ) : null;
-    };
-
     return (
         <div className='Home'>
             <div className='Home-content'>
@@ -59,15 +32,13 @@ function Home() {
                     <Input className='Home-searchBox' value={query} onChange={onChange} />
                 </form>
                 <div className='Home-linksContainer'>
-                    <Link className='Home-linkItem' to='/advanced'>
-                        <Button className='Home-link'>Advanced Search</Button>
-                    </Link>
-                    {renderDecksLink()}
-                    {renderBookmarksLink()}
-                    <Button className='Home-linkItem Home-link' onClick={displayRandomCard}>
-                        Random Card
-                    </Button>
-                    {renderLoginLink()}
+                    {menuItems.map(item =>
+                        item.renderOnHome ? (
+                            <Link key={item.text} className='Home-link' to={item.to}>
+                                {item.text}
+                            </Link>
+                        ) : null
+                    )}
                 </div>
             </div>
         </div>
