@@ -14,6 +14,7 @@ import ResetPassword from '../../pages/ResetPassword';
 import Login from '../../pages/Login';
 import Logout from '../../pages/Logout';
 import AdvancedSearch from '../../pages/AdvancedSearch';
+import Random from '../../pages/Random';
 import BookmarkList from '../../pages/BookmarkList';
 import SearchResults from '../../pages/SearchResults';
 import Card from '../../pages/Card';
@@ -68,6 +69,7 @@ function Router() {
                     <Route path='/logout' component={Logout} />
                     <Route path='/about' component={About} />
                     <Route path='/advanced' component={AdvancedSearch} />
+                    <Route path='/random' component={Random} />
                     <Route path='/cards/search' exact component={SearchResults} />
                     <Route path='/cards/:id' component={Card} />
                     <AuthenticatedRoute path='/decks' exact component={DeckList} />

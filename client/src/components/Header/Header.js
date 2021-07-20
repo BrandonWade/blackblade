@@ -46,9 +46,9 @@ function Header() {
                     ) : null
                 )}
             </div>
-            <span className='Header-randomCard'>
+            <Link className='Header-randomCard' to='/random'>
                 <Documents className='Header-randomIcon' onClick={displayRandomCard} />
-            </span>
+            </Link>
             <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         </div>
     );
