@@ -1,6 +1,5 @@
 import { useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { isEmpty } from 'lodash';
 import MessageContext from '../../contexts/Message';
 import './Message.scss';
 
@@ -13,10 +12,10 @@ function Message() {
         }, duration);
 
         return () => clearTimeout(timeout);
-    }, [message]);
+    }, [message, duration]);
 
     const getMessageTypeClass = () => {
-        switch (message.type) {
+        switch (message?.type) {
             case 'error':
                 return 'Message--error';
             case 'warning':
@@ -30,7 +29,7 @@ function Message() {
     };
 
     return ReactDOM.createPortal(
-        !isEmpty(message) ? <div className={`Message ${getMessageTypeClass()}`}>{message.text}</div> : null,
+        message?.text ? <div className={`Message ${getMessageTypeClass()}`}>{message?.text}</div> : null,
         document.getElementById('portal-root')
     );
 }

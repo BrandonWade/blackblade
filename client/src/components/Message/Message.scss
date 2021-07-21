@@ -3,11 +3,12 @@
     max-width: 40vw;
     font-size: 1.4rem;
     border-radius: var(--border-radius);
-    padding: 1rem 1.3rem;
+    padding: 1rem 1.75rem;
     margin-top: 1.75rem;
     color: #fff;
     text-align: center;
-    position: absolute;
+    position: fixed;
+    z-index: 1;
 
     @media only screen and (max-width: 37.5em) {
         max-width: 90vw;

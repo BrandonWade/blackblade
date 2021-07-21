@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import useAccounts from '../../hooks/useAccounts';
+import useMessage, { DURATION_LONG } from '../../hooks/useMessage';
 import { isEmailValid } from '../../validators/email';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
 import Panel from '../../components/Panel';
-import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import { PasswordField } from '../../components/PasswordInput';
 import ValidationRow from '../../components/ValidationRow/ValidationRow';
@@ -15,8 +15,8 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [message, setMessage] = useState({});
     const { register } = useAccounts();
+    const { showMessage } = useMessage();
     const emailValid = isEmailValid(email);
     const passwordLengthValid = isPasswordLengthValid(password);
     const passwordValidCharsOnly = doesPasswordContainValidChars(password);
@@ -37,22 +37,20 @@ function Register() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        setMessage({});
+        showMessage();
 
         if (!isFormValid) {
             return;
         }
 
         const response = await register(email, password, confirmPassword);
-        if (response?.success) {
-            setMessage(response?.message);
-        }
+        const { text, type } = response?.message;
+        showMessage(text, type, DURATION_LONG);
     };
 
     return (
         <div className='Register'>
             <Panel wrapperClassName='Register-wrapper' showLogo={true}>
-                <Message type={message.type} text={message.text} />
                 <form className='Register-form'>
                     <InputField
                         label='Email'

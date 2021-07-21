@@ -1,23 +1,22 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import useMessage from '../../hooks/useMessage';
 import ReactDOM from 'react-dom';
-import { isEmpty } from 'lodash';
 import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
 import Backdrop from '../Backdrop';
 import Panel from '../Panel';
 import TextArea from '../TextArea';
-import Message from '../Message';
 import { Copy, Download } from '../Icons';
 import Button from '../Button';
 import './ExportDeckDialog.scss';
 
 function ExportDeckDialog() {
-    const [message, setMessage] = useState({});
     const { publicID } = useParams();
+    const { showMessage } = useMessage();
     const { deckExport, visible, setVisible } = useContext(ExportDeckDialogContext);
 
     const onClose = () => {
-        setMessage({});
+        showMessage();
         setVisible(false);
     };
 
@@ -27,17 +26,11 @@ function ExportDeckDialog() {
         try {
             await navigator.clipboard.writeText(deckExport);
         } catch (e) {
-            setMessage({
-                type: 'error',
-                text: 'An error occurred while copying your deck to clipboard',
-            });
+            showMessage('An error occurred while copying your deck to clipboard', 'error');
             return;
         }
 
-        setMessage({
-            type: 'success',
-            text: 'Deck successfully copied to clipboard',
-        });
+        showMessage('Deck successfully copied to clipboard', 'success');
     };
 
     return ReactDOM.createPortal(
@@ -47,7 +40,6 @@ function ExportDeckDialog() {
                     &#x2715;
                 </div>
                 <TextArea className='ExportDeckDialog-deck' value={deckExport} readOnly={true} />
-                <Message type={message.type} text={message.text} visible={!isEmpty(message)} />
                 <div className='ExportDeckDialog-buttons'>
                     <Button onClick={onCopy}>
                         <Copy className='ExportDeckDialog-icon' />

@@ -5,7 +5,7 @@ export const initialState = {
         type: 'info',
         text: '',
     },
-    duration: 6500,
+    duration: 3000,
 };
 
 export default createContext(initialState);

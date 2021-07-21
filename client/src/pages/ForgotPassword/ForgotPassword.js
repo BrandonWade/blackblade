@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useAccounts from '../../hooks/useAccounts';
-import useMessage from '../../hooks/useMessage';
+import useMessage, { DURATION_MEDIUM } from '../../hooks/useMessage';
 import { isEmailValid } from '../../validators/email';
 import Panel from '../../components/Panel';
 import { InputField } from '../../components/Input';
@@ -20,14 +20,15 @@ function ForgotPassword() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        // showMessage({});
+        showMessage();
 
         if (!emailValid) {
             return;
         }
 
         const response = await requestPasswordReset(email);
-        showMessage(response?.message);
+        const { text, type } = response?.message;
+        showMessage(text, type, DURATION_MEDIUM);
     };
 
     return (

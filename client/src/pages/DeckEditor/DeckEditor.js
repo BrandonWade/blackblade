@@ -1,20 +1,20 @@
 import { useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
+import useMessage from '../../hooks/useMessage';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
 import Panel from '../../components/Panel';
-import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import { SelectField } from '../../components/Select';
 import Button from '../../components/Button';
 import './DeckEditor.scss';
 
 function DeckEditor({ editing = false }) {
-    const [message, setMessage] = useState({});
     const history = useHistory();
     const { publicID } = useParams();
     const { createDeck } = useDecks();
+    const { showMessage } = useMessage();
     const { setDeckPublicID, setDeckAccountPublicID, deckName, setDeckName, deckVisibility, setDeckVisibility, resetDeckBuilder } =
         useContext(DeckBuilderContext);
     const [name, setName] = useState(editing ? deckName : 'Untitled Deck');
@@ -30,7 +30,7 @@ function DeckEditor({ editing = false }) {
 
     const onSubmit = async e => {
         e.preventDefault();
-        setMessage({});
+        showMessage();
         setDeckName(name);
         setDeckVisibility(visibility);
 
@@ -58,7 +58,6 @@ function DeckEditor({ editing = false }) {
     return (
         <HeaderPage className='DeckEditor'>
             <Panel wrapperClassName='DeckEditor-wrapper'>
-                <Message type={message.type} text={message.text} />
                 <form className='DeckEditor-form' onSubmit={onSubmit}>
                     <InputField
                         rowClassName='Panel-inputRow'

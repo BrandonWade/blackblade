@@ -33,7 +33,8 @@ function Login() {
         cookies.remove('rm');
 
         const message = JSON.parse(rm);
-        showMessage(message);
+        const { text, type } = message;
+        showMessage(text, type);
     }, []);
 
     const onChangeEmail = e => {
@@ -46,7 +47,7 @@ function Login() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        // showMessage({});
+        showMessage();
 
         if (!isFormValid) {
             return;
@@ -58,7 +59,8 @@ function Login() {
             setAccountPublicID(response.accountPublicID);
             history.push('/');
         } else {
-            showMessage(response?.message);
+            const { text, type } = response?.message;
+            showMessage(text, type);
         }
     };
 

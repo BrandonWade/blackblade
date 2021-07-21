@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import useAccounts from '../../hooks/useAccounts';
-import useMessage from '../../hooks/useMessage';
+import useMessage, { DURATION_LONG } from '../../hooks/useMessage';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
 import Panel from '../../components/Panel';
 import { PasswordField } from '../../components/PasswordInput';
@@ -35,7 +35,7 @@ function ResetPassword() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        // showMessage({});
+        showMessage();
 
         if (!isFormValid) {
             return;
@@ -45,7 +45,8 @@ function ResetPassword() {
         if (response?.success) {
             history.push('/login');
         } else {
-            showMessage(response?.message);
+            const { text, type } = response?.message;
+            showMessage(text, type, DURATION_LONG);
         }
     };
 
