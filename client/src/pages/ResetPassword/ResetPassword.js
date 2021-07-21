@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import useAccounts from '../../hooks/useAccounts';
+import useMessage from '../../hooks/useMessage';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
 import Panel from '../../components/Panel';
-import Message from '../../components/Message';
 import { PasswordField } from '../../components/PasswordInput';
 import ValidationRow from '../../components/ValidationRow/ValidationRow';
 import Button from '../../components/Button';
@@ -12,9 +12,9 @@ import './ResetPassword.scss';
 function ResetPassword() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [message, setMessage] = useState({});
     const history = useHistory();
     const { resetPassword } = useAccounts();
+    const { showMessage } = useMessage();
     const passwordLengthValid = isPasswordLengthValid(password);
     const passwordValidCharsOnly = doesPasswordContainValidChars(password);
     const passwordsMatch = doPasswordsMatch(password, confirmPassword);
@@ -35,7 +35,7 @@ function ResetPassword() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        setMessage({});
+        // showMessage({});
 
         if (!isFormValid) {
             return;
@@ -45,7 +45,7 @@ function ResetPassword() {
         if (response?.success) {
             history.push('/login');
         } else {
-            setMessage(response?.message);
+            showMessage(response?.message);
         }
     };
 
@@ -53,7 +53,6 @@ function ResetPassword() {
         <div className='ResetPassword'>
             {checkPasswordResetTokenCookie()}
             <Panel wrapperClassName='ResetPassword-wrapper' showLogo={true}>
-                <Message type={message.type} text={message.text} />
                 <form className='ResetPassword-form'>
                     <PasswordField
                         label='New Password'

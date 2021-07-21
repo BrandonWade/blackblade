@@ -59,6 +59,11 @@ body,
     background-color: var(--color-primary);
 }
 
+#portal-root {
+    display: flex;
+    justify-content: center;
+}
+
 a {
     text-decoration: none;
 }

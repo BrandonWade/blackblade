@@ -1,9 +1,22 @@
+import { useEffect, useContext } from 'react';
+import ReactDOM from 'react-dom';
 import { isEmpty } from 'lodash';
+import MessageContext from '../../contexts/Message';
 import './Message.scss';
 
-function Message({ className = '', type = 'info', text = '', visible = null }) {
+function Message() {
+    const { message, duration, setMessage } = useContext(MessageContext);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setMessage();
+        }, duration);
+
+        return () => clearTimeout(timeout);
+    }, [message]);
+
     const getMessageTypeClass = () => {
-        switch (type) {
+        switch (message.type) {
             case 'error':
                 return 'Message--error';
             case 'warning':
@@ -16,15 +29,10 @@ function Message({ className = '', type = 'info', text = '', visible = null }) {
         }
     };
 
-    const isVisible = () => {
-        if (visible !== null) {
-            return visible;
-        }
-
-        return !isEmpty(text);
-    };
-
-    return isVisible() ? <div className={`Message ${getMessageTypeClass()} ${className}`}>{text}</div> : null;
+    return ReactDOM.createPortal(
+        !isEmpty(message) ? <div className={`Message ${getMessageTypeClass()}`}>{message.text}</div> : null,
+        document.getElementById('portal-root')
+    );
 }
 
 export default Message;

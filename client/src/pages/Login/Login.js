@@ -4,9 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { isEmailValid } from '../../validators/email';
 import { isPasswordValid } from '../../validators/password';
 import useAuth from '../../hooks/useAuth';
+import useMessage from '../../hooks/useMessage';
 import AuthContext from '../../contexts/Auth';
 import Panel from '../../components/Panel';
-import Message from '../../components/Message';
 import { InputField } from '../../components/Input';
 import { PasswordField } from '../../components/PasswordInput';
 import Link from '../../components/Link';
@@ -16,9 +16,9 @@ import './Login.scss';
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState({});
     const history = useHistory();
     const { login } = useAuth();
+    const { showMessage } = useMessage();
     const { setAuthenticated, setAccountPublicID } = useContext(AuthContext);
     const emailValid = isEmailValid(email);
     const passwordValid = isPasswordValid(password);
@@ -33,7 +33,7 @@ function Login() {
         cookies.remove('rm');
 
         const message = JSON.parse(rm);
-        setMessage(message);
+        showMessage(message);
     }, []);
 
     const onChangeEmail = e => {
@@ -46,7 +46,7 @@ function Login() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        setMessage({});
+        // showMessage({});
 
         if (!isFormValid) {
             return;
@@ -58,14 +58,13 @@ function Login() {
             setAccountPublicID(response.accountPublicID);
             history.push('/');
         } else {
-            setMessage(response?.message);
+            showMessage(response?.message);
         }
     };
 
     return (
         <div className='Login'>
             <Panel wrapperClassName='Login-wrapper' showLogo={true}>
-                <Message type={message.type} text={message.text} />
                 <form className='Login-form'>
                     <InputField
                         label='Email'

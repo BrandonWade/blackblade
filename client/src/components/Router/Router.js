@@ -5,6 +5,7 @@ import useBookmarks from '../../hooks/useBookmarks';
 import AuthContext from '../../contexts/Auth';
 import MessageDialogContext from '../../contexts/MessageDialog';
 import BookmarkListContext from '../../contexts/BookmarkList';
+import Message from '../Message';
 import MessageDialog from '../MessageDialog';
 import AuthenticatedRoute from '../AuthenticatedRoute';
 import Home from '../../pages/Home';
@@ -58,6 +59,7 @@ function Router() {
 
     return (
         <>
+            <Message />
             <MessageDialog />
             <BrowserRouter>
                 <Switch>
