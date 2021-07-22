@@ -26,11 +26,11 @@ function ExportDeckDialog() {
         try {
             await navigator.clipboard.writeText(deckExport);
         } catch (e) {
-            showMessage('An error occurred while copying your deck to clipboard', 'error');
+            showMessage('An error occurred while copying your deck to clipboard.', 'error');
             return;
         }
 
-        showMessage('Deck successfully copied to clipboard', 'success');
+        showMessage('Deck successfully copied to clipboard.', 'success');
     };
 
     return ReactDOM.createPortal(

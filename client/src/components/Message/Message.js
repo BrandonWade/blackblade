@@ -28,8 +28,19 @@ function Message() {
         }
     };
 
+    const onClose = () => {
+        setMessage();
+    };
+
     return ReactDOM.createPortal(
-        message?.text ? <div className={`Message ${getMessageTypeClass()}`}>{message?.text}</div> : null,
+        message?.text ? (
+            <div className={`Message ${getMessageTypeClass()}`}>
+                <div className='Message-close' onClick={onClose}>
+                    &#x2715;
+                </div>
+                {message?.text}
+            </div>
+        ) : null,
         document.getElementById('portal-root')
     );
 }

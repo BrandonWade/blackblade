@@ -95,3 +95,13 @@ a {
         top: -12vh;
     }
 }
+
+@keyframes slideDown {
+    0% {
+        top: -50%;
+    }
+
+    100% {
+        top: 0;
+    }
+}
