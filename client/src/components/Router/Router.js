@@ -6,7 +6,6 @@ import useMessage from '../../hooks/useMessage';
 import AuthContext from '../../contexts/Auth';
 import BookmarkListContext from '../../contexts/BookmarkList';
 import Message from '../Message';
-import MessageDialog from '../MessageDialog';
 import AuthenticatedRoute from '../AuthenticatedRoute';
 import Home from '../../pages/Home';
 import Register from '../../pages/Register';
@@ -64,7 +63,6 @@ function Router() {
     return (
         <>
             <Message />
-            <MessageDialog />
             <BrowserRouter>
                 <Switch>
                     <Route path='/' exact component={Home} />
