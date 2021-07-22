@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
+import useMessage from '../../hooks/useMessage';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
-import MessageDialogContext from '../../contexts/MessageDialog';
 import DeckActionButton from './DeckActionButton';
 import { Pencil, Export } from '../Icons';
 import './DeckActions.scss';
@@ -13,6 +13,7 @@ function DeckActions() {
     const { publicID } = useParams();
     const history = useHistory();
     const { saveDeck, exportDeck } = useDecks();
+    const { showMessage } = useMessage();
     const { accountPublicID } = useContext(AuthContext);
     const {
         deckAccountPublicID,
@@ -26,7 +27,6 @@ function DeckActions() {
         setUnmodifiedMaybeboardCards,
     } = useContext(DeckBuilderContext);
     const { setDeckExport, setVisible } = useContext(ExportDeckDialogContext);
-    const { setMessage } = useContext(MessageDialogContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
     const hasCards = deckCards.length > 0 || maybeboardCards.length > 0;
 
@@ -38,7 +38,8 @@ function DeckActions() {
         // Since the deck export comes from the backend, ensure we persist the latest deck state before exporting
         const saveResult = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
         if (!saveResult?.success) {
-            setMessage(saveResult?.message?.text);
+            const { text, type } = saveResult?.message;
+            showMessage(text, type);
             return;
         }
 
@@ -49,8 +50,9 @@ function DeckActions() {
         setUnmodifiedMaybeboardCards();
 
         const exportResult = await exportDeck(publicID);
-        if (!exportResult.success) {
-            setMessage(exportResult.message.text);
+        if (!exportResult?.success) {
+            const { text, type } = exportResult?.message;
+            showMessage(text, type);
             return;
         }
 

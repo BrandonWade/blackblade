@@ -14,7 +14,10 @@ function useAuth() {
             default:
                 return {
                     success: false,
-                    message: 'An error occurred while contacting the server. Please reload the page and try again.',
+                    message: {
+                        type: 'error',
+                        text: 'An error occurred while contacting the server. Please reload the page and try again.',
+                    },
                 };
         }
     };

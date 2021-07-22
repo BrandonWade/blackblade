@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useBookmarks from '../../hooks/useBookmarks';
+import useMessage from '../../hooks/useMessage';
 import AuthContext from '../../contexts/Auth';
-import MessageDialogContext from '../../contexts/MessageDialog';
 import BookmarkListContext from '../../contexts/BookmarkList';
 import Message from '../Message';
 import MessageDialog from '../MessageDialog';
@@ -25,18 +25,20 @@ import DeckBuilder from '../../pages/DeckBuilder';
 import About from '../../pages/About';
 
 function Router() {
-    const { accountPublicID } = useContext(AuthContext);
-    const { setMessage } = useContext(MessageDialogContext);
-    const { setBookmarkList } = useContext(BookmarkListContext);
     const { getCSRFToken } = useAuth();
     const { listBookmarks } = useBookmarks();
+    const { showMessage } = useMessage();
+    const { accountPublicID } = useContext(AuthContext);
+    const { setBookmarkList } = useContext(BookmarkListContext);
 
     // Run any initial config needed when the app boots
     useEffect(() => {
         const setupCSRF = async () => {
-            const result = await getCSRFToken();
-            if (!result.success) {
-                setMessage(result.message);
+            const response = await getCSRFToken();
+            if (!response?.success) {
+                const { text, type } = response?.message;
+                showMessage(text, type);
+                return;
             }
         };
         setupCSRF();
@@ -44,12 +46,14 @@ function Router() {
 
     useEffect(() => {
         const fetchBookmarkList = async () => {
-            const result = await listBookmarks();
-            if (!result.success) {
-                setMessage(result.message);
+            const response = await listBookmarks();
+            if (!response?.success) {
+                const { text, type } = response?.message;
+                showMessage(text, type);
+                return;
             }
 
-            setBookmarkList(result.bookmarks);
+            setBookmarkList(response.bookmarks);
         };
 
         if (accountPublicID) {

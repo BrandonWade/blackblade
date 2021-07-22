@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import useBookmarks from '../../hooks/useBookmarks';
+import useMessage from '../../hooks/useMessage';
 import BookmarkListContext from '../../contexts/BookmarkList';
 import HeaderPage from '../../components/HeaderPage';
 import Bookmark from './Bookmark';
@@ -7,24 +8,29 @@ import './BookmarkList.scss';
 
 function BookmarkList() {
     const { listBookmarks, deleteBookmark } = useBookmarks();
+    const { showMessage } = useMessage();
     const { bookmarkList, setBookmarkList } = useContext(BookmarkListContext);
 
     useEffect(() => {
         const fetchBookmarkList = async () => {
-            const result = await listBookmarks();
-            if (!result.success) {
+            const response = await listBookmarks();
+            if (!response?.success) {
+                const { text, type } = response?.message;
+                showMessage(text, type);
                 return;
             }
 
-            setBookmarkList(result.bookmarks);
+            setBookmarkList(response.bookmarks);
         };
 
         fetchBookmarkList();
     }, []);
 
     const onRemoveBookmark = async bookmarkID => {
-        const result = await deleteBookmark(bookmarkID);
-        if (!result.success) {
+        const response = await deleteBookmark(bookmarkID);
+        if (!response?.success) {
+            const { text, type } = response?.message;
+            showMessage(text, type);
             return;
         }
 

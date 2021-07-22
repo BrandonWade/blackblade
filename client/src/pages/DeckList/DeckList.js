@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
+import useMessage from '../../hooks/useMessage';
 import DeckListContext from '../../contexts/DeckList';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
@@ -12,17 +13,20 @@ function DeckList() {
     const [deckPublicIDToDelete, setDeckPublicIDToDelete] = useState(null);
     const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
     const { listDecks, deleteDeck } = useDecks();
+    const { showMessage } = useMessage();
     const { deckList, setDeckList } = useContext(DeckListContext);
     const { deckPublicID, resetDeckBuilder } = useContext(DeckBuilderContext);
 
     useEffect(() => {
         const fetchDeckList = async () => {
-            const result = await listDecks();
-            if (!result.success) {
+            const response = await listDecks();
+            if (!response?.success) {
+                const { text, type } = response?.message;
+                showMessage(text, type);
                 return;
             }
 
-            setDeckList(result.decks);
+            setDeckList(response.decks);
         };
 
         fetchDeckList();
@@ -38,8 +42,10 @@ function DeckList() {
     };
 
     const onConfirmDelete = async () => {
-        const result = await deleteDeck(deckPublicIDToDelete);
-        if (!result.success) {
+        const response = await deleteDeck(deckPublicIDToDelete);
+        if (!response?.success) {
+            const { text, type } = response?.message;
+            showMessage(text, type);
             return;
         }
 

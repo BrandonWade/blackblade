@@ -1,17 +1,17 @@
 import { useState, useContext, useEffect } from 'react';
 import AuthContext from '../../contexts/Auth';
-import BookmarkListContext from '../../contexts/BookmarkList';
-import MessageDialogContext from '../../contexts/MessageDialog';
 import useBookmarks from '../../hooks/useBookmarks';
+import useMessage from '../../hooks/useMessage';
+import BookmarkListContext from '../../contexts/BookmarkList';
 import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate, StarEmpty, StarFilled } from '../Icons';
 import './CardImage.scss';
 
 function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
     const { createBookmark, deleteBookmark } = useBookmarks();
+    const { showMessage } = useMessage();
     const { authenticated } = useContext(AuthContext);
     const { bookmarkList, setBookmarkList } = useContext(BookmarkListContext);
-    const { setMessage } = useContext(MessageDialogContext);
     const [flipped, setFlipped] = useState(false);
     const [rotatedCW, setRotatedCW] = useState(false);
     const [rotatedCCW, setRotatedCCW] = useState(false);
@@ -34,21 +34,24 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
     }, [cardFaces]);
 
     const onCreateBookmark = async () => {
-        const result = await createBookmark(cardID);
-        if (!result.success) {
-            setMessage(result.message);
+        const response = await createBookmark(cardID);
+        if (!response?.success) {
+            const { text, type } = response?.message;
+            showMessage(text, type);
+            return;
         }
 
-        setBookmarkList(bookmarkList.concat(result.bookmark));
+        setBookmarkList(bookmarkList.concat(response.bookmark));
     };
 
     const onRemoveBookmark = async () => {
         const bookmark = bookmarkList.find(b => b.card_id === cardID);
 
         if (bookmark) {
-            const result = await deleteBookmark(bookmark.id);
-            if (!result.success) {
-                setMessage(result.message);
+            const response = await deleteBookmark(bookmark.id);
+            if (!response?.success) {
+                const { text, type } = response?.message;
+                showMessage(text, type);
                 return;
             }
 

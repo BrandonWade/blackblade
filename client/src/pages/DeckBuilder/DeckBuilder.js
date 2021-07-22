@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
+import useMessage from '../../hooks/useMessage';
 import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
-import MessageDialogContext from '../../contexts/MessageDialog';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import CardArtSelector from '../../components/CardArtSelector';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
@@ -39,7 +39,7 @@ function DeckBuilder() {
         maybeboardMode,
         setMaybeboardMode,
     } = useContext(DeckBuilderContext);
-    const { setMessage } = useContext(MessageDialogContext);
+    const { showMessage } = useMessage();
     const { setVisible } = useContext(CardImagePreviewContext);
     const isUnmodified = isDeckUnmodified(
         deckName,
@@ -54,21 +54,22 @@ function DeckBuilder() {
 
     useEffect(() => {
         const fetchDeck = async () => {
-            const result = await getDeck(publicID);
-            if (!result.success) {
-                if (result.message) {
-                    setMessage(result.message.text);
+            const response = await getDeck(publicID);
+            if (!response?.success) {
+                if (response?.message) {
+                    const { text, type } = response?.message;
+                    showMessage(text, type);
                 }
 
                 return;
             }
 
-            const deck = result.cards.filter(c => c.location === 'deck');
-            const maybeboard = result.cards.filter(c => c.location === 'maybeboard');
-            setDeckPublicID(result.deckPublicID);
-            setDeckAccountPublicID(result.accountPublicID);
-            setDeckName(result.name);
-            setDeckVisibility(result.visibility);
+            const deck = response.cards.filter(c => c.location === 'deck');
+            const maybeboard = response.cards.filter(c => c.location === 'maybeboard');
+            setDeckPublicID(response.deckPublicID);
+            setDeckAccountPublicID(response.accountPublicID);
+            setDeckName(response.name);
+            setDeckVisibility(response.visibility);
             setDeckCards(deck);
             setMaybeboardCards(maybeboard);
             setUnmodifiedDeckName();
@@ -85,10 +86,11 @@ function DeckBuilder() {
     }, []);
 
     const onSaveDeck = async () => {
-        const result = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
-        if (!result.success) {
-            if (result.message) {
-                setMessage(result.message.text);
+        const response = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
+        if (!response?.success) {
+            if (response?.message) {
+                const { text, type } = response?.message;
+                showMessage(text, type);
             }
 
             return;
