@@ -25,6 +25,7 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
     const rotateCCWClassName = `${canRotateCCW ? 'CardImage--canRotate' : ''} ${rotatedCCW ? 'CardImage-imageFront--rotatedCCW' : ''}`;
     const transformClassName = `${canTransform ? 'CardImage--canTransform' : ''} ${transformed ? 'CardImage-imageFront--transformed' : ''}`;
     const transformBackClassName = `CardImage--canTransform ${transformed ? 'CardImage-imageBack--transformed' : ''}`;
+    const [front, back] = cardFaces;
 
     useEffect(() => {
         setFlipped(false);
@@ -134,14 +135,14 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
 
     return (
         <div className='CardImage'>
-            <img
-                className={`CardImage-imageFront ${flipClassName} ${rotateCWClassName} ${rotateCCWClassName} ${transformClassName}`}
-                src={cardFaces?.[0]?.image || ''}
-                alt={cardFaces?.[0]?.name || ''}
-            />
-            {canTransform && (
-                <img className={`CardImage-imageBack ${transformBackClassName}`} src={cardFaces?.[1]?.image || ''} alt={cardFaces?.[1]?.name || ''} />
-            )}
+            {front ? (
+                <img
+                    className={`CardImage-imageFront ${flipClassName} ${rotateCWClassName} ${rotateCCWClassName} ${transformClassName}`}
+                    src={front.image}
+                    alt={front.name}
+                />
+            ) : null}
+            {canTransform && back ? <img className={`CardImage-imageBack ${transformBackClassName}`} src={back.image} alt={back.name} /> : null}
             <div className='CardImage-buttonContainer'>
                 {renderBookmarkButton()}
                 {renderTransformButton()}
