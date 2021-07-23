@@ -82,55 +82,47 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
         }
 
         const isBookmarked = bookmarkList.some(b => b.card_id === cardID);
-        if (isBookmarked) {
-            return (
-                <Button className='CardImage-button' onClick={onRemoveBookmark}>
-                    <StarFilled className='CardImage-buttonIcon' />
-                    Remove Bookmark
-                </Button>
-            );
-        } else {
-            return (
-                <Button className='CardImage-button' onClick={onCreateBookmark}>
-                    <StarEmpty className='CardImage-buttonIcon' />
-                    Add Bookmark
-                </Button>
-            );
-        }
+        const action = isBookmarked ? onRemoveBookmark : onCreateBookmark;
+        const icon = isBookmarked ? <StarFilled className='CardImage-buttonIcon' /> : <StarEmpty className='CardImage-buttonIcon' />;
+        const text = isBookmarked ? 'Remove Bookmark' : 'Add Bookmark';
+
+        return (
+            <Button className='CardImage-button' onClick={action}>
+                {icon}
+                {text}
+            </Button>
+        );
     };
 
     const renderTransformButton = () => {
+        let action;
+        let icon;
+        let text;
+
         if (canFlip) {
-            return (
-                <Button className='CardImage-button' onClick={onFlip}>
-                    <FlipRotate className='CardImage-buttonIcon' />
-                    Flip
-                </Button>
-            );
+            action = onFlip;
+            icon = <FlipRotate className='CardImage-buttonIcon' />;
+            text = 'Flip';
         } else if (canRotateCW) {
-            return (
-                <Button className='CardImage-button' onClick={onRotateCW}>
-                    <RotateCW className='CardImage-buttonIcon' />
-                    Rotate
-                </Button>
-            );
+            action = onRotateCW;
+            icon = <RotateCW className='CardImage-buttonIcon' />;
+            text = 'Rotate';
         } else if (canRotateCCW) {
-            return (
-                <Button className='CardImage-button' onClick={onRotateCCW}>
-                    <RotateCCW className='CardImage-buttonIcon' />
-                    Rotate
-                </Button>
-            );
+            action = onRotateCCW;
+            icon = <RotateCCW className='CardImage-buttonIcon' />;
+            text = 'Rotate';
         } else if (canTransform) {
-            return (
-                <Button className='CardImage-button' onClick={onTransform}>
-                    <FlipRotate className='CardImage-buttonIcon' />
-                    Transform
-                </Button>
-            );
+            action = onTransform;
+            icon = <FlipRotate className='CardImage-buttonIcon' />;
+            text = 'Transform';
         }
 
-        return;
+        return (
+            <Button className='CardImage-button' onClick={action}>
+                {icon}
+                {text}
+            </Button>
+        );
     };
 
     return (
