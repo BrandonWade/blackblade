@@ -76,11 +76,37 @@
         justify-content: space-evenly;
         margin-top: 2rem;
         width: 100%;
+
+        &--compact {
+            justify-content: center;
+            opacity: 0.2;
+            width: auto;
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
+
+    &-compactButtonLeft {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: none;
+    }
+
+    &-compactButtonRight {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 
     &-buttonIcon {
         width: 1.8rem;
         height: 1.8rem;
         margin-right: 0.5rem;
+    }
+
+    &-compactButtonIcon {
+        width: 2.5rem;
+        height: 2.5rem;
     }
 }

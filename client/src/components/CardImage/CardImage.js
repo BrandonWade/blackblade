@@ -7,7 +7,7 @@ import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate, StarEmpty, StarFilled } from '../Icons';
 import './CardImage.scss';
 
-function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
+function CardImage({ cardID = 0, cardFaces = [], layout = '', compact = false }) {
     const { createBookmark, deleteBookmark } = useBookmarks();
     const { showMessage } = useMessage();
     const { authenticated } = useContext(AuthContext);
@@ -82,45 +82,49 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
         }
 
         const isBookmarked = bookmarkList.some(b => b.card_id === cardID);
+        const iconClassName = compact ? 'CardImage-compactButtonIcon' : 'CardImage-buttonIcon';
+        const buttonClassName = compact ? 'CardImage-compactButtonLeft' : '';
         const action = isBookmarked ? onRemoveBookmark : onCreateBookmark;
-        const icon = isBookmarked ? <StarFilled className='CardImage-buttonIcon' /> : <StarEmpty className='CardImage-buttonIcon' />;
+        const icon = isBookmarked ? <StarFilled className={iconClassName} /> : <StarEmpty className={iconClassName} />;
         const text = isBookmarked ? 'Remove Bookmark' : 'Add Bookmark';
 
         return (
-            <Button className='CardImage-button' onClick={action}>
+            <Button className={buttonClassName} onClick={action}>
                 {icon}
-                {text}
+                {compact ? null : text}
             </Button>
         );
     };
 
     const renderTransformButton = () => {
+        const iconClassName = compact ? 'CardImage-compactButtonIcon' : 'CardImage-buttonIcon';
+        const buttonClassName = compact ? 'CardImage-compactButtonRight' : '';
         let action;
         let icon;
         let text;
 
         if (canFlip) {
             action = onFlip;
-            icon = <FlipRotate className='CardImage-buttonIcon' />;
+            icon = <FlipRotate className={iconClassName} />;
             text = 'Flip';
         } else if (canRotateCW) {
             action = onRotateCW;
-            icon = <RotateCW className='CardImage-buttonIcon' />;
+            icon = <RotateCW className={iconClassName} />;
             text = 'Rotate';
         } else if (canRotateCCW) {
             action = onRotateCCW;
-            icon = <RotateCCW className='CardImage-buttonIcon' />;
+            icon = <RotateCCW className={iconClassName} />;
             text = 'Rotate';
         } else if (canTransform) {
             action = onTransform;
-            icon = <FlipRotate className='CardImage-buttonIcon' />;
+            icon = <FlipRotate className={iconClassName} />;
             text = 'Transform';
         }
 
         return (
-            <Button className='CardImage-button' onClick={action}>
+            <Button className={buttonClassName} onClick={action}>
                 {icon}
-                {text}
+                {compact ? null : text}
             </Button>
         );
     };
@@ -135,7 +139,7 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '' }) {
                 />
             ) : null}
             {canTransform && back ? <img className={`CardImage-imageBack ${transformBackClassName}`} src={back.image} alt={back.name} /> : null}
-            <div className='CardImage-buttonContainer'>
+            <div className={`CardImage-buttonContainer ${compact ? 'CardImage-buttonContainer--compact' : ''}`}>
                 {renderBookmarkButton()}
                 {renderTransformButton()}
             </div>
