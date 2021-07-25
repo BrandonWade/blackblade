@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import AuthContext from '../../contexts/Auth';
 import useBookmarks from '../../hooks/useBookmarks';
 import useMessage from '../../hooks/useMessage';
@@ -7,7 +8,7 @@ import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate, StarEmpty, StarFilled } from '../Icons';
 import './CardImage.scss';
 
-function CardImage({ cardID = 0, cardFaces = [], layout = '', compact = false }) {
+function CardImage({ cardID = 0, cardFaces = [], layout = '', compact = false, isLink = false }) {
     const { createBookmark, deleteBookmark } = useBookmarks();
     const { showMessage } = useMessage();
     const { authenticated } = useContext(AuthContext);
@@ -129,22 +130,32 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '', compact = false })
         );
     };
 
-    return (
-        <div className='CardImage'>
-            {front ? (
-                <img
-                    className={`CardImage-imageFront ${flipClassName} ${rotateCWClassName} ${rotateCCWClassName} ${transformClassName}`}
-                    src={front.image}
-                    alt={front.name}
-                />
-            ) : null}
-            {canTransform && back ? <img className={`CardImage-imageBack ${transformBackClassName}`} src={back.image} alt={back.name} /> : null}
-            <div className={`CardImage-buttonContainer ${compact ? 'CardImage-buttonContainer--compact' : ''}`}>
-                {renderBookmarkButton()}
-                {renderTransformButton()}
+    const renderImage = () => {
+        const image = (
+            <div className='CardImage'>
+                {front ? (
+                    <img
+                        className={`CardImage-imageFront ${flipClassName} ${rotateCWClassName} ${rotateCCWClassName} ${transformClassName}`}
+                        src={front.image}
+                        alt={front.name}
+                    />
+                ) : null}
+                {canTransform && back ? <img className={`CardImage-imageBack ${transformBackClassName}`} src={back.image} alt={back.name} /> : null}
+                <div className={`CardImage-buttonContainer ${compact ? 'CardImage-buttonContainer--compact' : ''}`}>
+                    {renderBookmarkButton()}
+                    {renderTransformButton()}
+                </div>
             </div>
-        </div>
-    );
+        );
+
+        if (isLink) {
+            return <Link to={`/cards/${cardID}`}>{image}</Link>;
+        }
+
+        return image;
+    };
+
+    return renderImage();
 }
 
 export default CardImage;
