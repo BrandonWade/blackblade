@@ -17,7 +17,7 @@ function CardImage({
     _layout = '',
     isLink = false,
     isCompact = false,
-    // TODO: Support onClick
+    onClick = () => {},
     // TODO: Support selected
 }) {
     const cardFaces = card?.sets_json?.[0]?.card_faces || card?.card_faces || _cardFaces || [];
@@ -73,6 +73,10 @@ function CardImage({
 
             setBookmarkList(bookmarkList.filter(b => b.id !== bookmark.id));
         }
+    };
+
+    const onImageClick = () => {
+        onClick(card);
     };
 
     const onFlip = () => {
@@ -131,7 +135,11 @@ function CardImage({
             );
         }
 
-        return <div className='CardImage-imageContainer'>{images}</div>;
+        return (
+            <div className='CardImage-imageContainer' onClick={onImageClick}>
+                {images}
+            </div>
+        );
     };
 
     const renderBookmarkButton = () => {
