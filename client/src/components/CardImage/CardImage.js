@@ -15,10 +15,10 @@ function CardImage({
     card = {},
     _cardFaces = [], // TODO: Rename back to cardFaces
     _layout = '',
+    selected = false,
     isLink = false,
     isCompact = false,
     onClick = () => {},
-    // TODO: Support selected
 }) {
     const cardFaces = card?.sets_json?.[0]?.card_faces || card?.card_faces || _cardFaces || [];
     const layout = card?.layout || _layout || '';
@@ -112,17 +112,25 @@ function CardImage({
     };
 
     const renderImages = () => {
+        const selectedClassName = selected ? 'CardGrid-selected' : '';
+
         const images = (
             <>
                 {front ? (
                     <img
-                        className={`CardImage-imageFront ${imageClassName} ${flipClassName} ${rotateCWClassName} ${rotateCCWClassName} ${transformClassName}`}
+                        className={`CardImage-imageFront ${selectedClassName} ${imageClassName} ${flipClassName} ${rotateCWClassName} ${rotateCCWClassName} ${transformClassName}`}
                         src={front.image}
                         alt={front.name}
+                        loading='lazy'
                     />
                 ) : null}
                 {canTransform && back ? (
-                    <img className={`CardImage-imageBack ${imageClassName} ${transformBackClassName}`} src={back.image} alt={back.name} />
+                    <img
+                        className={`CardImage-imageBack ${selectedClassName} ${imageClassName} ${transformBackClassName}`}
+                        src={back.image}
+                        alt={back.name}
+                        loading='lazy'
+                    />
                 ) : null}
             </>
         );
