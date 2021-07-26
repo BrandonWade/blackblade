@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import withCardPageLink from '../../hocs/withCardPageLink';
+import { Link } from 'react-router-dom';
 import useBookmarks from '../../hooks/useBookmarks';
 import useMessage from '../../hooks/useMessage';
 import AuthContext from '../../contexts/Auth';
@@ -8,7 +8,21 @@ import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate, StarEmpty, StarFilled } from '../Icons';
 import './CardImage.scss';
 
-function CardImage({ cardID = 0, cardFaces = [], layout = '', compact = false }) {
+function CardImage({
+    imageClassName = '',
+    cardID = 0,
+    // TODO: Remove 'card' prop hack and use 'cardFaces' and 'layout' props instead
+    card = {},
+    _cardFaces = [], // TODO: Rename back to cardFaces
+    _layout = '',
+    isLink = false,
+    isCompact = false,
+    // TODO: Support onClick
+    // TODO: Support selected
+}) {
+    const cardFaces = card?.sets_json?.[0]?.card_faces || card?.card_faces || _cardFaces || [];
+    const layout = card?.layout || _layout || '';
+
     const { createBookmark, deleteBookmark } = useBookmarks();
     const { showMessage } = useMessage();
     const { authenticated } = useContext(AuthContext);
@@ -77,14 +91,58 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '', compact = false })
         setTransformed(!transformed);
     };
 
+    const countActions = () => {
+        let numActions = 0;
+
+        // Bookmark button
+        if (authenticated) {
+            numActions++;
+        }
+
+        // Transform button
+        if (canFlip || canRotateCW || canRotateCCW || canTransform) {
+            numActions++;
+        }
+
+        return numActions;
+    };
+
+    const renderImages = () => {
+        const images = (
+            <>
+                {front ? (
+                    <img
+                        className={`CardImage-imageFront ${imageClassName} ${flipClassName} ${rotateCWClassName} ${rotateCCWClassName} ${transformClassName}`}
+                        src={front.image}
+                        alt={front.name}
+                    />
+                ) : null}
+                {canTransform && back ? (
+                    <img className={`CardImage-imageBack ${imageClassName} ${transformBackClassName}`} src={back.image} alt={back.name} />
+                ) : null}
+            </>
+        );
+
+        if (isLink) {
+            return (
+                <Link className='CardImage-imageContainer' to={`/cards/${cardID}`}>
+                    {images}
+                </Link>
+            );
+        }
+
+        return <div className='CardImage-imageContainer'>{images}</div>;
+    };
+
     const renderBookmarkButton = () => {
         if (!authenticated) {
             return null;
         }
 
+        const numActions = countActions();
         const isBookmarked = bookmarkList.some(b => b.card_id === cardID);
-        const iconClassName = compact ? 'CardImage-compactButtonIcon' : 'CardImage-buttonIcon';
-        const buttonClassName = compact ? 'CardImage-compactButtonLeft' : '';
+        const iconClassName = isCompact ? 'CardImage-buttonIcon--compact' : 'CardImage-buttonIcon';
+        const buttonClassName = isCompact && numActions > 1 ? 'CardImage-button--compact' : 'CardImage-button';
         const action = isBookmarked ? onRemoveBookmark : onCreateBookmark;
         const icon = isBookmarked ? <StarFilled className={iconClassName} /> : <StarEmpty className={iconClassName} />;
         const text = isBookmarked ? 'Remove Bookmark' : 'Add Bookmark';
@@ -92,14 +150,19 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '', compact = false })
         return (
             <Button className={buttonClassName} onClick={action}>
                 {icon}
-                {compact ? null : text}
+                {isCompact ? null : text}
             </Button>
         );
     };
 
     const renderTransformButton = () => {
-        const iconClassName = compact ? 'CardImage-compactButtonIcon' : 'CardImage-buttonIcon';
-        const buttonClassName = compact ? 'CardImage-compactButtonRight' : '';
+        if (!canFlip && !canRotateCW && !canRotateCCW && !canTransform) {
+            return null;
+        }
+
+        const numActions = countActions();
+        const iconClassName = isCompact ? 'CardImage-buttonIcon--compact' : 'CardImage-buttonIcon';
+        const buttonClassName = isCompact && numActions > 1 ? 'CardImage-button--compact' : 'CardImage-button';
         let action;
         let icon;
         let text;
@@ -120,29 +183,20 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '', compact = false })
             action = onTransform;
             icon = <FlipRotate className={iconClassName} />;
             text = 'Transform';
-        } else {
-            return null;
         }
 
         return (
             <Button className={buttonClassName} onClick={action}>
                 {icon}
-                {compact ? null : text}
+                {isCompact ? null : text}
             </Button>
         );
     };
 
     return (
         <div className='CardImage'>
-            {front ? (
-                <img
-                    className={`CardImage-imageFront ${flipClassName} ${rotateCWClassName} ${rotateCCWClassName} ${transformClassName}`}
-                    src={front.image}
-                    alt={front.name}
-                />
-            ) : null}
-            {canTransform && back ? <img className={`CardImage-imageBack ${transformBackClassName}`} src={back.image} alt={back.name} /> : null}
-            <div className={`CardImage-buttonContainer ${compact ? 'CardImage-buttonContainer--compact' : ''}`}>
+            {renderImages()}
+            <div className={`CardImage-buttonContainer ${isCompact ? 'CardImage-buttonContainer--compact' : ''}`}>
                 {renderBookmarkButton()}
                 {renderTransformButton()}
             </div>
@@ -151,4 +205,3 @@ function CardImage({ cardID = 0, cardFaces = [], layout = '', compact = false })
 }
 
 export default CardImage;
-export const CardImageLink = withCardPageLink(CardImage);
