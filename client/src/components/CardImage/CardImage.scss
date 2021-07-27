@@ -4,12 +4,6 @@
     align-items: center;
     position: relative;
 
-    &-imageContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
     &-imageFront,
     &-imageBack {
         height: 45rem;
@@ -70,6 +64,7 @@
     &-imageBack {
         position: absolute;
         top: 0;
+        left: 0;
         transform: rotateY(180deg);
 
         &--transformed {

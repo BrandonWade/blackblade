@@ -136,18 +136,10 @@ function CardImage({
         );
 
         if (isLink) {
-            return (
-                <Link className='CardImage-imageContainer' to={`/cards/${cardID}`}>
-                    {images}
-                </Link>
-            );
+            return <Link to={`/cards/${cardID}`}>{images}</Link>;
         }
 
-        return (
-            <div className='CardImage-imageContainer' onClick={onImageClick}>
-                {images}
-            </div>
-        );
+        return <div onClick={onImageClick}>{images}</div>;
     };
 
     const renderBookmarkButton = () => {
