@@ -31,6 +31,7 @@
         }
 
         &--rotatedCW {
+            position: relative;
             transform: rotate(90deg) scale(0.7) translateX(-30%);
             box-shadow: 0.1rem 0 0.3rem rgba(150, 150, 150, 0.2);
 
@@ -39,11 +40,13 @@
             }
 
             &:hover {
+                z-index: 1;
                 transform: rotate(90deg) scale(1);
             }
         }
 
         &--rotatedCCW {
+            position: relative;
             transform: rotate(-90deg) scale(0.7) translateX(30%);
             box-shadow: -0.1rem 0 0.3rem rgba(150, 150, 150, 0.2);
 
@@ -52,6 +55,7 @@
             }
 
             &:hover {
+                z-index: 1;
                 transform: rotate(-90deg) scale(1);
             }
         }

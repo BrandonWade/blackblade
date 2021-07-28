@@ -50,8 +50,11 @@ const listBookmarks = async (accountID) => {
         `SELECT
         b.id,
         b.card_id,
-        c.faces_json,
-        c.name
+        c.name,
+        c.set_name,
+        c.set_code,
+        c.layout,
+        c.faces_json
         FROM bookmarks b
         INNER JOIN cards c ON c.id = b.card_id
         WHERE b.account_id = ?

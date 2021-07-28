@@ -14,13 +14,13 @@ function CardImage({
     // TODO: Remove 'card' prop hack and use 'cardFaces' and 'layout' props instead
     card = {},
     _cardFaces = [], // TODO: Rename back to cardFaces
-    _layout = '',
+    _layout = '', // TODO: Rename back to layout
     selected = false,
     isLink = false,
     isCompact = false,
     onClick = () => {},
 }) {
-    const cardFaces = card?.sets_json?.[0]?.card_faces || card?.card_faces || _cardFaces || [];
+    const cardFaces = card?.sets_json?.[0]?.card_faces || card?.card_faces || card?.faces_json || _cardFaces || [];
     const layout = card?.layout || _layout || '';
 
     const { createBookmark, deleteBookmark } = useBookmarks();
