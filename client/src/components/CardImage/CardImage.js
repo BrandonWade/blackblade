@@ -11,17 +11,23 @@ import './CardImage.scss';
 function CardImage({
     imageClassName = '',
     cardID = 0,
-    // TODO: Remove 'card' prop hack and use 'cardFaces' and 'layout' props instead
+    // TODO: Remove 'card' prop hack and rename / use underscored props
     card = {},
-    _cardFaces = [], // TODO: Rename back to cardFaces
-    _layout = '', // TODO: Rename back to layout
+    _name = '',
+    _setName = '',
+    _setCode = '',
+    _cardFaces = [],
+    _layout = '',
     selected = false,
     isLink = false,
     isCompact = false,
     onClick = () => {},
 }) {
-    const cardFaces = card?.sets_json?.[0]?.card_faces || card?.card_faces || card?.faces_json || _cardFaces || [];
-    const layout = card?.layout || _layout || '';
+    const name = card?.name || _name;
+    const setName = card?.set_name || _setName;
+    const setCode = card?.set_code || _setCode;
+    const cardFaces = card?.sets_json?.[0]?.card_faces || card?.card_faces || card?.faces_json || _cardFaces;
+    const layout = card?.layout || _layout;
 
     const { createBookmark, deleteBookmark } = useBookmarks();
     const { showMessage } = useMessage();
@@ -132,6 +138,11 @@ function CardImage({
                         loading='lazy'
                     />
                 ) : null}
+                <div className='CardImage-textContainer'>
+                    <div className='CardImage-text'>{name}</div>
+                    <div className='CardImage-text'>{setName}</div>
+                    <div className='CardImage-text'>{setCode}</div>
+                </div>
             </>
         );
 

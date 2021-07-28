@@ -76,6 +76,18 @@
         }
     }
 
+    &-textContainer {
+        position: absolute;
+        top: 1.5rem;
+        left: 1.75rem;
+    }
+
+    &-text {
+        color: transparent;
+        font-size: 1.1rem;
+        pointer-events: none;
+    }
+
     &-buttonContainer {
         display: flex;
         justify-content: space-evenly;
