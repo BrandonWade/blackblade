@@ -36,14 +36,7 @@ function Card() {
         <HeaderPage className='Card'>
             <NoResults showMessage={isEmpty(card)}>
                 <div className='Card-mainContent'>
-                    <CardImage
-                        cardID={cardID}
-                        _name={card.name}
-                        _setName={card.set_name}
-                        _setCode={card.set_code}
-                        _cardFaces={selectedSet.card_faces}
-                        _layout={card.layout}
-                    />
+                    <CardImage card={card} />
                     <div>
                         {cardFaces?.map(face => {
                             return <CardFace key={face.face_id} face={face} />;

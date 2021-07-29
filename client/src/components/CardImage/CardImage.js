@@ -8,27 +8,9 @@ import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate, StarEmpty, StarFilled } from '../Icons';
 import './CardImage.scss';
 
-function CardImage({
-    imageClassName = '',
-    cardID = 0,
-    // TODO: Remove 'card' prop hack and rename / use underscored props
-    card = {},
-    _name = '',
-    _setName = '',
-    _setCode = '',
-    _cardFaces = [],
-    _layout = '',
-    selected = false,
-    isLink = false,
-    isCompact = false,
-    onClick = () => {},
-}) {
-    const name = card?.name || _name;
-    const setName = card?.set_name || _setName;
-    const setCode = card?.set_code || _setCode;
-    const cardFaces = card?.sets_json?.[0]?.card_faces || card?.card_faces || card?.faces_json || _cardFaces;
-    const layout = card?.layout || _layout;
-
+function CardImage({ imageClassName = '', card = {}, selected = false, isLink = false, isCompact = false, onClick = () => {} }) {
+    const { card_id: cardID, name, set_name: setName, set_code: setCode, cardFaces: _cardFaces, layout } = card;
+    const cardFaces = card?.sets_json?.[0]?.card_faces || card?.card_faces || card?.faces_json || _cardFaces; // TODO: Fix JSON structure hack and remove
     const { createBookmark, deleteBookmark } = useBookmarks();
     const { showMessage } = useMessage();
     const { authenticated } = useContext(AuthContext);
