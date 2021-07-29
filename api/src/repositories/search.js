@@ -119,15 +119,18 @@ const getRandomCard = async () => {
     return await connection.query(
         `SELECT
         a.card_id,
+        a.name,
+        a.set_name,
+        a.set_code,
         a.layout,
-        c.name,
-        c.set_name,
-        c.set_code,
         s.sets_json,
         r.rulings_json
         FROM (
             SELECT
             c.id card_id,
+            c.name,
+            c.set_name,
+            c.set_code,
             c.layout,
             c.card_sets_list_id,
             c.card_rulings_list_id
