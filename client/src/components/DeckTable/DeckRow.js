@@ -21,7 +21,6 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
         moveToDeck,
         moveToMaybeboard,
     } = useContext(DeckBuilderContext);
-    const cardFaces = card?.sets_json?.[0]?.faces_json;
     const ownsDeck = accountPublicID === deckAccountPublicID;
     const inDeck = card.location === 'deck';
     const isMaybeboardSection = sectionType === 'maybeboard';
@@ -92,12 +91,12 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
             {renderSelectArtButton()}
             {renderSwitchSectionButton()}
             <td className='DeckTable-manaCosts'>
-                {cardFaces.map((face, i) => (
+                {card.faces_json.map((face, i) => (
                     <DeckRowManaCost key={i} manaCost={face.mana_cost} />
                 ))}
             </td>
             <td className='DeckTable-names'>
-                {cardFaces.map((face, i) => {
+                {card.faces_json.map((face, i) => {
                     return <DeckRowName key={i} previewImage={face.image} cardID={card.card_id} name={face.name} image={face.image} />;
                 })}
             </td>
