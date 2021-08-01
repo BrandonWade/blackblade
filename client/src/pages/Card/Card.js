@@ -7,7 +7,7 @@ import CardContext from '../../contexts/Card';
 import HeaderPage from '../../components/HeaderPage';
 import NoResults from '../../components/NoResults';
 import CardImage from '../../components/CardImage';
-import CardFace from '../../components/CardFace';
+import CardFaceDetails from '../../components/CardFaceDetails';
 import CardSets from '../../components/CardSets';
 import CardRulings from '../../components/CardRulings';
 import './Card.scss';
@@ -38,7 +38,7 @@ function Card() {
                     <CardImage card={card} />
                     <div>
                         {cardFaces?.map(face => {
-                            return <CardFace key={face.face_id} face={face} />;
+                            return <CardFaceDetails key={face.face_id} face={face} />;
                         })}
                     </div>
                     <CardSets cardSets={card.sets_json} currentCardID={cardID} />
