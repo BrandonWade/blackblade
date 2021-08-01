@@ -138,11 +138,11 @@ export function cardValuesValid(cards) {
     cards.forEach((c) => {
         if (!Number.isInteger(parseInt(c.count))) {
             errors = errors.concat(
-                `${c.combined_name} (${c.location}) has invalid count value ${c.count}`,
+                `${c.name} (${c.location}) has invalid count value ${c.count}`,
             );
         } else if (c.count <= 0) {
             errors = errors.concat(
-                `${c.combined_name} (${c.location}) count value must be greater than 0`,
+                `${c.name} (${c.location}) count value must be greater than 0`,
             );
         }
     });
