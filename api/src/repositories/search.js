@@ -71,9 +71,11 @@ const getCardsByProperties = (
             'c.set_name',
             'c.set_code',
             'c.faces_json',
+            's.sets_json',
         )
         .from('card_faces AS f')
         .innerJoin('cards AS c', 'c.id', 'f.card_id')
+        .innerJoin('card_sets_list AS s', 's.id', 'c.card_sets_list_id')
         .groupBy('c.oracle_id')
         .orderBy('f.name')
         .limit(pageSize)

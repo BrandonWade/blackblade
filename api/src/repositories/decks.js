@@ -130,6 +130,7 @@ const getDeckCardsByPublicID = async (publicID) => {
         c.set_code,
         c.cmc,
         c.collector_number,
+        c.faces_json,
         c.layout,
         s.sets_json
         FROM deck_cards k
