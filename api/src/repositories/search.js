@@ -124,6 +124,7 @@ const getRandomCard = async () => {
         a.name,
         a.set_name,
         a.set_code,
+        a.faces_json,
         a.layout,
         s.sets_json,
         r.rulings_json
@@ -133,6 +134,7 @@ const getRandomCard = async () => {
             c.name,
             c.set_name,
             c.set_code,
+            c.faces_json,
             c.layout,
             c.card_sets_list_id,
             c.card_rulings_list_id
