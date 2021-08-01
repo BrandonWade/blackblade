@@ -11,8 +11,7 @@ function CardGrid({ className = '', cards = [], currentCardID = 0, isLink = fals
                         <CardImage
                             key={card.card_id}
                             imageClassName='CardGrid-image'
-                            cardID={card.card_id}
-                            card={card} // TODO: Remove
+                            card={card}
                             selected={card.card_id === currentCardID}
                             isLink={isLink}
                             isCompact={true}

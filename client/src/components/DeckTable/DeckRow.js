@@ -21,7 +21,7 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
         moveToDeck,
         moveToMaybeboard,
     } = useContext(DeckBuilderContext);
-    const cardFaces = card?.sets_json?.[0]?.card_faces;
+    const cardFaces = card?.sets_json?.[0]?.faces_json;
     const ownsDeck = accountPublicID === deckAccountPublicID;
     const inDeck = card.location === 'deck';
     const isMaybeboardSection = sectionType === 'maybeboard';

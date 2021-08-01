@@ -33,7 +33,7 @@ function DeckStats({ deck = [] }) {
         const costSum = sumBy(deck, card => parseFloat(card.cmc) * (parseInt(card.count) || 0));
         const nonLandCount = sumBy(deck, card => {
             const count = parseInt(card.count) || 0;
-            const faces = card?.sets_json?.[0]?.card_faces || [];
+            const faces = card?.sets_json?.[0]?.faces_json || [];
             const anyNonLandFaces = faces.some(face => face.derived_type !== 'land');
             return anyNonLandFaces ? count : 0;
         });
@@ -45,7 +45,7 @@ function DeckStats({ deck = [] }) {
     const totalOfTypes = types => {
         return sumBy(deck, card => {
             const count = parseInt(card.count) || 0;
-            const faces = card?.sets_json?.[0]?.card_faces || [];
+            const faces = card?.sets_json?.[0]?.faces_json || [];
             const anyFacesOfTypes = faces.some(face => types.includes(face.derived_type));
             return anyFacesOfTypes ? count : 0;
         });
@@ -80,7 +80,7 @@ function DeckStats({ deck = [] }) {
 
         deck.forEach(card => {
             const count = parseInt(card.count) || 0;
-            const faces = card?.sets_json?.[0]?.card_faces || [];
+            const faces = card?.sets_json?.[0]?.faces_json || [];
             faces.forEach(face => {
                 const symbols = face.mana_cost.split(/(\{(?:\D|[A-Z0-9]+|[A-Z0-9]+\/[A-Z0-9]+)\})/g);
                 symbols.forEach(symbol => {

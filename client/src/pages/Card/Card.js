@@ -18,8 +18,7 @@ function Card() {
     const { getCardByID } = useSearch();
     const { displayCard } = useDisplayResults();
     const { card } = useContext(CardContext);
-    const selectedSet = card?.sets_json?.find(set => set.card_id === cardID) || {};
-    const cardFaces = selectedSet?.card_faces || [];
+    const cardFaces = card?.faces_json || [];
 
     useEffect(() => {
         const fetchCard = async () => {
@@ -36,14 +35,7 @@ function Card() {
         <HeaderPage className='Card'>
             <NoResults showMessage={isEmpty(card)}>
                 <div className='Card-mainContent'>
-                    <CardImage
-                        cardID={cardID}
-                        _name={card.name}
-                        _setName={card.set_name}
-                        _setCode={card.set_code}
-                        _cardFaces={selectedSet.card_faces}
-                        _layout={card.layout}
-                    />
+                    <CardImage card={card} />
                     <div>
                         {cardFaces?.map(face => {
                             return <CardFace key={face.face_id} face={face} />;

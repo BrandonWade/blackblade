@@ -70,11 +70,10 @@ const getCardsByProperties = (
             'c.name',
             'c.set_name',
             'c.set_code',
-            's.sets_json',
+            'c.faces_json',
         )
         .from('card_faces AS f')
         .innerJoin('cards AS c', 'c.id', 'f.card_id')
-        .innerJoin('card_sets_list AS s', 's.id', 'c.card_sets_list_id')
         .groupBy('c.oracle_id')
         .orderBy('f.name')
         .limit(pageSize)
@@ -104,6 +103,7 @@ const getCardByID = async (id) => {
         c.name,
         c.set_name,
         c.set_code,
+        c.faces_json,
         s.sets_json,
         r.rulings_json
         FROM cards c
