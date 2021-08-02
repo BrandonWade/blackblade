@@ -4,6 +4,10 @@
     align-items: center;
     position: relative;
 
+    &-imageContainer {
+        position: relative;
+    }
+
     &-imageFront,
     &-imageBack {
         height: 45rem;
