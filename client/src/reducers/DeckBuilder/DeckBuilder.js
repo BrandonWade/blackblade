@@ -183,13 +183,13 @@ function DeckBuilderReducer(state = {}, action = {}) {
                 ];
                 deckCards = sortBy(deckCards, [c => parseFloat(c.cmc) || 0]);
             } else {
-                const count = parseInt(deckCard.count) + parseInt(action.count);
+                const count = (parseInt(deckCard.count) || 1) + (parseInt(action.count) || 1);
                 deckCards = [
                     ...state.deckCards.slice(0, indexInDeck),
                     {
                         ...deckCard,
                         location: 'deck',
-                        count: count ?? 1,
+                        count,
                     },
                     ...state.deckCards.slice(indexInDeck + 1),
                 ];
@@ -219,13 +219,13 @@ function DeckBuilderReducer(state = {}, action = {}) {
                 ];
                 maybeboardCards = sortBy(maybeboardCards, [c => parseFloat(c.cmc) || 0]);
             } else {
-                const count = parseInt(maybeboardCard.count) + parseInt(action.count);
+                const count = (parseInt(maybeboardCard.count) || 1) + (parseInt(action.count) || 1);
                 maybeboardCards = [
                     ...state.maybeboardCards.slice(0, indexInMaybeboard),
                     {
                         ...maybeboardCard,
                         location: 'maybeboard',
-                        count: count ?? 1,
+                        count,
                     },
                     ...state.maybeboardCards.slice(indexInMaybeboard + 1),
                 ];
