@@ -12,7 +12,7 @@ function CardGrid({ className = '', cards = [], currentCardID = 0, isLink = fals
                             key={card.card_id}
                             imageClassName='CardGrid-image'
                             card={card}
-                            selected={card.card_id === currentCardID}
+                            isSelected={card.card_id === currentCardID}
                             isLink={isLink}
                             isCompact={true}
                             onClick={onClick}

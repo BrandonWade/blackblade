@@ -8,7 +8,7 @@ import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate, StarEmpty, StarFilled } from '../Icons';
 import './CardImage.scss';
 
-function CardImage({ imageClassName = '', card = {}, selected = false, isLink = false, isCompact = false, onClick = () => {} }) {
+function CardImage({ imageClassName = '', card = {}, isSelected = false, isLink = false, isCompact = false, onClick = () => {} }) {
     const cardID = card?.card_id;
     const name = card?.name;
     const setName = card?.set_name;
@@ -104,7 +104,7 @@ function CardImage({ imageClassName = '', card = {}, selected = false, isLink = 
     };
 
     const renderImages = () => {
-        const selectedClassName = selected ? 'CardGrid-selected' : '';
+        const selectedClassName = isSelected ? 'CardGrid-selected' : '';
 
         const images = (
             <>
