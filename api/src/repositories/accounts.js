@@ -64,6 +64,7 @@ const registerAccount = async (email, passwordHash, activationToken) => {
 
         success = true;
     } catch (e) {
+        await tx.rollback();
         if (e.code === 'ER_DUP_ENTRY') {
             throw new AlreadyExistsError(
                 `account with email ${email} already exists`,
@@ -131,6 +132,7 @@ const activateAccount = async (activationToken) => {
 
         success = true;
     } catch (e) {
+        await tx.rollback();
         throw e;
     } finally {
         await tx.release();
@@ -193,6 +195,7 @@ const createPasswordResetToken = async (email, token) => {
 
         success = true;
     } catch (e) {
+        await tx.rollback();
         throw e;
     } finally {
         await tx.release();
@@ -241,6 +244,7 @@ const resetPassword = async (token, passwordHash) => {
 
         success = true;
     } catch (e) {
+        await tx.rollback();
         throw e;
     } finally {
         await tx.release();

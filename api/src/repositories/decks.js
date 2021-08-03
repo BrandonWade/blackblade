@@ -41,12 +41,12 @@ const saveDeck = async (
     colors,
     deck,
 ) => {
-    const conn = await connection.getConnection();
-    await conn.beginTransaction();
+    const tx = await connection.getConnection();
+    await tx.beginTransaction();
 
     let success = false;
     try {
-        await conn.query(
+        await tx.query(
             `DELETE c
             FROM deck_cards c
             INNER JOIN decks d ON d.id = c.deck_id
@@ -58,7 +58,7 @@ const saveDeck = async (
 
         // Only run if there are any cards in the deck to save
         if (deck.length) {
-            await conn.query(
+            await tx.query(
                 `INSERT INTO deck_cards(
                     deck_id,
                     card_id,
@@ -80,7 +80,7 @@ const saveDeck = async (
         }
 
         // Update the deck info
-        await conn.query(
+        await tx.query(
             `UPDATE decks
             SET name = ?,
             visibility = ?,
@@ -92,13 +92,14 @@ const saveDeck = async (
             [name, visibility, size, colors, accountID, deckID],
         );
 
-        await conn.commit();
+        await tx.commit();
 
         success = true;
     } catch (e) {
+        await tx.rollback();
         throw e;
     } finally {
-        await conn.release();
+        await tx.release();
     }
 
     return success;
@@ -158,11 +159,11 @@ const listDecks = async (accountID) => {
 };
 
 const deleteDeckByPublicID = async (publicID, accountID) => {
-    const conn = await connection.getConnection();
-    await conn.beginTransaction();
+    const tx = await connection.getConnection();
+    await tx.beginTransaction();
 
     try {
-        await conn.query(
+        await tx.query(
             `DELETE c
             FROM deck_cards c
             INNER JOIN decks d ON d.id = c.deck_id
@@ -172,7 +173,7 @@ const deleteDeckByPublicID = async (publicID, accountID) => {
             [accountID, publicID],
         );
 
-        const [deckResult] = await conn.query(
+        const [deckResult] = await tx.query(
             `DELETE d
             FROM decks d
             WHERE d.account_id = ?
@@ -186,11 +187,11 @@ const deleteDeckByPublicID = async (publicID, accountID) => {
             );
         }
 
-        await conn.commit();
+        await tx.commit();
     } catch (e) {
         throw e;
     } finally {
-        await conn.release();
+        await tx.release();
     }
 
     return;
