@@ -1,4 +1,5 @@
 import { sortBy } from 'lodash';
+import { parseIntFallback, parseFloatFallback } from '../../helpers/parse';
 import {
     SET_DECK_PUBLIC_ID,
     SET_DECK_ACCOUNT_PUBLIC_ID,
@@ -55,7 +56,7 @@ function DeckBuilderReducer(state = {}, action = {}) {
         case SET_DECK_CARDS:
             return {
                 ...state,
-                deckCards: sortBy(action.deckCards, [c => parseFloat(c.cmc) || 0]),
+                deckCards: sortBy(action.deckCards, [c => parseFloatFallback(c.cmc, 0)]),
             };
 
         case UPDATE_DECK_CARD_COUNT: {
@@ -82,7 +83,7 @@ function DeckBuilderReducer(state = {}, action = {}) {
         case SET_MAYBEBOARD_CARDS:
             return {
                 ...state,
-                maybeboardCards: sortBy(action.maybeboardCards, [c => parseFloat(c.cmc) || 0]),
+                maybeboardCards: sortBy(action.maybeboardCards, [c => parseFloatFallback(c.cmc, 0)]),
             };
 
         case UPDATE_MAYBEBOARD_CARD_COUNT: {
@@ -181,9 +182,9 @@ function DeckBuilderReducer(state = {}, action = {}) {
                         location: 'deck',
                     },
                 ];
-                deckCards = sortBy(deckCards, [c => parseFloat(c.cmc) || 0]);
+                deckCards = sortBy(deckCards, [c => parseFloatFallback(c.cmc, 0)]);
             } else {
-                const count = (parseInt(deckCard.count) || 1) + (parseInt(action.count) || 1);
+                const count = parseIntFallback(deckCard.count, 1) + parseIntFallback(action.count, 1);
                 deckCards = [
                     ...state.deckCards.slice(0, indexInDeck),
                     {
@@ -217,9 +218,9 @@ function DeckBuilderReducer(state = {}, action = {}) {
                         location: 'maybeboard',
                     },
                 ];
-                maybeboardCards = sortBy(maybeboardCards, [c => parseFloat(c.cmc) || 0]);
+                maybeboardCards = sortBy(maybeboardCards, [c => parseFloatFallback(c.cmc, 0)]);
             } else {
-                const count = (parseInt(maybeboardCard.count) || 1) + (parseInt(action.count) || 1);
+                const count = parseIntFallback(maybeboardCard.count, 1) + parseIntFallback(action.count, 1);
                 maybeboardCards = [
                     ...state.maybeboardCards.slice(0, indexInMaybeboard),
                     {

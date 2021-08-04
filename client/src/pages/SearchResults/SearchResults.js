@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import { parseIntFallback } from '../../helpers/parse';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/Search';
@@ -50,7 +51,7 @@ function SearchResults({ location }) {
         const urlRare = urlParams.get('rare') || '';
         const urlMythic = urlParams.get('mythic') || '';
         const urlFlavorText = urlParams.get('flavorText') || '';
-        const urlPage = parseInt(urlParams.get('page')) || 1;
+        const urlPage = parseIntFallback(urlParams.get('page'), 1);
 
         const fetchResults = async (params = {}) => {
             const response = await searchCards(params);

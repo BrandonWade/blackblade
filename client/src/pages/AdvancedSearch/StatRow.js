@@ -1,3 +1,4 @@
+import { parseIntFallback } from '../../helpers/parse';
 import withFormField from '../../hocs/withFormField';
 import Select from '../../components/Select';
 import { NumberInputField } from '../../components/NumberInput';
@@ -12,12 +13,12 @@ function StatRow({ stat = '', comparator = '==', value = 0, setStat = () => {} }
     };
 
     const onIncrement = () => {
-        const val = parseInt(value) || 0;
+        const val = parseIntFallback(value, 0);
         setStat(stat, comparator, val + 1);
     };
 
     const onDecrement = () => {
-        const val = parseInt(value) || 0;
+        const val = parseIntFallback(value, 0);
         setStat(stat, comparator, val - 1);
     };
 

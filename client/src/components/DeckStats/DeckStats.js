@@ -1,4 +1,5 @@
 import { sumBy, sum, head, sortBy } from 'lodash';
+import { parseIntFallback, parseFloatFallback } from '../../helpers/parse';
 import './DeckStats.scss';
 
 function DeckStats({ deck = [] }) {
@@ -14,25 +15,25 @@ function DeckStats({ deck = [] }) {
                 variantPrice = variant?.price || 0;
             } else {
                 // If the variant was selected by default, use the lowest variant price
-                const sortedSets = sortBy(card.sets_json, set => parseFloat(set.price) || 0);
+                const sortedSets = sortBy(card.sets_json, set => parseFloatFallback(set.price, 0));
                 const lowest = head(sortedSets.filter(set => set.price !== ''));
                 variantPrice = lowest?.price || 0;
             }
 
-            return (parseFloat(variantPrice) || 0) * (parseInt(card.count) || 0);
+            return parseFloatFallback(variantPrice, 0) * parseIntFallback(card.count, 0);
         });
         stats = stats.concat({ label: 'Estimated Price', value: `$${price.toFixed(2)}` });
     };
 
     const totalCards = () => {
-        const total = sumBy(deck, card => parseInt(card.count) || 0);
+        const total = sumBy(deck, card => parseIntFallback(card.count, 0));
         stats = stats.concat({ label: 'Total Cards', value: total });
     };
 
     const averageCMC = () => {
-        const costSum = sumBy(deck, card => parseFloat(card.cmc) * (parseInt(card.count) || 0));
+        const costSum = sumBy(deck, card => parseFloatFallback(card.cmc, 0) * parseIntFallback(card.count, 0));
         const nonLandCount = sumBy(deck, card => {
-            const count = parseInt(card.count) || 0;
+            const count = parseIntFallback(card.count, 0);
             const faces = card?.sets_json?.[0]?.faces_json || [];
             const anyNonLandFaces = faces.some(face => face.derived_type !== 'land');
             return anyNonLandFaces ? count : 0;
@@ -44,7 +45,7 @@ function DeckStats({ deck = [] }) {
 
     const totalOfTypes = types => {
         return sumBy(deck, card => {
-            const count = parseInt(card.count) || 0;
+            const count = parseIntFallback(card.count, 0);
             const faces = card?.sets_json?.[0]?.faces_json || [];
             const anyFacesOfTypes = faces.some(face => types.includes(face.derived_type));
             return anyFacesOfTypes ? count : 0;
@@ -79,7 +80,7 @@ function DeckStats({ deck = [] }) {
         const colorCounts = { '{B}': 0, '{W}': 0, '{G}': 0, '{U}': 0, '{R}': 0 };
 
         deck.forEach(card => {
-            const count = parseInt(card.count) || 0;
+            const count = parseIntFallback(card.count, 0);
             const faces = card?.sets_json?.[0]?.faces_json || [];
             faces.forEach(face => {
                 const symbols = face.mana_cost.split(/(\{(?:\D|[A-Z0-9]+|[A-Z0-9]+\/[A-Z0-9]+)\})/g);

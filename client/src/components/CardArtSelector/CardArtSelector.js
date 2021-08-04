@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { parseIntFallback } from '../../helpers/parse';
 import CardArtSelectorContext from '../../contexts/CardArtSelector';
 import CardContext from '../../contexts/Card';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
@@ -16,7 +17,7 @@ function CardArtSelector() {
 
     const onClose = () => setArtSelectorVisible(false);
 
-    // TODO: Move most of this handling into reducer
+    // TODO: Move most of this logic into reducer
     const onSelectCard = cardVariant => {
         // If the chosen variant is already selected, do nothing
         if (cardVariant.card_id === card.card_id) {
@@ -26,29 +27,26 @@ function CardArtSelector() {
 
         const cardList = inDeck ? deckCards : maybeboardCards;
         const updateCardList = inDeck ? setDeckCards : setMaybeboardCards;
-        const cardIndex = cardList.findIndex(c => c.card_id === card.card_id);
-        const variantIndex = cardList.findIndex(c => c.card_id === cardVariant.card_id);
-        let cards;
-        let updatedCard;
+        const currentArtIndex = cardList.findIndex(c => c.card_id === card.card_id);
+        const newArtIndex = cardList.findIndex(c => c.card_id === cardVariant.card_id);
+        let cards = [];
+        let updatedCard = {
+            ...cardList[currentArtIndex],
+            ...cardVariant,
+            selection_type: 'manual',
+        };
 
         // Check if the selected variant already exists in the list
-        if (variantIndex === -1) {
-            updatedCard = {
-                ...cardList[cardIndex],
-                ...cardVariant,
-                selection_type: 'manual',
-            };
-            cards = [...cardList.slice(0, cardIndex), updatedCard, ...cardList.slice(cardIndex + 1)];
+        if (newArtIndex === -1) {
+            cards = [...cardList.slice(0, currentArtIndex), updatedCard, ...cardList.slice(currentArtIndex + 1)];
         } else {
             // If the variant does exist, remove the previous card and combine the counts
-            const count = (parseInt(cardList[cardIndex].count) || 1) + (parseInt(cardList[variantIndex].count) || 1);
+            const count = parseIntFallback(cardList[currentArtIndex].count, 1) + parseIntFallback(cardList[newArtIndex].count, 1);
             updatedCard = {
-                ...cardList[cardIndex],
-                ...cardVariant,
-                selection_type: 'manual',
+                ...updatedCard,
                 count,
             };
-            cards = [...cardList.slice(0, variantIndex), updatedCard, ...cardList.slice(variantIndex + 1)];
+            cards = [...cardList.slice(0, newArtIndex), updatedCard, ...cardList.slice(newArtIndex + 1)];
             cards = cards.filter(c => c.card_id !== card.card_id);
         }
 
