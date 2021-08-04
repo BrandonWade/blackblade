@@ -4,7 +4,6 @@ import CardImagePreviewProvider from '../../providers/CardImagePreview';
 import ExportDeckDialogProvider from '../../providers/ExportDeckDialog';
 import BookmarkListProvider from '../../providers/BookmarkList';
 import DeckListProvider from '../../providers/DeckList';
-import CardArtSelectorProvider from '../../providers/CardArtSelector';
 import DeckBuilderProvider from '../../providers/DeckBuilder';
 import AdvancedSearchProvider from '../../providers/AdvancedSearch';
 import SearchProvider from '../../providers/Search';
@@ -20,17 +19,15 @@ function App() {
                     <ExportDeckDialogProvider>
                         <BookmarkListProvider>
                             <DeckListProvider>
-                                <CardArtSelectorProvider>
-                                    <DeckBuilderProvider>
-                                        <AdvancedSearchProvider>
-                                            <SearchProvider>
-                                                <CardProvider>
-                                                    <Router />
-                                                </CardProvider>
-                                            </SearchProvider>
-                                        </AdvancedSearchProvider>
-                                    </DeckBuilderProvider>
-                                </CardArtSelectorProvider>
+                                <DeckBuilderProvider>
+                                    <AdvancedSearchProvider>
+                                        <SearchProvider>
+                                            <CardProvider>
+                                                <Router />
+                                            </CardProvider>
+                                        </SearchProvider>
+                                    </AdvancedSearchProvider>
+                                </DeckBuilderProvider>
                             </DeckListProvider>
                         </BookmarkListProvider>
                     </ExportDeckDialogProvider>
