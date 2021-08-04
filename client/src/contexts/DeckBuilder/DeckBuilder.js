@@ -17,6 +17,7 @@ export const initialState = {
     totalResults: 0,
     searchResults: [],
     numberOfPages: 1,
+    cardArtSelectorVisible: false,
 };
 
 export const isDeckUnmodified = (

@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import CardContext from '../../contexts/Card';
-import CardArtSelectorContext from '../../contexts/CardArtSelector';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import DeckRowManaCost from './DeckRowManaCost';
@@ -11,7 +10,6 @@ import { Images, ArrowUp, ArrowDown } from '../Icons';
 function DeckRow({ card = {}, count = 0, sectionType = '' }) {
     const { accountPublicID } = useContext(AuthContext);
     const { setCard } = useContext(CardContext);
-    const { setArtSelectorVisible } = useContext(CardArtSelectorContext);
     const {
         deckAccountPublicID,
         updateDeckCardCount,
@@ -20,6 +18,7 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
         removeMaybeboardCard,
         moveToDeck,
         moveToMaybeboard,
+        showCardArtSelector,
     } = useContext(DeckBuilderContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
     const inDeck = card.location === 'deck';
@@ -32,7 +31,7 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
 
     const onSelectArt = () => {
         setCard(card);
-        setArtSelectorVisible(true);
+        showCardArtSelector();
     };
 
     const onSwitchSection = () => {

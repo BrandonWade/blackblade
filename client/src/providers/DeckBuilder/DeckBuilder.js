@@ -8,9 +8,11 @@ import {
     SET_DECK_VISIBILITY,
     SET_DECK_CARDS,
     UPDATE_DECK_CARD_COUNT,
+    UPDATE_DECK_CARD_ART,
     REMOVE_DECK_CARD,
     SET_MAYBEBOARD_CARDS,
     UPDATE_MAYBEBOARD_CARD_COUNT,
+    UPDATE_MAYBEBOARD_CARD_ART,
     REMOVE_MAYBEBOARD_CARD,
     SET_UNMODIFIED_DECK_NAME,
     SET_UNMODIFIED_DECK_VISIBILITY,
@@ -25,6 +27,8 @@ import {
     MOVE_TO_DECK,
     MOVE_TO_MAYBEBOARD,
     RESET_DECK_BUILDER,
+    SHOW_CARD_ART_SELECTOR,
+    HIDE_CARD_ART_SELECTOR,
 } from '../../actions/DeckBuilder';
 
 function DeckBuilderProvider({ children = [] }) {
@@ -36,9 +40,11 @@ function DeckBuilderProvider({ children = [] }) {
     const setDeckVisibility = deckVisibility => dispatch({ type: SET_DECK_VISIBILITY, deckVisibility });
     const setDeckCards = deckCards => dispatch({ type: SET_DECK_CARDS, deckCards });
     const updateDeckCardCount = (cardID, count) => dispatch({ type: UPDATE_DECK_CARD_COUNT, cardID, count });
+    const updateDeckCardArt = (cardID, cardVariant) => dispatch({ type: UPDATE_DECK_CARD_ART, cardID, cardVariant });
     const removeDeckCard = cardID => dispatch({ type: REMOVE_DECK_CARD, cardID });
     const setMaybeboardCards = maybeboardCards => dispatch({ type: SET_MAYBEBOARD_CARDS, maybeboardCards });
     const updateMaybeboardCardCount = (cardID, count) => dispatch({ type: UPDATE_MAYBEBOARD_CARD_COUNT, cardID, count });
+    const updateMaybeboardCardArt = (cardID, cardVariant) => dispatch({ type: UPDATE_MAYBEBOARD_CARD_ART, cardID, cardVariant });
     const removeMaybeboardCard = cardID => dispatch({ type: REMOVE_MAYBEBOARD_CARD, cardID });
     const setUnmodifiedDeckName = () => dispatch({ type: SET_UNMODIFIED_DECK_NAME });
     const setUnmodifiedDeckVisibility = () => dispatch({ type: SET_UNMODIFIED_DECK_VISIBILITY });
@@ -53,6 +59,8 @@ function DeckBuilderProvider({ children = [] }) {
     const moveToDeck = (cardID, count) => dispatch({ type: MOVE_TO_DECK, cardID, count });
     const moveToMaybeboard = (cardID, count) => dispatch({ type: MOVE_TO_MAYBEBOARD, cardID, count });
     const resetDeckBuilder = () => dispatch({ type: RESET_DECK_BUILDER });
+    const showCardArtSelector = () => dispatch({ type: SHOW_CARD_ART_SELECTOR });
+    const hideCardArtSelector = () => dispatch({ type: HIDE_CARD_ART_SELECTOR });
 
     const props = {
         ...state,
@@ -62,9 +70,11 @@ function DeckBuilderProvider({ children = [] }) {
         setDeckVisibility,
         setDeckCards,
         updateDeckCardCount,
+        updateDeckCardArt,
         removeDeckCard,
         setMaybeboardCards,
         updateMaybeboardCardCount,
+        updateMaybeboardCardArt,
         removeMaybeboardCard,
         setUnmodifiedDeckName,
         setUnmodifiedDeckVisibility,
@@ -79,6 +89,8 @@ function DeckBuilderProvider({ children = [] }) {
         moveToDeck,
         moveToMaybeboard,
         resetDeckBuilder,
+        showCardArtSelector,
+        hideCardArtSelector,
     };
 
     return <DeckBuilderContext.Provider value={props}>{children}</DeckBuilderContext.Provider>;

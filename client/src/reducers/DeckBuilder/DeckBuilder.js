@@ -7,9 +7,11 @@ import {
     SET_DECK_VISIBILITY,
     SET_DECK_CARDS,
     UPDATE_DECK_CARD_COUNT,
+    UPDATE_DECK_CARD_ART,
     REMOVE_DECK_CARD,
     SET_MAYBEBOARD_CARDS,
     UPDATE_MAYBEBOARD_CARD_COUNT,
+    UPDATE_MAYBEBOARD_CARD_ART,
     REMOVE_MAYBEBOARD_CARD,
     SET_UNMODIFIED_DECK_NAME,
     SET_UNMODIFIED_DECK_VISIBILITY,
@@ -24,6 +26,8 @@ import {
     MOVE_TO_DECK,
     MOVE_TO_MAYBEBOARD,
     RESET_DECK_BUILDER,
+    SHOW_CARD_ART_SELECTOR,
+    HIDE_CARD_ART_SELECTOR,
 } from '../../actions/DeckBuilder';
 import { initialState } from '../../contexts/DeckBuilder';
 
@@ -74,6 +78,37 @@ function DeckBuilderReducer(state = {}, action = {}) {
             };
         }
 
+        case UPDATE_DECK_CARD_ART: {
+            const currentArtIndex = state.deckCards.findIndex(c => c.card_id === action.cardID);
+            const newArtIndex = state.deckCards.findIndex(c => c.card_id === action.cardVariant.card_id);
+            let deckCards;
+            let updatedCard = {
+                ...state.deckCards[currentArtIndex],
+                ...action.cardVariant,
+                selection_type: 'manual',
+            };
+
+            // Check if the selected variant already exists
+            if (newArtIndex === -1) {
+                deckCards = [...state.deckCards.slice(0, currentArtIndex), updatedCard, ...state.deckCards.slice(currentArtIndex + 1)];
+            } else {
+                // If the variant does exist, remove the current card and add it's count to the pre-existing variant
+                const count = parseIntFallback(state.deckCards[currentArtIndex].count, 1) + parseIntFallback(state.deckCards[newArtIndex].count, 1);
+                updatedCard = {
+                    ...updatedCard,
+                    count,
+                };
+                deckCards = [...state.deckCards.slice(0, newArtIndex), updatedCard, ...state.deckCards.slice(newArtIndex + 1)];
+                deckCards = deckCards.filter(c => c.card_id !== action.cardID);
+            }
+
+            return {
+                ...state,
+                deckCards,
+                cardArtSelectorVisible: false,
+            };
+        }
+
         case REMOVE_DECK_CARD:
             return {
                 ...state,
@@ -98,6 +133,42 @@ function DeckBuilderReducer(state = {}, action = {}) {
                     },
                     ...state.maybeboardCards.slice(index + 1),
                 ],
+            };
+        }
+
+        case UPDATE_MAYBEBOARD_CARD_ART: {
+            const currentArtIndex = state.maybeboardCards.findIndex(c => c.card_id === action.cardID);
+            const newArtIndex = state.maybeboardCards.findIndex(c => c.card_id === action.cardVariant.card_id);
+            let maybeboardCards;
+            let updatedCard = {
+                ...state.maybeboardCards[currentArtIndex],
+                ...action.cardVariant,
+                selection_type: 'manual',
+            };
+
+            // Check if the selected variant already exists
+            if (newArtIndex === -1) {
+                maybeboardCards = [
+                    ...state.maybeboardCards.slice(0, currentArtIndex),
+                    updatedCard,
+                    ...state.maybeboardCards.slice(currentArtIndex + 1),
+                ];
+            } else {
+                // If the variant does exist, remove the current card and add it's count to the pre-existing variant
+                const count =
+                    parseIntFallback(state.maybeboardCards[currentArtIndex].count, 1) + parseIntFallback(state.maybeboardCards[newArtIndex].count, 1);
+                updatedCard = {
+                    ...updatedCard,
+                    count,
+                };
+                maybeboardCards = [...state.maybeboardCards.slice(0, newArtIndex), updatedCard, ...state.maybeboardCards.slice(newArtIndex + 1)];
+                maybeboardCards = maybeboardCards.filter(c => c.card_id !== action.cardID);
+            }
+
+            return {
+                ...state,
+                maybeboardCards,
+                cardArtSelectorVisible: false,
             };
         }
 
@@ -242,6 +313,20 @@ function DeckBuilderReducer(state = {}, action = {}) {
         case RESET_DECK_BUILDER: {
             return {
                 ...initialState,
+            };
+        }
+
+        case SHOW_CARD_ART_SELECTOR: {
+            return {
+                ...state,
+                cardArtSelectorVisible: true,
+            };
+        }
+
+        case HIDE_CARD_ART_SELECTOR: {
+            return {
+                ...state,
+                cardArtSelectorVisible: false,
             };
         }
 
