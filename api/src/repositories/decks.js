@@ -159,42 +159,14 @@ const listDecks = async (accountID) => {
 };
 
 const deleteDeckByPublicID = async (publicID, accountID) => {
-    const tx = await connection.getConnection();
-    await tx.beginTransaction();
-
-    try {
-        await tx.query(
-            `DELETE c
-            FROM deck_cards c
-            INNER JOIN decks d ON d.id = c.deck_id
-            WHERE d.account_id = ?
-            AND d.public_id = ?
-        `,
-            [accountID, publicID],
-        );
-
-        const [deckResult] = await tx.query(
-            `DELETE d
-            FROM decks d
-            WHERE d.account_id = ?
-            AND d.public_id = ?
-        `,
-            [accountID, publicID],
-        );
-        if (deckResult?.affectedRows !== 1) {
-            throw new NotFoundError(
-                `error deleting deck with public id ${publicID} and account id ${accountID}`,
-            );
-        }
-
-        await tx.commit();
-    } catch (e) {
-        throw e;
-    } finally {
-        await tx.release();
-    }
-
-    return;
+    return connection.query(
+        `DELETE d
+        FROM decks d
+        WHERE d.account_id = ?
+        AND d.public_id = ?
+    `,
+        [accountID, publicID],
+    );
 };
 
 const exportDeckByPublicID = async (publicID) => {
