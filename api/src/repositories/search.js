@@ -29,7 +29,7 @@ const getTotalResults = (
         .groupBy('c.oracle_id')
         .as('a');
 
-    addLikeCondition(subquery, nameTokens, 'f.name');
+    addLikeCondition(subquery, nameTokens, 'c.name');
     addLikeCondition(subquery, textTokens, 'f.oracle_text');
     addLikeCondition(subquery, typeTokens, 'f.type_line');
     addColorConditions(subquery, colors, matchType);
@@ -81,7 +81,7 @@ const getCardsByProperties = (
         .limit(pageSize)
         .offset((page - 1) * pageSize);
 
-    addLikeCondition(query, nameTokens, 'f.name');
+    addLikeCondition(query, nameTokens, 'c.name');
     addLikeCondition(query, textTokens, 'f.oracle_text');
     addLikeCondition(query, typeTokens, 'f.type_line');
     addColorConditions(query, colors, matchType);
