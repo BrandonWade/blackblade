@@ -23,10 +23,11 @@ const getTotalResults = (
     flavorTextTokens,
 ) => {
     const subquery = builder
-        .select('c.*')
+        .select('oracle_id')
+        .max('released_at AS released_at')
         .from('cards AS c')
-        .innerJoin('card_faces AS f', 'c.id', 'f.card_id')
-        .groupBy('c.oracle_id')
+        .innerJoin('card_faces AS f', 'f.card_id', 'c.id')
+        .groupBy('oracle_id')
         .as('a');
 
     addLikeCondition(subquery, nameTokens, 'c.name');
@@ -42,7 +43,24 @@ const getTotalResults = (
     addInCondition(subquery, rarities, 'c.rarity');
     addLikeCondition(subquery, flavorTextTokens, 'f.flavor_text');
 
-    return builder.count('* AS total_results').from(subquery);
+    const query = builder
+        .select(
+            'c.id AS card_id',
+            'c.cmc',
+            'c.name',
+            'c.set_name',
+            'c.set_code',
+            'c.faces_json',
+            'c.layout',
+            's.sets_json',
+        )
+        .from(subquery)
+        .joinRaw('INNER JOIN cards AS c USING(oracle_id, released_at)')
+        .innerJoin('card_sets_list AS s', 's.id', 'c.card_sets_list_id')
+        .groupBy('c.oracle_id', 'c.released_at')
+        .as('b');
+
+    return builder.count('* AS total_results').from(query);
 };
 
 const getCardsByProperties = (
@@ -62,37 +80,45 @@ const getCardsByProperties = (
     page,
     pageSize,
 ) => {
+    const subquery = builder
+        .select('oracle_id')
+        .max('released_at AS released_at')
+        .from('cards AS c')
+        .innerJoin('card_faces AS f', 'f.card_id', 'c.id')
+        .groupBy('oracle_id')
+        .as('a');
+
+    addLikeCondition(subquery, nameTokens, 'c.name');
+    addLikeCondition(subquery, textTokens, 'f.oracle_text');
+    addLikeCondition(subquery, typeTokens, 'f.type_line');
+    addColorConditions(subquery, colors, matchType);
+    addColorlessCondition(subquery, colorless, matchType);
+    addStatCondition(subquery, cmc, 'c.cmc');
+    addStatCondition(subquery, power, 'f.power');
+    addStatCondition(subquery, toughness, 'f.toughness');
+    addStatCondition(subquery, loyalty, 'f.loyalty');
+    addInCondition(subquery, setTokens, 'c.set_code');
+    addInCondition(subquery, rarities, 'c.rarity');
+    addLikeCondition(subquery, flavorTextTokens, 'f.flavor_text');
+
     const query = builder
         .select(
             'c.id AS card_id',
             'c.cmc',
-            'c.layout',
             'c.name',
             'c.set_name',
             'c.set_code',
             'c.faces_json',
+            'c.layout',
             's.sets_json',
         )
-        .from('card_faces AS f')
-        .innerJoin('cards AS c', 'c.id', 'f.card_id')
+        .from(subquery)
+        .joinRaw('INNER JOIN cards AS c USING(oracle_id, released_at)')
         .innerJoin('card_sets_list AS s', 's.id', 'c.card_sets_list_id')
-        .groupBy('c.oracle_id')
-        .orderBy('f.name')
+        .groupBy('c.oracle_id', 'c.released_at')
+        .orderBy('c.name')
         .limit(pageSize)
         .offset((page - 1) * pageSize);
-
-    addLikeCondition(query, nameTokens, 'c.name');
-    addLikeCondition(query, textTokens, 'f.oracle_text');
-    addLikeCondition(query, typeTokens, 'f.type_line');
-    addColorConditions(query, colors, matchType);
-    addColorlessCondition(query, colorless, matchType);
-    addStatCondition(query, cmc, 'c.cmc');
-    addStatCondition(query, power, 'f.power');
-    addStatCondition(query, toughness, 'f.toughness');
-    addStatCondition(query, loyalty, 'f.loyalty');
-    addInCondition(query, setTokens, 'c.set_code');
-    addInCondition(query, rarities, 'c.rarity');
-    addLikeCondition(query, flavorTextTokens, 'f.flavor_text');
 
     return query;
 };
