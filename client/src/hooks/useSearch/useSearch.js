@@ -93,14 +93,10 @@ function useSearch() {
                     results: await response.json(),
                 };
             case 404:
+            case 422:
                 return {
                     success: true,
                     results: [],
-                };
-            case 422:
-                return {
-                    success: false,
-                    redirect: '/',
                 };
             default:
                 const data = await response.json();

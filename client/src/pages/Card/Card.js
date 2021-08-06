@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import useSearch from '../../hooks/useSearch';
+import useMessage from '../../hooks/useMessage';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import CardContext from '../../contexts/Card';
 import HeaderPage from '../../components/HeaderPage';
@@ -14,22 +15,36 @@ import './Card.scss';
 
 function Card() {
     const { id } = useParams();
-    const cardID = parseInt(id);
+    const { showMessage } = useMessage();
     const { getCardByID } = useSearch();
     const { displayCard } = useDisplayResults();
-    const { card } = useContext(CardContext);
+    const { card, setCard } = useContext(CardContext);
+    const cardID = parseInt(id);
     const cardFaces = card?.faces_json || [];
 
     useEffect(() => {
         const fetchCard = async () => {
             const response = await getCardByID(id);
-            displayCard(response);
+            if (!response?.success) {
+                const { text, type } = response?.message;
+                setCard({});
+                showMessage(text, type);
+                return;
+            }
+
+            if (response.results.length) {
+                const [card] = response?.results;
+                setCard(card);
+                return;
+            }
+
+            setCard({});
         };
 
         if (card.card_id !== cardID) {
             fetchCard();
         }
-    }, [card.card_id, cardID, id, getCardByID, displayCard]);
+    }, [id]);
 
     return (
         <HeaderPage className='Card'>
