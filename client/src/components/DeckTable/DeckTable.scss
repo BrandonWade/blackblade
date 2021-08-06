@@ -125,4 +125,24 @@
             background-color: var(--color-primary-lighter);
         }
     }
+
+    &-spacer {
+        width: 4rem;
+        min-width: 4rem;
+
+        @media only screen and (max-width: 75em) {
+            width: 0.5rem;
+            min-width: 0.5rem;
+        }
+
+        @media only screen and (max-width: 56.25em) {
+            width: 6rem;
+            min-width: 6rem;
+        }
+
+        @media only screen and (max-width: 37.5em) {
+            width: 2.5rem;
+            min-width: 2.5rem;
+        }
+    }
 }

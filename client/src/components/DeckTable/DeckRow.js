@@ -61,7 +61,9 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
             <td className='DeckTable-selectArt' onClick={onSelectArt}>
                 <Images className='DeckTable-selectArtIcon' altText='Select card art' />
             </td>
-        ) : null;
+        ) : (
+            <td className='DeckTable-spacer' />
+        );
     };
 
     const renderSwitchSectionButton = () => {
@@ -73,7 +75,9 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
                     <ArrowDown className='DeckTable-switchSectionIcon' altText='Move to maybeboard' />
                 )}
             </td>
-        ) : null;
+        ) : (
+            <td className='DeckTable-spacer' />
+        );
     };
 
     const renderRemoveButton = () => {
@@ -81,7 +85,9 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
             <td className='DeckTable-remove' onClick={onRemoveCard}>
                 &#x2715;
             </td>
-        ) : null;
+        ) : (
+            <td className='DeckTable-spacer' />
+        );
     };
 
     return (
