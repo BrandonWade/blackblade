@@ -51,9 +51,9 @@ function DeckActions() {
     const onExportDeck = async () => {
         if (!isUnmodified) {
             // Since the deck export comes from the backend, ensure we persist the latest deck state before exporting
-            const saveResult = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
-            if (!saveResult?.success) {
-                const { text, type } = saveResult?.message;
+            const saveResponse = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
+            if (!saveResponse?.success) {
+                const { text, type } = saveResponse?.message;
                 showMessage(text, type);
                 return;
             }
@@ -65,14 +65,14 @@ function DeckActions() {
         setUnmodifiedDeckCards();
         setUnmodifiedMaybeboardCards();
 
-        const exportResult = await exportDeck(publicID);
-        if (!exportResult?.success) {
-            const { text, type } = exportResult?.message;
+        const exportResponse = await exportDeck(publicID);
+        if (!exportResponse?.success) {
+            const { text, type } = exportResponse?.message;
             showMessage(text, type);
             return;
         }
 
-        setDeckExport(exportResult.deckExport);
+        setDeckExport(exportResponse.deckExport);
         setVisible(true);
     };
 
