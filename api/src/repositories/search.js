@@ -7,6 +7,68 @@ import {
     addInCondition,
 } from './helpers';
 
+const getCardsByProperties = (
+    nameTokens,
+    textTokens,
+    typeTokens,
+    colors,
+    colorless,
+    matchType,
+    setTokens,
+    cmc,
+    power,
+    toughness,
+    loyalty,
+    rarities,
+    flavorTextTokens,
+    page = null,
+    pageSize = null,
+) => {
+    const subquery = builder
+        .select('oracle_id')
+        .max('released_at AS released_at')
+        .from('cards AS c')
+        .innerJoin('card_faces AS f', 'f.card_id', 'c.id')
+        .groupBy('oracle_id')
+        .as('a');
+
+    addLikeCondition(subquery, nameTokens, 'c.name');
+    addLikeCondition(subquery, textTokens, 'f.oracle_text');
+    addLikeCondition(subquery, typeTokens, 'f.type_line');
+    addColorConditions(subquery, colors, matchType);
+    addColorlessCondition(subquery, colorless, matchType);
+    addStatCondition(subquery, cmc, 'c.cmc');
+    addStatCondition(subquery, power, 'f.power');
+    addStatCondition(subquery, toughness, 'f.toughness');
+    addStatCondition(subquery, loyalty, 'f.loyalty');
+    addInCondition(subquery, setTokens, 'c.set_code');
+    addInCondition(subquery, rarities, 'c.rarity');
+    addLikeCondition(subquery, flavorTextTokens, 'f.flavor_text');
+
+    const query = builder
+        .select(
+            'c.id AS card_id',
+            'c.cmc',
+            'c.name',
+            'c.set_name',
+            'c.set_code',
+            'c.faces_json',
+            'c.layout',
+            's.sets_json',
+        )
+        .from(subquery)
+        .joinRaw('INNER JOIN cards AS c USING(oracle_id, released_at)')
+        .innerJoin('card_sets_list AS s', 's.id', 'c.card_sets_list_id')
+        .groupBy('c.oracle_id', 'c.released_at')
+        .orderBy('c.name');
+
+    if (page !== null && pageSize !== null) {
+        query.limit(pageSize).offset((page - 1) * pageSize);
+    }
+
+    return query;
+};
+
 const getTotalResults = (
     nameTokens,
     textTokens,
@@ -22,105 +84,23 @@ const getTotalResults = (
     rarities,
     flavorTextTokens,
 ) => {
-    const subquery = builder
-        .select('oracle_id')
-        .max('released_at AS released_at')
-        .from('cards AS c')
-        .innerJoin('card_faces AS f', 'f.card_id', 'c.id')
-        .groupBy('oracle_id')
-        .as('a');
-
-    addLikeCondition(subquery, nameTokens, 'c.name');
-    addLikeCondition(subquery, textTokens, 'f.oracle_text');
-    addLikeCondition(subquery, typeTokens, 'f.type_line');
-    addColorConditions(subquery, colors, matchType);
-    addColorlessCondition(subquery, colorless, matchType);
-    addStatCondition(subquery, cmc, 'c.cmc');
-    addStatCondition(subquery, power, 'f.power');
-    addStatCondition(subquery, toughness, 'f.toughness');
-    addStatCondition(subquery, loyalty, 'f.loyalty');
-    addInCondition(subquery, setTokens, 'c.set_code');
-    addInCondition(subquery, rarities, 'c.rarity');
-    addLikeCondition(subquery, flavorTextTokens, 'f.flavor_text');
-
-    const query = builder
-        .select(
-            'c.id AS card_id',
-            'c.cmc',
-            'c.name',
-            'c.set_name',
-            'c.set_code',
-            'c.faces_json',
-            'c.layout',
-            's.sets_json',
-        )
-        .from(subquery)
-        .joinRaw('INNER JOIN cards AS c USING(oracle_id, released_at)')
-        .innerJoin('card_sets_list AS s', 's.id', 'c.card_sets_list_id')
-        .groupBy('c.oracle_id', 'c.released_at')
-        .as('b');
+    const query = getCardsByProperties(
+        nameTokens,
+        textTokens,
+        typeTokens,
+        colors,
+        colorless,
+        matchType,
+        setTokens,
+        cmc,
+        power,
+        toughness,
+        loyalty,
+        rarities,
+        flavorTextTokens,
+    ).as('b');
 
     return builder.count('* AS total_results').from(query);
-};
-
-const getCardsByProperties = (
-    nameTokens,
-    textTokens,
-    typeTokens,
-    colors,
-    colorless,
-    matchType,
-    setTokens,
-    cmc,
-    power,
-    toughness,
-    loyalty,
-    rarities,
-    flavorTextTokens,
-    page,
-    pageSize,
-) => {
-    const subquery = builder
-        .select('oracle_id')
-        .max('released_at AS released_at')
-        .from('cards AS c')
-        .innerJoin('card_faces AS f', 'f.card_id', 'c.id')
-        .groupBy('oracle_id')
-        .as('a');
-
-    addLikeCondition(subquery, nameTokens, 'c.name');
-    addLikeCondition(subquery, textTokens, 'f.oracle_text');
-    addLikeCondition(subquery, typeTokens, 'f.type_line');
-    addColorConditions(subquery, colors, matchType);
-    addColorlessCondition(subquery, colorless, matchType);
-    addStatCondition(subquery, cmc, 'c.cmc');
-    addStatCondition(subquery, power, 'f.power');
-    addStatCondition(subquery, toughness, 'f.toughness');
-    addStatCondition(subquery, loyalty, 'f.loyalty');
-    addInCondition(subquery, setTokens, 'c.set_code');
-    addInCondition(subquery, rarities, 'c.rarity');
-    addLikeCondition(subquery, flavorTextTokens, 'f.flavor_text');
-
-    const query = builder
-        .select(
-            'c.id AS card_id',
-            'c.cmc',
-            'c.name',
-            'c.set_name',
-            'c.set_code',
-            'c.faces_json',
-            'c.layout',
-            's.sets_json',
-        )
-        .from(subquery)
-        .joinRaw('INNER JOIN cards AS c USING(oracle_id, released_at)')
-        .innerJoin('card_sets_list AS s', 's.id', 'c.card_sets_list_id')
-        .groupBy('c.oracle_id', 'c.released_at')
-        .orderBy('c.name')
-        .limit(pageSize)
-        .offset((page - 1) * pageSize);
-
-    return query;
 };
 
 const getCardByID = async (id) => {
