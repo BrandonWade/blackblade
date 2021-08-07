@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import useSearch from '../useSearch';
+import useMessage from '../../hooks/useMessage';
 import SearchContext from '../../contexts/Search';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 
@@ -8,6 +9,7 @@ function useDisplayResults() {
     const history = useHistory();
     const location = useLocation();
     const { getParamString } = useSearch();
+    const { showMessage } = useMessage();
     const { setTotalResults, setSearchResults, setNumberOfPages } = useContext(SearchContext);
     const {
         setTotalResults: setDeckBuilderTotalResults,
@@ -33,6 +35,8 @@ function useDisplayResults() {
 
     const displayResults = (response = {}, deckBuilder = false) => {
         if (!response.success) {
+            const { text, type } = response?.message;
+            showMessage(text, type);
             return;
         }
 
