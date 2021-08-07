@@ -21,6 +21,10 @@ function Card() {
     const cardFaces = card?.faces_json || [];
 
     useEffect(() => {
+        return () => setCard({});
+    }, []);
+
+    useEffect(() => {
         const fetchCard = async () => {
             const response = await getCardByID(id);
             if (!response?.success) {
