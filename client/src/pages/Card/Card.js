@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import useSearch from '../../hooks/useSearch';
 import useMessage from '../../hooks/useMessage';
-import useDisplayResults from '../../hooks/useDisplayResults';
 import CardContext from '../../contexts/Card';
 import HeaderPage from '../../components/HeaderPage';
 import NoResults from '../../components/NoResults';
@@ -17,7 +16,6 @@ function Card() {
     const { id } = useParams();
     const { showMessage } = useMessage();
     const { getCardByID } = useSearch();
-    const { displayCard } = useDisplayResults();
     const { card, setCard } = useContext(CardContext);
     const cardID = parseInt(id);
     const cardFaces = card?.faces_json || [];
