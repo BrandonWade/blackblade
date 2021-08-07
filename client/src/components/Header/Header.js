@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import SearchContext from '../../contexts/Search';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import useMenuItems from '../../hooks/useMenuItems';
-import useRandomCard from '../../hooks/useRandomCard';
 import { Documents } from '../Icons';
 import Logo from '../Logo';
 import Input from '../Input';
@@ -16,7 +15,6 @@ function Header() {
     const { setName } = useContext(SearchContext);
     const { searchResultsRedirect } = useDisplayResults();
     const menuItems = useMenuItems();
-    const { displayRandomCard } = useRandomCard();
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -47,7 +45,7 @@ function Header() {
                 )}
             </div>
             <Link className='Header-randomCard' to='/random'>
-                <Documents className='Header-randomIcon' onClick={displayRandomCard} />
+                <Documents className='Header-randomIcon' />
             </Link>
             <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         </div>
