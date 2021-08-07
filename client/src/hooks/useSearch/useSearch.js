@@ -80,7 +80,7 @@ function useSearch() {
 
         addPair('page', 1);
 
-        return pairs.join('&');
+        return `?${pairs.join('&')}`;
     };
 
     const getCardByID = async id => {
@@ -134,7 +134,7 @@ function useSearch() {
             };
         }
 
-        const response = await fetchData(`/api/search?${paramString}`);
+        const response = await fetchData(`/api/search${paramString}`);
         const data = await response.json();
 
         switch (response.status) {

@@ -1,11 +1,12 @@
 import { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import useSearch from '../useSearch';
 import SearchContext from '../../contexts/Search';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 
 function useDisplayResults() {
     const history = useHistory();
+    const location = useLocation();
     const { getParamString } = useSearch();
     const { setTotalResults, setSearchResults, setNumberOfPages } = useContext(SearchContext);
     const {
@@ -20,14 +21,14 @@ function useDisplayResults() {
 
     const searchResultsRedirect = (params = {}) => {
         const paramString = getParamString(params);
-        if (paramString === undefined) {
+        if (paramString === undefined || paramString === location.search) {
             return;
         }
 
         setTotalResults(0);
         setNumberOfPages(1);
         setSearchResults([]);
-        history.push(`/cards/search?${paramString}`);
+        history.push(`/cards/search${paramString}`);
     };
 
     const displayResults = (response = {}, deckBuilder = false) => {
