@@ -3,22 +3,44 @@ import CardImagePreviewContext from '../../contexts/CardImagePreview/CardImagePr
 import useCSSVariableValue from '../../hooks/useCSSVariableValue';
 
 function withSetCardImagePreviewPosition(BaseComponent) {
-    return ({ children = [], ...rest }) => {
+    return ({ children = [], previewLocation = 'left', ...rest }) => {
         const ref = useRef();
         const { setTop, setLeft, setImage, setVisible } = useContext(CardImagePreviewContext);
         const imageWidth = useCSSVariableValue('--card-image-preview-image-width');
         const imageHeight = useCSSVariableValue('--card-image-preview-image-height');
+        const halfImageWidth = imageWidth / 2;
         const halfImageHeight = imageHeight / 2;
 
         const onMouseEnter = () => {
-            const { x, y, height: componentHeight } = ref.current.getBoundingClientRect();
+            const { x: baseX, y: baseY, height: componentHeight, width: componentWidth } = ref.current.getBoundingClientRect();
+            const componentY = baseY + window.scrollY;
+            const componentX = baseX + window.scrollX;
             const { previewImage } = ref.current.dataset;
-            const offsetX = imageWidth + 5; // include a small gap between preview and component
-            const offsetY = halfImageHeight - componentHeight / 2; // center vertically
+            const imageGap = 5;
+            let offsetX;
+            let offsetY;
+
+            if (previewLocation === 'left') {
+                // Position to the left and center vertically
+                offsetX = -(imageWidth + imageGap);
+                offsetY = -(halfImageHeight - componentHeight / 2);
+            } else if (previewLocation === 'right') {
+                // Position to the right and center vertically
+                offsetX = componentWidth + imageGap;
+                offsetY = -(halfImageHeight - componentHeight / 2);
+            } else if (previewLocation === 'top') {
+                // Position above and center horizontally
+                offsetX = componentWidth / 2 - halfImageWidth;
+                offsetY = -(imageHeight + imageGap);
+            } else if (previewLocation === 'bottom') {
+                // Position below and center horizontally
+                offsetX = componentWidth / 2 - halfImageWidth;
+                offsetY = componentHeight + imageGap;
+            }
 
             // Calculate the "normal" top and left
-            let top = y - offsetY;
-            let left = x - offsetX;
+            let top = componentY + offsetY;
+            let left = componentX + offsetX;
 
             // Bound the top and left if the preview doesn't fit in the viewport
             const viewportWidth = window.innerWidth;

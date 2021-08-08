@@ -10,11 +10,16 @@
     &-listItem {
         display: flex;
         justify-content: space-between;
+        padding: 1rem;
         transition: all 0.2s;
 
         &:hover {
             background-color: #2f3334;
             cursor: pointer;
+        }
+
+        &.CardSection-rowItem {
+            padding: 0;
         }
     }
 
@@ -23,6 +28,7 @@
         height: 100%;
         display: flex;
         justify-content: space-between;
+        padding: 1rem;
     }
 
     &-selectedSet {

@@ -15,6 +15,7 @@ function CardSets({ cardSets = [], currentCardID = 0 }) {
                             setName={set.set_name}
                             price={set.price}
                             previewImage={set?.faces_json?.[0]?.image}
+                            previewLocation='left'
                         />
                     );
                 })}

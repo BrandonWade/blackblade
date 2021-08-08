@@ -1,6 +1,7 @@
 .CardImagePreview {
     position: absolute;
     z-index: 2;
+    pointer-events: none;
 
     &-image {
         display: block;
