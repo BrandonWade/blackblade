@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import CardSection from '../CardSection';
+import CardSet from './CardSet';
 import './CardSets.scss';
 
 function CardSets({ cardSets = [], currentCardID = 0 }) {
@@ -8,16 +8,13 @@ function CardSets({ cardSets = [], currentCardID = 0 }) {
             <ul className='CardSets-list'>
                 {cardSets.map(set => {
                     return (
-                        <Link
+                        <CardSet
                             key={set.card_id}
-                            to={`/cards/${set.card_id}`}
-                            className={`CardSets-listItem CardSection-rowItem ${currentCardID === set.card_id ? 'CardSets-selectedSet' : ''}`}
-                        >
-                            <li className={'CardSets-rowContent'}>
-                                <span>{set.set_name}</span>
-                                <span>{set.price ? `$${set.price}` : null}</span>
-                            </li>
-                        </Link>
+                            className={currentCardID === set.card_id ? 'CardSets-selectedSet' : ''}
+                            cardID={set.card_id}
+                            setName={set.set_name}
+                            price={set.price}
+                        />
                     );
                 })}
             </ul>
