@@ -14,7 +14,7 @@
         position: relative;
         top: -9vh;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 56.25em) {
             width: 80%;
             min-width: 0;
             top: 0;
@@ -36,7 +36,7 @@
         margin-top: 5rem;
         display: flex;
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 56.25em) {
             flex-direction: column;
             margin-top: 4rem;
             width: 75%;
@@ -44,10 +44,12 @@
     }
 
     &-link {
+        display: flex;
+        align-items: center;
+        text-align: center;
         margin-right: 1.5rem;
         font-size: 1.3rem;
         padding: 1rem 2rem;
-        height: 100%;
         border: var(--line);
         border-radius: var(--border-radius);
         background-color: var(--color-primary-dark);
@@ -62,7 +64,7 @@
             background-color: var(--color-primary-lighter);
         }
 
-        @media only screen and (max-width: 37.5em) {
+        @media only screen and (max-width: 56.25em) {
             width: 100%;
             display: flex;
             justify-content: center;
