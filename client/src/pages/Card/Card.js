@@ -4,12 +4,14 @@ import { isEmpty } from 'lodash';
 import useSearch from '../../hooks/useSearch';
 import useMessage from '../../hooks/useMessage';
 import CardContext from '../../contexts/Card';
+import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import HeaderPage from '../../components/HeaderPage';
 import NoResults from '../../components/NoResults';
 import CardImage from '../../components/CardImage';
 import CardFaceDetails from '../../components/CardFaceDetails';
 import CardSets from '../../components/CardSets';
 import CardRulings from '../../components/CardRulings';
+import CardImagePreview from '../../components/CardImagePreview';
 import './Card.scss';
 
 function Card() {
@@ -17,11 +19,15 @@ function Card() {
     const { showMessage } = useMessage();
     const { getCardByID } = useSearch();
     const { card, setCard } = useContext(CardContext);
+    const { setVisible } = useContext(CardImagePreviewContext);
     const cardID = parseInt(id);
     const cardFaces = card?.faces_json || [];
 
     useEffect(() => {
-        return () => setCard({});
+        return () => {
+            setCard({});
+            setVisible(false);
+        };
     }, []);
 
     useEffect(() => {
@@ -50,6 +56,7 @@ function Card() {
 
     return (
         <HeaderPage className='Card'>
+            <CardImagePreview />
             <NoResults showMessage={isEmpty(card)}>
                 <div className='Card-mainContent'>
                     <CardImage card={card} />
