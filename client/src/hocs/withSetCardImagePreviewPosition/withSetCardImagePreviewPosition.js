@@ -43,8 +43,8 @@ function withSetCardImagePreviewPosition(BaseComponent) {
             let left = componentX + offsetX;
 
             // Bound the top and left if the preview doesn't fit in the viewport
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
+            const viewportWidth = document.body.scrollWidth;
+            const viewportHeight = document.body.scrollHeight;
             const bottom = top + imageHeight;
             const right = left + imageWidth;
 
