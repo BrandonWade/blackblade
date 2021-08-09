@@ -60,7 +60,7 @@ function Card() {
             <NoResults showMessage={isEmpty(card)}>
                 <div className='Card-mainContent'>
                     <CardImage card={card} />
-                    <div>
+                    <div className='Card-facesContainer'>
                         {cardFaces?.map(face => {
                             return <CardFaceDetails key={face.face_id} face={face} />;
                         })}
