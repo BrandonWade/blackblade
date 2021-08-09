@@ -32,7 +32,7 @@ function Header() {
             <div className='Header-content'>
                 <Logo className='Header-logo' />
                 <form className='Header-searchForm' onSubmit={onSubmit}>
-                    <Input placeholder='Search' className='Header-searchBox' value={query} onChange={onChange} />
+                    <Input placeholder='Search by name' className='Header-searchBox' value={query} onChange={onChange} />
                 </form>
             </div>
             <div className='Header-linksContainer'>
