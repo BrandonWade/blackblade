@@ -76,7 +76,8 @@ function DeckList() {
                             key={deck.public_id}
                             publicID={deck.public_id}
                             name={deck.name}
-                            size={deck.size}
+                            deckSize={deck.deck_size}
+                            maybeboardSize={deck.maybeboard_size}
                             colors={deck.colors}
                             removeDeck={removeDeck}
                         />

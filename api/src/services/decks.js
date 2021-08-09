@@ -37,7 +37,14 @@ const createDeck = async (accountID, name, visibility) => {
     };
 };
 
-const saveDeck = async (accountID, publicID, name, visibility, deck) => {
+const saveDeck = async (
+    accountID,
+    publicID,
+    name,
+    visibility,
+    deck,
+    maybeboard,
+) => {
     try {
         const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
         const deckID = deckIDResult?.[0]?.id || 0;
@@ -52,7 +59,9 @@ const saveDeck = async (accountID, publicID, name, visibility, deck) => {
             );
         }
 
-        const size = sumBy(deck, (c) => parseInt(c.count));
+        const deckSize = sumBy(deck, (c) => parseInt(c.count));
+        const maybeboardSize = sumBy(maybeboard, (c) => parseInt(c.count));
+        const cards = [...deck, ...maybeboard];
         const colors = getColorList(deck);
 
         const saveResult = await DeckRepository.saveDeck(
@@ -60,9 +69,10 @@ const saveDeck = async (accountID, publicID, name, visibility, deck) => {
             deckID,
             name,
             visibility,
-            size,
+            deckSize,
+            maybeboardSize,
             colors,
-            deck,
+            cards,
         );
         if (!saveResult) {
             throw `error saving deck with public id ${publicID}`;

@@ -22,7 +22,7 @@ function useDecks() {
         }
     };
 
-    const saveDeck = async (publicID = '', name = '', visibility = 'private', deck = [], maybeboard = []) => {
+    const saveDeck = async (publicID = '', name = '', visibility = 'private', deckCards = [], maybeboardCards = []) => {
         function processCards(cards, location) {
             return cards.map(card => ({
                 count: card.count,
@@ -34,8 +34,9 @@ function useDecks() {
             }));
         }
 
-        const cards = [...processCards(deck, 'deck'), ...processCards(maybeboard, 'maybeboard')];
-        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, cards });
+        const deck = processCards(deckCards, 'deck');
+        const maybeboard = processCards(maybeboardCards, 'maybeboard');
+        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, deck, maybeboard });
 
         switch (response.status) {
             case 200:

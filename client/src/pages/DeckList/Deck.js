@@ -4,7 +4,7 @@ import useDecks from '../../hooks/useDecks';
 import useSymbols from '../../hooks/useSymbols';
 import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
 
-function Deck({ publicID = '', name = '', size = 0, colors = '', removeDeck = () => {} }) {
+function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colors = '', removeDeck = () => {} }) {
     const history = useHistory();
     const { saveDeck } = useDecks();
     const {
@@ -33,6 +33,12 @@ function Deck({ publicID = '', name = '', size = 0, colors = '', removeDeck = ()
         unmodifiedMaybeboardCards
     );
 
+    const getSizeText = () => {
+        const maybeboardText = maybeboardSize ? ` + ${maybeboardSize}` : '';
+        const suffix = deckSize + maybeboardSize === 1 ? ' card' : ' cards';
+        return `${deckSize}${maybeboardText} ${suffix}`;
+    };
+
     const onClick = async () => {
         if (!isUnmodified) {
             await saveDeck(deckPublicID, deckName, deckVisibility, deckCards, maybeboardCards);
@@ -56,7 +62,7 @@ function Deck({ publicID = '', name = '', size = 0, colors = '', removeDeck = ()
                 &#x2715;
             </div>
             <div className='DeckList-deckName'>{name}</div>
-            <div className='DeckList-deckSize'>{`${size} cards`}</div>
+            <div className='DeckList-deckSize'>{getSizeText()}</div>
             <div className='DeckList-deckColors' dangerouslySetInnerHTML={{ __html: useSymbols(colors) }} />
         </div>
     );

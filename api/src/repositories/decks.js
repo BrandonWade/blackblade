@@ -37,9 +37,10 @@ const saveDeck = async (
     deckID,
     name,
     visibility,
-    size,
+    deckSize,
+    maybeboardSize,
     colors,
-    deck,
+    cards,
 ) => {
     const tx = await connection.getConnection();
     await tx.beginTransaction();
@@ -57,7 +58,7 @@ const saveDeck = async (
         );
 
         // Only run if there are any cards in the deck to save
-        if (deck.length) {
+        if (cards.length) {
             await tx.query(
                 `INSERT INTO deck_cards(
                     deck_id,
@@ -68,7 +69,7 @@ const saveDeck = async (
                 ) VALUES ?
             `,
                 [
-                    deck.map((c) => [
+                    cards.map((c) => [
                         deckID,
                         c.card_id,
                         c.count,
@@ -84,12 +85,21 @@ const saveDeck = async (
             `UPDATE decks
             SET name = ?,
             visibility = ?,
-            size = ?,
+            deck_size = ?,
+            maybeboard_size = ?,
             colors = ?
             WHERE account_id = ?
             AND id = ?
         `,
-            [name, visibility, size, colors, accountID, deckID],
+            [
+                name,
+                visibility,
+                deckSize,
+                maybeboardSize,
+                colors,
+                accountID,
+                deckID,
+            ],
         );
 
         await tx.commit();
@@ -149,7 +159,8 @@ const listDecks = async (accountID) => {
         `SELECT
         d.public_id,
         d.name,
-        d.size,
+        d.deck_size,
+        d.maybeboard_size,
         d.colors
         FROM decks d
         WHERE d.account_id = ?

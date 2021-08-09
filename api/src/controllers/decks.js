@@ -25,7 +25,12 @@ const createDeck = async (req, res) => {
 const saveDeck = async (req, res) => {
     const { accountID } = req.session;
     const { publicID } = req.params;
-    const { name = 'Untitled Deck', visibility = 'private', cards } = req.body;
+    const {
+        name = 'Untitled Deck',
+        visibility = 'private',
+        deck = [],
+        maybeboard = [],
+    } = req.body;
 
     try {
         await DeckService.saveDeck(
@@ -33,7 +38,8 @@ const saveDeck = async (req, res) => {
             publicID,
             name,
             visibility,
-            cards,
+            deck,
+            maybeboard,
         );
     } catch (e) {
         if (e instanceof UnauthorizedError) {
