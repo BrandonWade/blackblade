@@ -23,6 +23,7 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
     const ownsDeck = accountPublicID === deckAccountPublicID;
     const inDeck = card.location === 'deck';
     const isMaybeboardSection = sectionType === 'maybeboard';
+    const [frontImage, backImage] = card?.faces_json?.map(face => face.image);
 
     const onCountChange = e => {
         const updateCardCount = inDeck ? updateDeckCardCount : updateMaybeboardCardCount;
@@ -107,8 +108,8 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
                             key={i}
                             cardID={card.card_id}
                             name={face.name}
-                            previewImageFront={face.image}
-                            previewImageBack={face.image}
+                            previewImageFront={frontImage}
+                            previewImageBack={backImage}
                             previewLocation='left'
                         />
                     );
