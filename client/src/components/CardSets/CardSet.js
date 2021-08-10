@@ -7,7 +7,8 @@ function CardSet({
     cardID = 0,
     setName = '',
     price = 0.0,
-    previewImage = '',
+    previewImageFront = '',
+    previewImageBack = '',
     onMouseEnter = () => {},
     onMouseLeave = () => {},
 }) {
@@ -18,7 +19,8 @@ function CardSet({
                 className={'CardSets-rowContent'}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
-                data-preview-image={previewImage}
+                data-preview-image-front={previewImageFront}
+                data-preview-image-back={previewImageBack}
             >
                 <span>{setName}</span>
                 <span>{price ? `$${price}` : null}</span>

@@ -4,7 +4,7 @@ import './CardImagePreview.scss';
 
 function CardImagePreview() {
     const [styles, setStyles] = useState({});
-    const { top, left, image, visible } = useContext(CardImagePreviewContext);
+    const { top, left, frontImage, backImage, visible } = useContext(CardImagePreviewContext);
 
     useEffect(() => {
         setStyles({
@@ -15,7 +15,8 @@ function CardImagePreview() {
 
     return visible ? (
         <div className='CardImagePreview' style={styles}>
-            <img className='CardImagePreview-image' src={image} alt='' />
+            <img className='CardImagePreview-image' src={frontImage} alt='' />
+            {backImage && <img className='CardImagePreview-image' src={backImage} alt='' />}
         </div>
     ) : null;
 }

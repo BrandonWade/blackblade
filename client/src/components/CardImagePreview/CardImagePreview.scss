@@ -4,7 +4,7 @@
     pointer-events: none;
 
     &-image {
-        display: block;
+        display: inline-block;
         width: var(--card-image-preview-image-width);
         height: var(--card-image-preview-image-height);
         border-radius: 1rem;

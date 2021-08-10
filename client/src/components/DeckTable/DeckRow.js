@@ -107,8 +107,8 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
                             key={i}
                             cardID={card.card_id}
                             name={face.name}
-                            image={face.image}
-                            previewImage={face.image}
+                            previewImageFront={face.image}
+                            previewImageBack={face.image}
                             previewLocation='left'
                         />
                     );

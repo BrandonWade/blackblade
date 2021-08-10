@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom';
 import withSetCardImagePreviewPosition from '../../hocs/withSetCardImagePreviewPosition';
 
-function DeckRowName({ innerRef = null, previewImage = '', cardID = 0, name = '', onMouseEnter = () => {}, onMouseLeave = () => {} }) {
+function DeckRowName({
+    innerRef = null,
+    previewImageFront = '',
+    previewImageBack = '',
+    cardID = 0,
+    name = '',
+    onMouseEnter = () => {},
+    onMouseLeave = () => {},
+}) {
     return (
         <Link to={`/cards/${cardID}`}>
             <div
@@ -9,7 +17,8 @@ function DeckRowName({ innerRef = null, previewImage = '', cardID = 0, name = ''
                 className='DeckTable-cardLink'
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
-                data-preview-image={previewImage}
+                data-preview-image-front={previewImageFront}
+                data-preview-image-back={previewImageBack}
             >
                 {name}
             </div>
