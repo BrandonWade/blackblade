@@ -11,12 +11,15 @@ function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colo
         deckPublicID,
         deckName,
         deckVisibility,
+        deckNotes,
         deckCards,
         maybeboardCards,
         unmodifiedDeckName,
         setUnmodifiedDeckName,
         unmodifiedDeckVisibility,
         setUnmodifiedDeckVisibility,
+        unmodifiedDeckNotes,
+        setUnmodifiedDeckNotes,
         unmodifiedDeckCards,
         setUnmodifiedDeckCards,
         unmodifiedMaybeboardCards,
@@ -25,10 +28,12 @@ function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colo
     const isUnmodified = isDeckUnmodified(
         deckName,
         deckVisibility,
+        deckNotes,
         deckCards,
         maybeboardCards,
         unmodifiedDeckName,
         unmodifiedDeckVisibility,
+        unmodifiedDeckNotes,
         unmodifiedDeckCards,
         unmodifiedMaybeboardCards
     );
@@ -41,9 +46,10 @@ function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colo
 
     const onClick = async () => {
         if (!isUnmodified) {
-            await saveDeck(deckPublicID, deckName, deckVisibility, deckCards, maybeboardCards);
+            await saveDeck(deckPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards);
             setUnmodifiedDeckName();
             setUnmodifiedDeckVisibility();
+            setUnmodifiedDeckNotes();
             setUnmodifiedDeckCards();
             setUnmodifiedMaybeboardCards();
         }

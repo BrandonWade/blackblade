@@ -24,6 +24,8 @@ function DeckBuilder() {
         setDeckName,
         deckVisibility,
         setDeckVisibility,
+        deckNotes,
+        setDeckNotes,
         deckCards,
         setDeckCards,
         maybeboardCards,
@@ -32,6 +34,8 @@ function DeckBuilder() {
         setUnmodifiedDeckName,
         unmodifiedDeckVisibility,
         setUnmodifiedDeckVisibility,
+        unmodifiedDeckNotes,
+        setUnmodifiedDeckNotes,
         unmodifiedDeckCards,
         setUnmodifiedDeckCards,
         unmodifiedMaybeboardCards,
@@ -44,10 +48,12 @@ function DeckBuilder() {
     const isUnmodified = isDeckUnmodified(
         deckName,
         deckVisibility,
+        deckNotes,
         deckCards,
         maybeboardCards,
         unmodifiedDeckName,
         unmodifiedDeckVisibility,
+        unmodifiedDeckNotes,
         unmodifiedDeckCards,
         unmodifiedMaybeboardCards
     );
@@ -70,10 +76,12 @@ function DeckBuilder() {
             setDeckAccountPublicID(response.accountPublicID);
             setDeckName(response.name);
             setDeckVisibility(response.visibility);
+            setDeckNotes(response.notes);
             setDeckCards(deck);
             setMaybeboardCards(maybeboard);
             setUnmodifiedDeckName();
             setUnmodifiedDeckVisibility();
+            setUnmodifiedDeckNotes();
             setUnmodifiedDeckCards();
             setUnmodifiedMaybeboardCards();
         };
@@ -86,7 +94,7 @@ function DeckBuilder() {
     }, []);
 
     const onSaveDeck = async () => {
-        const response = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
+        const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards);
         if (!response?.success) {
             if (response?.message) {
                 const { text, type } = response?.message;
@@ -99,6 +107,7 @@ function DeckBuilder() {
         // Once changes to the deck have been saved, update the unmodified state
         setUnmodifiedDeckName();
         setUnmodifiedDeckVisibility();
+        setUnmodifiedDeckNotes();
         setUnmodifiedDeckCards();
         setUnmodifiedMaybeboardCards();
     };

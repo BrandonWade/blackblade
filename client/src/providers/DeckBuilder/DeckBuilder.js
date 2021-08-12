@@ -6,6 +6,7 @@ import {
     SET_DECK_ACCOUNT_PUBLIC_ID,
     SET_DECK_NAME,
     SET_DECK_VISIBILITY,
+    SET_DECK_NOTES,
     SET_DECK_CARDS,
     UPDATE_DECK_CARD_COUNT,
     UPDATE_DECK_CARD_ART,
@@ -16,6 +17,7 @@ import {
     REMOVE_MAYBEBOARD_CARD,
     SET_UNMODIFIED_DECK_NAME,
     SET_UNMODIFIED_DECK_VISIBILITY,
+    SET_UNMODIFIED_DECK_NOTES,
     SET_UNMODIFIED_DECK_CARDS,
     SET_UNMODIFIED_MAYBEBOARD_CARDS,
     SET_MAYBEBOARD_MODE,
@@ -38,6 +40,7 @@ function DeckBuilderProvider({ children = [] }) {
     const setDeckAccountPublicID = deckAccountPublicID => dispatch({ type: SET_DECK_ACCOUNT_PUBLIC_ID, deckAccountPublicID });
     const setDeckName = deckName => dispatch({ type: SET_DECK_NAME, deckName });
     const setDeckVisibility = deckVisibility => dispatch({ type: SET_DECK_VISIBILITY, deckVisibility });
+    const setDeckNotes = deckNotes => dispatch({ type: SET_DECK_NOTES, deckNotes });
     const setDeckCards = deckCards => dispatch({ type: SET_DECK_CARDS, deckCards });
     const updateDeckCardCount = (cardID, count) => dispatch({ type: UPDATE_DECK_CARD_COUNT, cardID, count });
     const updateDeckCardArt = (cardID, cardVariant) => dispatch({ type: UPDATE_DECK_CARD_ART, cardID, cardVariant });
@@ -48,6 +51,7 @@ function DeckBuilderProvider({ children = [] }) {
     const removeMaybeboardCard = cardID => dispatch({ type: REMOVE_MAYBEBOARD_CARD, cardID });
     const setUnmodifiedDeckName = () => dispatch({ type: SET_UNMODIFIED_DECK_NAME });
     const setUnmodifiedDeckVisibility = () => dispatch({ type: SET_UNMODIFIED_DECK_VISIBILITY });
+    const setUnmodifiedDeckNotes = () => dispatch({ type: SET_UNMODIFIED_DECK_NOTES });
     const setUnmodifiedDeckCards = () => dispatch({ type: SET_UNMODIFIED_DECK_CARDS });
     const setUnmodifiedMaybeboardCards = () => dispatch({ type: SET_UNMODIFIED_MAYBEBOARD_CARDS });
     const setMaybeboardMode = maybeboardMode => dispatch({ type: SET_MAYBEBOARD_MODE, maybeboardMode });
@@ -68,6 +72,7 @@ function DeckBuilderProvider({ children = [] }) {
         setDeckAccountPublicID,
         setDeckName,
         setDeckVisibility,
+        setDeckNotes,
         setDeckCards,
         updateDeckCardCount,
         updateDeckCardArt,
@@ -78,6 +83,7 @@ function DeckBuilderProvider({ children = [] }) {
         removeMaybeboardCard,
         setUnmodifiedDeckName,
         setUnmodifiedDeckVisibility,
+        setUnmodifiedDeckNotes,
         setUnmodifiedDeckCards,
         setUnmodifiedMaybeboardCards,
         setMaybeboardMode,

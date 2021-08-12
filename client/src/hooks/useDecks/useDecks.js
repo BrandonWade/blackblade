@@ -3,8 +3,8 @@ import useFetch from '../useFetch';
 function useDecks() {
     const { fetchData } = useFetch();
 
-    const createDeck = async (name = '', visibility = 'private') => {
-        const response = await fetchData('/api/decks', 'POST', { name, visibility });
+    const createDeck = async (name = '', visibility = 'private', notes = '') => {
+        const response = await fetchData('/api/decks', 'POST', { name, visibility, notes });
         const data = await response.json();
 
         switch (response.status) {
@@ -22,7 +22,7 @@ function useDecks() {
         }
     };
 
-    const saveDeck = async (publicID = '', name = '', visibility = 'private', deckCards = [], maybeboardCards = []) => {
+    const saveDeck = async (publicID = '', name = '', visibility = 'private', notes = '', deckCards = [], maybeboardCards = []) => {
         function processCards(cards, location) {
             return cards.map(card => ({
                 count: card.count,
@@ -36,7 +36,7 @@ function useDecks() {
 
         const deck = processCards(deckCards, 'deck');
         const maybeboard = processCards(maybeboardCards, 'maybeboard');
-        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, deck, maybeboard });
+        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, notes, deck, maybeboard });
 
         switch (response.status) {
             case 200:
@@ -64,6 +64,7 @@ function useDecks() {
                     accountPublicID: data.account_public_id,
                     name: data.name,
                     visibility: data.visibility,
+                    notes: '', // TODO: use data.notes once the backend is wired up
                     cards: data.cards,
                 };
             }

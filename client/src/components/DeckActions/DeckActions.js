@@ -19,14 +19,17 @@ function DeckActions() {
         deckAccountPublicID,
         deckName,
         deckVisibility,
+        deckNotes,
         deckCards,
         maybeboardCards,
         unmodifiedDeckName,
         unmodifiedDeckVisibility,
+        unmodifiedDeckNotes,
         unmodifiedDeckCards,
         unmodifiedMaybeboardCards,
         setUnmodifiedDeckName,
         setUnmodifiedDeckVisibility,
+        setUnmodifiedDeckNotes,
         setUnmodifiedDeckCards,
         setUnmodifiedMaybeboardCards,
     } = useContext(DeckBuilderContext);
@@ -36,10 +39,12 @@ function DeckActions() {
     const isUnmodified = isDeckUnmodified(
         deckName,
         deckVisibility,
+        deckNotes,
         deckCards,
         maybeboardCards,
         unmodifiedDeckName,
         unmodifiedDeckVisibility,
+        unmodifiedDeckNotes,
         unmodifiedDeckCards,
         unmodifiedMaybeboardCards
     );
@@ -51,7 +56,7 @@ function DeckActions() {
     const onExportDeck = async () => {
         if (!isUnmodified) {
             // Since the deck export comes from the backend, ensure we persist the latest deck state before exporting
-            const saveResponse = await saveDeck(publicID, deckName, deckVisibility, deckCards, maybeboardCards);
+            const saveResponse = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards);
             if (!saveResponse?.success) {
                 const { text, type } = saveResponse?.message;
                 showMessage(text, type);
@@ -62,6 +67,7 @@ function DeckActions() {
         // Once changes to the deck have been saved, update the unmodified state
         setUnmodifiedDeckName();
         setUnmodifiedDeckVisibility();
+        setUnmodifiedDeckNotes();
         setUnmodifiedDeckCards();
         setUnmodifiedMaybeboardCards();
 

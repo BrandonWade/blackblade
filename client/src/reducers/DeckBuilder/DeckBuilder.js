@@ -5,6 +5,7 @@ import {
     SET_DECK_ACCOUNT_PUBLIC_ID,
     SET_DECK_NAME,
     SET_DECK_VISIBILITY,
+    SET_DECK_NOTES,
     SET_DECK_CARDS,
     UPDATE_DECK_CARD_COUNT,
     UPDATE_DECK_CARD_ART,
@@ -15,6 +16,7 @@ import {
     REMOVE_MAYBEBOARD_CARD,
     SET_UNMODIFIED_DECK_NAME,
     SET_UNMODIFIED_DECK_VISIBILITY,
+    SET_UNMODIFIED_DECK_NOTES,
     SET_UNMODIFIED_DECK_CARDS,
     SET_UNMODIFIED_MAYBEBOARD_CARDS,
     SET_MAYBEBOARD_MODE,
@@ -55,6 +57,12 @@ function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 deckVisibility: action.deckVisibility,
+            };
+
+        case SET_DECK_NOTES:
+            return {
+                ...state,
+                deckNotes: action.deckNotes,
             };
 
         case SET_DECK_CARDS:
@@ -188,6 +196,12 @@ function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 unmodifiedDeckVisibility: state.deckVisibility,
+            };
+
+        case SET_UNMODIFIED_DECK_NOTES:
+            return {
+                ...state,
+                unmodifiedDeckNotes: state.deckNotes,
             };
 
         case SET_UNMODIFIED_DECK_CARDS:

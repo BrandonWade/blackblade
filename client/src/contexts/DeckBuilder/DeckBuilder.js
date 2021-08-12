@@ -25,10 +25,12 @@ export const initialState = {
 export const isDeckUnmodified = (
     deckName,
     deckVisibility,
+    deckNotes,
     deckCards,
     maybeboardCards,
     unmodifiedDeckName,
     unmodifiedDeckVisibility,
+    unmodifiedDeckNotes,
     unmodifiedDeckCards,
     unmodifiedMaybeboardCards
 ) => {
@@ -36,7 +38,8 @@ export const isDeckUnmodified = (
         isEqual(deckCards, unmodifiedDeckCards) &&
         isEqual(maybeboardCards, unmodifiedMaybeboardCards) &&
         isEqual(deckName, unmodifiedDeckName) &&
-        isEqual(deckVisibility, unmodifiedDeckVisibility)
+        isEqual(deckVisibility, unmodifiedDeckVisibility) &&
+        isEqual(deckNotes, unmodifiedDeckNotes)
     );
 };
 

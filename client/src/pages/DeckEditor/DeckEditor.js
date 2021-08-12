@@ -16,11 +16,20 @@ function DeckEditor({ editing = false }) {
     const { publicID } = useParams();
     const { createDeck } = useDecks();
     const { showMessage } = useMessage();
-    const { setDeckPublicID, setDeckAccountPublicID, deckName, setDeckName, deckVisibility, setDeckVisibility, resetDeckBuilder } =
-        useContext(DeckBuilderContext);
-    const [name, setName] = useState(editing ? deckName : 'Untitled Deck');
-    const [visibility, setVisibility] = useState(editing ? deckVisibility : 'private');
-    const [notes, setNotes] = useState(initialState.deckNotes);
+    const {
+        setDeckPublicID,
+        setDeckAccountPublicID,
+        deckName,
+        setDeckName,
+        deckVisibility,
+        setDeckVisibility,
+        deckNotes,
+        setDeckNotes,
+        resetDeckBuilder,
+    } = useContext(DeckBuilderContext);
+    const [name, setName] = useState(editing ? deckName : initialState.deckName);
+    const [visibility, setVisibility] = useState(editing ? deckVisibility : initialState.deckVisibility);
+    const [notes, setNotes] = useState(editing ? deckNotes : initialState.deckNotes);
     const notesMaxLength = 512;
 
     const onChangeName = e => {
@@ -40,10 +49,13 @@ function DeckEditor({ editing = false }) {
         showMessage();
         setDeckName(name);
         setDeckVisibility(visibility);
+        setDeckNotes(notes);
 
         if (!editing) {
-            const response = await createDeck(name, visibility);
+            const response = await createDeck(name, visibility, notes);
             if (!response.success) {
+                const { text, type } = response?.message;
+                showMessage(text, type);
                 return;
             }
 
