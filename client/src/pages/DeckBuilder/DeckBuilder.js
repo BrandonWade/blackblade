@@ -31,15 +31,11 @@ function DeckBuilder() {
         maybeboardCards,
         setMaybeboardCards,
         unmodifiedDeckName,
-        setUnmodifiedDeckName,
         unmodifiedDeckVisibility,
-        setUnmodifiedDeckVisibility,
         unmodifiedDeckNotes,
-        setUnmodifiedDeckNotes,
         unmodifiedDeckCards,
-        setUnmodifiedDeckCards,
         unmodifiedMaybeboardCards,
-        setUnmodifiedMaybeboardCards,
+        updateUnmodifiedState,
         maybeboardMode,
         setMaybeboardMode,
     } = useContext(DeckBuilderContext);
@@ -79,11 +75,7 @@ function DeckBuilder() {
             setDeckNotes(response.notes);
             setDeckCards(deck);
             setMaybeboardCards(maybeboard);
-            setUnmodifiedDeckName();
-            setUnmodifiedDeckVisibility();
-            setUnmodifiedDeckNotes();
-            setUnmodifiedDeckCards();
-            setUnmodifiedMaybeboardCards();
+            updateUnmodifiedState();
         };
 
         if (isUnmodified) {
@@ -105,11 +97,7 @@ function DeckBuilder() {
         }
 
         // Once changes to the deck have been saved, update the unmodified state
-        setUnmodifiedDeckName();
-        setUnmodifiedDeckVisibility();
-        setUnmodifiedDeckNotes();
-        setUnmodifiedDeckCards();
-        setUnmodifiedMaybeboardCards();
+        updateUnmodifiedState();
     };
 
     return (

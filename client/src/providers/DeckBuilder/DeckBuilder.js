@@ -15,11 +15,7 @@ import {
     UPDATE_MAYBEBOARD_CARD_COUNT,
     UPDATE_MAYBEBOARD_CARD_ART,
     REMOVE_MAYBEBOARD_CARD,
-    SET_UNMODIFIED_DECK_NAME,
-    SET_UNMODIFIED_DECK_VISIBILITY,
-    SET_UNMODIFIED_DECK_NOTES,
-    SET_UNMODIFIED_DECK_CARDS,
-    SET_UNMODIFIED_MAYBEBOARD_CARDS,
+    UPDATE_UNMODIFIED_STATE,
     SET_MAYBEBOARD_MODE,
     SET_NAME,
     SET_PAGE,
@@ -49,11 +45,7 @@ function DeckBuilderProvider({ children = [] }) {
     const updateMaybeboardCardCount = (cardID, count) => dispatch({ type: UPDATE_MAYBEBOARD_CARD_COUNT, cardID, count });
     const updateMaybeboardCardArt = (cardID, cardVariant) => dispatch({ type: UPDATE_MAYBEBOARD_CARD_ART, cardID, cardVariant });
     const removeMaybeboardCard = cardID => dispatch({ type: REMOVE_MAYBEBOARD_CARD, cardID });
-    const setUnmodifiedDeckName = () => dispatch({ type: SET_UNMODIFIED_DECK_NAME });
-    const setUnmodifiedDeckVisibility = () => dispatch({ type: SET_UNMODIFIED_DECK_VISIBILITY });
-    const setUnmodifiedDeckNotes = () => dispatch({ type: SET_UNMODIFIED_DECK_NOTES });
-    const setUnmodifiedDeckCards = () => dispatch({ type: SET_UNMODIFIED_DECK_CARDS });
-    const setUnmodifiedMaybeboardCards = () => dispatch({ type: SET_UNMODIFIED_MAYBEBOARD_CARDS });
+    const updateUnmodifiedState = () => dispatch({ type: UPDATE_UNMODIFIED_STATE });
     const setMaybeboardMode = maybeboardMode => dispatch({ type: SET_MAYBEBOARD_MODE, maybeboardMode });
     const setName = name => dispatch({ type: SET_NAME, name });
     const setPage = page => dispatch({ type: SET_PAGE, page });
@@ -81,11 +73,7 @@ function DeckBuilderProvider({ children = [] }) {
         updateMaybeboardCardCount,
         updateMaybeboardCardArt,
         removeMaybeboardCard,
-        setUnmodifiedDeckName,
-        setUnmodifiedDeckVisibility,
-        setUnmodifiedDeckNotes,
-        setUnmodifiedDeckCards,
-        setUnmodifiedMaybeboardCards,
+        updateUnmodifiedState,
         setMaybeboardMode,
         setName,
         setPage,

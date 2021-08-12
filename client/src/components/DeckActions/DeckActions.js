@@ -27,11 +27,7 @@ function DeckActions() {
         unmodifiedDeckNotes,
         unmodifiedDeckCards,
         unmodifiedMaybeboardCards,
-        setUnmodifiedDeckName,
-        setUnmodifiedDeckVisibility,
-        setUnmodifiedDeckNotes,
-        setUnmodifiedDeckCards,
-        setUnmodifiedMaybeboardCards,
+        updateUnmodifiedState,
     } = useContext(DeckBuilderContext);
     const { setDeckExport, setVisible } = useContext(ExportDeckDialogContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
@@ -65,11 +61,7 @@ function DeckActions() {
         }
 
         // Once changes to the deck have been saved, update the unmodified state
-        setUnmodifiedDeckName();
-        setUnmodifiedDeckVisibility();
-        setUnmodifiedDeckNotes();
-        setUnmodifiedDeckCards();
-        setUnmodifiedMaybeboardCards();
+        updateUnmodifiedState();
 
         const exportResponse = await exportDeck(publicID);
         if (!exportResponse?.success) {

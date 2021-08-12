@@ -15,15 +15,11 @@ function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colo
         deckCards,
         maybeboardCards,
         unmodifiedDeckName,
-        setUnmodifiedDeckName,
         unmodifiedDeckVisibility,
-        setUnmodifiedDeckVisibility,
         unmodifiedDeckNotes,
-        setUnmodifiedDeckNotes,
         unmodifiedDeckCards,
-        setUnmodifiedDeckCards,
         unmodifiedMaybeboardCards,
-        setUnmodifiedMaybeboardCards,
+        updateUnmodifiedState,
     } = useContext(DeckBuilderContext);
     const isUnmodified = isDeckUnmodified(
         deckName,
@@ -47,11 +43,7 @@ function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colo
     const onClick = async () => {
         if (!isUnmodified) {
             await saveDeck(deckPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards);
-            setUnmodifiedDeckName();
-            setUnmodifiedDeckVisibility();
-            setUnmodifiedDeckNotes();
-            setUnmodifiedDeckCards();
-            setUnmodifiedMaybeboardCards();
+            updateUnmodifiedState();
         }
 
         history.push(`/decks/${publicID}`);

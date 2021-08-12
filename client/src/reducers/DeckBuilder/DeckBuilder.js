@@ -14,11 +14,7 @@ import {
     UPDATE_MAYBEBOARD_CARD_COUNT,
     UPDATE_MAYBEBOARD_CARD_ART,
     REMOVE_MAYBEBOARD_CARD,
-    SET_UNMODIFIED_DECK_NAME,
-    SET_UNMODIFIED_DECK_VISIBILITY,
-    SET_UNMODIFIED_DECK_NOTES,
-    SET_UNMODIFIED_DECK_CARDS,
-    SET_UNMODIFIED_MAYBEBOARD_CARDS,
+    UPDATE_UNMODIFIED_STATE,
     SET_MAYBEBOARD_MODE,
     SET_NAME,
     SET_PAGE,
@@ -186,33 +182,13 @@ function DeckBuilderReducer(state = {}, action = {}) {
                 maybeboardCards: state.maybeboardCards.filter(card => card.card_id !== action.cardID),
             };
 
-        case SET_UNMODIFIED_DECK_NAME:
+        case UPDATE_UNMODIFIED_STATE:
             return {
                 ...state,
                 unmodifiedDeckName: state.deckName,
-            };
-
-        case SET_UNMODIFIED_DECK_VISIBILITY:
-            return {
-                ...state,
                 unmodifiedDeckVisibility: state.deckVisibility,
-            };
-
-        case SET_UNMODIFIED_DECK_NOTES:
-            return {
-                ...state,
                 unmodifiedDeckNotes: state.deckNotes,
-            };
-
-        case SET_UNMODIFIED_DECK_CARDS:
-            return {
-                ...state,
                 unmodifiedDeckCards: state.deckCards,
-            };
-
-        case SET_UNMODIFIED_MAYBEBOARD_CARDS:
-            return {
-                ...state,
                 unmodifiedMaybeboardCards: state.maybeboardCards,
             };
 
