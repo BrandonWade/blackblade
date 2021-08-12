@@ -20,6 +20,11 @@
         align-items: center;
     }
 
+    &-description {
+        margin-top: 0.5rem;
+        font-size: 1.2rem;
+    }
+
     &-visibility {
         display: block;
         font-size: 1.6rem;
@@ -30,12 +35,12 @@
         }
     }
 
-    &-description {
-        margin-top: 0.5rem;
-        font-size: 1.2rem;
+    &-notes {
+        height: 10rem;
+        font-size: 1.6rem;
     }
 
-    &-createButton {
-        margin-top: 1rem;
+    &-notesDescription {
+        text-align: right;
     }
 }

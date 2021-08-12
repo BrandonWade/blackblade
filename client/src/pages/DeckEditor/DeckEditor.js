@@ -2,11 +2,12 @@ import { useState, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import useMessage from '../../hooks/useMessage';
-import DeckBuilderContext from '../../contexts/DeckBuilder';
+import DeckBuilderContext, { initialState } from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
 import Panel from '../../components/Panel';
 import { InputField } from '../../components/Input';
 import { SelectField } from '../../components/Select';
+import { TextAreaField } from '../../components/TextArea';
 import Button from '../../components/Button';
 import './DeckEditor.scss';
 
@@ -19,6 +20,8 @@ function DeckEditor({ editing = false }) {
         useContext(DeckBuilderContext);
     const [name, setName] = useState(editing ? deckName : 'Untitled Deck');
     const [visibility, setVisibility] = useState(editing ? deckVisibility : 'private');
+    const [notes, setNotes] = useState(initialState.deckNotes);
+    const notesMaxLength = 512;
 
     const onChangeName = e => {
         setName(e.target.value);
@@ -26,6 +29,10 @@ function DeckEditor({ editing = false }) {
 
     const onChangeVisibility = e => {
         setVisibility(e.target.value);
+    };
+
+    const onChangeNotes = e => {
+        setNotes(e.target.value);
     };
 
     const onSubmit = async e => {
@@ -80,7 +87,18 @@ function DeckEditor({ editing = false }) {
                         <option value='private'>Private</option>
                         <option value='public'>Public</option>
                     </SelectField>
-                    <Button className='DeckEditor-createButton'>{`${editing ? 'Update' : 'Create'}`}</Button>
+                    <TextAreaField
+                        rowClassName='Panel-inputRow'
+                        labelClassName='Panel-inputLabel'
+                        className='DeckEditor-notes'
+                        descriptionClassName='Panel-inputLabel DeckEditor-description DeckEditor-notesDescription'
+                        label='Notes'
+                        value={notes}
+                        maxLength={notesMaxLength}
+                        description={`${notes.length}/${notesMaxLength}`}
+                        onChange={onChangeNotes}
+                    />
+                    <Button>{`${editing ? 'Update' : 'Create'}`}</Button>
                 </form>
             </Panel>
         </HeaderPage>
