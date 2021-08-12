@@ -1,21 +1,22 @@
 import { connection } from '../db';
-import NotFoundError from '../errors/not_found';
 
-const createDeck = async (accountID, name, visibility) => {
+const createDeck = async (accountID, name, visibility, notes) => {
     return connection.query(
         `INSERT INTO decks (
             public_id,
             account_id,
             name,
-            visibility
+            visibility,
+            notes
         ) VALUES (
             LEFT(MD5(RAND()), 16),
+            ?,
             ?,
             ?,
             ?
         )
     `,
-        [accountID, name, visibility],
+        [accountID, name, visibility, notes],
     );
 };
 
@@ -37,6 +38,7 @@ const saveDeck = async (
     deckID,
     name,
     visibility,
+    notes,
     deckSize,
     maybeboardSize,
     colors,
@@ -85,6 +87,7 @@ const saveDeck = async (
             `UPDATE decks
             SET name = ?,
             visibility = ?,
+            notes = ?,
             deck_size = ?,
             maybeboard_size = ?,
             colors = ?
@@ -94,6 +97,7 @@ const saveDeck = async (
             [
                 name,
                 visibility,
+                notes,
                 deckSize,
                 maybeboardSize,
                 colors,

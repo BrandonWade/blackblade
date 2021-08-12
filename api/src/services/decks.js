@@ -5,7 +5,7 @@ import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
 import getColorList from '../helpers/colors';
 
-const createDeck = async (accountID, name, visibility) => {
+const createDeck = async (accountID, name, visibility, notes) => {
     let deckPublicID;
     let accountPublicID;
 
@@ -14,6 +14,7 @@ const createDeck = async (accountID, name, visibility) => {
             accountID,
             name,
             visibility,
+            notes,
         );
         const deckID = createResult?.insertId || 0;
         if (!deckID) {
@@ -42,6 +43,7 @@ const saveDeck = async (
     publicID,
     name,
     visibility,
+    notes,
     deck,
     maybeboard,
 ) => {
@@ -69,6 +71,7 @@ const saveDeck = async (
             deckID,
             name,
             visibility,
+            notes,
             deckSize,
             maybeboardSize,
             colors,
@@ -115,6 +118,7 @@ const getDeck = async (publicID, accountID) => {
         account_public_id: deck?.account_public_id,
         name: deck?.name,
         visibility: deck?.visibility,
+        notes: deck?.notes,
         cards,
     };
 };

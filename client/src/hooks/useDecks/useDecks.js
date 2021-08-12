@@ -64,7 +64,7 @@ function useDecks() {
                     accountPublicID: data.account_public_id,
                     name: data.name,
                     visibility: data.visibility,
-                    notes: '', // TODO: use data.notes once the backend is wired up
+                    notes: data.notes,
                     cards: data.cards,
                 };
             }

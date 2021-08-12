@@ -6,11 +6,20 @@ import { errorMessage } from '../helpers/messages';
 
 const createDeck = async (req, res) => {
     const { accountID } = req.session;
-    const { name = 'Untitled Deck', visibility = 'private' } = req.body;
+    const {
+        name = 'Untitled Deck',
+        visibility = 'private',
+        notes = '',
+    } = req.body;
     let result;
 
     try {
-        result = await DeckService.createDeck(accountID, name, visibility);
+        result = await DeckService.createDeck(
+            accountID,
+            name,
+            visibility,
+            notes,
+        );
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: errorMessage(
@@ -28,6 +37,7 @@ const saveDeck = async (req, res) => {
     const {
         name = 'Untitled Deck',
         visibility = 'private',
+        notes = '',
         deck = [],
         maybeboard = [],
     } = req.body;
@@ -38,6 +48,7 @@ const saveDeck = async (req, res) => {
             publicID,
             name,
             visibility,
+            notes,
             deck,
             maybeboard,
         );
