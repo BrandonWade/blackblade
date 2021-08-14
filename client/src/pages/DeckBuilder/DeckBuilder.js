@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import useMessage from '../../hooks/useMessage';
-import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
+import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import CardArtSelector from '../../components/CardArtSelector';
@@ -19,9 +19,10 @@ import './DeckBuilder.scss';
 function DeckBuilder() {
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDecks();
-    const deckBuilderTabs = useDeckBuilderTabs();
+    const { accountPublicID } = useContext(AuthContext);
     const {
         setDeckPublicID,
+        deckAccountPublicID,
         setDeckAccountPublicID,
         deckName,
         setDeckName,
@@ -56,6 +57,7 @@ function DeckBuilder() {
         unmodifiedDeckCards,
         unmodifiedMaybeboardCards
     );
+    const ownsDeck = accountPublicID === deckAccountPublicID;
 
     useEffect(() => {
         const fetchDeck = async () => {
@@ -108,9 +110,7 @@ function DeckBuilder() {
             <CardArtSelector />
             <ExportDeckDialog />
             <CardImagePreview />
-            <div className='DeckBuilder-displayPanel'>
-                <DeckBuilderSearch />
-            </div>
+            <div className='DeckBuilder-displayPanel'>{ownsDeck ? <DeckBuilderSearch /> : <DeckPreview />}</div>
             <div className='DeckBuilder-deckPanel'>
                 <div className='DeckBuilder-deckInfo'>
                     <div className='DeckBuilder-nameBar'>
