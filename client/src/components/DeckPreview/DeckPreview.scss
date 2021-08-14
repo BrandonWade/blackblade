@@ -1,0 +1,14 @@
+.DeckPreview {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+
+    &-cardGrid {
+        width: 100%;
+        padding: 1rem;
+
+        &:not(:last-child) {
+            border-bottom: var(--line);
+        }
+    }
+}
