@@ -8,7 +8,8 @@ import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import CardArtSelector from '../../components/CardArtSelector';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
 import CardImagePreview from '../../components/CardImagePreview';
-import TabStrip from '../../components/TabStrip';
+import DeckBuilderSearch from '../../components/DeckBuilderSearch';
+import DeckPreview from '../../components/DeckPreview';
 import DeckActions from '../../components/DeckActions';
 import DeckStats from '../../components/DeckStats';
 import DeckTable from '../../components/DeckTable';
@@ -108,7 +109,7 @@ function DeckBuilder() {
             <ExportDeckDialog />
             <CardImagePreview />
             <div className='DeckBuilder-displayPanel'>
-                <TabStrip tabs={deckBuilderTabs} />
+                <DeckBuilderSearch />
             </div>
             <div className='DeckBuilder-deckPanel'>
                 <div className='DeckBuilder-deckInfo'>

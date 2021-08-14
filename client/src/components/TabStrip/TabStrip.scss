@@ -15,6 +15,7 @@
         border-right: var(--line);
         border-top: 3px solid transparent;
         cursor: pointer;
+        user-select: none;
 
         @media only screen and (max-width: 37.5em) {
             font-size: 1.2rem;
