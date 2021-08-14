@@ -6,7 +6,7 @@ import useMessage from '../../hooks/useMessage';
 import CardContext from '../../contexts/Card';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import HeaderPage from '../../components/HeaderPage';
-import NoResults from '../../components/NoResults';
+import BackgroundMessage from '../../components/BackgroundMessage';
 import CardImage from '../../components/CardImage';
 import CardFaceDetails from '../../components/CardFaceDetails';
 import CardSets from '../../components/CardSets';
@@ -56,8 +56,8 @@ function Card() {
 
     return (
         <HeaderPage className='Card'>
-            <CardImagePreview />
-            <NoResults showMessage={isEmpty(card)}>
+            <BackgroundMessage showMessage={isEmpty(card)}>
+                <CardImagePreview />
                 <div className='Card-mainContent'>
                     <CardImage card={card} />
                     <div className='Card-facesContainer'>
@@ -70,7 +70,7 @@ function Card() {
                 <div className='Card-secondaryContent'>
                     <CardRulings rulings={card.rulings_json} />
                 </div>
-            </NoResults>
+            </BackgroundMessage>
         </HeaderPage>
     );
 }

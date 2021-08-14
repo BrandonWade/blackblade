@@ -1,43 +1,53 @@
-.NoResults {
+.BackgroundMessage {
     display: flex;
     justify-content: center;
+    align-items: center;
 
     &-content {
-        margin-top: 15rem;
         opacity: 0.35;
         display: flex;
         flex-direction: column;
         align-items: center;
 
         @media only screen and (max-width: 37.5em) {
-            margin: 6rem 0;
+            margin: 4rem;
         }
     }
 
     &-icon {
-        display: block;
+        margin-top: 10rem;
         width: 20rem;
         height: 20rem;
+        display: block;
 
         @media only screen and (max-width: 37.5em) {
-            width: 15rem;
-            height: 15rem;
+            margin-top: 3rem;
+            width: 10rem;
+            height: 10rem;
         }
     }
 
-    &-primaryLabel,
-    &-secondaryLabel {
+    &-primaryText,
+    &-secondaryText {
         text-align: center;
     }
 
-    &-primaryLabel {
+    &-primaryText {
         margin-top: 2rem;
         font-size: 2.75rem;
         font-weight: 700;
+
+        @media only screen and (max-width: 37.5em) {
+            font-size: 2rem;
+        }
     }
 
-    &-secondaryLabel {
+    &-secondaryText {
         margin-top: 0.5rem;
         font-size: 1.5rem;
+
+        @media only screen and (max-width: 37.5em) {
+            font-size: 1.2rem;
+        }
     }
 }
