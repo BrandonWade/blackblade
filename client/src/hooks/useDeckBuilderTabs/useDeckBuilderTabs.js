@@ -1,3 +1,4 @@
+import DeckPreview from '../../components/DeckPreview';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
 
 export default function useDeckBuilderTabs() {
@@ -5,6 +6,10 @@ export default function useDeckBuilderTabs() {
         {
             title: 'Search Cards',
             content: <DeckBuilderSearch />,
+        },
+        {
+            title: 'Deck Preview',
+            content: <DeckPreview />,
         },
     ];
 }

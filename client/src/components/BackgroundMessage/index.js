@@ -1,1 +1,1 @@
-export { default, NO_RESULTS } from './BackgroundMessage';
+export { default, EMPTY_DECK_PREVIEW } from './BackgroundMessage';

@@ -2,13 +2,14 @@ import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import useMessage from '../../hooks/useMessage';
+import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import CardArtSelector from '../../components/CardArtSelector';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
 import CardImagePreview from '../../components/CardImagePreview';
-import DeckBuilderSearch from '../../components/DeckBuilderSearch';
+import TabStrip from '../../components/TabStrip';
 import DeckPreview from '../../components/DeckPreview';
 import DeckActions from '../../components/DeckActions';
 import DeckStats from '../../components/DeckStats';
@@ -20,6 +21,7 @@ function DeckBuilder() {
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDecks();
     const { accountPublicID } = useContext(AuthContext);
+    const deckBuilderTabs = useDeckBuilderTabs();
     const {
         setDeckPublicID,
         deckAccountPublicID,
@@ -110,7 +112,7 @@ function DeckBuilder() {
             <CardArtSelector />
             <ExportDeckDialog />
             <CardImagePreview />
-            <div className='DeckBuilder-displayPanel'>{ownsDeck ? <DeckBuilderSearch /> : <DeckPreview />}</div>
+            <div className='DeckBuilder-displayPanel'>{ownsDeck ? <TabStrip tabs={deckBuilderTabs} /> : <DeckPreview />}</div>
             <div className='DeckBuilder-deckPanel'>
                 <div className='DeckBuilder-deckInfo'>
                     <div className='DeckBuilder-nameBar'>

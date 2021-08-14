@@ -1,14 +1,19 @@
-import { MagnifyingGlass } from '../Icons';
+import { Image, MagnifyingGlass } from '../Icons';
 import './BackgroundMessage.scss';
 
-export const NO_RESULTS = 'NO_RESULTS';
+export const EMPTY_DECK_PREVIEW = 'EMPTY_DECK_PREVIEW';
 
-function BackgroundMessage({ showMessage = false, type = NO_RESULTS, children = null }) {
+export default function BackgroundMessage({ showMessage = false, type = '', children = null }) {
     const message = getMessageInfo(type);
 
     function getMessageInfo(type) {
         switch (type) {
-            case NO_RESULTS:
+            case EMPTY_DECK_PREVIEW:
+                return {
+                    primaryText: 'No Preview Available',
+                    secondaryText: 'Add some cards to your deck first',
+                    icon: <Image className='BackgroundMessage-icon' />,
+                };
             default:
                 return {
                     primaryText: 'No Results',
@@ -30,5 +35,3 @@ function BackgroundMessage({ showMessage = false, type = NO_RESULTS, children = 
         children
     );
 }
-
-export default BackgroundMessage;
