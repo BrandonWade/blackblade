@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import useMessage from '../../hooks/useMessage';
@@ -16,8 +16,10 @@ import DeckStats from '../../components/DeckStats';
 import DeckTable from '../../components/DeckTable';
 import Button from '../../components/Button';
 import './DeckBuilder.scss';
+import BackgroundMessage from '../../components/BackgroundMessage';
 
 function DeckBuilder() {
+    const [deckExists, setDeckExists] = useState(false);
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDecks();
     const { accountPublicID } = useContext(AuthContext);
@@ -82,6 +84,7 @@ function DeckBuilder() {
             setDeckNotes(response.notes);
             setDeckCards(deck);
             setMaybeboardCards(maybeboard);
+            setDeckExists(true);
             updateUnmodifiedState();
         };
 
@@ -112,7 +115,9 @@ function DeckBuilder() {
             <CardArtSelector />
             <ExportDeckDialog />
             <CardImagePreview />
-            <div className='DeckBuilder-displayPanel'>{ownsDeck ? <TabStrip tabs={deckBuilderTabs} /> : <DeckPreview />}</div>
+            <div className='DeckBuilder-displayPanel'>
+                <BackgroundMessage showMessage={!deckExists}>{ownsDeck ? <TabStrip tabs={deckBuilderTabs} /> : <DeckPreview />}</BackgroundMessage>
+            </div>
             <div className='DeckBuilder-deckPanel'>
                 <div className='DeckBuilder-deckInfo'>
                     <div className='DeckBuilder-nameBar'>

@@ -4,7 +4,7 @@ import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/Search';
 import DeckBuilder from '../../contexts/DeckBuilder';
 import Paginator from '../../components/Paginator';
-import BackgroundMessage from '../../components/BackgroundMessage';
+import BackgroundMessage, { NO_RESULTS } from '../../components/BackgroundMessage';
 import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
@@ -82,7 +82,7 @@ function PaginatedResults({ className = '', onSelectResult = () => {}, isLink = 
                 page={page}
                 onPageChange={onPageChange}
             />
-            <BackgroundMessage showMessage={searchResults.length === 0}>
+            <BackgroundMessage showMessage={searchResults.length === 0} type={NO_RESULTS}>
                 <CardGrid cards={searchResults} isLink={isLink} onClick={onSelectResult} />
             </BackgroundMessage>
         </div>

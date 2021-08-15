@@ -1,6 +1,7 @@
-import { Image, MagnifyingGlass } from '../Icons';
+import { Image, MagnifyingGlass, QuestionMark } from '../Icons';
 import './BackgroundMessage.scss';
 
+export const NO_RESULTS = 'NO_RESULTS';
 export const EMPTY_DECK_PREVIEW = 'EMPTY_DECK_PREVIEW';
 
 export default function BackgroundMessage({ showMessage = false, type = '', children = null }) {
@@ -8,6 +9,12 @@ export default function BackgroundMessage({ showMessage = false, type = '', chil
 
     function getMessageInfo(type) {
         switch (type) {
+            case NO_RESULTS:
+                return {
+                    primaryText: 'No Results',
+                    secondaryText: 'Try searching for something else',
+                    icon: <MagnifyingGlass className='BackgroundMessage-icon' />,
+                };
             case EMPTY_DECK_PREVIEW:
                 return {
                     primaryText: 'No Preview Available',
@@ -16,9 +23,9 @@ export default function BackgroundMessage({ showMessage = false, type = '', chil
                 };
             default:
                 return {
-                    primaryText: 'No Results',
-                    secondaryText: 'Try searching for something else',
-                    icon: <MagnifyingGlass className='BackgroundMessage-icon' />,
+                    primaryText: 'Nothing Here',
+                    secondaryText: "Whatever you were looking for, it's not here",
+                    icon: <QuestionMark className='BackgroundMessage-icon' />,
                 };
         }
     }
