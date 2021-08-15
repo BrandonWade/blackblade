@@ -10,8 +10,8 @@ export default function DeckPreview() {
     return (
         <div className='DeckPreview'>
             <BackgroundMessage showMessage={deckCards.length + maybeboardCards.length === 0} type={EMPTY_DECK_PREVIEW}>
-                {deckCards.length ? <CardGrid className='DeckPreview-cardGrid' cards={deckCards} /> : null}
-                {maybeboardCards.length ? <CardGrid className='DeckPreview-cardGrid' cards={maybeboardCards} /> : null}
+                {deckCards.length ? <CardGrid className='DeckPreview-cardGrid' cards={deckCards} isLink={true} /> : null}
+                {maybeboardCards.length ? <CardGrid className='DeckPreview-cardGrid' cards={maybeboardCards} isLink={true} /> : null}
             </BackgroundMessage>
         </div>
     );
