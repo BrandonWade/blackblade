@@ -24,9 +24,10 @@ import {
     SET_NUMBER_OF_PAGES,
     MOVE_TO_DECK,
     MOVE_TO_MAYBEBOARD,
-    RESET_DECK_BUILDER,
+    SET_SELECTED_TAB_INDEX,
     SHOW_CARD_ART_SELECTOR,
     HIDE_CARD_ART_SELECTOR,
+    RESET_DECK_BUILDER,
 } from '../../actions/DeckBuilder';
 
 function DeckBuilderProvider({ children = [] }) {
@@ -55,6 +56,7 @@ function DeckBuilderProvider({ children = [] }) {
     const moveToDeck = (cardID, count) => dispatch({ type: MOVE_TO_DECK, cardID, count });
     const moveToMaybeboard = (cardID, count) => dispatch({ type: MOVE_TO_MAYBEBOARD, cardID, count });
     const resetDeckBuilder = () => dispatch({ type: RESET_DECK_BUILDER });
+    const setSelectedTabIndex = index => dispatch({ type: SET_SELECTED_TAB_INDEX, index });
     const showCardArtSelector = () => dispatch({ type: SHOW_CARD_ART_SELECTOR });
     const hideCardArtSelector = () => dispatch({ type: HIDE_CARD_ART_SELECTOR });
 
@@ -83,6 +85,7 @@ function DeckBuilderProvider({ children = [] }) {
         moveToDeck,
         moveToMaybeboard,
         resetDeckBuilder,
+        setSelectedTabIndex,
         showCardArtSelector,
         hideCardArtSelector,
     };

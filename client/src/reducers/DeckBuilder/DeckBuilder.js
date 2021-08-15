@@ -23,9 +23,10 @@ import {
     SET_NUMBER_OF_PAGES,
     MOVE_TO_DECK,
     MOVE_TO_MAYBEBOARD,
-    RESET_DECK_BUILDER,
+    SET_SELECTED_TAB_INDEX,
     SHOW_CARD_ART_SELECTOR,
     HIDE_CARD_ART_SELECTOR,
+    RESET_DECK_BUILDER,
 } from '../../actions/DeckBuilder';
 import { initialState } from '../../contexts/DeckBuilder';
 
@@ -300,12 +301,12 @@ function DeckBuilderReducer(state = {}, action = {}) {
             };
         }
 
-        case RESET_DECK_BUILDER: {
+        case SET_SELECTED_TAB_INDEX: {
             return {
-                ...initialState,
+                ...state,
+                selectedTabIndex: action.index,
             };
         }
-
         case SHOW_CARD_ART_SELECTOR: {
             return {
                 ...state,
@@ -317,6 +318,12 @@ function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 cardArtSelectorVisible: false,
+            };
+        }
+
+        case RESET_DECK_BUILDER: {
+            return {
+                ...initialState,
             };
         }
 

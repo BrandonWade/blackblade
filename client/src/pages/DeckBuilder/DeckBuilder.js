@@ -44,6 +44,8 @@ function DeckBuilder() {
         unmodifiedDeckCards,
         unmodifiedMaybeboardCards,
         updateUnmodifiedState,
+        selectedTabIndex,
+        setSelectedTabIndex,
         maybeboardMode,
         setMaybeboardMode,
     } = useContext(DeckBuilderContext);
@@ -116,7 +118,13 @@ function DeckBuilder() {
             <ExportDeckDialog />
             <CardImagePreview />
             <div className='DeckBuilder-displayPanel'>
-                <BackgroundMessage showMessage={!deckExists}>{ownsDeck ? <TabStrip tabs={deckBuilderTabs} /> : <DeckPreview />}</BackgroundMessage>
+                <BackgroundMessage showMessage={!deckExists}>
+                    {ownsDeck ? (
+                        <TabStrip tabs={deckBuilderTabs} selectedTabIndex={selectedTabIndex} setSelectedTabIndex={setSelectedTabIndex} />
+                    ) : (
+                        <DeckPreview />
+                    )}
+                </BackgroundMessage>
             </div>
             <div className='DeckBuilder-deckPanel'>
                 <div className='DeckBuilder-deckInfo'>

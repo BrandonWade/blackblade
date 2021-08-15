@@ -1,12 +1,9 @@
-import { useState } from 'react';
 import './TabStrip.scss';
 
-export default function TabStrip({ tabs = [] }) {
-    const [selectedIndex, setSelectedIndex] = useState(0);
-
+export default function TabStrip({ tabs = [], selectedTabIndex = 0, setSelectedTabIndex = () => {} }) {
     const onSelectTab = e => {
         const index = parseInt(e.target.dataset.tabStripIndex);
-        setSelectedIndex(index);
+        setSelectedTabIndex(index);
     };
 
     return (
@@ -16,7 +13,7 @@ export default function TabStrip({ tabs = [] }) {
                     return (
                         <div
                             key={tab.title}
-                            className={`TabStrip-title ${i === selectedIndex ? 'TabStrip-title--selected' : ''}`}
+                            className={`TabStrip-title ${i === selectedTabIndex ? 'TabStrip-title--selected' : ''}`}
                             onClick={onSelectTab}
                             data-tab-strip-index={i}
                         >
@@ -28,7 +25,7 @@ export default function TabStrip({ tabs = [] }) {
             {tabs.map((tab, i) => (
                 <div
                     key={tab.title}
-                    className={`TabStrip-content ${i === selectedIndex ? 'TabStrip-content--selected' : ''}`}
+                    className={`TabStrip-content ${i === selectedTabIndex ? 'TabStrip-content--selected' : ''}`}
                     data-tab-strip-index={i}
                 >
                     {tab.content}

@@ -19,6 +19,7 @@ export const initialState = {
     totalResults: 0,
     searchResults: [],
     numberOfPages: 1,
+    selectedTabIndex: 0,
     cardArtSelectorVisible: false,
 };
 
