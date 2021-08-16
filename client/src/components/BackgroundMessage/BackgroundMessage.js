@@ -1,8 +1,9 @@
-import { Image, MagnifyingGlass, QuestionMark } from '../Icons';
+import { MagnifyingGlass, Image, Bookmarks, QuestionMark } from '../Icons';
 import './BackgroundMessage.scss';
 
 export const NO_RESULTS = 'NO_RESULTS';
 export const EMPTY_DECK_PREVIEW = 'EMPTY_DECK_PREVIEW';
+export const NO_BOOKMARKS = 'NO_BOOKMARKS';
 
 export default function BackgroundMessage({ showMessage = false, type = '', children = null }) {
     const message = getMessageInfo(type);
@@ -20,6 +21,12 @@ export default function BackgroundMessage({ showMessage = false, type = '', chil
                     primaryText: 'No Preview Available',
                     secondaryText: 'Add some cards to your deck first',
                     icon: <Image className='BackgroundMessage-icon' />,
+                };
+            case NO_BOOKMARKS:
+                return {
+                    primaryText: 'No Bookmarks',
+                    secondaryText: 'Bookmark some cards to see them here',
+                    icon: <Bookmarks className='BackgroundMessage-icon' />,
                 };
             default:
                 return {

@@ -3,6 +3,7 @@ import useBookmarks from '../../hooks/useBookmarks';
 import useMessage from '../../hooks/useMessage';
 import BookmarkListContext from '../../contexts/BookmarkList';
 import HeaderPage from '../../components/HeaderPage';
+import BackgroundMessage, { NO_BOOKMARKS } from '../../components/BackgroundMessage';
 import CardGrid from '../../components/CardGrid/CardGrid';
 import './BookmarkList.scss';
 
@@ -28,7 +29,9 @@ function BookmarkList() {
 
     return (
         <HeaderPage className='BookmarkList'>
-            <CardGrid className='BookmarkList-grid' cards={bookmarkList} isLink={true} />
+            <BackgroundMessage showMessage={bookmarkList.length === 0} type={NO_BOOKMARKS}>
+                <CardGrid className='BookmarkList-grid' cards={bookmarkList} isLink={true} />
+            </BackgroundMessage>
         </HeaderPage>
     );
 }
