@@ -4,6 +4,7 @@ import SearchContext from '../../contexts/Search';
 import HeaderPage from '../../components/HeaderPage';
 import { InputField } from '../../components/Input';
 import Button from '../../components/Button';
+import SymbolKey from '../../components/SymbolKey/SymbolKey';
 import CardTypes from './CardTypes';
 import CardSets from './CardSets';
 import ColorOptions from './ColorOptions';
@@ -82,6 +83,7 @@ function AdvancedSearch() {
                         value={text}
                         onChange={onChangeText}
                     />
+                    <SymbolKey />
                     <CardTypes />
                     <ColorOptions labelClassName='AdvancedSearch-label' label='Colors' />
                     <CardSets />

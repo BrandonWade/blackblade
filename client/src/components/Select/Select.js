@@ -2,9 +2,9 @@ import withFormField from '../../hocs/withFormField';
 import withMultiSelect from '../../hocs/withMultiSelect';
 import './Select.scss';
 
-function Select({ className = '', children = [], value = '', onChange = () => {} }) {
+function Select({ className = '', children = [], value = '', multiple = false, onChange = () => {} }) {
     return (
-        <select className={`Select ${className}`} value={value} onChange={onChange}>
+        <select className={`Select ${className}`} value={value} multiple={multiple} onChange={onChange}>
             {children}
         </select>
     );
