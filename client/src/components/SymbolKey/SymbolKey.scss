@@ -1,6 +1,49 @@
 .SymbolKey {
-    &-symbols {
+    &-content {
+        width: 40rem;
+    }
+
+    &-description {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+
+    &-symbolListContainer {
+        max-height: 25rem;
+        overflow-y: scroll;
+        margin-bottom: 1.5rem;
+        border: var(--line);
+        border-radius: var(--border-radius);
+        background-color: var(--color-primary-light);
+    }
+
+    &-symbolList {
         width: 100%;
+        border-collapse: collapse;
+    }
+
+    &-symbolRow {
+        display: flex;
+        align-items: center;
+        border-bottom: var(--line);
+        cursor: pointer;
+    }
+
+    &-symbolImage {
+        flex: 1;
+        text-align: right;
+        margin-right: 0.25rem;
+    }
+
+    &-symbolText {
+        flex: 1;
+        font-size: 1.5rem;
+        line-height: 3rem;
+        margin-left: 0.25rem;
+    }
+
+    &-symbolInputRow.FormField {
+        margin-bottom: 0;
     }
 
     &-symbolInput {

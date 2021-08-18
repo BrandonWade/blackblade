@@ -1,38 +1,44 @@
 import { useState } from 'react';
 import useSymbols from '../../hooks/useSymbols';
+import symbolMap from '../../hooks/useSymbols/symbolMap';
 import Backdrop from '../Backdrop';
 import Panel from '../Panel';
-import Input from '../Input';
-import { SelectField } from '../Select';
+import { InputField } from '../Input';
 import Button from '../Button';
 import './SymbolKey.scss';
 
 export default function SymbolKey({ visible = false, onClose = () => {} }) {
-    const [symbols, setSymbols] = useState('{W}{U}{B}{R}{G}');
+    const [selectedSymbols, setSelectedSymbols] = useState('{W}{U}{B}{R}{G}'); // TODO: Remove symbols
 
     const onChangeSymbols = e => {
-        setSymbols(e.target.value);
+        setSelectedSymbols(e.target.value);
     };
 
     return (
         <Backdrop visible={visible} onClose={onClose}>
             <Panel className='SymbolKey-content'>
-                <SelectField
-                    rowClassName='Panel-inputRow'
-                    labelClassName='Panel-inputLabel'
-                    className='SymbolKey-symbols'
-                    label='Select symbols from the list below to build out a cost:'
-                    multiple={true}
-                >
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                    <option>Option 4</option>
-                    <option>Option 5</option>
-                </SelectField>
+                <p className='SymbolKey-description'>Select symbols from the list below to build out a cost:</p>
+                <div className='SymbolKey-symbolListContainer'>
+                    <div className='SymbolKey-symbolList'>
+                        {Object.entries(symbolMap).map(symbol => {
+                            return (
+                                <div className='SymbolKey-symbolRow'>
+                                    <div className='SymbolKey-symbolImage' dangerouslySetInnerHTML={{ __html: symbol[1] }} />
+                                    <div className='SymbolKey-symbolText'>{symbol[0]}</div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
                 <div className='SymbolKey-inputContainer'>
-                    <Input className='SymbolKey-symbolInput' value={symbols} onChange={onChangeSymbols} />
-                    <div className='SymbolKey-symbolPreview' dangerouslySetInnerHTML={{ __html: useSymbols(symbols) }} />
+                    <InputField
+                        rowClassName='Panel-inputRow SymbolKey-symbolInputRow'
+                        className='SymbolKey-symbolInput'
+                        label='You can also manually edit the symbols here:'
+                        value={selectedSymbols}
+                        onChange={onChangeSymbols}
+                    />
+                    <div className='SymbolKey-symbolPreview' dangerouslySetInnerHTML={{ __html: useSymbols(selectedSymbols) }} />
                 </div>
                 <div className='SymbolKey-buttonContainer'>
                     <Button>OK</Button>

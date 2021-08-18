@@ -1,4 +1,11 @@
 const symbolMap = {
+    '{W}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/W.svg' alt='Symbol W' />",
+    '{U}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/U.svg' alt='Symbol U' />",
+    '{B}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/B.svg' alt='Symbol B' />",
+    '{R}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/R.svg' alt='Symbol R' />",
+    '{G}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/G.svg' alt='Symbol G' />",
+    '{C}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/C.svg' alt='Symbol C' />",
+    '{S}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/S.svg' alt='Symbol S' />",
     '{T}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/T.svg' alt='Symbol T' />",
     '{Q}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/Q.svg' alt='Symbol Q' />",
     '{E}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/E.svg' alt='Symbol E' />",
@@ -57,13 +64,6 @@ const symbolMap = {
     '{G/P}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/GP.svg' alt='Symbol GP' />",
     '{HW}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/HW.svg' alt='Symbol HW' />",
     '{HR}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/HR.svg' alt='Symbol HR' />",
-    '{W}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/W.svg' alt='Symbol W' />",
-    '{U}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/U.svg' alt='Symbol U' />",
-    '{B}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/B.svg' alt='Symbol B' />",
-    '{R}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/R.svg' alt='Symbol R' />",
-    '{G}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/G.svg' alt='Symbol G' />",
-    '{C}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/C.svg' alt='Symbol C' />",
-    '{S}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/S.svg' alt='Symbol S' />",
 };
 
 export default symbolMap;
