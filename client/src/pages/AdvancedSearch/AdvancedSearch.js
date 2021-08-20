@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import SearchContext from '../../contexts/Search';
 import HeaderPage from '../../components/HeaderPage';
@@ -32,6 +32,7 @@ function AdvancedSearch() {
         flavorText,
         setFlavorText,
     } = useContext(SearchContext);
+    const [symbolKeyVisible, setSymbolKeyVisible] = useState(true); // TODO: set to false
 
     const onChangeName = e => {
         setName(e.target.value);
@@ -39,6 +40,14 @@ function AdvancedSearch() {
 
     const onChangeText = e => {
         setText(e.target.value);
+    };
+
+    const onCloseSymbolKey = () => {
+        setSymbolKeyVisible(false);
+    };
+
+    const onInsertSymbols = symbols => {
+        setText(`${text}${symbols}`);
     };
 
     const onChangeFlavorText = e => {
@@ -83,7 +92,7 @@ function AdvancedSearch() {
                         value={text}
                         onChange={onChangeText}
                     />
-                    <SymbolKey />
+                    <SymbolKey visible={symbolKeyVisible} onInsertSymbols={onInsertSymbols} onClose={onCloseSymbolKey} />
                     <CardTypes />
                     <ColorOptions labelClassName='AdvancedSearch-label' label='Colors' />
                     <CardSets />

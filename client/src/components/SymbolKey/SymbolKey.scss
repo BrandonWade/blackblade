@@ -3,6 +3,18 @@
         width: 40rem;
     }
 
+    &-close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 2.5rem;
+        line-height: 2.5rem;
+        width: 2.5rem;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
     &-description {
         font-size: 1.4rem;
         margin-bottom: 0.5rem;

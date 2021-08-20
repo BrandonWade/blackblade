@@ -8,20 +8,31 @@ import { InputField } from '../Input';
 import Button from '../Button';
 import './SymbolKey.scss';
 
-export default function SymbolKey({ visible = true, onClose = () => {} }) {
-    const [selectedSymbols, setSelectedSymbols] = useState('{W}{U}{B}{R}{G}'); // TODO: Remove symbols
+export default function SymbolKey({ visible = false, onInsertSymbols = () => {}, onClose = () => {} }) {
+    const [selectedSymbols, setSelectedSymbols] = useState('');
+    const maxInputLength = 150;
 
     const onAddSymbol = symbol => {
-        setSelectedSymbols(`${selectedSymbols}${symbol}`);
+        if (selectedSymbols.length + symbol.length < maxInputLength) {
+            setSelectedSymbols(`${selectedSymbols} ${symbol}`);
+        }
     };
 
     const onChangeSymbols = e => {
         setSelectedSymbols(e.target.value);
     };
 
+    const onConfirmClick = () => {
+        onInsertSymbols(selectedSymbols);
+        onClose();
+    };
+
     return (
         <Backdrop visible={visible} onClose={onClose}>
             <Panel className='SymbolKey-content'>
+                <div className='SymbolKey-close' onClick={onClose}>
+                    &#x2715;
+                </div>
                 <p className='SymbolKey-description'>Select symbols from the list below to build out a cost:</p>
                 <div className='SymbolKey-symbolListContainer'>
                     <div className='SymbolKey-symbolList'>
@@ -36,12 +47,14 @@ export default function SymbolKey({ visible = true, onClose = () => {} }) {
                         className='SymbolKey-symbolInput'
                         label='You can also manually edit the symbols here:'
                         value={selectedSymbols}
-                        maxLength={150}
+                        maxLength={maxInputLength}
                         onChange={onChangeSymbols}
                     />
                     <div className='SymbolKey-symbolPreview' dangerouslySetInnerHTML={{ __html: useSymbols(selectedSymbols) }} />
                 </div>
-                <Button className='SymbolKey-confirmButton'>OK</Button>
+                <Button className='SymbolKey-confirmButton' onClick={onConfirmClick}>
+                    OK
+                </Button>
             </Panel>
         </Backdrop>
     );
