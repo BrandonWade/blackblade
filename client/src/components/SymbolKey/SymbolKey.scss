@@ -23,6 +23,7 @@
     }
 
     &-symbolRow {
+        padding: 0.5rem;
         display: flex;
         align-items: center;
         border-bottom: var(--line);
@@ -30,6 +31,9 @@
     }
 
     &-symbolImage {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         flex: 1;
         text-align: right;
         margin-right: 0.25rem;
@@ -38,7 +42,7 @@
     &-symbolText {
         flex: 1;
         font-size: 1.5rem;
-        line-height: 3rem;
+        line-height: normal;
         margin-left: 0.25rem;
     }
 
@@ -54,6 +58,7 @@
     &-symbolPreview {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         font-size: 1.5rem;
         line-height: 1.5rem;
         padding: 0.75rem;

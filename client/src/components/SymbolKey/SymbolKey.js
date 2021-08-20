@@ -3,12 +3,17 @@ import useSymbols from '../../hooks/useSymbols';
 import symbolMap from '../../hooks/useSymbols/symbolMap';
 import Backdrop from '../Backdrop';
 import Panel from '../Panel';
+import SymbolRow from './SymbolRow';
 import { InputField } from '../Input';
 import Button from '../Button';
 import './SymbolKey.scss';
 
-export default function SymbolKey({ visible = false, onClose = () => {} }) {
+export default function SymbolKey({ visible = true, onClose = () => {} }) {
     const [selectedSymbols, setSelectedSymbols] = useState('{W}{U}{B}{R}{G}'); // TODO: Remove symbols
+
+    const onAddSymbol = symbol => {
+        setSelectedSymbols(`${selectedSymbols}${symbol}`);
+    };
 
     const onChangeSymbols = e => {
         setSelectedSymbols(e.target.value);
@@ -21,12 +26,7 @@ export default function SymbolKey({ visible = false, onClose = () => {} }) {
                 <div className='SymbolKey-symbolListContainer'>
                     <div className='SymbolKey-symbolList'>
                         {Object.entries(symbolMap).map(symbol => {
-                            return (
-                                <div key={symbol[0]} className='SymbolKey-symbolRow'>
-                                    <div className='SymbolKey-symbolImage' dangerouslySetInnerHTML={{ __html: symbol[1] }} />
-                                    <div className='SymbolKey-symbolText'>{symbol[0]}</div>
-                                </div>
-                            );
+                            return <SymbolRow key={symbol[0]} image={symbol[1]} text={symbol[0]} onClick={onAddSymbol} />;
                         })}
                     </div>
                 </div>
@@ -36,6 +36,7 @@ export default function SymbolKey({ visible = false, onClose = () => {} }) {
                         className='SymbolKey-symbolInput'
                         label='You can also manually edit the symbols here:'
                         value={selectedSymbols}
+                        maxLength={150}
                         onChange={onChangeSymbols}
                     />
                     <div className='SymbolKey-symbolPreview' dangerouslySetInnerHTML={{ __html: useSymbols(selectedSymbols) }} />
