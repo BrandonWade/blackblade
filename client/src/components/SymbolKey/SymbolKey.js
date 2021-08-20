@@ -22,7 +22,7 @@ export default function SymbolKey({ visible = false, onClose = () => {} }) {
                     <div className='SymbolKey-symbolList'>
                         {Object.entries(symbolMap).map(symbol => {
                             return (
-                                <div className='SymbolKey-symbolRow'>
+                                <div key={symbol[0]} className='SymbolKey-symbolRow'>
                                     <div className='SymbolKey-symbolImage' dangerouslySetInnerHTML={{ __html: symbol[1] }} />
                                     <div className='SymbolKey-symbolText'>{symbol[0]}</div>
                                 </div>
@@ -40,10 +40,7 @@ export default function SymbolKey({ visible = false, onClose = () => {} }) {
                     />
                     <div className='SymbolKey-symbolPreview' dangerouslySetInnerHTML={{ __html: useSymbols(selectedSymbols) }} />
                 </div>
-                <div className='SymbolKey-buttonContainer'>
-                    <Button>OK</Button>
-                    <Button>Cancel</Button>
-                </div>
+                <Button className='SymbolKey-confirmButton'>OK</Button>
             </Panel>
         </Backdrop>
     );
