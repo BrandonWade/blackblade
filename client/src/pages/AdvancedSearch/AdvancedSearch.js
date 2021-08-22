@@ -42,7 +42,9 @@ function AdvancedSearch() {
         setText(e.target.value);
     };
 
-    const onShowSymbolKey = () => {
+    const onShowSymbolKey = e => {
+        e.preventDefault();
+
         setSymbolKeyVisible(true);
     };
 
@@ -96,8 +98,12 @@ function AdvancedSearch() {
                         className='AdvancedSearch-input'
                         value={text}
                         onChange={onChangeText}
+                        actionButton={
+                            <Button className='AdvancedSearch-addSymbol' onClick={onShowSymbolKey}>
+                                Add Symbol
+                            </Button>
+                        }
                     />
-                    <SymbolKey visible={symbolKeyVisible} onInsertSymbols={onInsertSymbols} onClose={onCloseSymbolKey} />
                     <CardTypes />
                     <ColorOptions labelClassName='AdvancedSearch-label' label='Colors' />
                     <CardSets />

@@ -25,6 +25,7 @@ export default function SymbolKey({ visible = false, onInsertSymbols = () => {},
     const onConfirmClick = () => {
         onInsertSymbols(selectedSymbols);
         onClose();
+        setSelectedSymbols('');
     };
 
     return (
