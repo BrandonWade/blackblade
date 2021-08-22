@@ -33,7 +33,7 @@ export default function SymbolKey({ visible = false, onInsertSymbols = () => {},
                 <div className='SymbolKey-close' onClick={onClose}>
                     &#x2715;
                 </div>
-                <p className='SymbolKey-description'>Select symbols from the list below to build out a cost:</p>
+                <p className='SymbolKey-description'>Select one or more symbols from the list below:</p>
                 <div className='SymbolKey-symbolListContainer'>
                     <div className='SymbolKey-symbolList'>
                         {Object.entries(symbolMap).map(symbol => {
@@ -45,7 +45,7 @@ export default function SymbolKey({ visible = false, onInsertSymbols = () => {},
                     <InputField
                         rowClassName='Panel-inputRow SymbolKey-symbolInputRow'
                         className='SymbolKey-symbolInput'
-                        label='You can also manually edit the symbols here:'
+                        label='Symbol text can also be manually edited here:'
                         value={selectedSymbols}
                         maxLength={maxInputLength}
                         onChange={onChangeSymbols}

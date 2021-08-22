@@ -32,7 +32,7 @@ function AdvancedSearch() {
         flavorText,
         setFlavorText,
     } = useContext(SearchContext);
-    const [symbolKeyVisible, setSymbolKeyVisible] = useState(true); // TODO: set to false
+    const [symbolKeyVisible, setSymbolKeyVisible] = useState(false);
 
     const onChangeName = e => {
         setName(e.target.value);
@@ -42,7 +42,11 @@ function AdvancedSearch() {
         setText(e.target.value);
     };
 
-    const onCloseSymbolKey = () => {
+    const onShowSymbolKey = () => {
+        setSymbolKeyVisible(true);
+    };
+
+    const onHideSymbolKey = () => {
         setSymbolKeyVisible(false);
     };
 
@@ -78,6 +82,7 @@ function AdvancedSearch() {
         <HeaderPage className='AdvancedSearch'>
             <div className='AdvancedSearch-content'>
                 <form className='AdvancedSearch-form' onSubmit={onSubmit}>
+                    <SymbolKey visible={symbolKeyVisible} onInsertSymbols={onInsertSymbols} onClose={onHideSymbolKey} />
                     <InputField
                         labelClassName='AdvancedSearch-label'
                         label='Name'
