@@ -85,7 +85,7 @@ function Register() {
                         <ValidationRow valid={passwordValidCharsOnly} description='Password only contains letters, numbers, and !@#$%^&*' />
                         <ValidationRow valid={passwordsMatch} description='Passwords match' />
                     </div>
-                    <Button className='Register-submit' disabled={!isFormValid} onClick={onSubmit}>
+                    <Button className='Register-submit' type='submit' disabled={!isFormValid} onClick={onSubmit}>
                         Register
                     </Button>
                     <div className='Register-loginContainer'>

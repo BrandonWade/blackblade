@@ -45,7 +45,7 @@ function ForgotPassword() {
                         value={email}
                         onChange={onChangeEmail}
                     />
-                    <Button className='ForgotPassword-submit' disabled={!emailValid} onClick={onSubmit}>
+                    <Button className='ForgotPassword-submit' type='submit' disabled={!emailValid} onClick={onSubmit}>
                         Submit
                     </Button>
                     <div className='Login-registerContainer'>

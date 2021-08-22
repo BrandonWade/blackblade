@@ -110,7 +110,7 @@ function DeckEditor({ editing = false }) {
                         description={`${notes.length}/${notesMaxLength}`}
                         onChange={onChangeNotes}
                     />
-                    <Button>{`${editing ? 'Update' : 'Create'}`}</Button>
+                    <Button type='submit'>{`${editing ? 'Update' : 'Create'}`}</Button>
                 </form>
             </Panel>
         </HeaderPage>

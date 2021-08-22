@@ -42,9 +42,7 @@ function AdvancedSearch() {
         setText(e.target.value);
     };
 
-    const onShowSymbolKey = e => {
-        e.preventDefault();
-
+    const onShowSymbolKey = () => {
         setSymbolKeyVisible(true);
     };
 
@@ -60,7 +58,7 @@ function AdvancedSearch() {
         setFlavorText(e.target.value);
     };
 
-    const onSubmit = async e => {
+    const onSubmit = e => {
         e.preventDefault();
 
         searchResultsRedirect({
@@ -148,7 +146,7 @@ function AdvancedSearch() {
                         onChange={onChangeFlavorText}
                     />
                     <div className='AdvancedSearch-footer'>
-                        <Button className='AdvancedSearch-searchButton' onClick={onSubmit}>
+                        <Button className='AdvancedSearch-searchButton' type='submit' onClick={onSubmit}>
                             Search
                         </Button>
                     </div>

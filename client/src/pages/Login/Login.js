@@ -90,7 +90,7 @@ function Login() {
                     <div className='Login-forgotPasswordContainer'>
                         <Link to='/password/forgot'>Forgot your password?</Link>
                     </div>
-                    <Button className='Login-submit' disabled={!isFormValid} onClick={onSubmit}>
+                    <Button className='Login-submit' type='submit' disabled={!isFormValid} onClick={onSubmit}>
                         Login
                     </Button>
                     <div className='Login-registerContainer'>

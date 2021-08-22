@@ -78,7 +78,7 @@ function ResetPassword() {
                         <ValidationRow valid={passwordValidCharsOnly} description='Password only contains letters, numbers, and !@#$%^&*' />
                         <ValidationRow valid={passwordsMatch} description='Passwords match' />
                     </div>
-                    <Button className='ResetPassword-submit' disabled={!isFormValid} onClick={onSubmit}>
+                    <Button className='ResetPassword-submit' type='submit' disabled={!isFormValid} onClick={onSubmit}>
                         Reset Password
                     </Button>
                 </form>
