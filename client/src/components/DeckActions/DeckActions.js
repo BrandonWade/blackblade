@@ -46,7 +46,7 @@ function DeckActions() {
     );
 
     const onEditDeck = () => {
-        history.replace(`/decks/${publicID}/edit`);
+        history.push(`/decks/${publicID}/edit`);
     };
 
     const onExportDeck = async () => {
