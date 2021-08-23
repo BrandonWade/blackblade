@@ -5,6 +5,7 @@ function withFormField(BaseComponent) {
         const {
             rowClassName = '',
             labelClassName = '',
+            className = '',
             descriptionClassName = '',
             label = '',
             children = [],
@@ -15,9 +16,13 @@ function withFormField(BaseComponent) {
         return (
             <div className={`FormField ${rowClassName}`}>
                 {label && <label className={`FormField-label ${labelClassName}`}>{label}</label>}
-                <BaseComponent {...props}>{children}</BaseComponent>
+                <div className='FormField-componentWrapper'>
+                    <BaseComponent {...props} className={`FormField-component ${className}`}>
+                        {children}
+                    </BaseComponent>
+                    {actionButton}
+                </div>
                 {description && <p className={`FormField-description ${descriptionClassName}`}>{description}</p>}
-                {actionButton}
             </div>
         );
     };

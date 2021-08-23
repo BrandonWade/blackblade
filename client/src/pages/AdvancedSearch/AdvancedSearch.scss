@@ -39,6 +39,10 @@
 
     &-addSymbol {
         margin-left: 1rem;
+
+        @media only screen and (max-width: 52.125em) {
+            font-size: 1.3rem;
+        }
     }
 
     &-input {
@@ -121,6 +125,7 @@
 
     &-matchType {
         margin-top: 2.5rem;
+        max-width: 20rem;
 
         @media only screen and (max-width: 52.125em) {
             margin-top: 1rem;

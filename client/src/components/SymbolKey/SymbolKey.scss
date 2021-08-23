@@ -1,6 +1,8 @@
 .SymbolKey {
     &-content {
-        width: 40rem;
+        width: 90vw;
+        max-width: 40rem;
+        background-color: var(--color-primary);
     }
 
     &-close {
@@ -35,11 +37,15 @@
     }
 
     &-symbolRow {
-        padding: 0.5rem;
+        padding: 0.75rem;
         display: flex;
         align-items: center;
         border-bottom: var(--line);
         cursor: pointer;
+
+        @media only screen and (max-width: 37.5em) {
+            padding: 1rem;
+        }
     }
 
     &-symbolImage {
@@ -49,13 +55,26 @@
         flex: 1;
         text-align: right;
         margin-right: 0.25rem;
+
+        & > .CardSymbol {
+            @media only screen and (max-width: 37.5em) {
+                width: 1.6rem;
+                height: 1.6rem;
+            }
+        }
     }
 
     &-symbolText {
         flex: 1;
         font-size: 1.5rem;
-        line-height: normal;
+        line-height: 1.5rem;
         margin-left: 0.25rem;
+        padding-bottom: 0.25rem;
+
+        @media only screen and (max-width: 37.5em) {
+            font-size: 1.8rem;
+            line-height: 1.8rem;
+        }
     }
 
     &-symbolInputRow.FormField {

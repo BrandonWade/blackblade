@@ -14,4 +14,14 @@
             border-bottom: none;
         }
     }
+
+    &-componentWrapper {
+        width: 100%;
+        display: flex;
+    }
+
+    &-component {
+        width: 100%;
+        flex: 1;
+    }
 }
