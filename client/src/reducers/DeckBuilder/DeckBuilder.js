@@ -16,6 +16,7 @@ import {
     REMOVE_MAYBEBOARD_CARD,
     UPDATE_UNMODIFIED_STATE,
     SET_MAYBEBOARD_MODE,
+    SET_DECK_EXISTS,
     SET_NAME,
     SET_PAGE,
     SET_TOTAL_RESULTS,
@@ -66,6 +67,12 @@ function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 deckCards: sortBy(action.deckCards, [c => parseFloatFallback(c.cmc, 0)]),
+            };
+
+        case SET_DECK_EXISTS:
+            return {
+                ...state,
+                deckExists: action.deckExists,
             };
 
         case UPDATE_DECK_CARD_COUNT: {

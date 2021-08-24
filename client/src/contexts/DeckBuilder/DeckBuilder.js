@@ -15,6 +15,7 @@ export const initialState = {
     unmodifiedDeckCards: [],
     unmodifiedMaybeboardCards: [],
     maybeboardMode: false,
+    deckExists: false,
     page: 1,
     totalResults: 0,
     searchResults: [],

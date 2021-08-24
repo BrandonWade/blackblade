@@ -17,6 +17,7 @@ import {
     REMOVE_MAYBEBOARD_CARD,
     UPDATE_UNMODIFIED_STATE,
     SET_MAYBEBOARD_MODE,
+    SET_DECK_EXISTS,
     SET_NAME,
     SET_PAGE,
     SET_TOTAL_RESULTS,
@@ -48,6 +49,7 @@ function DeckBuilderProvider({ children = [] }) {
     const removeMaybeboardCard = cardID => dispatch({ type: REMOVE_MAYBEBOARD_CARD, cardID });
     const updateUnmodifiedState = () => dispatch({ type: UPDATE_UNMODIFIED_STATE });
     const setMaybeboardMode = maybeboardMode => dispatch({ type: SET_MAYBEBOARD_MODE, maybeboardMode });
+    const setDeckExists = deckExists => dispatch({ type: SET_DECK_EXISTS, deckExists });
     const setName = name => dispatch({ type: SET_NAME, name });
     const setPage = page => dispatch({ type: SET_PAGE, page });
     const setTotalResults = totalResults => dispatch({ type: SET_TOTAL_RESULTS, totalResults });
@@ -77,6 +79,7 @@ function DeckBuilderProvider({ children = [] }) {
         removeMaybeboardCard,
         updateUnmodifiedState,
         setMaybeboardMode,
+        setDeckExists,
         setName,
         setPage,
         setTotalResults,

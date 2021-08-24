@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import useMessage from '../../hooks/useMessage';
@@ -19,7 +19,6 @@ import './DeckBuilder.scss';
 import BackgroundMessage from '../../components/BackgroundMessage';
 
 function DeckBuilder() {
-    const [deckExists, setDeckExists] = useState(false);
     const { publicID } = useParams();
     const { saveDeck, getDeck } = useDecks();
     const { accountPublicID } = useContext(AuthContext);
@@ -48,6 +47,8 @@ function DeckBuilder() {
         setSelectedTabIndex,
         maybeboardMode,
         setMaybeboardMode,
+        deckExists,
+        setDeckExists,
     } = useContext(DeckBuilderContext);
     const { showMessage } = useMessage();
     const { setVisible } = useContext(CardImagePreviewContext);
