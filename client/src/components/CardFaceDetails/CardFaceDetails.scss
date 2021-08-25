@@ -8,20 +8,17 @@
         }
     }
 
-    &-name {
-        padding-bottom: 1rem;
+    &-manaCost {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-left: 0.5rem;
     }
 
     &-type,
     &-text,
     &-statLine {
         font-size: 1.3rem;
-    }
-
-    &-manaCost {
-        display: flex;
-        align-items: center;
-        margin-left: 0.5rem;
     }
 
     &-textBlock:not(:last-child) {
