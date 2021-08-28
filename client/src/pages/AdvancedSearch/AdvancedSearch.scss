@@ -23,6 +23,24 @@
         }
     }
 
+    &-formRow {
+        border-bottom: var(--line-transparent);
+
+        @media only screen and (max-width: 52.125em) {
+            border-bottom: none;
+        }
+
+        &.FormField {
+            margin-bottom: 0;
+            padding: 3rem 0;
+
+            @media only screen and (max-width: 52.125em) {
+                margin-bottom: 2rem;
+                padding: 0;
+            }
+        }
+    }
+
     &-label {
         width: 10%;
         font-size: 1.6rem;
@@ -60,22 +78,9 @@
         }
     }
 
-    &-formRow {
-        border-bottom: var(--line);
-
-        @media only screen and (max-width: 52.125em) {
-            border-bottom: none;
-        }
-
-        &.FormField {
-            margin-bottom: 0;
-            padding: 3rem 0;
-
-            @media only screen and (max-width: 52.125em) {
-                margin-bottom: 2rem;
-                padding: 0;
-            }
-        }
+    &-description {
+        margin-top: 0.75rem;
+        font-size: 1.2rem;
     }
 
     &-checkbox {
@@ -148,11 +153,6 @@
         @media only screen and (max-width: 52.125em) {
             margin-top: 1rem;
         }
-    }
-
-    &-matchTypeDescription {
-        font-size: 1.2rem;
-        margin-top: 0.75rem;
     }
 }
 

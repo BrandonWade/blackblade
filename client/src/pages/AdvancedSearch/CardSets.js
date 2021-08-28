@@ -54,10 +54,12 @@ function CardSets() {
 
     return (
         <MultiSelectField
-            labelClassName='AdvancedSearch-label'
-            label='Sets'
-            className='AdvancedSearch-select'
             rowClassName='AdvancedSearch-formRow'
+            labelClassName='AdvancedSearch-label'
+            className='AdvancedSearch-select'
+            descriptionClassName='AdvancedSearch-description'
+            label='Sets'
+            description='Each card must be in one or more of the selected sets.'
             selectedOptions={getFormattedSelectedSets()}
             onSelectOption={onSelectSet}
             onClearOption={onClearSet}

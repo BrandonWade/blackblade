@@ -62,7 +62,7 @@ function ColorOptions() {
             <SelectField
                 rowClassName='ColorOptions-matchTypeSection'
                 className='AdvancedSearch-select ColorOptions-matchType'
-                descriptionClassName='ColorOptions-matchTypeDescription'
+                descriptionClassName='AdvancedSearch-description'
                 value={matchType}
                 description={renderColorMatchDescription()}
                 onChange={onChangeMatchType}

@@ -54,10 +54,12 @@ function CardTypes() {
 
     return (
         <MultiSelectField
-            labelClassName='AdvancedSearch-label'
-            label='Types'
-            className='AdvancedSearch-select'
             rowClassName='AdvancedSearch-formRow'
+            labelClassName='AdvancedSearch-label'
+            className='AdvancedSearch-select'
+            descriptionClassName='AdvancedSearch-description'
+            label='Types'
+            description='Each card must contain all of the chosen types.'
             selectedOptions={getFormattedSelectedTypes()}
             onSelectOption={onSelectType}
             onClearOption={onClearType}

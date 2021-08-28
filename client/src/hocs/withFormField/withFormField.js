@@ -16,13 +16,15 @@ function withFormField(BaseComponent) {
         return (
             <div className={`FormField ${rowClassName}`}>
                 {label && <label className={`FormField-label ${labelClassName}`}>{label}</label>}
-                <div className='FormField-componentWrapper'>
-                    <BaseComponent {...props} className={`FormField-component ${className}`}>
-                        {children}
-                    </BaseComponent>
-                    {actionButton}
+                <div className='FormField-verticalWrapper'>
+                    <div className='FormField-horizontalWrapper'>
+                        <BaseComponent {...props} className={`FormField-component ${className}`}>
+                            {children}
+                        </BaseComponent>
+                        {actionButton}
+                    </div>
+                    {description && <p className={`FormField-description ${descriptionClassName}`}>{description}</p>}
                 </div>
-                {description && <p className={`FormField-description ${descriptionClassName}`}>{description}</p>}
             </div>
         );
     };
