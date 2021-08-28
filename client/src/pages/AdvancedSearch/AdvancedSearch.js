@@ -87,6 +87,7 @@ function AdvancedSearch() {
                         labelClassName='AdvancedSearch-label'
                         label='Name'
                         className='AdvancedSearch-input'
+                        rowClassName='AdvancedSearch-formRow'
                         value={name}
                         onChange={onChangeName}
                     />
@@ -94,6 +95,7 @@ function AdvancedSearch() {
                         labelClassName='AdvancedSearch-label'
                         label='Text'
                         className='AdvancedSearch-input'
+                        rowClassName='AdvancedSearch-formRow'
                         value={text}
                         onChange={onChangeText}
                         actionButton={
@@ -103,10 +105,11 @@ function AdvancedSearch() {
                         }
                     />
                     <CardTypes />
-                    <ColorOptions labelClassName='AdvancedSearch-label' label='Colors' />
+                    <ColorOptions labelClassName='AdvancedSearch-label' label='Colors' rowClassName='AdvancedSearch-formRow' />
                     <CardSets />
                     <StatRow
                         labelClassName='AdvancedSearch-label'
+                        rowClassName='AdvancedSearch-formRow'
                         label='CMC'
                         stat='cmc'
                         comparator={cmc.comparator}
@@ -115,6 +118,7 @@ function AdvancedSearch() {
                     />
                     <StatRow
                         labelClassName='AdvancedSearch-label'
+                        rowClassName='AdvancedSearch-formRow'
                         label='Power'
                         stat='power'
                         comparator={power.comparator}
@@ -123,6 +127,7 @@ function AdvancedSearch() {
                     />
                     <StatRow
                         labelClassName='AdvancedSearch-label'
+                        rowClassName='AdvancedSearch-formRow'
                         label='Toughness'
                         stat='toughness'
                         comparator={toughness.comparator}
@@ -131,17 +136,19 @@ function AdvancedSearch() {
                     />
                     <StatRow
                         labelClassName='AdvancedSearch-label'
+                        rowClassName='AdvancedSearch-formRow'
                         label='Loyalty'
                         stat='loyalty'
                         comparator={loyalty.comparator}
                         value={loyalty.value}
                         setStat={setStat}
                     />
-                    <RarityOptions labelClassName='AdvancedSearch-label' label='Rarities' />
+                    <RarityOptions labelClassName='AdvancedSearch-label' label='Rarities' rowClassName='AdvancedSearch-formRow' />
                     <InputField
                         labelClassName='AdvancedSearch-label'
                         label='Flavor Text'
                         className='AdvancedSearch-input'
+                        rowClassName='AdvancedSearch-formRow'
                         value={flavorText}
                         onChange={onChangeFlavorText}
                     />

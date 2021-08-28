@@ -57,6 +57,7 @@ function CardTypes() {
             labelClassName='AdvancedSearch-label'
             label='Types'
             className='AdvancedSearch-select'
+            rowClassName='AdvancedSearch-formRow'
             selectedOptions={getFormattedSelectedTypes()}
             onSelectOption={onSelectType}
             onClearOption={onClearType}

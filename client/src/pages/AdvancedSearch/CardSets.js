@@ -57,6 +57,7 @@ function CardSets() {
             labelClassName='AdvancedSearch-label'
             label='Sets'
             className='AdvancedSearch-select'
+            rowClassName='AdvancedSearch-formRow'
             selectedOptions={getFormattedSelectedSets()}
             onSelectOption={onSelectSet}
             onClearOption={onClearSet}
