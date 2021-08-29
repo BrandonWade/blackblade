@@ -31,6 +31,7 @@ function AdvancedSearch() {
         rarities,
         flavorText,
         setFlavorText,
+        resetSearchCriteria,
     } = useContext(SearchContext);
     const [symbolKeyVisible, setSymbolKeyVisible] = useState(false);
 
@@ -76,6 +77,11 @@ function AdvancedSearch() {
             flavorText,
             page: 1,
         });
+    };
+
+    const onReset = () => {
+        // TODO: Prompt
+        resetSearchCriteria();
     };
 
     return (
@@ -167,6 +173,9 @@ function AdvancedSearch() {
                     <div className='AdvancedSearch-footer'>
                         <Button className='AdvancedSearch-searchButton' type='submit' onClick={onSubmit}>
                             Search
+                        </Button>
+                        <Button className='AdvancedSearch-resetButton' onClick={onReset}>
+                            Reset
                         </Button>
                     </div>
                 </form>

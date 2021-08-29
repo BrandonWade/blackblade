@@ -17,7 +17,9 @@ import {
     SET_TOTAL_RESULTS,
     SET_SEARCH_RESULTS,
     SET_NUMBER_OF_PAGES,
+    RESET_SEARCH_CRITERIA,
 } from '../../actions/Search';
+import { initialState } from '../../contexts/Search';
 
 function SearchReducer(state = {}, action = {}) {
     switch (action.type) {
@@ -146,6 +148,11 @@ function SearchReducer(state = {}, action = {}) {
             return {
                 ...state,
                 numberOfPages: action.numberOfPages,
+            };
+
+        case RESET_SEARCH_CRITERIA:
+            return {
+                ...initialState,
             };
 
         default:

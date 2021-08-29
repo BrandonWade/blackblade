@@ -20,6 +20,7 @@ import {
     SET_TOTAL_RESULTS,
     SET_SEARCH_RESULTS,
     SET_NUMBER_OF_PAGES,
+    RESET_SEARCH_CRITERIA,
 } from '../../actions/Search';
 
 function SearchProvider({ children = [] }) {
@@ -43,6 +44,7 @@ function SearchProvider({ children = [] }) {
     const setTotalResults = totalResults => dispatch({ type: SET_TOTAL_RESULTS, totalResults });
     const setSearchResults = searchResults => dispatch({ type: SET_SEARCH_RESULTS, searchResults });
     const setNumberOfPages = numberOfPages => dispatch({ type: SET_NUMBER_OF_PAGES, numberOfPages });
+    const resetSearchCriteria = () => dispatch({ type: RESET_SEARCH_CRITERIA });
 
     const props = {
         ...state,
@@ -64,6 +66,7 @@ function SearchProvider({ children = [] }) {
         setTotalResults,
         setSearchResults,
         setNumberOfPages,
+        resetSearchCriteria,
     };
 
     return <SearchContext.Provider value={props}>{children}</SearchContext.Provider>;
