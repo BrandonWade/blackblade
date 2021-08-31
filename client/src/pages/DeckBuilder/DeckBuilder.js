@@ -1,6 +1,5 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { debounce } from 'lodash';
 import useDecks from '../../hooks/useDecks';
 import useMessage from '../../hooks/useMessage';
 import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
@@ -98,15 +97,6 @@ function DeckBuilder() {
 
         return () => setVisible(false);
     }, []);
-
-    useEffect(() => {
-        const debouncedSaveDeck = debounce(onSaveDeck, 2000);
-        debouncedSaveDeck();
-
-        return () => {
-            debouncedSaveDeck.cancel();
-        };
-    }, [isUnmodified]);
 
     const onSaveDeck = async () => {
         const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards);
