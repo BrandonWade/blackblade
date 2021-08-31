@@ -1,8 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useDecks from '../../hooks/useDecks';
 import useMessage from '../../hooks/useMessage';
+import useDecks from '../../hooks/useDecks';
 import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
+import useFetchDeck from '../../hooks/useFetchDeck/useFetchDeck';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
@@ -20,23 +21,18 @@ import BackgroundMessage from '../../components/BackgroundMessage';
 
 function DeckBuilder() {
     const { publicID } = useParams();
-    const { saveDeck, getDeck } = useDecks();
-    const { accountPublicID } = useContext(AuthContext);
+    const { showMessage } = useMessage();
+    const { saveDeck } = useDecks();
     const deckBuilderTabs = useDeckBuilderTabs();
+    const { fetchDeck } = useFetchDeck();
+    const { accountPublicID } = useContext(AuthContext);
     const {
-        setDeckPublicID,
         deckAccountPublicID,
-        setDeckAccountPublicID,
         deckName,
-        setDeckName,
         deckVisibility,
-        setDeckVisibility,
         deckNotes,
-        setDeckNotes,
         deckCards,
-        setDeckCards,
         maybeboardCards,
-        setMaybeboardCards,
         unmodifiedDeckName,
         unmodifiedDeckVisibility,
         unmodifiedDeckNotes,
@@ -48,9 +44,7 @@ function DeckBuilder() {
         maybeboardMode,
         setMaybeboardMode,
         deckExists,
-        setDeckExists,
     } = useContext(DeckBuilderContext);
-    const { showMessage } = useMessage();
     const { setVisible } = useContext(CardImagePreviewContext);
     const isUnmodified = isDeckUnmodified(
         deckName,
@@ -67,30 +61,6 @@ function DeckBuilder() {
     const ownsDeck = accountPublicID === deckAccountPublicID;
 
     useEffect(() => {
-        const fetchDeck = async () => {
-            const response = await getDeck(publicID);
-            if (!response?.success) {
-                if (response?.message) {
-                    const { text, type } = response?.message;
-                    showMessage(text, type);
-                }
-
-                return;
-            }
-
-            const deck = response.cards.filter(c => c.location === 'deck');
-            const maybeboard = response.cards.filter(c => c.location === 'maybeboard');
-            setDeckPublicID(response.deckPublicID);
-            setDeckAccountPublicID(response.accountPublicID);
-            setDeckName(response.name);
-            setDeckVisibility(response.visibility);
-            setDeckNotes(response.notes);
-            setDeckCards(deck);
-            setMaybeboardCards(maybeboard);
-            setDeckExists(true);
-            updateUnmodifiedState();
-        };
-
         if (isUnmodified) {
             fetchDeck();
         }
