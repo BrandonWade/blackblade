@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import useMessage from '../../hooks/useMessage';
 import useDecks from '../../hooks/useDecks';
 import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
-import useFetchDeck from '../../hooks/useFetchDeck/useFetchDeck';
+import useFetchDeck from '../../hooks/useFetchDeck';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';

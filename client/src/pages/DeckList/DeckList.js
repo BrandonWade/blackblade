@@ -30,6 +30,7 @@ function DeckList() {
         };
 
         fetchDeckList();
+        resetDeckBuilder();
     }, []);
 
     const removeDeck = async publicID => {

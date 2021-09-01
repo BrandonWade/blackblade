@@ -1,8 +1,9 @@
-import { useState, useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import useDecks from '../../hooks/useDecks';
 import useMessage from '../../hooks/useMessage';
-import DeckBuilderContext, { initialState } from '../../contexts/DeckBuilder';
+import useDecks from '../../hooks/useDecks';
+import useFetchDeck from '../../hooks/useFetchDeck';
+import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
 import Panel from '../../components/Panel';
 import { InputField } from '../../components/Input';
@@ -14,8 +15,9 @@ import './DeckEditor.scss';
 function DeckEditor({ editing = false }) {
     const history = useHistory();
     const { publicID } = useParams();
-    const { createDeck } = useDecks();
     const { showMessage } = useMessage();
+    const { createDeck } = useDecks();
+    const { fetchDeck } = useFetchDeck();
     const {
         setDeckPublicID,
         setDeckAccountPublicID,
@@ -26,33 +28,55 @@ function DeckEditor({ editing = false }) {
         deckNotes,
         setDeckNotes,
         resetDeckBuilder,
+        deckCards,
+        maybeboardCards,
+        unmodifiedDeckName,
+        unmodifiedDeckVisibility,
+        unmodifiedDeckNotes,
+        unmodifiedDeckCards,
+        unmodifiedMaybeboardCards,
     } = useContext(DeckBuilderContext);
-    const [name, setName] = useState(editing ? deckName : initialState.deckName);
-    const [visibility, setVisibility] = useState(editing ? deckVisibility : initialState.deckVisibility);
-    const [notes, setNotes] = useState(editing ? deckNotes : initialState.deckNotes);
+    const isUnmodified = isDeckUnmodified(
+        deckName,
+        deckVisibility,
+        deckNotes,
+        deckCards,
+        maybeboardCards,
+        unmodifiedDeckName,
+        unmodifiedDeckVisibility,
+        unmodifiedDeckNotes,
+        unmodifiedDeckCards,
+        unmodifiedMaybeboardCards
+    );
     const notesMaxLength = 512;
 
+    useEffect(() => {
+        if (editing && isUnmodified) {
+            fetchDeck();
+        }
+    }, []);
+
     const onChangeName = e => {
-        setName(e.target.value);
+        setDeckName(e.target.value);
     };
 
     const onChangeVisibility = e => {
-        setVisibility(e.target.value);
+        setDeckVisibility(e.target.value);
     };
 
     const onChangeNotes = e => {
-        setNotes(e.target.value);
+        setDeckNotes(e.target.value);
     };
 
     const onSubmit = async e => {
         e.preventDefault();
         showMessage();
-        setDeckName(name);
-        setDeckVisibility(visibility);
-        setDeckNotes(notes);
+        setDeckName(deckName);
+        setDeckVisibility(deckVisibility);
+        setDeckNotes(deckNotes);
 
         if (!editing) {
-            const response = await createDeck(name, visibility, notes);
+            const response = await createDeck(deckName, deckVisibility, deckNotes);
             if (!response.success) {
                 const { text, type } = response?.message;
                 showMessage(text, type);
@@ -83,7 +107,7 @@ function DeckEditor({ editing = false }) {
                         labelClassName='Panel-inputLabel'
                         className='Panel-input'
                         label='Name'
-                        value={name}
+                        value={deckName}
                         onChange={onChangeName}
                     />
                     <SelectField
@@ -92,7 +116,7 @@ function DeckEditor({ editing = false }) {
                         className='Panel-input'
                         descriptionClassName='DeckEditor-description'
                         label='Visibility'
-                        value={visibility}
+                        value={deckVisibility}
                         description={renderVisibilityDescription()}
                         onChange={onChangeVisibility}
                     >
@@ -105,9 +129,9 @@ function DeckEditor({ editing = false }) {
                         className='DeckEditor-notes'
                         descriptionClassName='Panel-inputLabel DeckEditor-description DeckEditor-notesDescription'
                         label='Notes'
-                        value={notes}
+                        value={deckNotes}
                         maxLength={notesMaxLength}
-                        description={`${notes.length}/${notesMaxLength}`}
+                        description={`${deckNotes.length}/${notesMaxLength}`}
                         onChange={onChangeNotes}
                     />
                     <Button type='submit'>{`${editing ? 'Update' : 'Create'}`}</Button>
