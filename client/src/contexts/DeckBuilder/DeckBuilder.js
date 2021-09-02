@@ -1,5 +1,4 @@
 import { createContext } from 'react';
-import { isEqual } from 'lodash';
 
 export const initialState = {
     deckPublicID: '',
@@ -22,27 +21,6 @@ export const initialState = {
     numberOfPages: 1,
     selectedTabIndex: 0,
     cardArtSelectorVisible: false,
-};
-
-export const isDeckUnmodified = (
-    deckName,
-    deckVisibility,
-    deckNotes,
-    deckCards,
-    maybeboardCards,
-    unmodifiedDeckName,
-    unmodifiedDeckVisibility,
-    unmodifiedDeckNotes,
-    unmodifiedDeckCards,
-    unmodifiedMaybeboardCards
-) => {
-    return (
-        isEqual(deckCards, unmodifiedDeckCards) &&
-        isEqual(maybeboardCards, unmodifiedMaybeboardCards) &&
-        isEqual(deckName, unmodifiedDeckName) &&
-        isEqual(deckVisibility, unmodifiedDeckVisibility) &&
-        isEqual(deckNotes, unmodifiedDeckNotes)
-    );
 };
 
 export default createContext(initialState);

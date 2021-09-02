@@ -2,8 +2,9 @@ import { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import useMessage from '../../hooks/useMessage';
 import useDecks from '../../hooks/useDecks';
+import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import useFetchDeck from '../../hooks/useFetchDeck';
-import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
 import Panel from '../../components/Panel';
 import { InputField } from '../../components/Input';
@@ -17,6 +18,7 @@ function DeckEditor({ editing = false }) {
     const { publicID } = useParams();
     const { showMessage } = useMessage();
     const { createDeck } = useDecks();
+    const { isDeckUnmodified } = useIsDeckUnmodified();
     const { fetchDeck } = useFetchDeck();
     const {
         setDeckPublicID,
@@ -28,30 +30,11 @@ function DeckEditor({ editing = false }) {
         deckNotes,
         setDeckNotes,
         resetDeckBuilder,
-        deckCards,
-        maybeboardCards,
-        unmodifiedDeckName,
-        unmodifiedDeckVisibility,
-        unmodifiedDeckNotes,
-        unmodifiedDeckCards,
-        unmodifiedMaybeboardCards,
     } = useContext(DeckBuilderContext);
-    const isUnmodified = isDeckUnmodified(
-        deckName,
-        deckVisibility,
-        deckNotes,
-        deckCards,
-        maybeboardCards,
-        unmodifiedDeckName,
-        unmodifiedDeckVisibility,
-        unmodifiedDeckNotes,
-        unmodifiedDeckCards,
-        unmodifiedMaybeboardCards
-    );
     const notesMaxLength = 512;
 
     useEffect(() => {
-        if (editing && isUnmodified) {
+        if (editing && isDeckUnmodified()) {
             fetchDeck();
         }
     }, []);

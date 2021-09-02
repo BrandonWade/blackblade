@@ -2,8 +2,9 @@ import { useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import useMessage from '../../hooks/useMessage';
+import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import AuthContext from '../../contexts/Auth';
-import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
 import DeckActionButton from './DeckActionButton';
 import { Pencil, Export } from '../Icons';
@@ -14,43 +15,20 @@ function DeckActions() {
     const history = useHistory();
     const { saveDeck, exportDeck } = useDecks();
     const { showMessage } = useMessage();
+    const { isDeckUnmodified } = useIsDeckUnmodified();
     const { accountPublicID } = useContext(AuthContext);
-    const {
-        deckAccountPublicID,
-        deckName,
-        deckVisibility,
-        deckNotes,
-        deckCards,
-        maybeboardCards,
-        unmodifiedDeckName,
-        unmodifiedDeckVisibility,
-        unmodifiedDeckNotes,
-        unmodifiedDeckCards,
-        unmodifiedMaybeboardCards,
-        updateUnmodifiedState,
-    } = useContext(DeckBuilderContext);
+    const { deckAccountPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, updateUnmodifiedState } =
+        useContext(DeckBuilderContext);
     const { setDeckExport, setVisible } = useContext(ExportDeckDialogContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
     const hasCards = deckCards.length > 0 || maybeboardCards.length > 0;
-    const isUnmodified = isDeckUnmodified(
-        deckName,
-        deckVisibility,
-        deckNotes,
-        deckCards,
-        maybeboardCards,
-        unmodifiedDeckName,
-        unmodifiedDeckVisibility,
-        unmodifiedDeckNotes,
-        unmodifiedDeckCards,
-        unmodifiedMaybeboardCards
-    );
 
     const onEditDeck = () => {
         history.push(`/decks/${publicID}/edit`);
     };
 
     const onExportDeck = async () => {
-        if (!isUnmodified) {
+        if (!isDeckUnmodified()) {
             // Since the deck export comes from the backend, ensure we persist the latest deck state before exporting
             const saveResponse = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards);
             if (!saveResponse?.success) {

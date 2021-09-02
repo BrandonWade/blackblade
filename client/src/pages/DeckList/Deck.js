@@ -1,38 +1,15 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
+import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import useSymbols from '../../hooks/useSymbols';
-import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 
 function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colors = '', removeDeck = () => {} }) {
     const history = useHistory();
     const { saveDeck } = useDecks();
-    const {
-        deckPublicID,
-        deckName,
-        deckVisibility,
-        deckNotes,
-        deckCards,
-        maybeboardCards,
-        unmodifiedDeckName,
-        unmodifiedDeckVisibility,
-        unmodifiedDeckNotes,
-        unmodifiedDeckCards,
-        unmodifiedMaybeboardCards,
-        updateUnmodifiedState,
-    } = useContext(DeckBuilderContext);
-    const isUnmodified = isDeckUnmodified(
-        deckName,
-        deckVisibility,
-        deckNotes,
-        deckCards,
-        maybeboardCards,
-        unmodifiedDeckName,
-        unmodifiedDeckVisibility,
-        unmodifiedDeckNotes,
-        unmodifiedDeckCards,
-        unmodifiedMaybeboardCards
-    );
+    const { isDeckUnmodified } = useIsDeckUnmodified();
+    const { deckPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, updateUnmodifiedState } = useContext(DeckBuilderContext);
 
     const getSizeText = () => {
         const maybeboardText = maybeboardSize ? ` + ${maybeboardSize}` : '';
@@ -41,7 +18,7 @@ function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colo
     };
 
     const onClick = async () => {
-        if (!isUnmodified) {
+        if (!isDeckUnmodified()) {
             await saveDeck(deckPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards);
             updateUnmodifiedState();
         }

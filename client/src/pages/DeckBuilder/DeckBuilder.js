@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 import useMessage from '../../hooks/useMessage';
 import useDecks from '../../hooks/useDecks';
 import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
+import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import useFetchDeck from '../../hooks/useFetchDeck';
 import AuthContext from '../../contexts/Auth';
-import DeckBuilderContext, { isDeckUnmodified } from '../../contexts/DeckBuilder';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import CardArtSelector from '../../components/CardArtSelector';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
@@ -24,6 +25,7 @@ function DeckBuilder() {
     const { showMessage } = useMessage();
     const { saveDeck } = useDecks();
     const deckBuilderTabs = useDeckBuilderTabs();
+    const { isDeckUnmodified } = useIsDeckUnmodified();
     const { fetchDeck } = useFetchDeck();
     const { accountPublicID } = useContext(AuthContext);
     const {
@@ -33,11 +35,6 @@ function DeckBuilder() {
         deckNotes,
         deckCards,
         maybeboardCards,
-        unmodifiedDeckName,
-        unmodifiedDeckVisibility,
-        unmodifiedDeckNotes,
-        unmodifiedDeckCards,
-        unmodifiedMaybeboardCards,
         updateUnmodifiedState,
         selectedTabIndex,
         setSelectedTabIndex,
@@ -46,22 +43,10 @@ function DeckBuilder() {
         deckExists,
     } = useContext(DeckBuilderContext);
     const { setVisible } = useContext(CardImagePreviewContext);
-    const isUnmodified = isDeckUnmodified(
-        deckName,
-        deckVisibility,
-        deckNotes,
-        deckCards,
-        maybeboardCards,
-        unmodifiedDeckName,
-        unmodifiedDeckVisibility,
-        unmodifiedDeckNotes,
-        unmodifiedDeckCards,
-        unmodifiedMaybeboardCards
-    );
     const ownsDeck = accountPublicID === deckAccountPublicID;
 
     useEffect(() => {
-        if (isUnmodified) {
+        if (isDeckUnmodified()) {
             fetchDeck();
         }
 
@@ -101,7 +86,7 @@ function DeckBuilder() {
                 <div className='DeckBuilder-deckInfo'>
                     <div className='DeckBuilder-nameBar'>
                         <div className='DeckBuilder-name'>{deckName}</div>
-                        <Button className={`DeckBuilder-saveButton ${isUnmodified ? 'u-hidden' : ''}`} onClick={onSaveDeck}>
+                        <Button className={`DeckBuilder-saveButton ${isDeckUnmodified() ? 'u-hidden' : ''}`} onClick={onSaveDeck}>
                             Save
                         </Button>
                     </div>
