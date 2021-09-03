@@ -3,24 +3,14 @@ import Backdrop from '../Backdrop';
 import Button from '../Button';
 import './ConfirmDialog.scss';
 
-function ConfirmDialog({ message = '', visible = false, onCancel = () => {}, onConfirm = () => {}, setVisible = () => {} }) {
-    const onCancelClick = () => {
-        onCancel();
-        setVisible(false);
-    };
-
-    const onConfirmClick = () => {
-        onConfirm();
-        setVisible(false);
-    };
-
+function ConfirmDialog({ message = '', visible = false, onCancel = () => {}, onConfirm = () => {} }) {
     return ReactDOM.createPortal(
-        <Backdrop className='ConfirmDialog' visible={visible} onClose={onCancelClick}>
+        <Backdrop className='ConfirmDialog' visible={visible} onClose={onCancel}>
             <div className='ConfirmDialog-content'>
                 <div className='ConfirmDialog-message'>{message}</div>
                 <div className='ConfirmDialog-buttons'>
-                    <Button onClick={onCancelClick}>Cancel</Button>
-                    <Button onClick={onConfirmClick}>Confirm</Button>
+                    <Button onClick={onCancel}>Cancel</Button>
+                    <Button onClick={onConfirm}>Confirm</Button>
                 </div>
             </div>
         </Backdrop>,

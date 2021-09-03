@@ -40,6 +40,7 @@ function DeckList() {
 
     const onCancelDelete = () => {
         setDeckPublicIDToDelete(null);
+        setDeleteDialogVisible(false);
     };
 
     const onConfirmDelete = async () => {
@@ -47,6 +48,7 @@ function DeckList() {
         if (!response?.success) {
             const { text, type } = response?.message;
             showMessage(text, type);
+            setDeleteDialogVisible(false);
             return;
         }
 
@@ -54,6 +56,8 @@ function DeckList() {
         if (deckPublicID === deckPublicIDToDelete) {
             resetDeckBuilder();
         }
+
+        setDeleteDialogVisible(false);
     };
 
     return (
@@ -63,7 +67,6 @@ function DeckList() {
                 visible={deleteDialogVisible}
                 onCancel={onCancelDelete}
                 onConfirm={onConfirmDelete}
-                setVisible={setDeleteDialogVisible}
             />
             <div className='DeckList-content'>
                 <div className='DeckList-list'>
