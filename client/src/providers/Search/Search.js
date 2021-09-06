@@ -23,7 +23,7 @@ import {
     RESET_SEARCH_CRITERIA,
 } from '../../actions/Search';
 
-function SearchProvider({ children = [] }) {
+export default function SearchProvider({ children = [] }) {
     const [state, dispatch] = useReducer(SearchReducer, initialState);
 
     const setName = name => dispatch({ type: SET_NAME, name });
@@ -71,5 +71,3 @@ function SearchProvider({ children = [] }) {
 
     return <SearchContext.Provider value={props}>{children}</SearchContext.Provider>;
 }
-
-export default SearchProvider;

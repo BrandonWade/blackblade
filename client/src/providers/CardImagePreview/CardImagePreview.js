@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CardImagePreviewContext, { initialState } from '../../contexts/CardImagePreview';
 
-function CardImagePreviewProvider({ children = [] }) {
+export default function CardImagePreviewProvider({ children = [] }) {
     const [top, setTop] = useState(initialState.top);
     const [left, setLeft] = useState(initialState.left);
     const [frontImage, setFrontImage] = useState(initialState.frontImage);
@@ -23,5 +23,3 @@ function CardImagePreviewProvider({ children = [] }) {
 
     return <CardImagePreviewContext.Provider value={props}>{children}</CardImagePreviewContext.Provider>;
 }
-
-export default CardImagePreviewProvider;

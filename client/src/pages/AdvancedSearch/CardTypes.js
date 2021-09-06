@@ -4,7 +4,7 @@ import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 import SearchContext from '../../contexts/Search';
 import { MultiSelectField } from '../../components/Select';
 
-function CardTypes() {
+export default function CardTypes() {
     const { getCardTypes } = useFetchCardTypes();
     const { cardTypes } = useContext(AdvancedSearchContext);
     const { selectedTypes, addType, removeType } = useContext(SearchContext);
@@ -68,5 +68,3 @@ function CardTypes() {
         </MultiSelectField>
     );
 }
-
-export default CardTypes;

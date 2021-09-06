@@ -7,7 +7,7 @@ import BackgroundMessage, { NO_BOOKMARKS } from '../../components/BackgroundMess
 import CardGrid from '../../components/CardGrid/CardGrid';
 import './BookmarkList.scss';
 
-function BookmarkList() {
+export default function BookmarkList() {
     const { listBookmarks } = useBookmarks();
     const { showMessage } = useMessage();
     const { bookmarkList, setBookmarkList } = useContext(BookmarkListContext);
@@ -35,5 +35,3 @@ function BookmarkList() {
         </HeaderPage>
     );
 }
-
-export default BookmarkList;

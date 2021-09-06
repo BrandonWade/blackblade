@@ -13,7 +13,7 @@ import RarityOptions from './RarityOptions';
 import StatRow from './StatRow';
 import './AdvancedSearch.scss';
 
-function AdvancedSearch() {
+export default function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
     const {
         name,
@@ -199,5 +199,3 @@ function AdvancedSearch() {
         </HeaderPage>
     );
 }
-
-export default AdvancedSearch;

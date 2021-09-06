@@ -31,7 +31,7 @@ import {
     RESET_DECK_BUILDER,
 } from '../../actions/DeckBuilder';
 
-function DeckBuilderProvider({ children = [] }) {
+export default function DeckBuilderProvider({ children = [] }) {
     const [state, dispatch] = useReducer(DeckBuilderReducer, initialState);
 
     const setDeckPublicID = deckPublicID => dispatch({ type: SET_DECK_PUBLIC_ID, deckPublicID });
@@ -95,5 +95,3 @@ function DeckBuilderProvider({ children = [] }) {
 
     return <DeckBuilderContext.Provider value={props}>{children}</DeckBuilderContext.Provider>;
 }
-
-export default DeckBuilderProvider;

@@ -13,7 +13,7 @@ import { TextAreaField } from '../../components/TextArea';
 import Button from '../../components/Button';
 import './DeckEditor.scss';
 
-function DeckEditor({ editing = false }) {
+export default function DeckEditor({ editing = false }) {
     const history = useHistory();
     const { publicID } = useParams();
     const { showMessage } = useMessage();
@@ -123,5 +123,3 @@ function DeckEditor({ editing = false }) {
         </HeaderPage>
     );
 }
-
-export default DeckEditor;

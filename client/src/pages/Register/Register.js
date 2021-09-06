@@ -11,7 +11,7 @@ import Link from '../../components/Link';
 import Button from '../../components/Button';
 import './Register.scss';
 
-function Register() {
+export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -96,5 +96,3 @@ function Register() {
         </div>
     );
 }
-
-export default Register;

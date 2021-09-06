@@ -13,7 +13,7 @@ import Link from '../../components/Link';
 import Button from '../../components/Button';
 import './Login.scss';
 
-function Login() {
+export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
@@ -101,5 +101,3 @@ function Login() {
         </div>
     );
 }
-
-export default Login;

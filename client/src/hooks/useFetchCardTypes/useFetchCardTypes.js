@@ -2,7 +2,7 @@ import { useContext, useCallback } from 'react';
 import useFetch from '../useFetch';
 import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 
-function useFetchCardTypes() {
+export default function useFetchCardTypes() {
     const { fetchData } = useFetch();
     const { setCardTypes } = useContext(AdvancedSearchContext);
 
@@ -25,5 +25,3 @@ function useFetchCardTypes() {
         getCardTypes,
     };
 }
-
-export default useFetchCardTypes;

@@ -1,7 +1,7 @@
 import MultiSelectRow from './MultiSelectRow';
 import './withMultiSelect.scss';
 
-function withMultiSelect(Select) {
+export default function withMultiSelect(Select) {
     const MultiSelect = props => {
         const { multiSelectClassName = '', children = [], selectedOptions = [], onSelectOption = () => {}, onClearOption = () => {} } = props;
 
@@ -33,5 +33,3 @@ function withMultiSelect(Select) {
 
     return MultiSelect;
 }
-
-export default withMultiSelect;

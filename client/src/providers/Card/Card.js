@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CardContext, { initialState } from '../../contexts/Card';
 
-function CardProvider({ children = [] }) {
+export default function CardProvider({ children = [] }) {
     const [card, setCard] = useState(initialState);
 
     const props = {
@@ -11,5 +11,3 @@ function CardProvider({ children = [] }) {
 
     return <CardContext.Provider value={props}>{children}</CardContext.Provider>;
 }
-
-export default CardProvider;

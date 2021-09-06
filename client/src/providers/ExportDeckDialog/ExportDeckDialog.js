@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ExportDeckDialogContext, { initialState } from '../../contexts/ExportDeckDialog';
 
-function ExportDeckDialogProvider({ children = [] }) {
+export default function ExportDeckDialogProvider({ children = [] }) {
     const { deckExport: deckExportDefault, visible: visibleDefault } = initialState;
     const [deckExport, setDeckExport] = useState(deckExportDefault);
     const [visible, setVisible] = useState(visibleDefault);
@@ -15,5 +15,3 @@ function ExportDeckDialogProvider({ children = [] }) {
 
     return <ExportDeckDialogContext.Provider value={props}>{children}</ExportDeckDialogContext.Provider>;
 }
-
-export default ExportDeckDialogProvider;

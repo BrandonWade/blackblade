@@ -14,7 +14,7 @@ import CardRulings from '../../components/CardRulings';
 import CardImagePreview from '../../components/CardImagePreview';
 import './Card.scss';
 
-function Card() {
+export default function Card() {
     const { id } = useParams();
     const { showMessage } = useMessage();
     const { getCardByID } = useSearch();
@@ -74,5 +74,3 @@ function Card() {
         </HeaderPage>
     );
 }
-
-export default Card;

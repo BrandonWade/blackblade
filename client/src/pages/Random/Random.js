@@ -4,7 +4,7 @@ import useSearch from '../../hooks/useSearch';
 import CardContext from '../../contexts/Card';
 import HeaderPage from '../../components/HeaderPage';
 
-function Random() {
+export default function Random() {
     const history = useHistory();
     const { getRandomCard } = useSearch();
     const { setCard } = useContext(CardContext);
@@ -24,5 +24,3 @@ function Random() {
 
     return <HeaderPage />;
 }
-
-export default Random;

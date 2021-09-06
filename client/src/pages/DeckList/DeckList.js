@@ -9,7 +9,7 @@ import ConfirmDialog from '../../components/ConfirmDialog';
 import Deck from './Deck';
 import './DeckList.scss';
 
-function DeckList() {
+export default function DeckList() {
     const [deckPublicIDToDelete, setDeckPublicIDToDelete] = useState(null);
     const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
     const { listDecks, deleteDeck } = useDecks();
@@ -91,5 +91,3 @@ function DeckList() {
         </HeaderPage>
     );
 }
-
-export default DeckList;

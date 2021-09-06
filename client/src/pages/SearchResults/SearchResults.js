@@ -7,7 +7,7 @@ import HeaderPage from '../../components/HeaderPage';
 import PaginatedResults from '../../components/PaginatedResults';
 import './SearchResults.scss';
 
-function SearchResults({ location }) {
+export default function SearchResults({ location }) {
     const {
         setName,
         setText,
@@ -120,5 +120,3 @@ function SearchResults({ location }) {
         </HeaderPage>
     );
 }
-
-export default SearchResults;

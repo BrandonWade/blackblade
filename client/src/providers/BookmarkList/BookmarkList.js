@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import BookmarkListContext, { initialState } from '../../contexts/BookmarkList';
 
-function BookmarkListProvider({ children = [] }) {
+export default function BookmarkListProvider({ children = [] }) {
     const [bookmarkList, setBookmarkList] = useState(initialState);
 
     const props = {
@@ -11,5 +11,3 @@ function BookmarkListProvider({ children = [] }) {
 
     return <BookmarkListContext.Provider value={props}>{children}</BookmarkListContext.Provider>;
 }
-
-export default BookmarkListProvider;

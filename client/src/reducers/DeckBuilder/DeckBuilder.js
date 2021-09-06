@@ -31,7 +31,7 @@ import {
 } from '../../actions/DeckBuilder';
 import { initialState } from '../../contexts/DeckBuilder';
 
-function DeckBuilderReducer(state = {}, action = {}) {
+export default function DeckBuilderReducer(state = {}, action = {}) {
     switch (action.type) {
         case SET_DECK_PUBLIC_ID:
             return {
@@ -338,5 +338,3 @@ function DeckBuilderReducer(state = {}, action = {}) {
             return state;
     }
 }
-
-export default DeckBuilderReducer;

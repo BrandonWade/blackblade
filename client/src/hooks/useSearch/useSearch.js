@@ -1,6 +1,6 @@
 import useFetch from '../useFetch';
 
-function useSearch() {
+export default function useSearch() {
     const { fetchData } = useFetch();
 
     const getParamString = (params = {}) => {
@@ -161,5 +161,3 @@ function useSearch() {
         searchCards,
     };
 }
-
-export default useSearch;

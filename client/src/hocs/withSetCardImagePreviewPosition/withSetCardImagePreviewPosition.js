@@ -3,7 +3,7 @@ import { uniq } from 'lodash';
 import CardImagePreviewContext from '../../contexts/CardImagePreview/CardImagePreview';
 import useCSSVariableValue from '../../hooks/useCSSVariableValue';
 
-function withSetCardImagePreviewPosition(BaseComponent) {
+export default function withSetCardImagePreviewPosition(BaseComponent) {
     return ({ children = [], previewLocation = 'left', ...rest }) => {
         const ref = useRef();
         const { setTop, setLeft, setFrontImage, setBackImage, setVisible } = useContext(CardImagePreviewContext);
@@ -89,5 +89,3 @@ function withSetCardImagePreviewPosition(BaseComponent) {
         );
     };
 }
-
-export default withSetCardImagePreviewPosition;

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import cookies from 'js-cookie';
 
-function useFetch() {
+export default function useFetch() {
     const fetchData = useCallback(async (url = '', method = 'GET', body = {}, headers = {}) => {
         const options = {
             method,
@@ -24,5 +24,3 @@ function useFetch() {
         fetchData,
     };
 }
-
-export default useFetch;

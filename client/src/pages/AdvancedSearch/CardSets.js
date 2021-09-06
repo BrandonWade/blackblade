@@ -4,7 +4,7 @@ import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 import SearchContext from '../../contexts/Search';
 import { MultiSelectField } from '../../components/Select';
 
-function CardSets() {
+export default function CardSets() {
     const { getCardSets } = useFetchCardSets();
     const { cardSets } = useContext(AdvancedSearchContext);
     const { selectedSets, addSet, removeSet } = useContext(SearchContext);
@@ -68,5 +68,3 @@ function CardSets() {
         </MultiSelectField>
     );
 }
-
-export default CardSets;

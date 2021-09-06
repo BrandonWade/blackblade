@@ -5,7 +5,7 @@ import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import useSymbols from '../../hooks/useSymbols';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 
-function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colors = '', removeDeck = () => {} }) {
+export default function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colors = '', removeDeck = () => {} }) {
     const history = useHistory();
     const { saveDeck } = useDecks();
     const { isDeckUnmodified } = useIsDeckUnmodified();
@@ -42,5 +42,3 @@ function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colo
         </div>
     );
 }
-
-export default Deck;

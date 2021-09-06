@@ -20,7 +20,7 @@ import Button from '../../components/Button';
 import './DeckBuilder.scss';
 import BackgroundMessage from '../../components/BackgroundMessage';
 
-function DeckBuilder() {
+export default function DeckBuilder() {
     const { publicID } = useParams();
     const { showMessage } = useMessage();
     const { saveDeck } = useDecks();
@@ -105,5 +105,3 @@ function DeckBuilder() {
         </div>
     );
 }
-
-export default DeckBuilder;

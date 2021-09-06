@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import AuthContext from '../../contexts/Auth';
 
-function Logout() {
+export default function Logout() {
     const history = useHistory();
     const { logout } = useAuth();
     const { setAuthenticated, setAccountPublicID } = useContext(AuthContext);
@@ -22,5 +22,3 @@ function Logout() {
 
     return null;
 }
-
-export default Logout;

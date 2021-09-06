@@ -8,7 +8,7 @@ import Link from '../../components/Link';
 import Button from '../../components/Button';
 import './ForgotPassword.scss';
 
-function ForgotPassword() {
+export default function ForgotPassword() {
     const [email, setEmail] = useState('');
     const { requestPasswordReset } = useAccounts();
     const { showMessage } = useMessage();
@@ -56,5 +56,3 @@ function ForgotPassword() {
         </div>
     );
 }
-
-export default ForgotPassword;

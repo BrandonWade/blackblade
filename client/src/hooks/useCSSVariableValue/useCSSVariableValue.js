@@ -1,4 +1,4 @@
-function useCSSVariableValue(name = '') {
+export default function useCSSVariableValue(name = '') {
     const value = window.getComputedStyle(document.body).getPropertyValue(name);
 
     if (typeof value === 'string' && value.endsWith('rem')) {
@@ -10,5 +10,3 @@ function useCSSVariableValue(name = '') {
         return value;
     }
 }
-
-export default useCSSVariableValue;

@@ -1,4 +1,4 @@
-function MultiSelectRow({ value = '', children = [], onRemove = () => {} }) {
+export default function MultiSelectRow({ value = '', children = [], onRemove = () => {} }) {
     const onRemoveRow = () => {
         onRemove(value);
     };
@@ -12,5 +12,3 @@ function MultiSelectRow({ value = '', children = [], onRemove = () => {} }) {
         </li>
     );
 }
-
-export default MultiSelectRow;

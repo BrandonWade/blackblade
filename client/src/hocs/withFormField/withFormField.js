@@ -1,6 +1,6 @@
 import './withFormField.scss';
 
-function withFormField(BaseComponent) {
+export default function withFormField(BaseComponent) {
     const FormField = props => {
         const {
             rowClassName = '',
@@ -31,5 +31,3 @@ function withFormField(BaseComponent) {
 
     return FormField;
 }
-
-export default withFormField;

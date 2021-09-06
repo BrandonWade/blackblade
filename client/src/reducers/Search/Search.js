@@ -21,7 +21,7 @@ import {
 } from '../../actions/Search';
 import { initialState } from '../../contexts/Search';
 
-function SearchReducer(state = {}, action = {}) {
+export default function SearchReducer(state = {}, action = {}) {
     switch (action.type) {
         case SET_NAME:
             return {
@@ -159,5 +159,3 @@ function SearchReducer(state = {}, action = {}) {
             return state;
     }
 }
-
-export default SearchReducer;

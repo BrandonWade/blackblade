@@ -5,7 +5,7 @@ import useMessage from '../../hooks/useMessage';
 import SearchContext from '../../contexts/Search';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 
-function useDisplayResults() {
+export default function useDisplayResults() {
     const history = useHistory();
     const location = useLocation();
     const { getParamString } = useSearch();
@@ -54,5 +54,3 @@ function useDisplayResults() {
         displayResults,
     };
 }
-
-export default useDisplayResults;

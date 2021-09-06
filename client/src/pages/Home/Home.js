@@ -7,7 +7,7 @@ import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import './Home.scss';
 
-function Home() {
+export default function Home() {
     const [query, setQuery] = useState('');
     const { setName } = useContext(SearchContext);
     const { searchResultsRedirect } = useDisplayResults();
@@ -44,5 +44,3 @@ function Home() {
         </div>
     );
 }
-
-export default Home;

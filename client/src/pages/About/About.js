@@ -2,7 +2,7 @@ import HeaderPage from '../../components/HeaderPage';
 import Link from '../../components/Link';
 import './About.scss';
 
-function About() {
+export default function About() {
     return (
         <HeaderPage className='About'>
             <div className='About-content'>
@@ -44,5 +44,3 @@ function About() {
         </HeaderPage>
     );
 }
-
-export default About;

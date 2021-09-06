@@ -1,6 +1,6 @@
 import useFetch from '../useFetch';
 
-function useAuth() {
+export default function useAuth() {
     const { fetchData } = useFetch();
 
     const getCSRFToken = async () => {
@@ -62,5 +62,3 @@ function useAuth() {
         logout,
     };
 }
-
-export default useAuth;

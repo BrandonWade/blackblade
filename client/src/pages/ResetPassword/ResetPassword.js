@@ -9,7 +9,7 @@ import ValidationRow from '../../components/ValidationRow/ValidationRow';
 import Button from '../../components/Button';
 import './ResetPassword.scss';
 
-function ResetPassword() {
+export default function ResetPassword() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const history = useHistory();
@@ -86,5 +86,3 @@ function ResetPassword() {
         </div>
     );
 }
-
-export default ResetPassword;

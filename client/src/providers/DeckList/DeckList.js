@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import DeckListContext, { initialState } from '../../contexts/DeckList';
 
-function DeckListProvider({ children = [] }) {
+export default function DeckListProvider({ children = [] }) {
     const [deckList, setDeckList] = useState(initialState);
 
     const props = {
@@ -11,5 +11,3 @@ function DeckListProvider({ children = [] }) {
 
     return <DeckListContext.Provider value={props}>{children}</DeckListContext.Provider>;
 }
-
-export default DeckListProvider;

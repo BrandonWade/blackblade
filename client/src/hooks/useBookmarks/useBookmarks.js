@@ -1,6 +1,6 @@
 import useFetch from '../useFetch';
 
-function useBookmarks() {
+export default function useBookmarks() {
     const { fetchData } = useFetch();
 
     const createBookmark = async (cardID = 0) => {
@@ -70,5 +70,3 @@ function useBookmarks() {
         deleteBookmark,
     };
 }
-
-export default useBookmarks;
