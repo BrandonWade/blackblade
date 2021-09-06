@@ -48,6 +48,10 @@
             width: 95%;
             padding: 0;
             grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+
+            @media only screen and (max-width: 37.5em) {
+                grid-template-columns: repeat(2, minmax(10rem, 1fr));
+            }
         }
     }
 }
