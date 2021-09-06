@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import AuthenticatedContext from '../../contexts/Auth';
 import { Route, Redirect } from 'react-router-dom';
 
-const AuthenticatedRoute = props => {
+export default function AuthenticatedRoute(props) {
     const { authenticated } = useContext(AuthenticatedContext);
 
     const renderPropHandler = () => {
@@ -14,6 +14,4 @@ const AuthenticatedRoute = props => {
     const { component, ...rest } = props;
 
     return <Route {...rest} render={renderPropHandler} />;
-};
-
-export default AuthenticatedRoute;
+}

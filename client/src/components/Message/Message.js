@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import MessageContext from '../../contexts/Message';
 import './Message.scss';
 
-function Message() {
+export default function Message() {
     const { message, duration, setMessage } = useContext(MessageContext);
 
     useEffect(() => {
@@ -44,5 +44,3 @@ function Message() {
         document.getElementById('portal-root')
     );
 }
-
-export default Message;

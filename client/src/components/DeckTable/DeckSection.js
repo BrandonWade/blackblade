@@ -1,6 +1,14 @@
 import DeckRow from './DeckRow';
 
-function DeckSection({ cards = [], heading = '', type = '', visible = false, className = '', headingClassName = '', onHeadingClick = () => {} }) {
+export default function DeckSection({
+    cards = [],
+    heading = '',
+    type = '',
+    visible = false,
+    className = '',
+    headingClassName = '',
+    onHeadingClick = () => {},
+}) {
     return visible ? (
         <tbody className={`DeckTable-section ${className}`}>
             <tr className='DeckTable-headingRow'>
@@ -14,5 +22,3 @@ function DeckSection({ cards = [], heading = '', type = '', visible = false, cla
         </tbody>
     ) : null;
 }
-
-export default DeckSection;

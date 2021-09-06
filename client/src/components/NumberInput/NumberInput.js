@@ -2,7 +2,7 @@ import withFormField from '../../hocs/withFormField';
 import { ChevronThinDown, ChevronThinUp } from '../Icons';
 import './NumberInput.scss';
 
-function NumberInput({
+export default function NumberInput({
     className = '',
     placeholder = '',
     name = '',
@@ -25,7 +25,5 @@ function NumberInput({
         </span>
     );
 }
-
-export default NumberInput;
 
 export const NumberInputField = withFormField(NumberInput);

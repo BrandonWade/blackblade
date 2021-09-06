@@ -11,7 +11,7 @@ import CardProvider from '../../providers/Card';
 import Router from '../Router';
 import './App.scss';
 
-function App() {
+export default function App() {
     return (
         <AuthProvider>
             <MessageProvider>
@@ -36,5 +36,3 @@ function App() {
         </AuthProvider>
     );
 }
-
-export default App;

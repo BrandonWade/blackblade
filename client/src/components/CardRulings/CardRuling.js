@@ -1,7 +1,7 @@
 import useSymbols from '../../hooks/useSymbols';
 import CardSection from '../CardSection';
 
-function CardRuling({ comment = '', publishedAt = '' }) {
+export default function CardRuling({ comment = '', publishedAt = '' }) {
     return (
         <CardSection className='CardRulings-ruling'>
             <div className='CardSection-rowItem CardRulings-comment' dangerouslySetInnerHTML={{ __html: useSymbols(comment) }} />
@@ -9,5 +9,3 @@ function CardRuling({ comment = '', publishedAt = '' }) {
         </CardSection>
     );
 }
-
-export default CardRuling;

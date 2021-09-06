@@ -8,7 +8,7 @@ import BackgroundMessage, { NO_RESULTS } from '../../components/BackgroundMessag
 import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
-function PaginatedResults({ className = '', onSelectResult = () => {}, isLink = false, redirect = true, deckBuilder = false }) {
+export default function PaginatedResults({ className = '', onSelectResult = () => {}, isLink = false, redirect = true, deckBuilder = false }) {
     const {
         name: searchName,
         text,
@@ -88,5 +88,3 @@ function PaginatedResults({ className = '', onSelectResult = () => {}, isLink = 
         </div>
     );
 }
-
-export default PaginatedResults;

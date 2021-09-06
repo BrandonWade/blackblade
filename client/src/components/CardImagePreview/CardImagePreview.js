@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import './CardImagePreview.scss';
 
-function CardImagePreview() {
+export default function CardImagePreview() {
     const [styles, setStyles] = useState({});
     const { top, left, frontImage, backImage, visible } = useContext(CardImagePreviewContext);
 
@@ -20,5 +20,3 @@ function CardImagePreview() {
         </div>
     ) : null;
 }
-
-export default CardImagePreview;

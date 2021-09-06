@@ -1,6 +1,6 @@
 import './Checkbox.scss';
 
-function Checkbox({ className = '', value = false, onClick = () => {}, children = [] }) {
+export default function Checkbox({ className = '', value = false, onClick = () => {}, children = [] }) {
     return (
         <label className={`Checkbox-label ${className}`} onClick={onClick}>
             <span className={`Checkbox-checkmark ${value ? 'Checkbox--checked' : ''}`} />
@@ -8,5 +8,3 @@ function Checkbox({ className = '', value = false, onClick = () => {}, children 
         </label>
     );
 }
-
-export default Checkbox;

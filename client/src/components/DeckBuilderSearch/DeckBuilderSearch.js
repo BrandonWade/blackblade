@@ -6,7 +6,7 @@ import Input from '../Input';
 import PaginatedResults from '../../components/PaginatedResults';
 import './DeckBuilderSearch.scss';
 
-function DeckBuilderSearch() {
+export default function DeckBuilderSearch() {
     const [query, setQuery] = useState('');
     const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
@@ -14,9 +14,9 @@ function DeckBuilderSearch() {
 
     const onSubmit = async e => {
         e.preventDefault();
-
         setName(query);
         setPage(1);
+
         const response = await searchCards({ name: query });
         displayResults(response, true);
     };
@@ -55,5 +55,3 @@ function DeckBuilderSearch() {
         </div>
     );
 }
-
-export default DeckBuilderSearch;

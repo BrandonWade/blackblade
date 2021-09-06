@@ -4,7 +4,7 @@ import useAccounts from '../../hooks/useAccounts';
 import useMessage, { DURATION_LONG } from '../../hooks/useMessage';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
 import Panel from '../../components/Panel';
-import { PasswordField } from '../../components/PasswordInput';
+import { PasswordInputField } from '../../components/PasswordInput';
 import ValidationRow from '../../components/ValidationRow/ValidationRow';
 import Button from '../../components/Button';
 import './ResetPassword.scss';
@@ -55,7 +55,7 @@ function ResetPassword() {
             {checkPasswordResetTokenCookie()}
             <Panel wrapperClassName='ResetPassword-wrapper' showLogo={true}>
                 <form className='ResetPassword-form'>
-                    <PasswordField
+                    <PasswordInputField
                         label='New Password'
                         rowClassName='Panel-inputRow'
                         labelClassName='Panel-inputLabel'
@@ -64,7 +64,7 @@ function ResetPassword() {
                         value={password}
                         onChange={onChangePassword}
                     />
-                    <PasswordField
+                    <PasswordInputField
                         label='Confirm Password'
                         rowClassName='Panel-inputRow'
                         labelClassName='Panel-inputLabel'

@@ -10,7 +10,7 @@ import DeckActionButton from './DeckActionButton';
 import { Pencil, Export } from '../Icons';
 import './DeckActions.scss';
 
-function DeckActions() {
+export default function DeckActions() {
     const { publicID } = useParams();
     const history = useHistory();
     const { saveDeck, exportDeck } = useDecks();
@@ -65,5 +65,3 @@ function DeckActions() {
         </div>
     );
 }
-
-export default DeckActions;

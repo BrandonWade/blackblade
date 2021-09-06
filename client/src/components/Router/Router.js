@@ -23,7 +23,7 @@ import DeckEditor from '../../pages/DeckEditor';
 import DeckBuilder from '../../pages/DeckBuilder';
 import About from '../../pages/About';
 
-function Router() {
+export default function Router() {
     const { getCSRFToken } = useAuth();
     const { listBookmarks } = useBookmarks();
     const { showMessage } = useMessage();
@@ -87,5 +87,3 @@ function Router() {
         </>
     );
 }
-
-export default Router;

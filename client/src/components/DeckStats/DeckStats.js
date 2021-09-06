@@ -2,7 +2,7 @@ import { sumBy, sum, head, sortBy } from 'lodash';
 import { parseIntFallback, parseFloatFallback } from '../../helpers/parse';
 import './DeckStats.scss';
 
-function DeckStats({ deck = [] }) {
+export default function DeckStats({ deck = [] }) {
     let stats = [];
 
     const estimatedPrice = () => {
@@ -179,5 +179,3 @@ function DeckStats({ deck = [] }) {
         </div>
     );
 }
-
-export default DeckStats;

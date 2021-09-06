@@ -3,7 +3,7 @@ import Backdrop from '../Backdrop';
 import Button from '../Button';
 import './ConfirmDialog.scss';
 
-function ConfirmDialog({ message = '', visible = false, onCancel = () => {}, onConfirm = () => {} }) {
+export default function ConfirmDialog({ message = '', visible = false, onCancel = () => {}, onConfirm = () => {} }) {
     return ReactDOM.createPortal(
         <Backdrop className='ConfirmDialog' visible={visible} onClose={onCancel}>
             <div className='ConfirmDialog-content'>
@@ -17,5 +17,3 @@ function ConfirmDialog({ message = '', visible = false, onCancel = () => {}, onC
         document.getElementById('portal-root')
     );
 }
-
-export default ConfirmDialog;

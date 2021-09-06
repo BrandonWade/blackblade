@@ -1,1 +1,5 @@
-export { default, PasswordField } from './PasswordInput';
+import PasswordInput from './PasswordInput';
+import PasswordInputField from './PasswordInputField';
+
+export default PasswordInput;
+export { PasswordInputField };

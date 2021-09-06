@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight, ChevronCircleLeft, ChevronCircleRight } from
 import Button from '../Button';
 import './Paginator.scss';
 
-function Paginator({ className = '', totalResults = 0, numberOfPages = 1, page = 1, onPageChange = () => {} }) {
+export default function Paginator({ className = '', totalResults = 0, numberOfPages = 1, page = 1, onPageChange = () => {} }) {
     const firstEnabled = page > 1;
     const previousEnabled = page > 1;
     const nextEnabled = page < numberOfPages;
@@ -55,5 +55,3 @@ function Paginator({ className = '', totalResults = 0, numberOfPages = 1, page =
         </div>
     );
 }
-
-export default Paginator;

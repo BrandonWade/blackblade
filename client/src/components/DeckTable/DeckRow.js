@@ -7,7 +7,7 @@ import DeckRowName from './DeckRowName';
 import Input from '../Input';
 import { Images, ArrowUp, ArrowDown } from '../Icons';
 
-function DeckRow({ card = {}, count = 0, sectionType = '' }) {
+export default function DeckRow({ card = {}, count = 0, sectionType = '' }) {
     const { accountPublicID } = useContext(AuthContext);
     const { setCard } = useContext(CardContext);
     const {
@@ -119,5 +119,3 @@ function DeckRow({ card = {}, count = 0, sectionType = '' }) {
         </tr>
     );
 }
-
-export default DeckRow;

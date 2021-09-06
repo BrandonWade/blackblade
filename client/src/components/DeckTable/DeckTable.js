@@ -4,7 +4,7 @@ import DeckBuilderContext from '../../contexts/DeckBuilder';
 import DeckSection from './DeckSection';
 import './DeckTable.scss';
 
-function DeckTable({ deckCards = [], maybeboardCards = [], maybeboardMode = false, setMaybeboardMode = () => {} }) {
+export default function DeckTable({ deckCards = [], maybeboardCards = [], maybeboardMode = false, setMaybeboardMode = () => {} }) {
     const { accountPublicID } = useContext(AuthContext);
     const { deckAccountPublicID } = useContext(DeckBuilderContext);
     const creatures = deckCards.filter(card => ['creature'].includes(card.sets_json?.[0]?.faces_json?.[0].derived_type) === true);
@@ -39,5 +39,3 @@ function DeckTable({ deckCards = [], maybeboardCards = [], maybeboardMode = fals
         </table>
     );
 }
-
-export default DeckTable;

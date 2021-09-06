@@ -5,7 +5,7 @@ import { isEmailValid } from '../../validators/email';
 import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
 import Panel from '../../components/Panel';
 import { InputField } from '../../components/Input';
-import { PasswordField } from '../../components/PasswordInput';
+import { PasswordInputField } from '../../components/PasswordInput';
 import ValidationRow from '../../components/ValidationRow/ValidationRow';
 import Link from '../../components/Link';
 import Button from '../../components/Button';
@@ -61,7 +61,7 @@ function Register() {
                         value={email}
                         onChange={onChangeEmail}
                     />
-                    <PasswordField
+                    <PasswordInputField
                         label='Password'
                         rowClassName='Panel-inputRow'
                         labelClassName='Panel-inputLabel'
@@ -70,7 +70,7 @@ function Register() {
                         value={password}
                         onChange={onChangePassword}
                     />
-                    <PasswordField
+                    <PasswordInputField
                         label='Confirm Password'
                         rowClassName='Panel-inputRow'
                         labelClassName='Panel-inputLabel'

@@ -8,7 +8,7 @@ import useMessage from '../../hooks/useMessage';
 import AuthContext from '../../contexts/Auth';
 import Panel from '../../components/Panel';
 import { InputField } from '../../components/Input';
-import { PasswordField } from '../../components/PasswordInput';
+import { PasswordInputField } from '../../components/PasswordInput';
 import Link from '../../components/Link';
 import Button from '../../components/Button';
 import './Login.scss';
@@ -77,7 +77,7 @@ function Login() {
                         value={email}
                         onChange={onChangeEmail}
                     />
-                    <PasswordField
+                    <PasswordInputField
                         hideStrength={true}
                         label='Password'
                         rowClassName='Panel-inputRow'

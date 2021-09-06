@@ -65,10 +65,10 @@ function Card() {
                             return <CardFaceDetails key={face.face_id} face={face} />;
                         })}
                     </div>
-                    <CardSets cardSets={card.sets_json} currentCardID={cardID} />
+                    <CardSets cardSets={card?.sets_json} currentCardID={cardID} />
                 </div>
                 <div className='Card-secondaryContent'>
-                    <CardRulings rulings={card.rulings_json} />
+                    <CardRulings rulings={card?.rulings_json} />
                 </div>
             </BackgroundMessage>
         </HeaderPage>

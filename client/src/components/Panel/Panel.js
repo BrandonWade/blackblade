@@ -1,7 +1,7 @@
 import Logo from '../Logo';
 import './Panel.scss';
 
-function Panel({ wrapperClassName = '', className = '', showLogo = false, children = [] }) {
+export default function Panel({ wrapperClassName = '', className = '', showLogo = false, children = [] }) {
     return (
         <div className={`Panel-wrapper ${wrapperClassName}`}>
             {showLogo ? <Logo className='Panel-logo' size='large' /> : null}
@@ -9,5 +9,3 @@ function Panel({ wrapperClassName = '', className = '', showLogo = false, childr
         </div>
     );
 }
-
-export default Panel;

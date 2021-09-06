@@ -10,7 +10,7 @@ import { Copy, Download } from '../Icons';
 import Button from '../Button';
 import './ExportDeckDialog.scss';
 
-function ExportDeckDialog() {
+export default function ExportDeckDialog() {
     const { publicID } = useParams();
     const { showMessage } = useMessage();
     const { deckExport, visible, setVisible } = useContext(ExportDeckDialogContext);
@@ -57,5 +57,3 @@ function ExportDeckDialog() {
         document.getElementById('portal-root')
     );
 }
-
-export default ExportDeckDialog;

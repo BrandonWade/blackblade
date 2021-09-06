@@ -5,7 +5,7 @@ import Backdrop from '../Backdrop';
 import XButton from '../XButton';
 import './Menu.scss';
 
-function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
+export default function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
     const menuItems = useMenuItems();
 
     const openMenu = () => {
@@ -36,5 +36,3 @@ function Menu({ menuOpen = false, setMenuOpen = () => {} }) {
         </>
     );
 }
-
-export default Menu;

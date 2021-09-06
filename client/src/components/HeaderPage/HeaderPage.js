@@ -1,7 +1,7 @@
 import Header from '../Header';
 import './HeaderPage.scss';
 
-function HeaderPage({ children = [], className = '' }) {
+export default function HeaderPage({ children = [], className = '' }) {
     return (
         <div className='HeaderPage'>
             <Header />
@@ -9,5 +9,3 @@ function HeaderPage({ children = [], className = '' }) {
         </div>
     );
 }
-
-export default HeaderPage;

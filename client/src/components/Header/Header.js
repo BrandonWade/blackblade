@@ -9,7 +9,7 @@ import Input from '../Input';
 import Menu from '../Menu';
 import './Header.scss';
 
-function Header() {
+export default function Header() {
     const [query, setQuery] = useState('');
     const [menuOpen, setMenuOpen] = useState(false);
     const { setName } = useContext(SearchContext);
@@ -51,5 +51,3 @@ function Header() {
         </div>
     );
 }
-
-export default Header;

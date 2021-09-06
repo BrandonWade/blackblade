@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import './Backdrop.scss';
 
-function Backdrop({ className = '', visible = false, children = [], onClose = () => {}, closeOnClick = true }) {
+export default function Backdrop({ className = '', visible = false, children = [], onClose = () => {}, closeOnClick = true }) {
     useEffect(() => {
         const onEscapePress = e => {
             if (e.keyCode === 27) {
@@ -43,5 +43,3 @@ function Backdrop({ className = '', visible = false, children = [], onClose = ()
         </div>
     ) : null;
 }
-
-export default Backdrop;

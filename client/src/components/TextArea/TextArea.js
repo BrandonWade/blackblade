@@ -1,8 +1,9 @@
 import withFormField from '../../hocs/withFormField';
 import './TextArea.scss';
 
-function TextArea({ className = '', value = '', maxLength = undefined, readOnly = false, onChange = () => {} }) {
+export default function TextArea({ className = '', value = '', maxLength = undefined, readOnly = false, onChange = () => {} }) {
     const readOnlyClassName = readOnly ? 'TextArea--readOnly' : '';
+
     return (
         <textarea
             className={`TextArea ${readOnlyClassName} ${className}`}
@@ -13,7 +14,5 @@ function TextArea({ className = '', value = '', maxLength = undefined, readOnly 
         />
     );
 }
-
-export default TextArea;
 
 export const TextAreaField = withFormField(TextArea);

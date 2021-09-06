@@ -1,7 +1,7 @@
 import CardImage from '../CardImage';
 import './CardGrid.scss';
 
-function CardGrid({ className = '', cards = [], currentCardID = 0, isLink = false, onClick = () => {} }) {
+export default function CardGrid({ className = '', cards = [], currentCardID = 0, isLink = false, onClick = () => {} }) {
     return (
         <div className={`CardGrid ${className}`}>
             {cards.map(card => {
@@ -20,5 +20,3 @@ function CardGrid({ className = '', cards = [], currentCardID = 0, isLink = fals
         </div>
     );
 }
-
-export default CardGrid;

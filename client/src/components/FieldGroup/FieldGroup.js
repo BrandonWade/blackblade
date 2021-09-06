@@ -1,7 +1,5 @@
 import './FieldGroup.scss';
 
-function FieldGroup({ className = '', children = [] }) {
+export default function FieldGroup({ className = '', children = [] }) {
     return <div className={`FieldGroup ${className}`}>{children}</div>;
 }
-
-export default FieldGroup;

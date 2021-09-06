@@ -1,7 +1,7 @@
 import withFormField from '../../hocs/withFormField';
 import './Input.scss';
 
-function Input({
+export default function Input({
     type = 'text',
     className = '',
     placeholder = '',
@@ -24,7 +24,5 @@ function Input({
         />
     );
 }
-
-export default Input;
 
 export const InputField = withFormField(Input);

@@ -6,7 +6,7 @@ import XButton from '../XButton';
 import CardGrid from '../CardGrid';
 import './CardArtSelector.scss';
 
-function CardArtSelector() {
+export default function CardArtSelector() {
     const { card } = useContext(CardContext);
     const { cardArtSelectorVisible, updateDeckCardArt, updateMaybeboardCardArt, hideCardArtSelector } = useContext(DeckBuilderContext);
     const inDeck = card.location === 'deck';
@@ -35,5 +35,3 @@ function CardArtSelector() {
         </Backdrop>
     );
 }
-
-export default CardArtSelector;

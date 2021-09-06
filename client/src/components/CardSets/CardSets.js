@@ -2,7 +2,7 @@ import CardSection from '../CardSection';
 import CardSet from './CardSet';
 import './CardSets.scss';
 
-function CardSets({ cardSets = [], currentCardID = 0 }) {
+export default function CardSets({ cardSets = [], currentCardID = 0 }) {
     return cardSets.length > 0 ? (
         <CardSection className='CardSets'>
             <ul className='CardSets-list'>
@@ -24,5 +24,3 @@ function CardSets({ cardSets = [], currentCardID = 0 }) {
         </CardSection>
     ) : null;
 }
-
-export default CardSets;
