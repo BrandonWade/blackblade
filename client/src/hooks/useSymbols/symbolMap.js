@@ -1,4 +1,4 @@
-export default {
+const symbolMap = {
     '{W}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/W.svg' alt='Symbol W' />",
     '{U}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/U.svg' alt='Symbol U' />",
     '{B}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/B.svg' alt='Symbol B' />",
@@ -65,3 +65,5 @@ export default {
     '{HW}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/HW.svg' alt='Symbol HW' />",
     '{HR}': "<img class='CardSymbol' src='https://c2.scryfall.com/file/scryfall-symbols/card-symbols/HR.svg' alt='Symbol HR' />",
 };
+
+export default symbolMap;
