@@ -1,10 +1,9 @@
 import cookies from 'js-cookie';
 import { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { isEmailValid } from '../../validators/email';
-import { isPasswordValid } from '../../validators/password';
-import useAuth from '../../hooks/useAuth';
 import useMessage from '../../hooks/useMessage';
+import useAuth from '../../hooks/useAuth';
+import useValidation from '../../hooks/useValidation';
 import AuthContext from '../../contexts/Auth';
 import Panel from '../../components/Panel';
 import { InputField } from '../../components/Input';
@@ -18,6 +17,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const history = useHistory();
     const { login } = useAuth();
+    const { isEmailValid, isPasswordValid } = useValidation();
     const { showMessage } = useMessage();
     const { setAuthenticated, setAccountPublicID } = useContext(AuthContext);
     const emailValid = isEmailValid(email);

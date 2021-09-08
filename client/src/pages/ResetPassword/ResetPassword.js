@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
-import useAccounts from '../../hooks/useAccounts';
 import useMessage, { DURATION_LONG } from '../../hooks/useMessage';
-import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
+import useAccounts from '../../hooks/useAccounts';
+import useValidation from '../../hooks/useValidation';
 import Panel from '../../components/Panel';
 import { PasswordInputField } from '../../components/PasswordInput';
 import ValidationRow from '../../components/ValidationRow/ValidationRow';
@@ -14,6 +14,7 @@ export default function ResetPassword() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const history = useHistory();
     const { resetPassword } = useAccounts();
+    const { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } = useValidation();
     const { showMessage } = useMessage();
     const passwordLengthValid = isPasswordLengthValid(password);
     const passwordValidCharsOnly = doesPasswordContainValidChars(password);

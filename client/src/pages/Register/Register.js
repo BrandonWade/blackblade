@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import useAccounts from '../../hooks/useAccounts';
 import useMessage, { DURATION_LONG } from '../../hooks/useMessage';
-import { isEmailValid } from '../../validators/email';
-import { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } from '../../validators/password';
+import useAccounts from '../../hooks/useAccounts';
+import useValidation from '../../hooks/useValidation';
 import Panel from '../../components/Panel';
 import { InputField } from '../../components/Input';
 import { PasswordInputField } from '../../components/PasswordInput';
@@ -16,6 +15,7 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const { register } = useAccounts();
+    const { isEmailValid, isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } = useValidation();
     const { showMessage } = useMessage();
     const emailValid = isEmailValid(email);
     const passwordLengthValid = isPasswordLengthValid(password);

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import useAccounts from '../../hooks/useAccounts';
 import useMessage, { DURATION_MEDIUM } from '../../hooks/useMessage';
-import { isEmailValid } from '../../validators/email';
+import useAccounts from '../../hooks/useAccounts';
+import useValidation from '../../hooks/useValidation';
 import Panel from '../../components/Panel';
 import { InputField } from '../../components/Input';
 import Link from '../../components/Link';
@@ -11,6 +11,7 @@ import './ForgotPassword.scss';
 export default function ForgotPassword() {
     const [email, setEmail] = useState('');
     const { requestPasswordReset } = useAccounts();
+    const { isEmailValid } = useValidation();
     const { showMessage } = useMessage();
     const emailValid = isEmailValid(email);
 
