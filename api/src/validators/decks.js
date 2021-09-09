@@ -1,10 +1,45 @@
 import { body } from 'express-validator';
-import { visibilityValidValue, cardValuesValid } from './custom';
+
+const visibilityValueValid = (visibility) => {
+    const visibilityValues = ['public', 'private'];
+
+    if (!visibilityValues.includes(visibility)) {
+        throw new Error(
+            `visibility must be one of: ${visibilityValues.join(', ')}`,
+        );
+    }
+
+    return true;
+};
+
+const cardValuesValid = (cards) => {
+    let errors = [];
+
+    cards.forEach((c) => {
+        if (!Number.isInteger(parseInt(c.count))) {
+            errors = errors.concat(
+                `${c.name} (${c.location}) has invalid count value ${c.count}`,
+            );
+        } else if (c.count <= 0) {
+            errors = errors.concat(
+                `${c.name} (${c.location}) count value must be greater than 0`,
+            );
+        }
+    });
+
+    if (errors.length > 0) {
+        throw new Error(
+            `deck contains the following errors: ${errors.join('\n')}`,
+        );
+    }
+
+    return true;
+};
 
 const nameValid = body('name').exists().isLength({ max: 64 });
 const visibilityValid = body('visibility')
     .exists()
-    .custom(visibilityValidValue);
+    .custom(visibilityValueValid);
 const notesValid = body('notes').exists().isLength({ max: 512 });
 const deckValid = body('deck')
     .exists()

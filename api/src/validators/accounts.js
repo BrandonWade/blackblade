@@ -1,5 +1,14 @@
 import { body, param, cookie } from 'express-validator';
-import { passwordsMatch } from './custom';
+
+const passwordsMatch = (password, { req }) => {
+    const confirmPassword = req.body['confirm_password'];
+
+    if (password !== confirmPassword) {
+        throw new Error('password and confirm password do not match');
+    }
+
+    return true;
+};
 
 const emailValid = body('email').exists().isEmail();
 const passwordValid = body('password')
