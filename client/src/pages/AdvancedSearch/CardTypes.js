@@ -59,6 +59,7 @@ export default function CardTypes() {
             className='AdvancedSearch-select'
             descriptionClassName='AdvancedSearch-description'
             label='Types'
+            isNegatable={true}
             description='Each card must contain all of the chosen types.'
             selectedOptions={getFormattedSelectedTypes()}
             onSelectOption={onSelectType}

@@ -1,9 +1,10 @@
 :root {
-    --color-primary-dark: #161819;
+    --color-text: #e8e6e3;
+
     --color-primary: #1b1d1e;
+    --color-primary-dark: #161819;
     --color-primary-light: #252829;
     --color-primary-lighter: #43494b;
-    --color-primary-text: #e8e6e3;
 
     --color-highlight: #8067de;
     --color-highlight-light: #937de2;
@@ -41,7 +42,7 @@
     margin: 0;
     padding: 0;
     box-sizing: inherit;
-    color: var(--color-primary-text);
+    color: var(--color-text);
 }
 
 html {

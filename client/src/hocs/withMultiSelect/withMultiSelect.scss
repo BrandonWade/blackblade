@@ -6,6 +6,7 @@
 
     &-row {
         display: flex;
+        align-items: center;
         border: var(--line);
         border-radius: var(--border-radius);
         background-color: var(--color-primary-dark);
@@ -28,6 +29,29 @@
         &:hover {
             cursor: pointer;
             background-color: var(--color-primary-lighter);
+        }
+    }
+
+    &-negationButton {
+        display: flex;
+        justify-content: center;
+        font-size: 1.2rem;
+        width: 4rem;
+        padding: 0.5rem 0;
+        margin-right: 0.75rem;
+        background-color: var(--color-success-dark);
+        border: none;
+
+        &:hover.Button {
+            background-color: var(--color-success);
+        }
+
+        &--negated {
+            background-color: var(--color-error-dark);
+
+            &:hover.Button {
+                background-color: var(--color-error);
+            }
         }
     }
 }

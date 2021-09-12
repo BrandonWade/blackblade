@@ -3,7 +3,14 @@ import './withMultiSelect.scss';
 
 export default function withMultiSelect(Select) {
     const MultiSelect = props => {
-        const { multiSelectClassName = '', children = [], selectedOptions = [], onSelectOption = () => {}, onClearOption = () => {} } = props;
+        const {
+            multiSelectClassName = '',
+            isNegatable = false,
+            children = [],
+            selectedOptions = [],
+            onSelectOption = () => {},
+            onClearOption = () => {},
+        } = props;
 
         const renderSelectedOptions = () => {
             if (selectedOptions.length === 0) {
@@ -13,7 +20,7 @@ export default function withMultiSelect(Select) {
             return (
                 <ul className='MultiSelect-list'>
                     {selectedOptions.map(o => (
-                        <MultiSelectRow key={o.value} value={o.value} onRemove={onClearOption}>
+                        <MultiSelectRow key={o.value} value={o.value} isNegatable={isNegatable} onRemove={onClearOption}>
                             {o.text}
                         </MultiSelectRow>
                     ))}
