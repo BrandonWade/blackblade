@@ -3,6 +3,7 @@ import {
     SET_TEXT,
     ADD_TYPE,
     REMOVE_TYPE,
+    NEGATE_TYPE,
     SET_SELECTED_TYPES,
     SET_COLORS,
     SET_COLORLESS,
@@ -38,15 +39,38 @@ export default function SearchReducer(state = {}, action = {}) {
         case ADD_TYPE:
             return {
                 ...state,
-                selectedTypes: [...state.selectedTypes, action.cardType],
+                selectedTypes: [
+                    ...state.selectedTypes,
+                    {
+                        type: action.cardType,
+                        isNegated: false,
+                    },
+                ],
             };
 
-        case REMOVE_TYPE:
-            const typeIndex = state.selectedTypes.findIndex(type => type === action.cardType);
+        case REMOVE_TYPE: {
+            const typeIndex = state.selectedTypes.findIndex(t => t.type === action.cardType);
             return {
                 ...state,
                 selectedTypes: [...state.selectedTypes.slice(0, typeIndex), ...state.selectedTypes.slice(typeIndex + 1)],
             };
+        }
+
+        case NEGATE_TYPE: {
+            const typeIndex = state.selectedTypes.findIndex(t => t.type === action.cardType);
+            const selectedType = state.selectedTypes[typeIndex];
+            return {
+                ...state,
+                selectedTypes: [
+                    ...state.selectedTypes.slice(0, typeIndex),
+                    {
+                        ...selectedType,
+                        isNegated: !selectedType.isNegated,
+                    },
+                    ...state.selectedTypes.slice(typeIndex + 1),
+                ],
+            };
+        }
 
         case SET_SELECTED_TYPES:
             return {

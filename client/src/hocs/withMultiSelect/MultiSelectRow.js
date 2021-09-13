@@ -1,8 +1,13 @@
-import { useState } from 'react';
 import Button from '../../components/Button';
 
-export default function MultiSelectRow({ value = '', isNegatable = false, children = [], onRemove = () => {} }) {
-    const [isNegated, setIsNegated] = useState(false);
+export default function MultiSelectRow({
+    value = '',
+    isNegated = false,
+    isNegatable = false,
+    children = [],
+    onRemove = () => {},
+    onNegate = () => {},
+}) {
     const negationText = isNegated ? 'NOT' : 'IS';
     const negationClass = isNegated ? 'MultiSelect-negationButton--negated' : 'MultiSelect-negationButton';
 
@@ -10,8 +15,8 @@ export default function MultiSelectRow({ value = '', isNegatable = false, childr
         onRemove(value);
     };
 
-    const onToggleNegation = () => {
-        setIsNegated(!isNegated);
+    const onNegationClick = () => {
+        onNegate(value);
     };
 
     const renderNegateButton = () => {
@@ -20,7 +25,7 @@ export default function MultiSelectRow({ value = '', isNegatable = false, childr
         }
 
         return (
-            <Button className={`MultiSelect-negationButton ${negationClass}`} onClick={onToggleNegation}>
+            <Button className={`MultiSelect-negationButton ${negationClass}`} onClick={onNegationClick}>
                 {negationText}
             </Button>
         );

@@ -1,7 +1,9 @@
 import useFetch from '../useFetch';
+import useSelectedTypes from '../useSelectedTypes';
 
 export default function useSearch() {
     const { fetchData } = useFetch();
+    const { convertTypesToString } = useSelectedTypes();
 
     const getParamString = (params = {}) => {
         let pairs = [];
@@ -35,7 +37,8 @@ export default function useSearch() {
         }
 
         if (params?.selectedTypes && params?.selectedTypes?.length > 0) {
-            addPairFromArray('selectedTypes');
+            const selectedTypes = convertTypesToString(params.selectedTypes);
+            pairs = pairs.concat(`selectedTypes=${selectedTypes}`);
         }
 
         if (params?.colors) {

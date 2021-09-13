@@ -2,6 +2,7 @@ export const SET_NAME = 'SET_NAME';
 export const SET_TEXT = 'SET_TEXT';
 export const ADD_TYPE = 'ADD_TYPE';
 export const REMOVE_TYPE = 'REMOVE_TYPE';
+export const NEGATE_TYPE = 'NEGATE_TYPE';
 export const SET_SELECTED_TYPES = 'SET_SELECTED_TYPES';
 export const SET_COLORS = 'SET_COLORS';
 export const SET_COLORLESS = 'SET_COLORLESS';

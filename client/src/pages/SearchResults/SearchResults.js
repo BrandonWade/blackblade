@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { parseIntFallback } from '../../helpers/parse';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
+import useSelectedTypes from '../../hooks/useSelectedTypes';
 import SearchContext from '../../contexts/Search';
 import HeaderPage from '../../components/HeaderPage';
 import PaginatedResults from '../../components/PaginatedResults';
@@ -23,13 +24,14 @@ export default function SearchResults({ location }) {
     } = useContext(SearchContext);
     const { searchCards } = useSearch();
     const { cardRedirect, displayResults } = useDisplayResults();
+    const { parseTypesFromString } = useSelectedTypes();
     const { search } = location;
 
     useEffect(() => {
         const urlParams = new URLSearchParams(search);
         const urlName = urlParams.get('name') || '';
         const urlText = urlParams.get('text') || '';
-        const urlSelectedTypes = urlParams.get('selectedTypes')?.split(',') || [];
+        const urlSelectedTypes = parseTypesFromString(urlParams.get('selectedTypes') || '');
         const urlWhite = urlParams.get('white') === 'true';
         const urlBlue = urlParams.get('blue') === 'true';
         const urlBlack = urlParams.get('black') === 'true';

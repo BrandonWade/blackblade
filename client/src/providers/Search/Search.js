@@ -6,6 +6,7 @@ import {
     SET_TEXT,
     ADD_TYPE,
     REMOVE_TYPE,
+    NEGATE_TYPE,
     SET_SELECTED_TYPES,
     SET_COLORS,
     SET_COLORLESS,
@@ -30,6 +31,7 @@ export default function SearchProvider({ children = [] }) {
     const setText = text => dispatch({ type: SET_TEXT, text });
     const addType = cardType => dispatch({ type: ADD_TYPE, cardType });
     const removeType = cardType => dispatch({ type: REMOVE_TYPE, cardType });
+    const negateType = cardType => dispatch({ type: NEGATE_TYPE, cardType });
     const setSelectedTypes = selectedTypes => dispatch({ type: SET_SELECTED_TYPES, selectedTypes });
     const setColors = (color, value) => dispatch({ type: SET_COLORS, color, value });
     const setColorless = value => dispatch({ type: SET_COLORLESS, value });
@@ -52,6 +54,7 @@ export default function SearchProvider({ children = [] }) {
         setText,
         addType,
         removeType,
+        negateType,
         setSelectedTypes,
         setColors,
         setColorless,

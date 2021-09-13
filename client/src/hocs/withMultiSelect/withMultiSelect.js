@@ -10,6 +10,7 @@ export default function withMultiSelect(Select) {
             selectedOptions = [],
             onSelectOption = () => {},
             onClearOption = () => {},
+            onNegateOption = () => {},
         } = props;
 
         const renderSelectedOptions = () => {
@@ -20,7 +21,14 @@ export default function withMultiSelect(Select) {
             return (
                 <ul className='MultiSelect-list'>
                     {selectedOptions.map(o => (
-                        <MultiSelectRow key={o.value} value={o.value} isNegatable={isNegatable} onRemove={onClearOption}>
+                        <MultiSelectRow
+                            key={o.value}
+                            value={o.value}
+                            isNegated={o.isNegated}
+                            isNegatable={isNegatable}
+                            onRemove={onClearOption}
+                            onNegate={onNegateOption}
+                        >
                             {o.text}
                         </MultiSelectRow>
                     ))}
