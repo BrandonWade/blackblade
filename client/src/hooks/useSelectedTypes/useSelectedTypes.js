@@ -12,6 +12,10 @@ export default function useSelectedTypes() {
     };
 
     const parseTypesFromString = typeString => {
+        if (typeString.length === 0) {
+            return [];
+        }
+
         const tokens = typeString.split(',');
 
         return tokens.map(t => {
