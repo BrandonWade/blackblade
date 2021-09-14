@@ -1,12 +1,13 @@
 import NotFoundError from '../errors/not_found';
 import SearchRepository from '../repositories/search';
+import parseTypesFromString from '../helpers/selectedTypes';
 
 const pageSize = 60;
 
 const searchCards = async (params = {}) => {
     const nameTokens = params?.name?.split(/\s+/) || [];
     const textTokens = params?.text?.split(/\s+/) || [];
-    const selectedTypeTokens = params?.selectedTypes?.split(/,/) || [];
+    const selectedTypeTokens = parseTypesFromString(params?.selectedTypes);
     const colors = Object.keys(params?.colors).filter((c) => params?.colors[c]);
     const selectedSetTokens = params?.selectedSets?.split(/,/) || [];
     const rarities = Object.keys(params?.rarities).filter(

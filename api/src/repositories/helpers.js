@@ -8,6 +8,16 @@ export const addLikeCondition = (builder, params, field) => {
     params.forEach((param) => builder.where(field, 'like', `%${param}%`));
 };
 
+export const addNegatableLikeCondition = (builder, params, key, field) => {
+    params.forEach((param) => {
+        if (param.isNegated) {
+            builder.whereNot(field, 'like', `%${param[key]}%`);
+        } else {
+            builder.where(field, 'like', `%${param[key]}%`);
+        }
+    });
+};
+
 export const addInCondition = (builder, params, field) => {
     if (params.length === 0) {
         return;

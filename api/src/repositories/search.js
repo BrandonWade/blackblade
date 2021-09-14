@@ -1,6 +1,7 @@
 import { connection, builder } from '../db';
 import {
     addLikeCondition,
+    addNegatableLikeCondition,
     addColorConditions,
     addColorlessCondition,
     addStatCondition,
@@ -34,7 +35,7 @@ const getCardsByProperties = (
 
     addLikeCondition(subquery, nameTokens, 'c.name');
     addLikeCondition(subquery, textTokens, 'f.oracle_text');
-    addLikeCondition(subquery, typeTokens, 'f.type_line');
+    addNegatableLikeCondition(subquery, typeTokens, 'type', 'f.type_line');
     addColorConditions(subquery, colors, matchType);
     addColorlessCondition(subquery, colorless, matchType);
     addStatCondition(subquery, cmc, 'c.cmc');
