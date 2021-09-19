@@ -1,14 +1,17 @@
-export function requestMock(body = {}) {
+export function requestMock({ params = {}, body = {}, session = {} }) {
     return {
+        params,
         body,
+        session,
     };
 }
 
 export function responseMock() {
-    const res = {
-        status: jest.fn().mockReturnValue(res),
-        json: jest.fn().mockReturnValue(res),
-    };
+    const res = {};
+
+    res.status = jest.fn().mockReturnValue(res);
+    res.json = jest.fn().mockReturnValue(res);
+    res.send = jest.fn().mockReturnValue(res);
 
     return res;
 }
