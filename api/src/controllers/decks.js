@@ -156,7 +156,7 @@ const exportDeck = async (req, res) => {
                 ),
             });
         } else if (e instanceof NotFoundError) {
-            return res.status(StatusCodes.NOT_FOUND).send({
+            return res.status(StatusCodes.NOT_FOUND).json({
                 message: errorMessage(
                     'This deck could not be exported (it may have been deleted already).',
                 ),
@@ -190,7 +190,11 @@ const downloadDeck = async (req, res) => {
                 ),
             });
         } else if (e instanceof NotFoundError) {
-            return res.status(StatusCodes.NOT_FOUND).send();
+            return res.status(StatusCodes.NOT_FOUND).json({
+                message: errorMessage(
+                    'This deck could not be downloaded (it may have been deleted already).',
+                ),
+            });
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage(
