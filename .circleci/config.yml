@@ -7,7 +7,12 @@ orbs:
 workflows:
     production:
         jobs:
-            - build:
+            - test:
+                  filters:
+                      branches:
+                          only:
+                              - master
+            - push:
                   context:
                       - blackblade
                   filters:
@@ -32,7 +37,18 @@ workflows:
                           only:
                               - master
 jobs:
-    build:
+    test: # TODO: Use docker for node?
+        steps:
+            - checkout
+            - run:
+                  name: Install test dependencies
+                  command: |
+                      npm i
+            - run:
+                  name: Run the API tests
+                  command: |
+                      npm run test
+    push:
         machine: true
         steps:
             - checkout
