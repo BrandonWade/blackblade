@@ -12,7 +12,9 @@ workflows:
                       branches:
                           only:
                               - master
-            - push:
+            - build:
+                  requires:
+                      - test
                   context:
                       - blackblade
                   filters:
@@ -37,18 +39,22 @@ workflows:
                           only:
                               - master
 jobs:
-    test: # TODO: Use docker for node?
+    test:
+        docker:
+            - image: node:15
         steps:
             - checkout
             - run:
                   name: Install test dependencies
                   command: |
+                      cd api
                       npm i
             - run:
-                  name: Run the API tests
+                  name: Run API tests
                   command: |
+                      cd api
                       npm run test
-    push:
+    build:
         machine: true
         steps:
             - checkout
