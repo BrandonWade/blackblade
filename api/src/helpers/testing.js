@@ -1,6 +1,12 @@
-export function requestMock({ params = {}, body = {}, session = {} }) {
+export function requestMock({
+    params = {},
+    query = {},
+    body = {},
+    session = {},
+}) {
     return {
         params,
+        query,
         body,
         session,
     };
