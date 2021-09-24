@@ -77,4 +77,69 @@ describe.only('Search Controller', () => {
             expect(res.json).toHaveBeenCalledWith(result);
         });
     });
+
+    describe('getCardByID', () => {
+        test('returns a not found error if the card with the given ID was not found', async () => {
+            const params = {
+                id: '12345',
+            };
+            const req = requestMock({ params });
+            const res = responseMock();
+            SearchService.getCardByID.mockImplementation(() => {
+                throw new NotFoundError();
+            });
+
+            await getCardByID(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(StatusCodes.NOT_FOUND);
+            expect(res.send).toHaveBeenCalled();
+        });
+
+        test('returns an error if one occurred while searching for the card with the given ID', async () => {
+            const params = {
+                id: '12345',
+            };
+            const req = requestMock({ params });
+            const res = responseMock();
+            SearchService.getCardByID.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await getCardByID(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(
+                StatusCodes.INTERNAL_SERVER_ERROR,
+            );
+            expect(res.json).toHaveBeenCalledWith({
+                message: {
+                    type: 'error',
+                    text: 'An error occurred while searching for this card.',
+                },
+            });
+        });
+
+        test('returns the card with the given ID', async () => {
+            const params = {
+                id: '12345',
+            };
+            const req = requestMock({ params });
+            const res = responseMock();
+            const result = {
+                id: 12345,
+                layout: 'private',
+                name: 'test name',
+                set_name: 'test set',
+                set_code: 'test',
+                faces_json: {},
+                sets_json: {},
+                rulings_json: {},
+            };
+            SearchService.getCardByID.mockResolvedValue(result);
+
+            await getCardByID(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(StatusCodes.OK);
+            expect(res.json).toHaveBeenCalledWith(result);
+        });
+    });
 });
