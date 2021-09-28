@@ -14,7 +14,7 @@ import {
 
 jest.mock('../services/accounts');
 
-describe.only('Accounts Controller', () => {
+describe('Accounts Controller', () => {
     describe('registerAccount', () => {
         test('returns an error if one occurred while registering an account', async () => {
             const body = {
@@ -126,8 +126,8 @@ describe.only('Accounts Controller', () => {
 
             await activateAccount(req, res);
 
-            expect(res.redirect).toHaveBeenCalledWith('/login');
             expect(res.cookie).toHaveBeenCalledWith(...result);
+            expect(res.redirect).toHaveBeenCalledWith('/login');
         });
     });
 
@@ -174,6 +174,135 @@ describe.only('Accounts Controller', () => {
 
             expect(res.status).toHaveBeenCalledWith(StatusCodes.OK);
             expect(res.json).toHaveBeenCalledWith(result);
+        });
+    });
+
+    describe('passwordResetRedirect', () => {
+        test('returns a redirect to the password reset page', async () => {
+            const passwordResetToken = '1234567890abcdef';
+            const params = {
+                passwordResetToken,
+            };
+            const req = requestMock({ params });
+            const res = responseMock();
+            const result = [
+                'prt',
+                passwordResetToken,
+                cookieOptions({ maxAge: DURATION_ONE_HOUR }),
+            ];
+
+            await passwordResetRedirect(req, res);
+
+            expect(res.cookie).toHaveBeenCalledWith(...result);
+            expect(res.redirect).toHaveBeenCalledWith('/password/reset');
+        });
+    });
+
+    describe('resetPassword', () => {
+        test('returns an error if the reset link is expired or invalid', async () => {
+            const cookies = {
+                prt: {},
+            };
+            const params = {
+                password: 'testpassword123',
+            };
+            const req = requestMock({ cookies, params });
+            const res = responseMock();
+            const result = {
+                message: {
+                    type: 'error',
+                    text: 'Your reset link has either expired or is invalid. Please try again.',
+                },
+            };
+            AccountService.resetPassword.mockImplementation(() => {
+                throw new UnauthorizedError();
+            });
+
+            await resetPassword(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(
+                StatusCodes.UNPROCESSABLE_ENTITY,
+            );
+            expect(res.json).toHaveBeenCalledWith(result);
+        });
+
+        test('returns an error if the reset link invalid', async () => {
+            const cookies = {
+                prt: {},
+            };
+            const params = {
+                password: 'testpassword123',
+            };
+            const req = requestMock({ cookies, params });
+            const res = responseMock();
+            const result = {
+                message: {
+                    type: 'error',
+                    text: 'Your reset link is invalid. Please try again.',
+                },
+            };
+            AccountService.resetPassword.mockImplementation(() => {
+                throw new NotFoundError();
+            });
+
+            await resetPassword(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(StatusCodes.NOT_FOUND);
+            expect(res.json).toHaveBeenCalledWith(result);
+        });
+
+        test('returns an error if one occurred while resetting the account password', async () => {
+            const cookies = {
+                prt: {},
+            };
+            const params = {
+                password: 'testpassword123',
+            };
+            const req = requestMock({ cookies, params });
+            const res = responseMock();
+            const result = {
+                message: {
+                    type: 'error',
+                    text: 'An error occurred while resetting your password.',
+                },
+            };
+            AccountService.resetPassword.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await resetPassword(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(
+                StatusCodes.INTERNAL_SERVER_ERROR,
+            );
+            expect(res.json).toHaveBeenCalledWith(result);
+        });
+
+        test('returns a message indicating the account password was successfully reset', async () => {
+            const cookies = {
+                prt: {},
+            };
+            const params = {
+                password: 'testpassword123',
+            };
+            const req = requestMock({ cookies, params });
+            const res = responseMock();
+            const result = [
+                'rm',
+                JSON.stringify({
+                    type: 'success',
+                    text: 'Your password has been successfully reset. Please log in.',
+                }),
+                cookieOptions({ maxAge: DURATION_ONE_HOUR }),
+            ];
+            AccountService.resetPassword.mockResolvedValue();
+
+            await resetPassword(req, res);
+
+            expect(res.clearCookie).toHaveBeenCalledWith('prt');
+            expect(res.cookie).toHaveBeenCalledWith(...result);
+            expect(res.status).toHaveBeenCalledWith(StatusCodes.OK);
+            expect(res.send).toHaveBeenCalled();
         });
     });
 });

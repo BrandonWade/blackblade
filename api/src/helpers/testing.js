@@ -3,12 +3,14 @@ export function requestMock({
     query = {},
     body = {},
     session = {},
+    cookies = {},
 }) {
     return {
         params,
         query,
         body,
         session,
+        cookies,
     };
 }
 
@@ -20,6 +22,7 @@ export function responseMock() {
     res.send = jest.fn().mockReturnValue(res);
     res.set = jest.fn().mockReturnValue(res);
     res.cookie = jest.fn().mockReturnValue(res);
+    res.clearCookie = jest.fn().mockReturnValue(res);
     res.redirect = jest.fn().mockReturnValue(res);
 
     return res;
