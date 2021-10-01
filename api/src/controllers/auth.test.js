@@ -2,14 +2,14 @@ import { StatusCodes } from 'http-status-codes';
 import NotActivatedError from '../errors/not_activated';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
-import { requestMock, responseMock } from '../helpers/testing';
+import { requestMock, responseMock, sessionMock } from '../helpers/testing';
 import cookieOptions, { DURATION_ONE_WEEK } from '../helpers/cookies';
 import AccountService from '../services/accounts';
 import { csrf, login, logout } from './auth';
 
 jest.mock('../services/accounts');
 
-describe.only('Auth Controller', () => {
+describe('Auth Controller', () => {
     describe('csrf', () => {
         test('returns a response when calling the csrf endpoint', async () => {
             const req = requestMock({});
@@ -138,6 +138,21 @@ describe.only('Auth Controller', () => {
             expect(res.json).toHaveBeenCalledWith({
                 account_public_id: accountPublicID,
             });
+        });
+    });
+
+    describe('logout', () => {
+        test('returns a response after clearing the active session', async () => {
+            const session = sessionMock();
+            const req = requestMock({ session });
+            const res = responseMock();
+
+            await logout(req, res);
+
+            expect(session.destroy).toHaveBeenCalled();
+            expect(res.clearCookie).toHaveBeenCalledWith('sid');
+            expect(res.clearCookie).toHaveBeenCalledWith('apid');
+            expect(res.send).toHaveBeenCalled();
         });
     });
 });

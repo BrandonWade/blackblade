@@ -27,3 +27,11 @@ export function responseMock() {
 
     return res;
 }
+
+export function sessionMock() {
+    const session = {};
+
+    session.destroy = jest.fn().mockReturnValue(session);
+
+    return session;
+}
