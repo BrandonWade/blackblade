@@ -25,10 +25,11 @@ export default function DeckBuilderSearch() {
         const location = maybeboardMode ? 'maybeboard' : 'deck';
         const cardList = maybeboardMode ? maybeboardCards : deckCards;
         const updateCardList = maybeboardMode ? setMaybeboardCards : setDeckCards;
-        const exists = cardList.some(c => c.card_id === card.card_id);
+        const index = cardList.findIndex(c => c.card_id === card.card_id);
+        let cards = [];
 
-        if (!exists) {
-            const cards = [
+        if (index === -1) {
+            cards = [
                 ...cardList,
                 {
                     ...card,
@@ -37,9 +38,19 @@ export default function DeckBuilderSearch() {
                     location,
                 },
             ];
-
-            updateCardList(cards);
+        } else {
+            const card = cardList[index];
+            cards = [
+                ...cardList.slice(0, index),
+                {
+                    ...card,
+                    count: card.count + 1,
+                },
+                ...cardList.slice(index + 1),
+            ];
         }
+
+        updateCardList(cards);
     };
 
     const onSearch = e => {
