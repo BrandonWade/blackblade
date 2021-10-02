@@ -12,7 +12,7 @@ export default function CardArtSelector() {
     const inDeck = card.location === 'deck';
     const sets = card.sets_json || [];
 
-    const onSelectCard = cardVariant => {
+    const onSelectCard = (_, cardVariant) => {
         // If the chosen variant is already selected, do nothing
         if (cardVariant.card_id === card.card_id) {
             hideCardArtSelector();

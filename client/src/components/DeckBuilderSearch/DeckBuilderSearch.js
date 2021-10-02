@@ -21,7 +21,7 @@ export default function DeckBuilderSearch() {
         displayResults(response, true);
     };
 
-    const onSelectResult = card => {
+    const onSelectResult = (e, card) => {
         const location = maybeboardMode ? 'maybeboard' : 'deck';
         const cardList = maybeboardMode ? maybeboardCards : deckCards;
         const updateCardList = maybeboardMode ? setMaybeboardCards : setDeckCards;
@@ -40,11 +40,12 @@ export default function DeckBuilderSearch() {
             ];
         } else {
             const card = cardList[index];
+            const count = e.shiftKey ? Math.max(card.count - 1, 0) : card.count + 1;
             cards = [
                 ...cardList.slice(0, index),
                 {
                     ...card,
-                    count: card.count + 1,
+                    count,
                 },
                 ...cardList.slice(index + 1),
             ];

@@ -67,8 +67,8 @@ export default function CardImage({ imageClassName = '', card = {}, isSelected =
         }
     };
 
-    const onImageClick = () => {
-        onClick(card);
+    const onImageClick = e => {
+        onClick(e, card);
     };
 
     const onFlip = () => {
