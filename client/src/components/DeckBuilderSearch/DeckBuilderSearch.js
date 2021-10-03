@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+import { parseIntFallback } from '../../helpers/parse';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
@@ -39,12 +40,12 @@ export default function DeckBuilderSearch() {
                 },
             ];
         } else {
-            const card = cardList[index];
-            const count = e.shiftKey ? Math.max(card.count - 1, 0) : card.count + 1;
+            const oldCount = parseIntFallback(cardList[index].count, 0);
+            const count = e.shiftKey ? Math.max(oldCount - 1, 0) : oldCount + 1;
             cards = [
                 ...cardList.slice(0, index),
                 {
-                    ...card,
+                    ...cardList[index],
                     count,
                 },
                 ...cardList.slice(index + 1),
