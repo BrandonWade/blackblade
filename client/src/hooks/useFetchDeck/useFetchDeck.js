@@ -18,6 +18,7 @@ export default function useFetchDeck() {
         setMaybeboardCards,
         updateUnmodifiedState,
         setDeckExists,
+        setDeckLastUpdatedAt,
     } = useContext(DeckBuilderContext);
 
     const fetchDeck = async () => {
@@ -41,6 +42,7 @@ export default function useFetchDeck() {
         setDeckCards(deck);
         setMaybeboardCards(maybeboard);
         setDeckExists(true);
+        setDeckLastUpdatedAt(response.lastUpdatedAt);
         updateUnmodifiedState();
     };
 

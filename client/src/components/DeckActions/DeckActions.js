@@ -17,7 +17,7 @@ export default function DeckActions() {
     const { showMessage } = useMessage();
     const { isDeckUnmodified } = useIsDeckUnmodified();
     const { accountPublicID } = useContext(AuthContext);
-    const { deckAccountPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, updateUnmodifiedState } =
+    const { deckAccountPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, updateUnmodifiedState } =
         useContext(DeckBuilderContext);
     const { setDeckExport, setVisible } = useContext(ExportDeckDialogContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
@@ -30,7 +30,7 @@ export default function DeckActions() {
     const onExportDeck = async () => {
         if (!isDeckUnmodified()) {
             // Since the deck export comes from the backend, ensure we persist the latest deck state before exporting
-            const saveResponse = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards);
+            const saveResponse = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
             if (!saveResponse?.success) {
                 const { text, type } = saveResponse?.message;
                 showMessage(text, type);

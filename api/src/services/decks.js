@@ -120,6 +120,7 @@ const getDeck = async (publicID, accountID) => {
         visibility: deck?.visibility,
         notes: deck?.notes,
         cards,
+        last_updated_at: deck?.last_updated_at,
     };
 };
 

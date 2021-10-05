@@ -40,6 +40,7 @@ const saveDeck = async (req, res) => {
         notes = '',
         deck = [],
         maybeboard = [],
+        lastUpdatedAt = '',
     } = req.body;
 
     try {
@@ -51,6 +52,7 @@ const saveDeck = async (req, res) => {
             notes,
             deck,
             maybeboard,
+            lastUpdatedAt,
         );
     } catch (e) {
         if (e instanceof UnauthorizedError) {

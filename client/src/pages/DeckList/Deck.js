@@ -9,7 +9,8 @@ export default function Deck({ publicID = '', name = '', deckSize = 0, maybeboar
     const history = useHistory();
     const { saveDeck } = useDecks();
     const { isDeckUnmodified } = useIsDeckUnmodified();
-    const { deckPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, updateUnmodifiedState } = useContext(DeckBuilderContext);
+    const { deckPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, updateUnmodifiedState } =
+        useContext(DeckBuilderContext);
 
     const getSizeText = () => {
         const maybeboardText = maybeboardSize ? ` + ${maybeboardSize}` : '';
@@ -19,7 +20,7 @@ export default function Deck({ publicID = '', name = '', deckSize = 0, maybeboar
 
     const onClick = async () => {
         if (!isDeckUnmodified()) {
-            await saveDeck(deckPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards);
+            await saveDeck(deckPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
             updateUnmodifiedState();
         }
 

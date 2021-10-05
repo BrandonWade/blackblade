@@ -15,6 +15,7 @@ import {
     UPDATE_MAYBEBOARD_CARD_COUNT,
     UPDATE_MAYBEBOARD_CARD_ART,
     REMOVE_MAYBEBOARD_CARD,
+    SET_DECK_LAST_UPDATED_AT,
     UPDATE_UNMODIFIED_STATE,
     SET_MAYBEBOARD_MODE,
     SET_DECK_EXISTS,
@@ -47,6 +48,7 @@ export default function DeckBuilderProvider({ children = [] }) {
     const updateMaybeboardCardCount = (cardID, count) => dispatch({ type: UPDATE_MAYBEBOARD_CARD_COUNT, cardID, count });
     const updateMaybeboardCardArt = (cardID, cardVariant) => dispatch({ type: UPDATE_MAYBEBOARD_CARD_ART, cardID, cardVariant });
     const removeMaybeboardCard = cardID => dispatch({ type: REMOVE_MAYBEBOARD_CARD, cardID });
+    const setDeckLastUpdatedAt = deckLastUpdatedAt => dispatch({ type: SET_DECK_LAST_UPDATED_AT, deckLastUpdatedAt });
     const updateUnmodifiedState = () => dispatch({ type: UPDATE_UNMODIFIED_STATE });
     const setMaybeboardMode = maybeboardMode => dispatch({ type: SET_MAYBEBOARD_MODE, maybeboardMode });
     const setDeckExists = deckExists => dispatch({ type: SET_DECK_EXISTS, deckExists });
@@ -77,6 +79,7 @@ export default function DeckBuilderProvider({ children = [] }) {
         updateMaybeboardCardCount,
         updateMaybeboardCardArt,
         removeMaybeboardCard,
+        setDeckLastUpdatedAt,
         updateUnmodifiedState,
         setMaybeboardMode,
         setDeckExists,

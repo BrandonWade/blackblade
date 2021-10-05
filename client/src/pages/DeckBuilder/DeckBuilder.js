@@ -35,6 +35,7 @@ export default function DeckBuilder() {
         deckNotes,
         deckCards,
         maybeboardCards,
+        deckLastUpdatedAt,
         updateUnmodifiedState,
         selectedTabIndex,
         setSelectedTabIndex,
@@ -54,7 +55,7 @@ export default function DeckBuilder() {
     }, []);
 
     const onSaveDeck = async () => {
-        const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards);
+        const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
         if (!response?.success) {
             if (response?.message) {
                 const { text, type } = response?.message;

@@ -8,6 +8,7 @@ export const initialState = {
     deckNotes: '',
     deckCards: [],
     maybeboardCards: [],
+    deckLastUpdatedAt: '',
     unmodifiedDeckName: 'Untitled Deck',
     unmodifiedDeckVisibility: 'private',
     unmodifiedDeckNotes: '',

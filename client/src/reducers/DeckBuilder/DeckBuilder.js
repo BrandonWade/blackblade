@@ -14,6 +14,7 @@ import {
     UPDATE_MAYBEBOARD_CARD_COUNT,
     UPDATE_MAYBEBOARD_CARD_ART,
     REMOVE_MAYBEBOARD_CARD,
+    SET_DECK_LAST_UPDATED_AT,
     UPDATE_UNMODIFIED_STATE,
     SET_MAYBEBOARD_MODE,
     SET_DECK_EXISTS,
@@ -188,6 +189,12 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 maybeboardCards: state.maybeboardCards.filter(card => card.card_id !== action.cardID),
+            };
+
+        case SET_DECK_LAST_UPDATED_AT:
+            return {
+                ...state,
+                deckLastUpdatedAt: action.deckLastUpdatedAt,
             };
 
         case UPDATE_UNMODIFIED_STATE:

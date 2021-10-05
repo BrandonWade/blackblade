@@ -22,7 +22,15 @@ export default function useDecks() {
         }
     };
 
-    const saveDeck = async (publicID = '', name = '', visibility = 'private', notes = '', deckCards = [], maybeboardCards = []) => {
+    const saveDeck = async (
+        publicID = '',
+        name = '',
+        visibility = 'private',
+        notes = '',
+        deckCards = [],
+        maybeboardCards = [],
+        lastUpdatedAt = ''
+    ) => {
         function processCards(cards, location) {
             return cards.map(card => ({
                 count: card.count,
@@ -41,7 +49,7 @@ export default function useDecks() {
 
         const deck = processCards(deckCards, 'deck');
         const maybeboard = processCards(maybeboardCards, 'maybeboard');
-        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, notes, deck, maybeboard });
+        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, notes, deck, maybeboard, lastUpdatedAt });
 
         switch (response.status) {
             case 200:
@@ -71,6 +79,7 @@ export default function useDecks() {
                     visibility: data.visibility,
                     notes: data.notes,
                     cards: data.cards,
+                    lastUpdatedAt: data.last_updated_at,
                 };
             }
             case 404:
