@@ -47,6 +47,7 @@ const deckValid = body('deck')
 const maybeboardValid = body('maybeboard')
     .exists()
     .custom((maybeboard) => cardValuesValid(maybeboard));
+const lastUpdatedAtValid = body('lastUpdatedAt').exists().isISO8601();
 
 const createDeckValidators = [nameValid, visibilityValid, notesValid];
 const saveDeckValidators = [
@@ -55,6 +56,7 @@ const saveDeckValidators = [
     notesValid,
     deckValid,
     maybeboardValid,
+    lastUpdatedAtValid,
 ];
 
 export { createDeckValidators, saveDeckValidators };
