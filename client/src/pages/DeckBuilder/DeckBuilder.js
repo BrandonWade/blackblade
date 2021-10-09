@@ -26,7 +26,7 @@ export default function DeckBuilder() {
     const { showMessage } = useMessage();
     const { saveDeck } = useDecks();
     const deckBuilderTabs = useDeckBuilderTabs();
-    const { isDeckUnmodified } = useIsDeckUnmodified();
+    const { isDeckUnmodified } = useIsDeckUnmodified(); // TODO: Add helper variable instead of calling everywhere
     const { fetchDeck } = useFetchDeck();
     const { accountPublicID } = useContext(AuthContext);
     const {
@@ -57,11 +57,13 @@ export default function DeckBuilder() {
 
     useEffect(() => {
         if (!isDeckUnmodified()) {
-            onSaveDeck();
+            debouncedSave();
         }
-    }, [isDeckUnmodified()]);
+    }, [deckName, deckVisibility, deckNotes, deckCards, maybeboardCards]);
 
-    const onSaveDeck = debounce(async () => {
+    const debouncedSave = debounce(async () => onSaveDeck(), 1500);
+
+    const onSaveDeck = async () => {
         const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
         if (!response?.success) {
             if (response?.message) {
@@ -74,7 +76,7 @@ export default function DeckBuilder() {
 
         // Once changes to the deck have been saved, update the unmodified state
         updateUnmodifiedState();
-    }, 2000);
+    };
 
     return (
         <div className='DeckBuilder'>
