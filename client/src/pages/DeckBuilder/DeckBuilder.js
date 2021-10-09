@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { debounce } from 'lodash';
 import useMessage from '../../hooks/useMessage';
 import useDecks from '../../hooks/useDecks';
 import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
@@ -54,7 +55,13 @@ export default function DeckBuilder() {
         return () => setVisible(false);
     }, []);
 
-    const onSaveDeck = async () => {
+    useEffect(() => {
+        if (!isDeckUnmodified()) {
+            onSaveDeck();
+        }
+    }, [isDeckUnmodified()]);
+
+    const onSaveDeck = debounce(async () => {
         const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
         if (!response?.success) {
             if (response?.message) {
@@ -67,7 +74,7 @@ export default function DeckBuilder() {
 
         // Once changes to the deck have been saved, update the unmodified state
         updateUnmodifiedState();
-    };
+    }, 2000);
 
     return (
         <div className='DeckBuilder'>
