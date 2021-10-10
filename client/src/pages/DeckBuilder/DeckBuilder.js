@@ -1,11 +1,11 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { debounce } from 'lodash';
 import useMessage from '../../hooks/useMessage';
 import useDecks from '../../hooks/useDecks';
 import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import useFetchDeck from '../../hooks/useFetchDeck';
+import useDebouncedSaveDeck from '../../hooks/useDebouncedSaveDeck';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
@@ -13,18 +13,19 @@ import CardArtSelector from '../../components/CardArtSelector';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
 import CardImagePreview from '../../components/CardImagePreview';
 import TabStrip from '../../components/TabStrip';
+import BackgroundMessage from '../../components/BackgroundMessage';
 import DeckPreview from '../../components/DeckPreview';
 import DeckActions from '../../components/DeckActions';
 import DeckStats from '../../components/DeckStats';
 import DeckTable from '../../components/DeckTable';
 import Button from '../../components/Button';
 import './DeckBuilder.scss';
-import BackgroundMessage from '../../components/BackgroundMessage';
 
 export default function DeckBuilder() {
     const { publicID } = useParams();
     const { showMessage } = useMessage();
     const { saveDeck } = useDecks();
+    const debouncedSaveDeck = useDebouncedSaveDeck();
     const deckBuilderTabs = useDeckBuilderTabs();
     const { isDeckUnmodified } = useIsDeckUnmodified(); // TODO: Add helper variable instead of calling everywhere
     const { fetchDeck } = useFetchDeck();
@@ -57,11 +58,9 @@ export default function DeckBuilder() {
 
     useEffect(() => {
         if (!isDeckUnmodified()) {
-            debouncedSave();
+            debouncedSaveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
         }
     }, [deckName, deckVisibility, deckNotes, deckCards, maybeboardCards]);
-
-    const debouncedSave = debounce(async () => onSaveDeck(), 1500);
 
     const onSaveDeck = async () => {
         const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
