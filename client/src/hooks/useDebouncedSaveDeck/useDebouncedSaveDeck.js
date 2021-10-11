@@ -10,8 +10,8 @@ export default function useDebouncedSaveDeck(delay = 1000) {
     const { updateUnmodifiedState } = useContext(DeckBuilderContext);
 
     return useCallback(
-        debounce(async (publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt) => {
-            const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
+        debounce(async (publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, overwrite) => {
+            const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, overwrite);
             if (!response?.success) {
                 if (response?.message) {
                     const { text, type } = response?.message;

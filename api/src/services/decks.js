@@ -46,6 +46,8 @@ const saveDeck = async (
     notes,
     deck,
     maybeboard,
+    lastUpdatedAt,
+    overwrite,
 ) => {
     try {
         const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
@@ -59,6 +61,11 @@ const saveDeck = async (
             throw new UnauthorizedError(
                 'account id and deck account id do not match',
             );
+        }
+
+        if (!overwrite) {
+            // TODO: Check DB, compare DB date vs lastUpdatedAt
+            // - DB > lastUpdatedAt, throw NewerVersion error
         }
 
         const deckSize = sumBy(deck, (c) => parseInt(c.count));

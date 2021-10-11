@@ -29,7 +29,8 @@ export default function useDecks() {
         notes = '',
         deckCards = [],
         maybeboardCards = [],
-        lastUpdatedAt = ''
+        lastUpdatedAt = '',
+        overwrite = false
     ) => {
         function processCards(cards, location) {
             return cards.map(card => ({
@@ -49,7 +50,7 @@ export default function useDecks() {
 
         const deck = processCards(deckCards, 'deck');
         const maybeboard = processCards(maybeboardCards, 'maybeboard');
-        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, notes, deck, maybeboard, lastUpdatedAt });
+        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, notes, deck, maybeboard, lastUpdatedAt, overwrite });
 
         switch (response.status) {
             case 200:
