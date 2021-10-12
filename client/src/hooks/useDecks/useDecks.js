@@ -51,14 +51,21 @@ export default function useDecks() {
         const deck = processCards(deckCards, 'deck');
         const maybeboard = processCards(maybeboardCards, 'maybeboard');
         const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, notes, deck, maybeboard, lastUpdatedAt, overwrite });
+        const data = await response.json();
 
         switch (response.status) {
             case 200:
                 return {
                     success: true,
+                    deckPublicID: data.deck_public_id,
+                    accountPublicID: data.account_public_id,
+                    name: data.name,
+                    visibility: data.visibility,
+                    notes: data.notes,
+                    cards: data.cards,
+                    lastUpdatedAt: data.last_updated_at,
                 };
             default:
-                const data = await response.json();
                 return {
                     success: false,
                     message: data.message,

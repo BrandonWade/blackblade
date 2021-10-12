@@ -12,15 +12,10 @@ const createDeck = async (req, res) => {
         visibility = 'private',
         notes = '',
     } = req.body;
-    let result;
+    let deck;
 
     try {
-        result = await DeckService.createDeck(
-            accountID,
-            name,
-            visibility,
-            notes,
-        );
+        deck = await DeckService.createDeck(accountID, name, visibility, notes);
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: errorMessage(
@@ -29,7 +24,7 @@ const createDeck = async (req, res) => {
         });
     }
 
-    return res.status(StatusCodes.CREATED).json(result);
+    return res.status(StatusCodes.CREATED).json(deck);
 };
 
 const saveDeck = async (req, res) => {
@@ -44,9 +39,10 @@ const saveDeck = async (req, res) => {
         lastUpdatedAt = '',
         overwrite = false,
     } = req.body;
+    let updatedDeck;
 
     try {
-        await DeckService.saveDeck(
+        updatedDeck = await DeckService.saveDeck(
             accountID,
             publicID,
             name,
@@ -79,8 +75,7 @@ const saveDeck = async (req, res) => {
         }
     }
 
-    // TODO: Return last_updated_at
-    return res.status(StatusCodes.OK).send();
+    return res.status(StatusCodes.OK).json(updatedDeck);
 };
 
 const getDeck = async (req, res) => {

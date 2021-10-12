@@ -51,6 +51,8 @@ const saveDeck = async (
     lastUpdatedAt,
     overwrite,
 ) => {
+    let updatedDeck;
+
     try {
         const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
         const deckID = deckIDResult?.[0]?.id || 0;
@@ -94,13 +96,13 @@ const saveDeck = async (
         if (!saveResult) {
             throw `error saving deck with public id ${publicID}`;
         }
+
+        // Now that it's been saved, return the updated deck info
+        return getDeck(publicID, accountID);
     } catch (e) {
         console.error('error saving deck', e);
         throw e;
     }
-
-    // TODO: Return the last_updated_at from DB
-    return;
 };
 
 const getDeck = async (publicID, accountID) => {

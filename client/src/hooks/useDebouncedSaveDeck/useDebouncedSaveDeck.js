@@ -7,7 +7,7 @@ import DeckBuilderContext from '../../contexts/DeckBuilder';
 export default function useDebouncedSaveDeck(delay = 1000) {
     const { showMessage } = useMessage();
     const { saveDeck } = useDecks();
-    const { updateUnmodifiedState } = useContext(DeckBuilderContext);
+    const { setDeckLastUpdatedAt, updateUnmodifiedState } = useContext(DeckBuilderContext);
 
     return useCallback(
         debounce(async (publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, overwrite) => {
@@ -22,6 +22,7 @@ export default function useDebouncedSaveDeck(delay = 1000) {
             }
 
             // Once changes to the deck have been saved, update the unmodified state
+            setDeckLastUpdatedAt(response.lastUpdatedAt);
             updateUnmodifiedState();
         }, delay),
         []
