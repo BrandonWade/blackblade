@@ -57,7 +57,7 @@ export default function DeckBuilder() {
     }, []);
 
     useEffect(() => {
-        if (!isDeckUnmodified()) {
+        if (deckExists && !isDeckUnmodified()) {
             debouncedSaveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
         }
     }, [deckName, deckVisibility, deckNotes, deckCards, maybeboardCards]);
