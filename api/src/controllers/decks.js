@@ -1,8 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
 import NotFoundError from '../errors/not_found';
+import NewerVersionError from '../errors/newer_version';
 import UnauthorizedError from '../errors/unauthorized';
 import DeckService from '../services/decks';
-import { errorMessage } from '../helpers/messages';
+import { errorMessage, infoMessage } from '../helpers/messages';
 
 const createDeck = async (req, res) => {
     const { accountID } = req.session;
@@ -63,6 +64,12 @@ const saveDeck = async (req, res) => {
                     'You do not have permission to modify this deck. If this deck is yours, please log in and try again.',
                 ),
             });
+        } else if (e instanceof NewerVersionError) {
+            return res.status(StatusCodes.CONFLICT).json({
+                message: infoMessage(
+                    'A newer version of this deck has already exists. Would you like to overwrite that version with these changes?',
+                ),
+            });
         } else {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: errorMessage(
@@ -72,6 +79,7 @@ const saveDeck = async (req, res) => {
         }
     }
 
+    // TODO: Return last_updated_at
     return res.status(StatusCodes.OK).send();
 };
 

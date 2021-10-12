@@ -1,8 +1,10 @@
 import { EOL } from 'os';
 import { sumBy } from 'lodash';
+import { compareAsc, parseISO } from 'date-fns';
 import DeckRepository from '../repositories/decks';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
+import NewerVersionError from '../errors/newer_version';
 import getColorString from '../helpers/colors';
 
 const createDeck = async (accountID, name, visibility, notes) => {
@@ -63,9 +65,14 @@ const saveDeck = async (
             );
         }
 
+        // Check this deck for edit conflicts
         if (!overwrite) {
-            // TODO: Check DB, compare DB date vs lastUpdatedAt
-            // - DB > lastUpdatedAt, throw NewerVersion error
+            const deckLastUpdatedAt = deckIDResult[0].last_updated_at;
+
+            // Compare last_updated_at from DB against provided last_updated_at
+            if (compareAsc(deckLastUpdatedAt, parseISO(lastUpdatedAt)) === 1) {
+                throw new NewerVersionError('db contains newer deck version');
+            }
         }
 
         const deckSize = sumBy(deck, (c) => parseInt(c.count));
@@ -92,6 +99,7 @@ const saveDeck = async (
         throw e;
     }
 
+    // TODO: Return the last_updated_at from DB
     return;
 };
 
