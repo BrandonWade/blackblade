@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
+import NewerVersionError from '../errors/newer_version';
 import { requestMock, responseMock } from '../helpers/testing';
 import DeckService from '../services/decks';
 import {
@@ -107,6 +108,39 @@ describe('Deck Controller', () => {
                 message: {
                     type: 'error',
                     text: 'You do not have permission to modify this deck. If this deck is yours, please log in and try again.',
+                },
+            });
+        });
+
+        test('returns a conflict error if a newer version error occurred while saving the deck', async () => {
+            const params = {
+                publicID: 'abcdef1234567890',
+            };
+            const body = {
+                name: 'test name',
+                visibility: 'private',
+                notes: 'test notes',
+                deck: [],
+                maybeboard: [],
+                last_updated_at: '2022-01-01T00:00:00.000Z',
+                overwrite: false,
+            };
+            const session = {
+                accountID: 1,
+            };
+            const req = requestMock({ params, body, session });
+            const res = responseMock();
+            DeckService.saveDeck.mockImplementation(() => {
+                throw new NewerVersionError();
+            });
+
+            await saveDeck(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(StatusCodes.CONFLICT);
+            expect(res.json).toHaveBeenCalledWith({
+                message: {
+                    type: 'info',
+                    text: 'A newer version of this deck has already exists. Would you like to overwrite that version with these changes?',
                 },
             });
         });
