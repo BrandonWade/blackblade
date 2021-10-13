@@ -22,6 +22,10 @@ describe('Deck Controller', () => {
                 name: 'test name',
                 visibility: 'private',
                 notes: 'test notes',
+                deck: [],
+                maybeboard: [],
+                last_updated_at: '2022-01-01T00:00:00.000Z',
+                overwrite: false,
             };
             const session = {
                 accountID: 1,
@@ -50,6 +54,10 @@ describe('Deck Controller', () => {
                 name: 'test name',
                 visibility: 'private',
                 notes: 'test notes',
+                deck: [],
+                maybeboard: [],
+                last_updated_at: '2022-01-01T00:00:00.000Z',
+                overwrite: false,
             };
             const session = {
                 accountID: 1,
@@ -80,6 +88,8 @@ describe('Deck Controller', () => {
                 notes: 'test notes',
                 deck: [],
                 maybeboard: [],
+                last_updated_at: '2022-01-01T00:00:00.000Z',
+                overwrite: false,
             };
             const session = {
                 accountID: 1,
@@ -108,6 +118,8 @@ describe('Deck Controller', () => {
                 notes: 'test notes',
                 deck: [],
                 maybeboard: [],
+                last_updated_at: '2022-01-01T00:00:00.000Z',
+                overwrite: false,
             };
             const session = {
                 accountID: 1,
@@ -131,24 +143,36 @@ describe('Deck Controller', () => {
             });
         });
 
-        test('returns nothing if the deck was saved successfully', async () => {
+        test('returns the deck information if the deck was saved successfully', async () => {
             const body = {
                 name: 'test name',
                 visibility: 'private',
                 notes: 'test notes',
+                deck: [],
+                maybeboard: [],
+                last_updated_at: '2022-01-01T00:00:00.000Z',
+                overwrite: false,
             };
             const session = {
                 accountID: 1,
             };
             const req = requestMock({ body, session });
             const res = responseMock();
+            const result = {
+                deck_public_id: 'abcdef1234567890',
+                account_public_id: '1234567890abcdef',
+                name: 'test name',
+                visibility: 'public',
+                notes: 'test notes',
+                cards: [],
+            };
 
-            DeckService.saveDeck.mockResolvedValue();
+            DeckService.saveDeck.mockResolvedValue(result);
 
             await saveDeck(req, res);
 
             expect(res.status).toHaveBeenCalledWith(StatusCodes.OK);
-            expect(res.send).toHaveBeenCalled();
+            expect(res.json).toHaveBeenCalledWith(result);
         });
     });
 
