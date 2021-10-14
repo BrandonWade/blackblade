@@ -139,8 +139,8 @@ describe('Deck Controller', () => {
             expect(res.status).toHaveBeenCalledWith(StatusCodes.CONFLICT);
             expect(res.json).toHaveBeenCalledWith({
                 message: {
-                    type: 'info',
-                    text: 'A newer version of this deck has already exists. Would you like to overwrite that version with these changes?',
+                    type: 'warning',
+                    text: 'Your deck has not been saved; a newer version of this deck has already exists.',
                 },
             });
         });

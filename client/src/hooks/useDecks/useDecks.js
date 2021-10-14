@@ -65,6 +65,12 @@ export default function useDecks() {
                     cards: data.cards,
                     lastUpdatedAt: data.last_updated_at,
                 };
+            case 409:
+                return {
+                    success: false,
+                    confirm: true,
+                    message: data.message,
+                };
             default:
                 return {
                     success: false,

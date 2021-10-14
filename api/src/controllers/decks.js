@@ -3,7 +3,7 @@ import NotFoundError from '../errors/not_found';
 import NewerVersionError from '../errors/newer_version';
 import UnauthorizedError from '../errors/unauthorized';
 import DeckService from '../services/decks';
-import { errorMessage, infoMessage } from '../helpers/messages';
+import { errorMessage, warningMessage } from '../helpers/messages';
 
 const createDeck = async (req, res) => {
     const { accountID } = req.session;
@@ -62,8 +62,8 @@ const saveDeck = async (req, res) => {
             });
         } else if (e instanceof NewerVersionError) {
             return res.status(StatusCodes.CONFLICT).json({
-                message: infoMessage(
-                    'A newer version of this deck has already exists. Would you like to overwrite that version with these changes?',
+                message: warningMessage(
+                    'Your deck has not been saved; a newer version of this deck has already exists.',
                 ),
             });
         } else {

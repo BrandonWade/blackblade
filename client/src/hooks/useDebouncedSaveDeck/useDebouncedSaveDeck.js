@@ -13,11 +13,8 @@ export default function useDebouncedSaveDeck(delay = 1000) {
         debounce(async (publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, overwrite) => {
             const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, overwrite);
             if (!response?.success) {
-                if (response?.message) {
-                    const { text, type } = response?.message;
-                    showMessage(text, type);
-                }
-
+                const { text, type } = response?.message;
+                showMessage(text, type);
                 return;
             }
 

@@ -65,11 +65,8 @@ export default function DeckBuilder() {
     const onSaveDeck = async () => {
         const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
         if (!response?.success) {
-            if (response?.message) {
-                const { text, type } = response?.message;
-                showMessage(text, type);
-            }
-
+            const { text, type } = response?.message;
+            showMessage(text, type);
             return;
         }
 
