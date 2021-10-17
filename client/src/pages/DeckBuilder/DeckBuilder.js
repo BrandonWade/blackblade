@@ -1,6 +1,5 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useMessage from '../../hooks/useMessage';
 import useDecks from '../../hooks/useDecks';
 import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
@@ -23,7 +22,6 @@ import './DeckBuilder.scss';
 
 export default function DeckBuilder() {
     const { publicID } = useParams();
-    const { showMessage } = useMessage();
     const { saveDeck } = useDecks();
     const debouncedSaveDeck = useDebouncedSaveDeck();
     const deckBuilderTabs = useDeckBuilderTabs();
@@ -64,9 +62,7 @@ export default function DeckBuilder() {
 
     const onSaveDeck = async () => {
         const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
-        if (!response?.success) {
-            const { text, type } = response?.message;
-            showMessage(text, type);
+        if (!response.success) {
             return;
         }
 

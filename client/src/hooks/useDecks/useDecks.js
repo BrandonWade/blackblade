@@ -2,7 +2,7 @@ import useFetch from '../useFetch';
 import { trimCards } from '../../helpers/deck';
 
 export default function useDecks() {
-    const { fetchData } = useFetch();
+    const { fetchData, fetchJSON } = useFetch();
 
     const createDeck = async (name = '', visibility = 'private', notes = '') => {
         const response = await fetchData('/api/decks', 'POST', { name, visibility, notes });
@@ -35,31 +35,29 @@ export default function useDecks() {
     ) => {
         const deck = trimCards(deckCards, 'deck');
         const maybeboard = trimCards(maybeboardCards, 'maybeboard');
-        const response = await fetchData(`/api/decks/${publicID}`, 'PUT', { name, visibility, notes, deck, maybeboard, lastUpdatedAt, overwrite });
-        const data = await response.json();
+
+        const response = await fetchJSON(`/api/decks/${publicID}`, 'PUT', { name, visibility, notes, deck, maybeboard, lastUpdatedAt, overwrite });
 
         switch (response.status) {
             case 200:
                 return {
                     success: true,
-                    deckPublicID: data.deck_public_id,
-                    accountPublicID: data.account_public_id,
-                    name: data.name,
-                    visibility: data.visibility,
-                    notes: data.notes,
-                    cards: data.cards,
-                    lastUpdatedAt: data.last_updated_at,
+                    deckPublicID: response.data.deck_public_id,
+                    accountPublicID: response.data.account_public_id,
+                    name: response.data.name,
+                    visibility: response.data.visibility,
+                    notes: response.data.notes,
+                    cards: response.data.cards,
+                    lastUpdatedAt: response.data.last_updated_at,
                 };
             case 409:
+                // TODO: Call showConfirmDialog()
                 return {
                     success: false,
-                    confirm: true,
-                    message: data.message,
                 };
             default:
                 return {
                     success: false,
-                    message: data.message,
                 };
         }
     };

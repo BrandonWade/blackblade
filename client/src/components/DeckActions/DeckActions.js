@@ -31,9 +31,7 @@ export default function DeckActions() {
         if (!isDeckUnmodified()) {
             // Since the deck export comes from the backend, ensure we persist the latest deck state before exporting
             const saveResponse = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
-            if (!saveResponse?.success) {
-                const { text, type } = saveResponse?.message;
-                showMessage(text, type);
+            if (!saveResponse.success) {
                 return;
             }
         }

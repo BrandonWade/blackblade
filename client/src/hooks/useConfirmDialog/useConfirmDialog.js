@@ -6,12 +6,16 @@ export default function useConfirmDialog() {
 
     const showConfirmDialog = (message = '', onAccept = () => {}, onCancel = () => {}) => {
         setMessage(message);
-        setOnAccept(onAccept);
-        setOnCancel(onCancel);
+        setOnAccept(() => {
+            onAccept();
+            setVisible(false);
+        });
+        setOnCancel(() => {
+            onCancel();
+            setVisible(false);
+        });
         setVisible(true);
     };
-
-    // TODO: Wrap onAccept and onCancel to setVisible(false)
 
     return {
         showConfirmDialog,
