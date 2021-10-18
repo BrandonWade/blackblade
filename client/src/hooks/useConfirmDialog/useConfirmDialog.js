@@ -2,12 +2,12 @@ import { useContext } from 'react';
 import ConfirmDialogContext from '../../contexts/ConfirmDialog';
 
 export default function useConfirmDialog() {
-    const { setVisible, setMessage, setOnAccept, setOnCancel } = useContext(ConfirmDialogContext);
+    const { setVisible, setMessage, setOnConfirm, setOnCancel } = useContext(ConfirmDialogContext);
 
-    const showConfirmDialog = (message = '', onAccept = () => {}, onCancel = () => {}) => {
+    const showConfirmDialog = (message = '', onConfirm = () => {}, onCancel = () => {}) => {
         setMessage(message);
-        setOnAccept(() => {
-            onAccept();
+        setOnConfirm(() => {
+            onConfirm();
             setVisible(false);
         });
         setOnCancel(() => {

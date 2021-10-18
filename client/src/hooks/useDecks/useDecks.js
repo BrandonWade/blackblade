@@ -1,8 +1,10 @@
 import useFetch from '../useFetch';
+import useConfirmDialog from '../useConfirmDialog/useConfirmDialog';
 import { trimCards } from '../../helpers/deck';
 
 export default function useDecks() {
     const { fetchData, fetchJSON } = useFetch();
+    const { showConfirmDialog } = useConfirmDialog();
 
     const createDeck = async (name = '', visibility = 'private', notes = '') => {
         const response = await fetchData('/api/decks', 'POST', { name, visibility, notes });
@@ -31,7 +33,8 @@ export default function useDecks() {
         deckCards = [],
         maybeboardCards = [],
         lastUpdatedAt = '',
-        overwrite = false
+        overwrite = false,
+        confirmMessage = ''
     ) => {
         const deck = trimCards(deckCards, 'deck');
         const maybeboard = trimCards(maybeboardCards, 'maybeboard');
@@ -51,7 +54,7 @@ export default function useDecks() {
                     lastUpdatedAt: response.data.last_updated_at,
                 };
             case 409:
-                // TODO: Call showConfirmDialog()
+                showConfirmDialog(confirmMessage, () => saveDeck(publicID, name, visibility, notes, deckCards, maybeboardCards, lastUpdatedAt, true));
                 return {
                     success: false,
                 };

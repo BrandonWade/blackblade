@@ -6,6 +6,7 @@ import useMessage from '../../hooks/useMessage';
 import AuthContext from '../../contexts/Auth';
 import BookmarkListContext from '../../contexts/BookmarkList';
 import Message from '../Message';
+import ConfirmDialog from '../ConfirmDialog';
 import AuthenticatedRoute from '../AuthenticatedRoute';
 import Home from '../../pages/Home';
 import Register from '../../pages/Register';
@@ -63,6 +64,7 @@ export default function Router() {
     return (
         <>
             <Message />
+            <ConfirmDialog />
             <BrowserRouter>
                 <Switch>
                     <Route path='/' exact component={Home} />

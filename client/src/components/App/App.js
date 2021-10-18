@@ -1,5 +1,6 @@
 import AuthProvider from '../../providers/Auth';
 import MessageProvider from '../../providers/Message';
+import ConfirmDialogProvider from '../../providers/ConfirmDialog';
 import CardImagePreviewProvider from '../../providers/CardImagePreview';
 import ExportDeckDialogProvider from '../../providers/ExportDeckDialog';
 import BookmarkListProvider from '../../providers/BookmarkList';
@@ -15,23 +16,25 @@ export default function App() {
     return (
         <AuthProvider>
             <MessageProvider>
-                <CardImagePreviewProvider>
-                    <ExportDeckDialogProvider>
-                        <BookmarkListProvider>
-                            <DeckListProvider>
-                                <DeckBuilderProvider>
-                                    <AdvancedSearchProvider>
-                                        <SearchProvider>
-                                            <CardProvider>
-                                                <Router />
-                                            </CardProvider>
-                                        </SearchProvider>
-                                    </AdvancedSearchProvider>
-                                </DeckBuilderProvider>
-                            </DeckListProvider>
-                        </BookmarkListProvider>
-                    </ExportDeckDialogProvider>
-                </CardImagePreviewProvider>
+                <ConfirmDialogProvider>
+                    <CardImagePreviewProvider>
+                        <ExportDeckDialogProvider>
+                            <BookmarkListProvider>
+                                <DeckListProvider>
+                                    <DeckBuilderProvider>
+                                        <AdvancedSearchProvider>
+                                            <SearchProvider>
+                                                <CardProvider>
+                                                    <Router />
+                                                </CardProvider>
+                                            </SearchProvider>
+                                        </AdvancedSearchProvider>
+                                    </DeckBuilderProvider>
+                                </DeckListProvider>
+                            </BookmarkListProvider>
+                        </ExportDeckDialogProvider>
+                    </CardImagePreviewProvider>
+                </ConfirmDialogProvider>
             </MessageProvider>
         </AuthProvider>
     );

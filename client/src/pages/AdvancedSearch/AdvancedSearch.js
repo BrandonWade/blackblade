@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
 import useDisplayResults from '../../hooks/useDisplayResults';
+import useConfirmDialog from '../../hooks/useConfirmDialog';
 import SearchContext from '../../contexts/Search';
 import HeaderPage from '../../components/HeaderPage';
-import ConfirmDialog from '../../components/ConfirmDialog';
 import { InputField } from '../../components/Input';
 import Button from '../../components/Button';
 import SymbolKey from '../../components/SymbolKey';
@@ -15,6 +15,7 @@ import './AdvancedSearch.scss';
 
 export default function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
+    const { showConfirmDialog } = useConfirmDialog();
     const {
         name,
         setName,
@@ -35,7 +36,6 @@ export default function AdvancedSearch() {
         resetSearchCriteria,
     } = useContext(SearchContext);
     const [symbolKeyVisible, setSymbolKeyVisible] = useState(false);
-    const [resetDialogVisible, setResetDialogVisible] = useState(false);
 
     const onChangeName = e => {
         setName(e.target.value);
@@ -82,26 +82,11 @@ export default function AdvancedSearch() {
     };
 
     const onResetClick = () => {
-        setResetDialogVisible(true);
-    };
-
-    const onCancelReset = () => {
-        setResetDialogVisible(false);
-    };
-
-    const onConfirmReset = () => {
-        resetSearchCriteria();
-        setResetDialogVisible(false);
+        showConfirmDialog('Are you sure you want to reset your search criteria?', resetSearchCriteria);
     };
 
     return (
         <HeaderPage className='AdvancedSearch'>
-            <ConfirmDialog
-                message='Are you sure you want to reset your search criteria?'
-                visible={resetDialogVisible}
-                onCancel={onCancelReset}
-                onConfirm={onConfirmReset}
-            />
             <div className='AdvancedSearch-content'>
                 <form className='AdvancedSearch-form' onSubmit={onSubmit}>
                     <SymbolKey visible={symbolKeyVisible} onInsertSymbols={onInsertSymbols} onClose={onHideSymbolKey} />

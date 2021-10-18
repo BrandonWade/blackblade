@@ -2,10 +2,10 @@ import { useState } from 'react';
 import ConfirmDialogContext, { initialState } from '../../contexts/ConfirmDialog';
 
 export default function ConfirmDialogProvider({ children = [] }) {
-    const { visible: visibleDefault, message: messageDefault, onAccept: onAcceptDefault, onCancel: onCancelDefault } = initialState;
+    const { visible: visibleDefault, message: messageDefault, onConfirm: onConfirmDefault, onCancel: onCancelDefault } = initialState;
     const [visible, setVisible] = useState(visibleDefault);
     const [message, setMessage] = useState(messageDefault);
-    const [onAccept, setOnAccept] = useState(onAcceptDefault);
+    const [onConfirm, setOnConfirm] = useState(onConfirmDefault);
     const [onCancel, setOnCancel] = useState(onCancelDefault);
 
     const props = {
@@ -13,8 +13,8 @@ export default function ConfirmDialogProvider({ children = [] }) {
         setVisible,
         message,
         setMessage,
-        onAccept,
-        setOnAccept,
+        onConfirm,
+        setOnConfirm,
         onCancel,
         setOnCancel,
     };
