@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import useDisplayResults from '../../hooks/useDisplayResults';
+import useConfirmDialog from '../../hooks/useConfirmDialog';
 import SearchContext from '../../contexts/Search';
-import ConfirmDialogContext from '../../contexts/ConfirmDialog';
 import HeaderPage from '../../components/HeaderPage';
 import { InputField } from '../../components/Input';
 import Button from '../../components/Button';
@@ -15,7 +15,7 @@ import './AdvancedSearch.scss';
 
 export default function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
-    const { setMessage, setOnConfirm, setVisible } = useContext(ConfirmDialogContext);
+    const { showConfirmDialog } = useConfirmDialog();
     const {
         name,
         setName,
@@ -82,9 +82,7 @@ export default function AdvancedSearch() {
     };
 
     const onResetClick = () => {
-        setMessage('Are you sure you want to reset your search criteria?');
-        setOnConfirm(resetSearchCriteria);
-        setVisible(true);
+        showConfirmDialog('Are you sure you want to reset your search criteria?', resetSearchCriteria);
     };
 
     return (

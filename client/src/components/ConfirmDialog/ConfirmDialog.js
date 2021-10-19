@@ -19,7 +19,7 @@ export default function ConfirmDialog() {
     };
 
     return ReactDOM.createPortal(
-        <Backdrop className='ConfirmDialog' visible={visible} onClose={onCancel}>
+        <Backdrop className='ConfirmDialog' visible={visible} onClose={onCancelClick}>
             <div className='ConfirmDialog-content'>
                 <div className='ConfirmDialog-message'>{message}</div>
                 <div className='ConfirmDialog-buttons'>
