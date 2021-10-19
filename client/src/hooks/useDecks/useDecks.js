@@ -38,7 +38,6 @@ export default function useDecks() {
     ) => {
         const deck = trimCards(deckCards, 'deck');
         const maybeboard = trimCards(maybeboardCards, 'maybeboard');
-
         const response = await fetchJSON(`/api/decks/${publicID}`, 'PUT', { name, visibility, notes, deck, maybeboard, lastUpdatedAt, overwrite });
 
         switch (response.status) {
@@ -54,7 +53,7 @@ export default function useDecks() {
                     lastUpdatedAt: response.data.last_updated_at,
                 };
             case 409:
-                showConfirmDialog(confirmMessage, () => saveDeck(publicID, name, visibility, notes, deckCards, maybeboardCards, lastUpdatedAt, true));
+                // showConfirmDialog(confirmMessage, () => saveDeck(publicID, name, visibility, notes, deckCards, maybeboardCards, lastUpdatedAt, true));
                 return {
                     success: false,
                 };
