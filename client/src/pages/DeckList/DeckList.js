@@ -1,19 +1,18 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import useMessage from '../../hooks/useMessage';
+import useConfirmDialog from '../../hooks/useConfirmDialog';
 import DeckListContext from '../../contexts/DeckList';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
-import ConfirmDialog from '../../components/ConfirmDialog';
 import Deck from './Deck';
 import './DeckList.scss';
 
 export default function DeckList() {
-    const [deckPublicIDToDelete, setDeckPublicIDToDelete] = useState(null);
-    const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
     const { listDecks, deleteDeck } = useDecks();
     const { showMessage } = useMessage();
+    const { showConfirmDialog } = useConfirmDialog();
     const { deckList, setDeckList } = useContext(DeckListContext);
     const { deckPublicID, resetDeckBuilder } = useContext(DeckBuilderContext);
 
@@ -33,41 +32,26 @@ export default function DeckList() {
         resetDeckBuilder();
     }, []);
 
-    const removeDeck = async publicID => {
-        setDeckPublicIDToDelete(publicID);
-        setDeleteDialogVisible(true);
+    const removeDeck = publicID => {
+        showConfirmDialog('This will permanently delete your deck and cannot be undone. Are you sure?', () => onConfirmDelete(publicID));
     };
 
-    const onCancelDelete = () => {
-        setDeckPublicIDToDelete(null);
-        setDeleteDialogVisible(false);
-    };
-
-    const onConfirmDelete = async () => {
-        const response = await deleteDeck(deckPublicIDToDelete);
+    const onConfirmDelete = async publicID => {
+        const response = await deleteDeck(publicID);
         if (!response?.success) {
             const { text, type } = response?.message;
             showMessage(text, type);
-            setDeleteDialogVisible(false);
             return;
         }
 
-        setDeckList(deckList.filter(d => d.public_id !== deckPublicIDToDelete));
-        if (deckPublicID === deckPublicIDToDelete) {
+        setDeckList(deckList.filter(d => d.public_id !== publicID));
+        if (deckPublicID === publicID) {
             resetDeckBuilder();
         }
-
-        setDeleteDialogVisible(false);
     };
 
     return (
         <HeaderPage className='DeckList'>
-            <ConfirmDialog
-                message='This will permanently delete your deck and cannot be undone. Are you sure?'
-                visible={deleteDialogVisible}
-                onCancel={onCancelDelete}
-                onConfirm={onConfirmDelete}
-            />
             <div className='DeckList-content'>
                 <div className='DeckList-list'>
                     <Link to='/decks/new' className='DeckList-deck'>
