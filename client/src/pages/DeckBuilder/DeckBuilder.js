@@ -4,7 +4,6 @@ import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import useFetchDeck from '../../hooks/useFetchDeck';
 import useDebouncedSaveDeck from '../../hooks/useDebouncedSaveDeck';
-import useSaveDeck from '../../hooks/useSaveDeck';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
@@ -17,13 +16,11 @@ import DeckPreview from '../../components/DeckPreview';
 import DeckActions from '../../components/DeckActions';
 import DeckStats from '../../components/DeckStats';
 import DeckTable from '../../components/DeckTable';
-import Button from '../../components/Button';
 import './DeckBuilder.scss';
 
 export default function DeckBuilder() {
     const { publicID } = useParams();
     const debouncedSaveDeck = useDebouncedSaveDeck();
-    const { saveDeckWithConfirmation } = useSaveDeck();
     const deckBuilderTabs = useDeckBuilderTabs();
     const { isDeckUnmodified } = useIsDeckUnmodified();
     const { fetchDeck } = useFetchDeck();
@@ -59,11 +56,6 @@ export default function DeckBuilder() {
         }
     }, [deckName, deckVisibility, deckNotes, deckCards, maybeboardCards]);
 
-    // TODO: Remove this and the Save button
-    const onSaveDeck = async () => {
-        await saveDeckWithConfirmation(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
-    };
-
     return (
         <div className='DeckBuilder'>
             <CardArtSelector />
@@ -82,9 +74,6 @@ export default function DeckBuilder() {
                 <div className='DeckBuilder-deckInfo'>
                     <div className='DeckBuilder-nameBar'>
                         <div className='DeckBuilder-name'>{deckName}</div>
-                        <Button className={`DeckBuilder-saveButton ${isDeckUnmodified() ? 'u-hidden' : ''}`} onClick={onSaveDeck}>
-                            Save
-                        </Button>
                     </div>
                     <DeckActions />
                 </div>

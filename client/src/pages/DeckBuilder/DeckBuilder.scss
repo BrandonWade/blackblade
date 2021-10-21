@@ -72,24 +72,6 @@
         text-overflow: ellipsis;
     }
 
-    &-saveButton {
-        position: absolute;
-        right: 1rem;
-        background-color: var(--color-highlight);
-        border: 1px solid #7256db;
-        padding: 0.6rem 1.5rem;
-
-        @media only screen and (max-width: 37.5em) {
-            padding: 0.2rem 1.25rem;
-            line-height: 1.3;
-        }
-
-        &:enabled:hover {
-            background-color: var(--color-highlight-light);
-            border: 1px solid #876fe0;
-        }
-    }
-
     &-tableContainer {
         @media only screen and (max-width: 52.125em) {
             overflow-y: auto;
