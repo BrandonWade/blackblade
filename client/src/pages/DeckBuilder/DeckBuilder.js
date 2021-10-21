@@ -1,10 +1,10 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useDecks from '../../hooks/useDecks';
 import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import useFetchDeck from '../../hooks/useFetchDeck';
 import useDebouncedSaveDeck from '../../hooks/useDebouncedSaveDeck';
+import useSaveDeck from '../../hooks/useSaveDeck';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
@@ -22,10 +22,10 @@ import './DeckBuilder.scss';
 
 export default function DeckBuilder() {
     const { publicID } = useParams();
-    const { saveDeck } = useDecks();
     const debouncedSaveDeck = useDebouncedSaveDeck();
+    const { saveDeckWithConfirmation } = useSaveDeck();
     const deckBuilderTabs = useDeckBuilderTabs();
-    const { isDeckUnmodified } = useIsDeckUnmodified(); // TODO: Add helper variable instead of calling everywhere
+    const { isDeckUnmodified } = useIsDeckUnmodified();
     const { fetchDeck } = useFetchDeck();
     const { accountPublicID } = useContext(AuthContext);
     const {
@@ -36,7 +36,6 @@ export default function DeckBuilder() {
         deckCards,
         maybeboardCards,
         deckLastUpdatedAt,
-        updateUnmodifiedState,
         selectedTabIndex,
         setSelectedTabIndex,
         maybeboardMode,
@@ -60,14 +59,9 @@ export default function DeckBuilder() {
         }
     }, [deckName, deckVisibility, deckNotes, deckCards, maybeboardCards]);
 
+    // TODO: Remove this and the Save button
     const onSaveDeck = async () => {
-        const response = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
-        if (!response.success) {
-            return;
-        }
-
-        // Once changes to the deck have been saved, update the unmodified state
-        updateUnmodifiedState();
+        await saveDeckWithConfirmation(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
     };
 
     return (

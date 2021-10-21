@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
+import useSaveDeck from '../../hooks/useSaveDeck';
 import useMessage from '../../hooks/useMessage';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import AuthContext from '../../contexts/Auth';
@@ -13,11 +14,12 @@ import './DeckActions.scss';
 export default function DeckActions() {
     const { publicID } = useParams();
     const history = useHistory();
-    const { saveDeck, exportDeck } = useDecks();
+    const { exportDeck } = useDecks();
+    const { saveDeckWithConfirmation } = useSaveDeck();
     const { showMessage } = useMessage();
     const { isDeckUnmodified } = useIsDeckUnmodified();
     const { accountPublicID } = useContext(AuthContext);
-    const { deckAccountPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, updateUnmodifiedState } =
+    const { deckAccountPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt } =
         useContext(DeckBuilderContext);
     const { setDeckExport, setVisible } = useContext(ExportDeckDialogContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
@@ -30,14 +32,8 @@ export default function DeckActions() {
     const onExportDeck = async () => {
         if (!isDeckUnmodified()) {
             // Since the deck export comes from the backend, ensure we persist the latest deck state before exporting
-            const saveResponse = await saveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
-            if (!saveResponse.success) {
-                return;
-            }
+            await saveDeckWithConfirmation(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, true);
         }
-
-        // Once changes to the deck have been saved, update the unmodified state
-        updateUnmodifiedState();
 
         const exportResponse = await exportDeck(publicID);
         if (!exportResponse?.success) {
