@@ -41,10 +41,12 @@ export default function useFetch() {
         }
 
         const response = await fetch(url, options);
-        let data;
+        let data = {};
 
         try {
-            data = await response.json();
+            if (response.status !== 204) {
+                data = await response.json();
+            }
         } catch (e) {
             showMessage('An unexpected error has occurred. Please wait a few moments and try again.', 'error');
             return;

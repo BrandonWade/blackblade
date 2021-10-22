@@ -61,8 +61,6 @@ export default function DeckEditor({ editing = false }) {
         if (!editing) {
             const response = await createDeck(deckName, deckVisibility, deckNotes);
             if (!response.success) {
-                const { text, type } = response?.message;
-                showMessage(text, type);
                 return;
             }
 

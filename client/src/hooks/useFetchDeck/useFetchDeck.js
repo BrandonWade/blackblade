@@ -1,12 +1,10 @@
 import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import useMessage from '../../hooks/useMessage';
 import useDecks from '../../hooks/useDecks';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 
 export default function useFetchDeck() {
     const { publicID } = useParams();
-    const { showMessage } = useMessage();
     const { getDeck } = useDecks();
     const {
         setDeckPublicID,
@@ -23,12 +21,7 @@ export default function useFetchDeck() {
 
     const fetchDeck = async () => {
         const response = await getDeck(publicID);
-        if (!response?.success) {
-            if (response?.message) {
-                const { text, type } = response?.message;
-                showMessage(text, type);
-            }
-
+        if (!response.success) {
             return;
         }
 

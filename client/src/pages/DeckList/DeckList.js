@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
-import useMessage from '../../hooks/useMessage';
 import useConfirmDialog from '../../hooks/useConfirmDialog';
 import DeckListContext from '../../contexts/DeckList';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
@@ -11,7 +10,6 @@ import './DeckList.scss';
 
 export default function DeckList() {
     const { listDecks, deleteDeck } = useDecks();
-    const { showMessage } = useMessage();
     const { showConfirmDialog } = useConfirmDialog();
     const { deckList, setDeckList } = useContext(DeckListContext);
     const { deckPublicID, resetDeckBuilder } = useContext(DeckBuilderContext);
@@ -19,9 +17,7 @@ export default function DeckList() {
     useEffect(() => {
         const fetchDeckList = async () => {
             const response = await listDecks();
-            if (!response?.success) {
-                const { text, type } = response?.message;
-                showMessage(text, type);
+            if (!response.success) {
                 return;
             }
 
@@ -38,9 +34,7 @@ export default function DeckList() {
 
     const onConfirmDelete = async publicID => {
         const response = await deleteDeck(publicID);
-        if (!response?.success) {
-            const { text, type } = response?.message;
-            showMessage(text, type);
+        if (!response.success) {
             return;
         }
 

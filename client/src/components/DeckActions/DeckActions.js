@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import useSaveDeck from '../../hooks/useSaveDeck';
-import useMessage from '../../hooks/useMessage';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
@@ -16,7 +15,6 @@ export default function DeckActions() {
     const history = useHistory();
     const { exportDeck } = useDecks();
     const { saveDeckWithConfirmation } = useSaveDeck();
-    const { showMessage } = useMessage();
     const { isDeckUnmodified } = useIsDeckUnmodified();
     const { accountPublicID } = useContext(AuthContext);
     const { deckAccountPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt } =
@@ -35,14 +33,12 @@ export default function DeckActions() {
             await saveDeckWithConfirmation(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, true);
         }
 
-        const exportResponse = await exportDeck(publicID);
-        if (!exportResponse?.success) {
-            const { text, type } = exportResponse?.message;
-            showMessage(text, type);
+        const response = await exportDeck(publicID);
+        if (!response.success) {
             return;
         }
 
-        setDeckExport(exportResponse.deckExport);
+        setDeckExport(response.deckExport);
         setVisible(true);
     };
 
