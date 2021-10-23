@@ -155,7 +155,7 @@ describe('Accounts Controller', () => {
             });
         });
 
-        test('returns a message indicating a password link was successfully sent', async () => {
+        test('returns a message indicating the password link was successfully sent', async () => {
             const email = 'test@test.com';
             const body = {
                 email,

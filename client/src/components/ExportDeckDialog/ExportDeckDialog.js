@@ -16,7 +16,7 @@ export default function ExportDeckDialog() {
     const { deckExport, visible, setVisible } = useContext(ExportDeckDialogContext);
 
     const onClose = () => {
-        showMessage();
+        showMessage({});
         setVisible(false);
     };
 
@@ -26,11 +26,11 @@ export default function ExportDeckDialog() {
         try {
             await navigator.clipboard.writeText(deckExport);
         } catch (e) {
-            showMessage('An error occurred while copying your deck to clipboard.', 'error');
+            showMessage({ text: 'An error occurred while copying your deck to clipboard.', type: 'error' });
             return;
         }
 
-        showMessage('Deck successfully copied to clipboard.', 'success');
+        showMessage({ text: 'Deck successfully copied to clipboard.', type: 'success' });
     };
 
     return ReactDOM.createPortal(

@@ -36,7 +36,7 @@ export default function useDisplayResults() {
     const displayResults = (response = {}, deckBuilder = false) => {
         if (!response.success) {
             const { text, type } = response?.message;
-            showMessage(text, type);
+            showMessage({ text, type });
             return;
         }
 

@@ -46,4 +46,9 @@
         cursor: pointer;
         user-select: none;
     }
+
+    &-list {
+        text-align: left;
+        margin-left: 3rem;
+    }
 }

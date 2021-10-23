@@ -44,17 +44,19 @@ export default function useFetch() {
         let data = {};
 
         try {
-            if (response.status !== 204) {
-                data = await response.json();
-            }
-        } catch (e) {
-            showMessage('An unexpected error has occurred. Please wait a few moments and try again.', 'error');
-            return;
-        }
+            data = await response.json();
+        } catch (e) {}
 
         if (data.message) {
             const { text, type } = data.message;
-            showMessage(text, type);
+            showMessage({ text, type });
+        } else if (response.status === 422) {
+            const errors = data.errors.map(e => e.msg.split('\n')).flat(Infinity);
+            showMessage({
+                text: 'Your deck has not been saved as it contains the following errors:',
+                items: errors,
+                type: 'error',
+            });
         }
 
         switch (response.status) {
@@ -62,7 +64,10 @@ export default function useFetch() {
                 history.push('/login');
                 return;
             case 500:
-                return;
+                if (!data.message) {
+                    showMessage({ text: 'An unexpected error has occurred. Please wait a few moments and try again.', type: 'error' });
+                }
+                break;
             default:
                 break;
         }

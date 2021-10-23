@@ -8,8 +8,8 @@ export const DURATION_LONG = 7000;
 export default function useMessage() {
     const { setMessage, setDuration } = useContext(MessageContext);
 
-    const showMessage = (text = '', type = 'info', duration = DURATION_SHORT) => {
-        setMessage({ type, text });
+    const showMessage = ({ type = 'info', text = '', items = [], duration = DURATION_SHORT }) => {
+        setMessage({ type, items, text });
         setDuration(duration);
     };
 

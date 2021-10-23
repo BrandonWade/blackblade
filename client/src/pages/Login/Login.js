@@ -34,7 +34,7 @@ export default function Login() {
 
         const message = JSON.parse(rm);
         const { text, type } = message;
-        showMessage(text, type);
+        showMessage({ text, type });
     }, []);
 
     const onChangeEmail = e => {
@@ -47,7 +47,7 @@ export default function Login() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        showMessage();
+        showMessage({});
 
         if (!isFormValid) {
             return;
@@ -60,7 +60,7 @@ export default function Login() {
             history.push('/');
         } else {
             const { text, type } = response?.message;
-            showMessage(text, type);
+            showMessage({ text, type });
         }
     };
 

@@ -32,13 +32,30 @@ export default function Message() {
         setMessage();
     };
 
+    const renderItems = () => {
+        if (!message?.items.length) {
+            return null;
+        }
+
+        return (
+            <ul className='Message-list'>
+                {message.items.map(i => (
+                    <li key={i} className='Message-listItem'>
+                        {i}
+                    </li>
+                ))}
+            </ul>
+        );
+    };
+
     return ReactDOM.createPortal(
         message?.text ? (
             <div className={`Message ${getMessageTypeClass()}`}>
                 <div className='Message-close' onClick={onClose}>
                     &#x2715;
                 </div>
-                {message?.text}
+                <div className='Message-text'>{message?.text}</div>
+                {renderItems()}
             </div>
         ) : null,
         document.getElementById('portal-root')

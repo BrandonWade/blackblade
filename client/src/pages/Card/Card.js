@@ -36,7 +36,7 @@ export default function Card() {
             if (!response?.success) {
                 const { text, type } = response?.message;
                 setCard({});
-                showMessage(text, type);
+                showMessage({ text, type });
                 return;
             }
 

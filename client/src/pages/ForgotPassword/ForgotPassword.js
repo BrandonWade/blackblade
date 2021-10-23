@@ -21,7 +21,7 @@ export default function ForgotPassword() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        showMessage();
+        showMessage({});
 
         if (!emailValid) {
             return;
@@ -29,7 +29,7 @@ export default function ForgotPassword() {
 
         const response = await requestPasswordReset(email);
         const { text, type } = response?.message;
-        showMessage(text, type, DURATION_MEDIUM);
+        showMessage({ text, type, DURATION_MEDIUM });
     };
 
     return (

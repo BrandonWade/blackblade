@@ -5,7 +5,7 @@ const visibilityValueValid = (visibility) => {
 
     if (!visibilityValues.includes(visibility)) {
         throw new Error(
-            `visibility must be one of: ${visibilityValues.join(', ')}`,
+            `Deck visibility must be one of: ${visibilityValues.join(', ')}`,
         );
     }
 
@@ -18,7 +18,7 @@ const cardValuesValid = (cards) => {
     cards.forEach((c) => {
         if (!Number.isInteger(parseInt(c.count))) {
             errors = errors.concat(
-                `${c.name} (${c.location}) has invalid count value ${c.count}`,
+                `${c.name} (${c.location}) has invalid count value '${c.count}'`,
             );
         } else if (c.count <= 0) {
             errors = errors.concat(
@@ -28,9 +28,7 @@ const cardValuesValid = (cards) => {
     });
 
     if (errors.length > 0) {
-        throw new Error(
-            `deck contains the following errors: ${errors.join('\n')}`,
-        );
+        throw new Error(errors.join('\n'));
     }
 
     return true;

@@ -53,7 +53,7 @@ export default function DeckEditor({ editing = false }) {
 
     const onSubmit = async e => {
         e.preventDefault();
-        showMessage();
+        showMessage({});
         setDeckName(deckName);
         setDeckVisibility(deckVisibility);
         setDeckNotes(deckNotes);

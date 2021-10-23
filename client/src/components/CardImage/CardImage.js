@@ -45,7 +45,7 @@ export default function CardImage({ imageClassName = '', card = {}, isSelected =
         const response = await createBookmark(cardID);
         if (!response?.success) {
             const { text, type } = response?.message;
-            showMessage(text, type);
+            showMessage({ text, type });
             return;
         }
 
@@ -59,7 +59,7 @@ export default function CardImage({ imageClassName = '', card = {}, isSelected =
             const response = await deleteBookmark(bookmark.id);
             if (!response?.success) {
                 const { text, type } = response?.message;
-                showMessage(text, type);
+                showMessage({ text, type });
                 return;
             }
 

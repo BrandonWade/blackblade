@@ -36,7 +36,7 @@ export default function ResetPassword() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        showMessage();
+        showMessage({});
 
         if (!isFormValid) {
             return;
@@ -47,7 +47,7 @@ export default function ResetPassword() {
             history.push('/login');
         } else {
             const { text, type } = response?.message;
-            showMessage(text, type, DURATION_LONG);
+            showMessage({ text, type, DURATION_LONG });
         }
     };
 

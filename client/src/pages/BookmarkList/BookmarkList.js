@@ -17,7 +17,7 @@ export default function BookmarkList() {
             const response = await listBookmarks();
             if (!response?.success) {
                 const { text, type } = response?.message;
-                showMessage(text, type);
+                showMessage({ text, type });
                 return;
             }
 

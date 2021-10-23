@@ -37,7 +37,7 @@ export default function Router() {
             const response = await getCSRFToken();
             if (!response?.success) {
                 const { text, type } = response?.message;
-                showMessage(text, type);
+                showMessage({ text, type });
                 return;
             }
         };
@@ -49,7 +49,7 @@ export default function Router() {
             const response = await listBookmarks();
             if (!response?.success) {
                 const { text, type } = response?.message;
-                showMessage(text, type);
+                showMessage({ text, type });
                 return;
             }
 
