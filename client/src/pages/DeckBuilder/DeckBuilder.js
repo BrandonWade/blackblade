@@ -13,6 +13,7 @@ import CardImagePreview from '../../components/CardImagePreview';
 import TabStrip from '../../components/TabStrip';
 import BackgroundMessage from '../../components/BackgroundMessage';
 import DeckPreview from '../../components/DeckPreview';
+import SaveIndicator from '../../components/SaveIndicator';
 import DeckActions from '../../components/DeckActions';
 import DeckStats from '../../components/DeckStats';
 import DeckTable from '../../components/DeckTable';
@@ -74,6 +75,7 @@ export default function DeckBuilder() {
                 <div className='DeckBuilder-deckInfo'>
                     <div className='DeckBuilder-nameBar'>
                         <div className='DeckBuilder-name'>{deckName}</div>
+                        <SaveIndicator />
                     </div>
                     <DeckActions />
                 </div>

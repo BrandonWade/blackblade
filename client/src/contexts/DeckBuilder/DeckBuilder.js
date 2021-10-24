@@ -22,6 +22,8 @@ export const initialState = {
     numberOfPages: 1,
     selectedTabIndex: 0,
     cardArtSelectorVisible: false,
+    isSaving: true,
+    isErrored: false,
 };
 
 export default createContext(initialState);

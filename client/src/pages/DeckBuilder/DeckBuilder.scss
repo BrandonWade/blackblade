@@ -72,6 +72,47 @@
         text-overflow: ellipsis;
     }
 
+    &-saveIndicator {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 5.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &-saveIndicatorIcon {
+        width: 1.8rem;
+        height: 1.8rem;
+
+        @media only screen and (max-width: 37.5em) {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+
+    &-unsavedChangesIcon {
+        fill: var(--color-warning);
+    }
+
+    &-savingIcon {
+        fill: var(--color-info);
+    }
+
+    &-saveFailedIcon {
+        fill: var(--color-error);
+    }
+
+    &-saveSucceededIcon {
+        fill: var(--color-success);
+    }
+
+    &-saveStatus {
+        margin-top: 0.5rem;
+        font-size: 1rem;
+    }
+
     &-tableContainer {
         @media only screen and (max-width: 52.125em) {
             overflow-y: auto;

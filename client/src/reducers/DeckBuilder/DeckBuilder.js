@@ -28,6 +28,8 @@ import {
     SET_SELECTED_TAB_INDEX,
     SHOW_CARD_ART_SELECTOR,
     HIDE_CARD_ART_SELECTOR,
+    SET_IS_SAVING,
+    SET_IS_ERRORED,
     RESET_DECK_BUILDER,
 } from '../../actions/DeckBuilder';
 import { initialState } from '../../contexts/DeckBuilder';
@@ -68,6 +70,7 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 deckCards: sortBy(action.deckCards, [c => parseFloatFallback(c.cmc, 0)]),
+                isErrored: false,
             };
 
         case SET_DECK_EXISTS:
@@ -88,6 +91,7 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
                     },
                     ...state.deckCards.slice(index + 1),
                 ],
+                isErrored: false,
             };
         }
 
@@ -119,6 +123,7 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
                 ...state,
                 deckCards,
                 cardArtSelectorVisible: false,
+                isErrored: false,
             };
         }
 
@@ -126,12 +131,14 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 deckCards: state.deckCards.filter(card => card.card_id !== action.cardID),
+                isErrored: false,
             };
 
         case SET_MAYBEBOARD_CARDS:
             return {
                 ...state,
                 maybeboardCards: sortBy(action.maybeboardCards, [c => parseFloatFallback(c.cmc, 0)]),
+                isErrored: false,
             };
 
         case UPDATE_MAYBEBOARD_CARD_COUNT: {
@@ -146,6 +153,7 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
                     },
                     ...state.maybeboardCards.slice(index + 1),
                 ],
+                isErrored: false,
             };
         }
 
@@ -182,6 +190,7 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
                 ...state,
                 maybeboardCards,
                 cardArtSelectorVisible: false,
+                isErrored: false,
             };
         }
 
@@ -189,6 +198,7 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 maybeboardCards: state.maybeboardCards.filter(card => card.card_id !== action.cardID),
+                isErrored: false,
             };
 
         case SET_DECK_LAST_UPDATED_AT:
@@ -205,6 +215,8 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
                 unmodifiedDeckNotes: state.deckNotes,
                 unmodifiedDeckCards: state.deckCards,
                 unmodifiedMaybeboardCards: state.maybeboardCards,
+                isSaving: false,
+                isErrored: false,
             };
 
         case SET_MAYBEBOARD_MODE:
@@ -276,6 +288,7 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
                 ...state,
                 deckCards,
                 maybeboardCards,
+                isErrored: false,
             };
         }
 
@@ -312,6 +325,7 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
                 ...state,
                 deckCards,
                 maybeboardCards,
+                isErrored: false,
             };
         }
 
@@ -332,6 +346,22 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 cardArtSelectorVisible: false,
+            };
+        }
+
+        case SET_IS_SAVING: {
+            return {
+                ...state,
+                isSaving: true,
+                isErrored: false,
+            };
+        }
+
+        case SET_IS_ERRORED: {
+            return {
+                ...state,
+                isSaving: false,
+                isErrored: true,
             };
         }
 

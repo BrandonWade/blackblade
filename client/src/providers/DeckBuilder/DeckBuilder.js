@@ -30,6 +30,8 @@ import {
     SHOW_CARD_ART_SELECTOR,
     HIDE_CARD_ART_SELECTOR,
     RESET_DECK_BUILDER,
+    SET_IS_SAVING,
+    SET_IS_ERRORED,
 } from '../../actions/DeckBuilder';
 
 export default function DeckBuilderProvider({ children = [] }) {
@@ -59,10 +61,12 @@ export default function DeckBuilderProvider({ children = [] }) {
     const setNumberOfPages = numberOfPages => dispatch({ type: SET_NUMBER_OF_PAGES, numberOfPages });
     const moveToDeck = (cardID, count) => dispatch({ type: MOVE_TO_DECK, cardID, count });
     const moveToMaybeboard = (cardID, count) => dispatch({ type: MOVE_TO_MAYBEBOARD, cardID, count });
-    const resetDeckBuilder = () => dispatch({ type: RESET_DECK_BUILDER });
     const setSelectedTabIndex = index => dispatch({ type: SET_SELECTED_TAB_INDEX, index });
     const showCardArtSelector = () => dispatch({ type: SHOW_CARD_ART_SELECTOR });
     const hideCardArtSelector = () => dispatch({ type: HIDE_CARD_ART_SELECTOR });
+    const setIsSaving = () => dispatch({ type: SET_IS_SAVING });
+    const setIsErrored = () => dispatch({ type: SET_IS_ERRORED });
+    const resetDeckBuilder = () => dispatch({ type: RESET_DECK_BUILDER });
 
     const props = {
         ...state,
@@ -90,10 +94,12 @@ export default function DeckBuilderProvider({ children = [] }) {
         setNumberOfPages,
         moveToDeck,
         moveToMaybeboard,
-        resetDeckBuilder,
         setSelectedTabIndex,
         showCardArtSelector,
         hideCardArtSelector,
+        setIsSaving,
+        setIsErrored,
+        resetDeckBuilder,
     };
 
     return <DeckBuilderContext.Provider value={props}>{children}</DeckBuilderContext.Provider>;
