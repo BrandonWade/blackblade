@@ -74,8 +74,12 @@ export default function DeckBuilder() {
             <div className='DeckBuilder-deckPanel'>
                 <div className='DeckBuilder-deckInfo'>
                     <div className='DeckBuilder-nameBar'>
-                        <div className='DeckBuilder-name'>{deckName}</div>
-                        <SaveIndicator />
+                        {deckExists ? (
+                            <>
+                                <div className='DeckBuilder-name'>{deckName}</div>
+                                <SaveIndicator />
+                            </>
+                        ) : null}
                     </div>
                     <DeckActions />
                 </div>
