@@ -16,7 +16,7 @@ export default function Register() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const { register } = useAccounts();
     const { isEmailValid, isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } = useValidation();
-    const { showMessage } = useMessage();
+    const { showMessage, clearMessage } = useMessage();
     const emailValid = isEmailValid(email);
     const passwordLengthValid = isPasswordLengthValid(password);
     const passwordValidCharsOnly = doesPasswordContainValidChars(password);
@@ -37,7 +37,7 @@ export default function Register() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        showMessage({});
+        clearMessage();
 
         if (!isFormValid) {
             return;

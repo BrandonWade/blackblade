@@ -12,7 +12,7 @@ export default function ForgotPassword() {
     const [email, setEmail] = useState('');
     const { requestPasswordReset } = useAccounts();
     const { isEmailValid } = useValidation();
-    const { showMessage } = useMessage();
+    const { showMessage, clearMessage } = useMessage();
     const emailValid = isEmailValid(email);
 
     const onChangeEmail = e => {
@@ -21,7 +21,7 @@ export default function ForgotPassword() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        showMessage({});
+        clearMessage();
 
         if (!emailValid) {
             return;

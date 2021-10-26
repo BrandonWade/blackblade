@@ -13,7 +13,12 @@ export default function useMessage() {
         setDuration(duration);
     };
 
+    const clearMessage = () => {
+        showMessage({});
+    };
+
     return {
         showMessage,
+        clearMessage,
     };
 }

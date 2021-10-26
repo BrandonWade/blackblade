@@ -12,11 +12,11 @@ import './ExportDeckDialog.scss';
 
 export default function ExportDeckDialog() {
     const { publicID } = useParams();
-    const { showMessage } = useMessage();
+    const { showMessage, clearMessage } = useMessage();
     const { deckExport, visible, setVisible } = useContext(ExportDeckDialogContext);
 
     const onClose = () => {
-        showMessage({});
+        clearMessage();
         setVisible(false);
     };
 

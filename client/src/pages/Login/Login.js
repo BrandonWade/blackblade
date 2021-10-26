@@ -18,7 +18,7 @@ export default function Login() {
     const history = useHistory();
     const { login } = useAuth();
     const { isEmailValid, isPasswordValid } = useValidation();
-    const { showMessage } = useMessage();
+    const { showMessage, clearMessage } = useMessage();
     const { setAuthenticated, setAccountPublicID } = useContext(AuthContext);
     const emailValid = isEmailValid(email);
     const passwordValid = isPasswordValid(password);
@@ -47,7 +47,7 @@ export default function Login() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        showMessage({});
+        clearMessage();
 
         if (!isFormValid) {
             return;

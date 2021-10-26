@@ -16,7 +16,7 @@ import './DeckEditor.scss';
 export default function DeckEditor({ editing = false }) {
     const history = useHistory();
     const { publicID } = useParams();
-    const { showMessage } = useMessage();
+    const { clearMessage } = useMessage();
     const { createDeck } = useDecks();
     const { isDeckUnmodified } = useIsDeckUnmodified();
     const { fetchDeck } = useFetchDeck();
@@ -53,7 +53,7 @@ export default function DeckEditor({ editing = false }) {
 
     const onSubmit = async e => {
         e.preventDefault();
-        showMessage({});
+        clearMessage();
         setDeckName(deckName);
         setDeckVisibility(deckVisibility);
         setDeckNotes(deckNotes);

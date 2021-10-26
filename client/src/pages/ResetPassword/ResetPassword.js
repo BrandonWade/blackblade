@@ -15,7 +15,7 @@ export default function ResetPassword() {
     const history = useHistory();
     const { resetPassword } = useAccounts();
     const { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } = useValidation();
-    const { showMessage } = useMessage();
+    const { showMessage, clearMessage } = useMessage();
     const passwordLengthValid = isPasswordLengthValid(password);
     const passwordValidCharsOnly = doesPasswordContainValidChars(password);
     const passwordsMatch = doPasswordsMatch(password, confirmPassword);
@@ -36,7 +36,7 @@ export default function ResetPassword() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        showMessage({});
+        clearMessage();
 
         if (!isFormValid) {
             return;
