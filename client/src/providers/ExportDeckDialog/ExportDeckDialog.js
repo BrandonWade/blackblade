@@ -2,9 +2,8 @@ import { useState } from 'react';
 import ExportDeckDialogContext, { initialState } from '../../contexts/ExportDeckDialog';
 
 export default function ExportDeckDialogProvider({ children = [] }) {
-    const { deckExport: deckExportDefault, visible: visibleDefault } = initialState;
-    const [deckExport, setDeckExport] = useState(deckExportDefault);
-    const [visible, setVisible] = useState(visibleDefault);
+    const [deckExport, setDeckExport] = useState(initialState.deckExport);
+    const [visible, setVisible] = useState(initialState.visible);
 
     const props = {
         deckExport,
