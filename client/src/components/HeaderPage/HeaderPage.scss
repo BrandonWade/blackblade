@@ -19,10 +19,10 @@
         flex: 1;
         display: flex;
         align-items: center;
+        height: 100%;
 
         @media only screen and (max-width: 37.5em) {
             width: 100%;
-            height: 100%;
             margin-right: 0.5rem;
         }
     }
@@ -37,36 +37,39 @@
         flex: 1;
         padding: 0 1.5rem;
         max-width: 50rem;
+        height: 100%;
 
         @media only screen and (max-width: 37.5em) {
             padding: 0;
             max-width: none;
             width: 100%;
-            height: 100%;
         }
     }
 
     &-searchBox {
-        height: 3rem;
+        height: 100%;
         font-size: 1.6rem;
         padding: 0 0.5rem;
+        border: none;
+        border-left: var(--line);
+        border-right: var(--line);
+        border-radius: 0;
+        padding: 0 1rem;
+        transition: background-color 0.2s;
+
+        &:focus {
+            outline: none;
+            background-color: var(--color-primary-lighter);
+        }
 
         @media only screen and (max-width: 37.5em) {
-            height: 100%;
-            border: none;
-            border-right: var(--line);
-            border-radius: 0;
-            padding: 0 1rem;
-            transition: background-color 0.2s;
-
-            &:focus {
-                outline: none;
-                background-color: var(--color-primary-lighter);
-            }
+            border-left: none;
         }
     }
 
     &-linksContainer {
+        height: 100%;
+
         @media only screen and (max-width: 56.25em) {
             display: none;
         }
@@ -78,11 +81,12 @@
     }
 
     &-link {
-        display: inline-block;
+        height: 100%;
+        display: inline-flex;
+        align-items: center;
         border: none;
         font-size: 1.3rem;
-        border-radius: var(--border-radius);
-        padding: 0.75rem;
+        padding: 0 0.75rem;
         cursor: pointer;
         transition: all 0.2s;
 
