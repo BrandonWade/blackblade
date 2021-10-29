@@ -52,6 +52,7 @@ export default function useFetch() {
             showMessage({ text, type });
         } else if (response.status === 422) {
             const errors = data.errors.map(e => e.msg.split('\n')).flat(Infinity);
+            // TODO: This deck specific message doesn't belong here
             showMessage({
                 text: 'Your deck has not been saved as it contains the following errors:',
                 items: errors,
@@ -62,7 +63,9 @@ export default function useFetch() {
         switch (response.status) {
             case 401:
                 history.push('/login');
-                return;
+                return {
+                    success: false,
+                };
             case 500:
                 if (!data.message) {
                     showMessage({ text: 'An unexpected error has occurred. Please wait a few moments and try again.', type: 'error' });

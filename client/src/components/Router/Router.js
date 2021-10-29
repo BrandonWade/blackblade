@@ -35,9 +35,8 @@ export default function Router() {
     useEffect(() => {
         const setupCSRF = async () => {
             const response = await getCSRFToken();
-            if (!response?.success) {
-                const { text, type } = response?.message;
-                showMessage({ text, type });
+            if (!response.success) {
+                showMessage('error', 'An error occurred while contacting the server. Please reload the page and try again.');
                 return;
             }
         };

@@ -54,14 +54,13 @@ export default function Login() {
         }
 
         const response = await login(email, password);
-        if (response?.success && response?.accountPublicID) {
-            setAuthenticated(true);
-            setAccountPublicID(response.accountPublicID);
-            history.push('/');
-        } else {
-            const { text, type } = response?.message;
-            showMessage({ text, type });
+        if (!response.success) {
+            return;
         }
+
+        setAuthenticated(true);
+        setAccountPublicID(response.accountPublicID);
+        history.push('/');
     };
 
     return (

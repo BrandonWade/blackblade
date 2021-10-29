@@ -11,11 +11,13 @@ export default function Logout() {
     useEffect(() => {
         const logoutOfAccount = async () => {
             const response = await logout();
-            if (response?.success) {
-                setAuthenticated(false);
-                setAccountPublicID('');
-                history.replace('/login');
+            if (!response.success) {
+                return;
             }
+
+            setAuthenticated(false);
+            setAccountPublicID('');
+            history.replace('/login');
         };
         logoutOfAccount();
     }, []);
