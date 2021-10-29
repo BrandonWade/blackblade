@@ -36,7 +36,7 @@ export default function Router() {
         const setupCSRF = async () => {
             const response = await getCSRFToken();
             if (!response.success) {
-                showMessage('error', 'An error occurred while contacting the server. Please reload the page and try again.');
+                showMessage({ type: 'error', text: 'An error occurred while contacting the server. Please reload the page and try again.' });
                 return;
             }
         };
