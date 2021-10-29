@@ -26,6 +26,12 @@ bookmarks.get(
     ),
     listBookmarks,
 );
-bookmarks.delete('/:bookmarkID', deleteBookmark);
+bookmarks.delete(
+    '/:bookmarkID',
+    authenticate(
+        'You must be logged in to delete a bookmark. Please log in and try again.',
+    ),
+    deleteBookmark,
+);
 
 export default bookmarks;
