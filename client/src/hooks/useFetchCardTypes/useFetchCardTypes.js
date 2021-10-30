@@ -1,25 +1,23 @@
-import { useContext, useCallback } from 'react';
 import useFetch from '../useFetch';
-import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 
 export default function useFetchCardTypes() {
-    const { fetchData } = useFetch();
-    const { setCardTypes } = useContext(AdvancedSearchContext);
+    const { fetchJSON } = useFetch();
 
-    const getCardTypes = useCallback(async () => {
-        const response = await fetchData(`/api/types`);
-        const data = await response.json();
+    const getCardTypes = async () => {
+        const response = await fetchJSON(`/api/types`);
 
         switch (response.status) {
             case 200:
-                setCardTypes(data.card_types);
-                return;
+                return {
+                    success: true,
+                    cardTypes: response.data.card_types,
+                };
             default:
                 return {
-                    message: data.message,
+                    success: false,
                 };
         }
-    }, [fetchData, setCardTypes]);
+    };
 
     return {
         getCardTypes,

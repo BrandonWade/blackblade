@@ -6,12 +6,20 @@ import { MultiSelectField } from '../../components/Select';
 
 export default function CardSets() {
     const { getCardSets } = useFetchCardSets();
-    const { cardSets } = useContext(AdvancedSearchContext);
+    const { cardSets, setCardSets } = useContext(AdvancedSearchContext);
     const { selectedSets, addSet, removeSet } = useContext(SearchContext);
 
     useEffect(() => {
-        getCardSets();
-    }, [getCardSets]);
+        const fetchCardSets = async () => {
+            const response = await getCardSets();
+            if (!response) {
+                return;
+            }
+
+            setCardSets(response.cardSets);
+        };
+        fetchCardSets();
+    }, []);
 
     const onSelectSet = e => {
         addSet(e.target.value);

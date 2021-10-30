@@ -6,12 +6,20 @@ import { MultiSelectField } from '../../components/Select';
 
 export default function CardTypes() {
     const { getCardTypes } = useFetchCardTypes();
-    const { cardTypes } = useContext(AdvancedSearchContext);
+    const { cardTypes, setCardTypes } = useContext(AdvancedSearchContext);
     const { selectedTypes, addType, removeType, negateType } = useContext(SearchContext);
 
     useEffect(() => {
-        getCardTypes();
-    }, [getCardTypes]);
+        const fetchCardTypes = async () => {
+            const response = await getCardTypes();
+            if (!response.success) {
+                return;
+            }
+
+            setCardTypes(response.cardTypes);
+        };
+        fetchCardTypes();
+    }, []);
 
     const onSelectType = e => {
         addType(e.target.value);

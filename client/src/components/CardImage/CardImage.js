@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useBookmarks from '../../hooks/useBookmarks';
-import useMessage from '../../hooks/useMessage';
 import AuthContext from '../../contexts/Auth';
 import BookmarkListContext from '../../contexts/BookmarkList';
 import Button from '../Button';
@@ -16,7 +15,6 @@ export default function CardImage({ imageClassName = '', card = {}, isSelected =
     const cardFaces = card?.faces_json;
     const layout = card?.layout;
     const { createBookmark, deleteBookmark } = useBookmarks();
-    const { showMessage } = useMessage();
     const { authenticated } = useContext(AuthContext);
     const { bookmarkList, setBookmarkList } = useContext(BookmarkListContext);
     const [flipped, setFlipped] = useState(false);
