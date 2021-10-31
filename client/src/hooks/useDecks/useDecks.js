@@ -1,8 +1,10 @@
 import useFetch from '../useFetch';
+import useMessage from '../useMessage';
 import { trimCards } from '../../helpers/deck';
 
 export default function useDecks() {
     const { fetchJSON } = useFetch();
+    const { showMessage } = useMessage();
 
     const createDeck = async (name = '', visibility = 'private', notes = '') => {
         const response = await fetchJSON('/api/decks', 'POST', { name, visibility, notes });
@@ -51,6 +53,15 @@ export default function useDecks() {
                 return {
                     success: false,
                     confirmation: true,
+                };
+            case 422:
+                showMessage({
+                    text: 'Your deck has not been saved as it contains the following errors:',
+                    items: response.errors,
+                    type: 'error',
+                });
+                return {
+                    success: false,
                 };
             default:
                 return {
