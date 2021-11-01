@@ -2,7 +2,7 @@ import useFetch from '../useFetch';
 import useSelectedTypes from '../useSelectedTypes';
 
 export default function useSearch() {
-    const { fetchData } = useFetch();
+    const { fetchJSON } = useFetch();
     const { convertTypesToString } = useSelectedTypes();
 
     const getParamString = (params = {}) => {
@@ -87,13 +87,13 @@ export default function useSearch() {
     };
 
     const getCardByID = async id => {
-        const response = await fetchData(`/api/cards/${id}`);
+        const response = await fetchJSON(`/api/cards/${id}`);
 
         switch (response.status) {
             case 200:
                 return {
                     success: true,
-                    results: await response.json(),
+                    results: response.data,
                 };
             case 404:
             case 422:
@@ -102,29 +102,25 @@ export default function useSearch() {
                     results: [],
                 };
             default:
-                const data = await response.json();
                 return {
                     success: false,
-                    message: data.message,
                 };
         }
     };
 
     const getRandomCard = async () => {
-        const response = await fetchData('/api/cards/random');
-        const data = await response.json();
+        const response = await fetchJSON('/api/cards/random');
 
         switch (response.status) {
             case 200:
                 return {
                     success: true,
-                    redirect: `/cards/${data.card_id}`,
-                    results: data,
+                    redirect: `/cards/${response.data.card_id}`,
+                    results: response.data,
                 };
             default:
                 return {
                     success: false,
-                    message: data.message,
                 };
         }
     };
@@ -137,22 +133,19 @@ export default function useSearch() {
             };
         }
 
-        const response = await fetchData(`/api/search${paramString}`);
-        const data = await response.json();
+        const response = await fetchJSON(`/api/search${paramString}`);
 
         switch (response.status) {
             case 200:
                 return {
                     success: true,
-                    totalResults: data.total_results,
-                    pages: data.pages,
-                    results: data.results,
+                    totalResults: response.data.total_results,
+                    pages: response.data.pages,
+                    results: response.data.results,
                 };
             default:
                 return {
                     success: false,
-                    message: data.message,
-                    errors: data?.errors || [],
                 };
         }
     };
