@@ -24,17 +24,15 @@ export default function useBookmarks() {
         const response = await fetchJSON('/api/bookmarks');
 
         switch (response.status) {
-            case 200: {
+            case 200:
                 return {
                     success: true,
                     bookmarks: response.data.bookmarks,
                 };
-            }
-            default: {
+            default:
                 return {
                     success: false,
                 };
-            }
         }
     };
 

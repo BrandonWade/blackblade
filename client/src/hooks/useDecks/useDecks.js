@@ -74,7 +74,7 @@ export default function useDecks() {
         const response = await fetchJSON(`/api/decks/${publicID}`);
 
         switch (response.status) {
-            case 200: {
+            case 200:
                 return {
                     success: true,
                     deckPublicID: response.data.deck_public_id,
@@ -85,16 +85,14 @@ export default function useDecks() {
                     cards: response.data.cards,
                     lastUpdatedAt: response.data.last_updated_at,
                 };
-            }
             case 404:
                 return {
                     success: false,
                 };
-            default: {
+            default:
                 return {
                     success: false,
                 };
-            }
         }
     };
 
@@ -102,21 +100,19 @@ export default function useDecks() {
         const response = await fetchJSON('/api/decks');
 
         switch (response.status) {
-            case 200: {
+            case 200:
                 return {
                     success: true,
                     decks: response.data.decks,
                 };
-            }
             case 401:
                 return {
                     success: false,
                 };
-            default: {
+            default:
                 return {
                     success: false,
                 };
-            }
         }
     };
 
