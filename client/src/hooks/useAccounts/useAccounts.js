@@ -1,46 +1,42 @@
 import useFetch from '../useFetch';
 
 export default function useAccounts() {
-    const { fetchData } = useFetch();
+    const { fetchJSON } = useFetch();
 
     const register = async (email = '', password = '', confirmPassword = '') => {
-        const response = await fetchData('/api/accounts', 'POST', { email, password, confirm_password: confirmPassword });
-        const data = await response.json();
+        const response = await fetchJSON('/api/accounts', 'POST', { email, password, confirm_password: confirmPassword });
 
         switch (response.status) {
             case 200:
                 return {
                     success: true,
-                    message: data.message,
+                    message: response.data.message,
                 };
             default:
                 return {
                     success: false,
-                    message: data.message,
                 };
         }
     };
 
     const requestPasswordReset = async (email = '') => {
-        const response = await fetchData('/api/accounts/password/forgot', 'POST', { email });
-        const data = await response.json();
+        const response = await fetchJSON('/api/accounts/password/forgot', 'POST', { email });
 
         switch (response.status) {
             case 200:
                 return {
                     success: true,
-                    message: data.message,
+                    message: response.data.message,
                 };
             default:
                 return {
                     success: false,
-                    message: data.message,
                 };
         }
     };
 
     const resetPassword = async (password = '', confirmPassword = '') => {
-        const response = await fetchData('/api/accounts/password', 'POST', { password, confirm_password: confirmPassword });
+        const response = await fetchJSON('/api/accounts/password', 'POST', { password, confirm_password: confirmPassword });
 
         switch (response.status) {
             case 200:
@@ -48,10 +44,8 @@ export default function useAccounts() {
                     success: true,
                 };
             default:
-                const data = await response.json();
                 return {
                     success: false,
-                    message: data.message,
                 };
         }
     };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
-import useMessage, { DURATION_LONG } from '../../hooks/useMessage';
+import useMessage from '../../hooks/useMessage';
 import useAccounts from '../../hooks/useAccounts';
 import useValidation from '../../hooks/useValidation';
 import Panel from '../../components/Panel';
@@ -15,7 +15,7 @@ export default function ResetPassword() {
     const history = useHistory();
     const { resetPassword } = useAccounts();
     const { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } = useValidation();
-    const { showMessage, clearMessage } = useMessage();
+    const { clearMessage } = useMessage();
     const passwordLengthValid = isPasswordLengthValid(password);
     const passwordValidCharsOnly = doesPasswordContainValidChars(password);
     const passwordsMatch = doPasswordsMatch(password, confirmPassword);
@@ -43,12 +43,11 @@ export default function ResetPassword() {
         }
 
         const response = await resetPassword(password, confirmPassword);
-        if (response?.success) {
-            history.push('/login');
-        } else {
-            const { text, type } = response?.message;
-            showMessage({ text, type, DURATION_LONG });
+        if (!response.success) {
+            return;
         }
+
+        history.push('/login');
     };
 
     return (

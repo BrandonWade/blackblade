@@ -2,7 +2,6 @@ import { useContext, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useBookmarks from '../../hooks/useBookmarks';
-import useMessage from '../../hooks/useMessage';
 import AuthContext from '../../contexts/Auth';
 import BookmarkListContext from '../../contexts/BookmarkList';
 import Message from '../Message';
@@ -27,7 +26,6 @@ import About from '../../pages/About';
 export default function Router() {
     const { getCSRFToken } = useAuth();
     const { listBookmarks } = useBookmarks();
-    const { showMessage } = useMessage();
     const { accountPublicID } = useContext(AuthContext);
     const { setBookmarkList } = useContext(BookmarkListContext);
 
@@ -36,7 +34,6 @@ export default function Router() {
         const setupCSRF = async () => {
             const response = await getCSRFToken();
             if (!response.success) {
-                showMessage({ type: 'error', text: 'An error occurred while contacting the server. Please reload the page and try again.' });
                 return;
             }
         };
@@ -46,9 +43,7 @@ export default function Router() {
     useEffect(() => {
         const fetchBookmarkList = async () => {
             const response = await listBookmarks();
-            if (!response?.success) {
-                const { text, type } = response?.message;
-                showMessage({ text, type });
+            if (!response.success) {
                 return;
             }
 

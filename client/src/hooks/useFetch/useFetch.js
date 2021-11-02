@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import cookies from 'js-cookie';
 import useMessage from '../useMessage';
@@ -7,25 +6,7 @@ export default function useFetch() {
     const { showMessage } = useMessage();
     const history = useHistory();
 
-    const fetchData = useCallback(async (url = '', method = 'GET', body = {}, headers = {}) => {
-        const options = {
-            method,
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-Token': cookies.get('ct'),
-                ...headers,
-            },
-        };
-
-        if (method !== 'GET' && method !== 'HEAD') {
-            options['body'] = JSON.stringify(body);
-        }
-
-        return await fetch(url, options);
-    }, []);
-
-    const fetchJSON = useCallback(async (url = '', method = 'GET', body = {}, headers = {}) => {
+    const fetchJSON = async (url = '', method = 'GET', body = {}, headers = {}) => {
         const options = {
             method,
             credentials: 'same-origin',
@@ -76,10 +57,9 @@ export default function useFetch() {
             errors,
             data,
         };
-    }, []);
+    };
 
     return {
-        fetchData,
         fetchJSON,
     };
 }

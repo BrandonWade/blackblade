@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useMessage, { DURATION_MEDIUM } from '../../hooks/useMessage';
+import useMessage from '../../hooks/useMessage';
 import useAccounts from '../../hooks/useAccounts';
 import useValidation from '../../hooks/useValidation';
 import Panel from '../../components/Panel';
@@ -12,7 +12,7 @@ export default function ForgotPassword() {
     const [email, setEmail] = useState('');
     const { requestPasswordReset } = useAccounts();
     const { isEmailValid } = useValidation();
-    const { showMessage, clearMessage } = useMessage();
+    const { clearMessage } = useMessage();
     const emailValid = isEmailValid(email);
 
     const onChangeEmail = e => {
@@ -28,8 +28,9 @@ export default function ForgotPassword() {
         }
 
         const response = await requestPasswordReset(email);
-        const { text, type } = response?.message;
-        showMessage({ text, type, DURATION_MEDIUM });
+        if (!response.success) {
+            return;
+        }
     };
 
     return (

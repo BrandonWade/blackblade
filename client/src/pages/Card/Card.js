@@ -2,7 +2,6 @@ import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import useSearch from '../../hooks/useSearch';
-import useMessage from '../../hooks/useMessage';
 import CardContext from '../../contexts/Card';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import HeaderPage from '../../components/HeaderPage';
@@ -16,7 +15,6 @@ import './Card.scss';
 
 export default function Card() {
     const { id } = useParams();
-    const { showMessage } = useMessage();
     const { getCardByID } = useSearch();
     const { card, setCard } = useContext(CardContext);
     const { setVisible } = useContext(CardImagePreviewContext);
@@ -33,10 +31,8 @@ export default function Card() {
     useEffect(() => {
         const fetchCard = async () => {
             const response = await getCardByID(id);
-            if (!response?.success) {
-                const { text, type } = response?.message;
+            if (!response.success) {
                 setCard({});
-                showMessage({ text, type });
                 return;
             }
 
