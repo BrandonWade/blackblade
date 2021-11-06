@@ -12,10 +12,12 @@ export default function DeckPreview() {
     return (
         <div className='DeckPreview'>
             <BackgroundMessage showMessage={deckCards.length + maybeboardCards.length === 0} type={EMPTY_DECK_PREVIEW}>
-                {creatures.length ? <CardGrid className='DeckPreview-cardGrid' cards={creatures} isLink={true} /> : null}
-                {spells.length ? <CardGrid className='DeckPreview-cardGrid' cards={spells} isLink={true} /> : null}
-                {land.length ? <CardGrid className='DeckPreview-cardGrid' cards={land} isLink={true} /> : null}
-                {maybeboardCards.length ? <CardGrid className='DeckPreview-cardGrid' cards={maybeboardCards} isLink={true} /> : null}
+                {creatures.length ? <CardGrid className='DeckPreview-cardGrid' heading='Creatures' cards={creatures} isLink={true} /> : null}
+                {spells.length ? <CardGrid className='DeckPreview-cardGrid' heading='Spells' cards={spells} isLink={true} /> : null}
+                {land.length ? <CardGrid className='DeckPreview-cardGrid' heading='Land' cards={land} isLink={true} /> : null}
+                {maybeboardCards.length ? (
+                    <CardGrid className='DeckPreview-cardGrid' heading='Maybeboard' cards={maybeboardCards} isLink={true} />
+                ) : null}
             </BackgroundMessage>
         </div>
     );

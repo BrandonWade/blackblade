@@ -26,7 +26,7 @@ export default function BookmarkList() {
     return (
         <HeaderPage className='BookmarkList'>
             <BackgroundMessage showMessage={bookmarkList.length === 0} type={NO_BOOKMARKS}>
-                <CardGrid className='BookmarkList-grid' cards={bookmarkList} isLink={true} />
+                <CardGrid gridClassName='BookmarkList-grid' cards={bookmarkList} isLink={true} />
             </BackgroundMessage>
         </HeaderPage>
     );

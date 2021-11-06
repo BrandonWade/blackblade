@@ -118,7 +118,7 @@ export default function SearchResults({ location }) {
 
     return (
         <HeaderPage className='SearchResults'>
-            <PaginatedResults isLink={true} redirect={true} deckBuilder={false} />
+            <PaginatedResults gridClassName='SearchResults-grid' isLink={true} redirect={true} deckBuilder={false} />
         </HeaderPage>
     );
 }

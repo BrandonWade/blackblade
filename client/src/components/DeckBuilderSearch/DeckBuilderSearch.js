@@ -64,7 +64,14 @@ export default function DeckBuilderSearch() {
             <form className='DeckBuilderSearch-searchForm' onSubmit={onSubmit}>
                 <Input className='DeckBuilderSearch-searchBar' value={query} placeholder='Search' onChange={onSearch} />
             </form>
-            <PaginatedResults className='DeckBuilderSearch-results' redirect={false} deckBuilder={true} onSelectResult={onSelectResult} />
+            <PaginatedResults
+                className='DeckBuilderSearch-results'
+                paginatorClassName='DeckBuilderSearch-paginator'
+                gridClassName='DeckBuilderSearch-grid'
+                redirect={false}
+                deckBuilder={true}
+                onSelectResult={onSelectResult}
+            />
         </div>
     );
 }
