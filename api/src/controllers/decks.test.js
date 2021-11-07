@@ -396,6 +396,32 @@ describe('Deck Controller', () => {
             });
         });
 
+        test('returns an error if one occurred while deleting the deck', async () => {
+            const params = {
+                publicID: 'abcdef1234567890',
+            };
+            const session = {
+                accountID: 1,
+            };
+            const req = requestMock({ params, session });
+            const res = responseMock();
+            DeckService.deleteDeck.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await deleteDeck(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(
+                StatusCodes.INTERNAL_SERVER_ERROR,
+            );
+            expect(res.json).toHaveBeenCalledWith({
+                message: {
+                    type: 'error',
+                    text: 'An error occurred while deleting your deck.',
+                },
+            });
+        });
+
         test('returns nothing if the deck was deleted successfully', async () => {
             const params = {
                 publicID: 'abcdef1234567890',

@@ -7,11 +7,7 @@ import { errorMessage, warningMessage } from '../helpers/messages';
 
 const createDeck = async (req, res) => {
     const { accountID } = req.session;
-    const {
-        name = 'Untitled Deck',
-        visibility = 'private',
-        notes = '',
-    } = req.body;
+    const { name, visibility, notes } = req.body;
     let deck;
 
     try {
@@ -31,13 +27,13 @@ const saveDeck = async (req, res) => {
     const { accountID } = req.session;
     const { publicID } = req.params;
     const {
-        name = 'Untitled Deck',
-        visibility = 'private',
-        notes = '',
-        deck = [],
-        maybeboard = [],
-        lastUpdatedAt = '',
-        overwrite = false,
+        name,
+        visibility,
+        notes,
+        deck,
+        maybeboard,
+        lastUpdatedAt,
+        overwrite,
     } = req.body;
     let updatedDeck;
 

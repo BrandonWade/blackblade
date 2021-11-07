@@ -155,6 +155,29 @@ describe('Accounts Controller', () => {
             });
         });
 
+        test('returns a message indicating the password link was successfully sent if an account with the provided was not found', async () => {
+            const email = 'test@test.com';
+            const body = {
+                email,
+            };
+            const req = requestMock({ body });
+            const res = responseMock();
+            const result = {
+                message: {
+                    type: 'info',
+                    text: `We've sent a link to ${email}. To reset your password, please check your inbox.`,
+                },
+            };
+            AccountService.requestPasswordReset.mockImplementation(() => {
+                throw new NotFoundError();
+            });
+
+            await requestPasswordReset(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(StatusCodes.OK);
+            expect(res.json).toHaveBeenCalledWith(result);
+        });
+
         test('returns a message indicating the password link was successfully sent', async () => {
             const email = 'test@test.com';
             const body = {
