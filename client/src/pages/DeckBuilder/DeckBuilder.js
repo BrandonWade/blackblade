@@ -7,6 +7,7 @@ import useDebouncedSaveDeck from '../../hooks/useDebouncedSaveDeck';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
+import HeaderPage from '../../components/HeaderPage';
 import CardArtSelector from '../../components/CardArtSelector';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
 import CardImagePreview from '../../components/CardImagePreview';
@@ -58,7 +59,7 @@ export default function DeckBuilder() {
     }, [deckName, deckVisibility, deckNotes, deckCards, maybeboardCards]);
 
     return (
-        <div className='DeckBuilder'>
+        <HeaderPage className='DeckBuilder'>
             <CardArtSelector />
             <ExportDeckDialog />
             <CardImagePreview />
@@ -89,6 +90,6 @@ export default function DeckBuilder() {
                     />
                 </div>
             </div>
-        </div>
+        </HeaderPage>
     );
 }
