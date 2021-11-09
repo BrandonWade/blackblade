@@ -40,6 +40,7 @@ export default function DeckBuilder() {
         maybeboardMode,
         setMaybeboardMode,
         deckExists,
+        isSaving,
     } = useContext(DeckBuilderContext);
     const { setVisible } = useContext(CardImagePreviewContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
@@ -54,7 +55,8 @@ export default function DeckBuilder() {
 
     useEffect(() => {
         if (deckExists && !isDeckUnmodified()) {
-            debouncedSaveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt);
+            // If a save is in progress, overwrite the existing deck to prevent successive saves from causing an edit conflict
+            debouncedSaveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, isSaving);
         }
     }, [deckName, deckVisibility, deckNotes, deckCards, maybeboardCards]);
 
