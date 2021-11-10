@@ -1,6 +1,6 @@
 import useFetch from '../useFetch';
 
-export default function useFetchCardTypes() {
+export default function useCardTypes() {
     const { fetchJSON } = useFetch();
 
     const getCardTypes = async () => {

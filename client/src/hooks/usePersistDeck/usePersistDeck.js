@@ -3,7 +3,7 @@ import useDecks from '../useDecks';
 import useConfirmDialog from '../useConfirmDialog';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 
-export default function useSaveDeck() {
+export default function usePersistDeck() {
     const { saveDeck } = useDecks();
     const { showConfirmDialog } = useConfirmDialog();
     const { setDeckLastUpdatedAt, setIsSaving, setIsErrored, updateUnmodifiedState } = useContext(DeckBuilderContext);
@@ -22,7 +22,7 @@ export default function useSaveDeck() {
         return response;
     }
 
-    const saveDeckWithConfirmation = async (
+    const persistDeckWithConfirmation = async (
         publicID = '',
         deckName = '',
         deckVisibility = 'private',
@@ -52,6 +52,6 @@ export default function useSaveDeck() {
     };
 
     return {
-        saveDeckWithConfirmation,
+        persistDeckWithConfirmation,
     };
 }

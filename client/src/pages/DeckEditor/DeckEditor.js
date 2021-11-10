@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import useMessage from '../../hooks/useMessage';
 import useDecks from '../../hooks/useDecks';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
-import useFetchDeck from '../../hooks/useFetchDeck';
+import useLoadDeck from '../../hooks/useLoadDeck';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import HeaderPage from '../../components/HeaderPage';
 import Panel from '../../components/Panel';
@@ -19,7 +19,7 @@ export default function DeckEditor({ editing = false }) {
     const { clearMessage } = useMessage();
     const { createDeck } = useDecks();
     const { isDeckUnmodified } = useIsDeckUnmodified();
-    const { fetchDeck } = useFetchDeck();
+    const { loadDeck } = useLoadDeck();
     const {
         setDeckPublicID,
         setDeckAccountPublicID,
@@ -35,7 +35,7 @@ export default function DeckEditor({ editing = false }) {
 
     useEffect(() => {
         if (editing && isDeckUnmodified()) {
-            fetchDeck();
+            loadDeck();
         }
     }, []);
 

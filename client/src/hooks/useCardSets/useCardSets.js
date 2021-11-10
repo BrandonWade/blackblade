@@ -1,6 +1,6 @@
 import useFetch from '../useFetch';
 
-export default function useFetchCardSets() {
+export default function useCardSets() {
     const { fetchJSON } = useFetch();
 
     const getCardSets = async () => {

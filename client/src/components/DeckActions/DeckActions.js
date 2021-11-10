@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
-import useSaveDeck from '../../hooks/useSaveDeck';
+import usePersistDeck from '../../hooks/usePersistDeck';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
@@ -14,7 +14,7 @@ export default function DeckActions() {
     const { publicID } = useParams();
     const history = useHistory();
     const { exportDeck } = useDecks();
-    const { saveDeckWithConfirmation } = useSaveDeck();
+    const { persistDeckWithConfirmation } = usePersistDeck();
     const { isDeckUnmodified } = useIsDeckUnmodified();
     const { accountPublicID } = useContext(AuthContext);
     const { deckAccountPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt } =
@@ -30,7 +30,7 @@ export default function DeckActions() {
     const onExportDeck = async () => {
         if (!isDeckUnmodified()) {
             // Since the deck export comes from the backend, ensure we persist the latest deck state before exporting
-            await saveDeckWithConfirmation(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, true);
+            await persistDeckWithConfirmation(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, true);
         }
 
         const response = await exportDeck(publicID);

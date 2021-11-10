@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 
-export default function useFetchDeck() {
+export default function useLoadDeck() {
     const { publicID } = useParams();
     const { getDeck } = useDecks();
     const {
@@ -19,7 +19,7 @@ export default function useFetchDeck() {
         setDeckLastUpdatedAt,
     } = useContext(DeckBuilderContext);
 
-    const fetchDeck = async () => {
+    const loadDeck = async () => {
         const response = await getDeck(publicID);
         if (!response.success) {
             return;
@@ -40,6 +40,6 @@ export default function useFetchDeck() {
     };
 
     return {
-        fetchDeck,
+        loadDeck,
     };
 }

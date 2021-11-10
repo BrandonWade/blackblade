@@ -1,11 +1,11 @@
 import { useEffect, useContext } from 'react';
-import useFetchCardSets from '../../hooks/useFetchCardSets';
+import useCardSets from '../../hooks/useCardSets';
 import AdvancedSearchContext from '../../contexts/AdvancedSearch';
 import SearchContext from '../../contexts/Search';
 import { MultiSelectField } from '../../components/Select';
 
 export default function CardSets() {
-    const { getCardSets } = useFetchCardSets();
+    const { getCardSets } = useCardSets();
     const { cardSets, setCardSets } = useContext(AdvancedSearchContext);
     const { selectedSets, addSet, removeSet } = useContext(SearchContext);
 

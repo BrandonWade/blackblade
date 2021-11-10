@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
-import useFetchDeck from '../../hooks/useFetchDeck';
-import useDebouncedSaveDeck from '../../hooks/useDebouncedSaveDeck';
+import useLoadDeck from '../../hooks/useLoadDeck';
+import useDebouncedPersistDeck from '../../hooks/useDebouncedPersistDeck';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
@@ -22,10 +22,10 @@ import './DeckBuilder.scss';
 
 export default function DeckBuilder() {
     const { publicID } = useParams();
-    const debouncedSaveDeck = useDebouncedSaveDeck();
+    const debouncedPersistDeck = useDebouncedPersistDeck();
     const deckBuilderTabs = useDeckBuilderTabs();
     const { isDeckUnmodified } = useIsDeckUnmodified();
-    const { fetchDeck } = useFetchDeck();
+    const { loadDeck } = useLoadDeck();
     const { accountPublicID } = useContext(AuthContext);
     const {
         deckAccountPublicID,
@@ -47,7 +47,7 @@ export default function DeckBuilder() {
 
     useEffect(() => {
         if (isDeckUnmodified()) {
-            fetchDeck();
+            loadDeck();
         }
 
         return () => setVisible(false);
@@ -56,7 +56,7 @@ export default function DeckBuilder() {
     useEffect(() => {
         if (deckExists && !isDeckUnmodified()) {
             // If a save is in progress, overwrite the existing deck to prevent successive saves from causing an edit conflict
-            debouncedSaveDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, isSaving);
+            debouncedPersistDeck(publicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt, isSaving);
         }
     }, [deckName, deckVisibility, deckNotes, deckCards, maybeboardCards]);
 
