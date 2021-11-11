@@ -5,7 +5,7 @@
         "start": "nodemon",
         "dev": "babel-node ./src/bin/www",
         "build": "babel ./src --out-dir dist",
-        "test": "jest"
+        "test": "jest --silent"
     },
     "dependencies": {
         "bcrypt": "^5.0.0",
