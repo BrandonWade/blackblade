@@ -1,5 +1,5 @@
 .DeckBuilder {
-    height: 100%;
+    height: calc(100% - var(--header-height));
     display: flex;
 
     @media only screen and (max-width: 52.125em) {
