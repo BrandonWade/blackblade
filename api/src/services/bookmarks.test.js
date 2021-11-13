@@ -4,6 +4,34 @@ import BookmarkService from './bookmarks';
 jest.mock('../repositories/bookmarks');
 
 describe('Bookmark Service', () => {
+    describe('createBookmark', () => {
+        test('returns the bookmark with the given id if it already exists', async () => {
+            const accountID = 1;
+            const cardID = 456;
+            const bookmarks = [
+                {
+                    id: 123,
+                    card_id: cardID,
+                    name: 'test card',
+                    set_name: 'test set',
+                    set_code: 'test set code',
+                    layout: 'normal',
+                    faces_json: '{}',
+                },
+            ];
+            BookmarkRepository.getBookmarkByCardID.mockResolvedValue([
+                bookmarks,
+            ]);
+            const { created, bookmark } = await BookmarkService.createBookmark(
+                cardID,
+                accountID,
+            );
+
+            expect(created).toBe(false);
+            expect(bookmark).toEqual(bookmarks[0]);
+        });
+    });
+
     describe('listBookmarks', () => {
         test('throws an error if one occurred while retrieving the bookmark list', async () => {
             const accountID = 1;
