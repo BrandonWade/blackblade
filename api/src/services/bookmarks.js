@@ -34,7 +34,7 @@ const createBookmark = async (cardID, accountID) => {
         bookmark = getResult[0];
     } catch (e) {
         console.error('error creating bookmark', e);
-        throw e;
+        throw new Error(e);
     }
 
     return {
@@ -50,7 +50,7 @@ const listBookmarks = async (accountID) => {
         [bookmarks] = await BookmarkRepository.listBookmarks(accountID);
     } catch (e) {
         console.error('error listing bookmarks', e);
-        throw e;
+        throw new Error(e);
     }
 
     return {
@@ -63,7 +63,7 @@ const deleteBookmark = async (bookmarkID, accountID) => {
         await BookmarkRepository.deleteBookmark(bookmarkID, accountID);
     } catch (e) {
         console.error('error deleting bookmark', e);
-        throw e;
+        throw new Error(e);
     }
 
     return;
