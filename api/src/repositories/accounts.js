@@ -57,7 +57,7 @@ const registerAccount = async (email, passwordHash, activationToken) => {
             [accountID, activationToken],
         );
         if (tokenResults?.affectedRows !== 1 && !tokenResults?.insertId) {
-            throw `error creating account with email ${email}`;
+            throw new Error(`error creating account with email ${email}`);
         }
 
         await tx.commit();
@@ -177,7 +177,9 @@ const createPasswordResetToken = async (email, token) => {
             [accountID, token],
         );
         if (!insertResults?.insertId) {
-            throw `error creating password reset token for account ${accountID}`;
+            throw new Error(
+                `error creating password reset token for account ${accountID}`,
+            );
         }
 
         const insertID = insertResults?.insertId;

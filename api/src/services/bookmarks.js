@@ -23,18 +23,20 @@ const createBookmark = async (cardID, accountID) => {
         );
         const bookmarkID = createResult?.insertId || 0;
         if (!bookmarkID) {
-            throw 'error inserting new bookmark row';
+            throw new Error('error inserting new bookmark row');
         }
 
         const [getResult] = await BookmarkRepository.getBookmark(bookmarkID);
         if (getResult?.length !== 1 || !getResult?.[0]?.id) {
-            throw `error getting created bookmark with id ${bookmarkID}`;
+            throw new Error(
+                `error getting created bookmark with id ${bookmarkID}`,
+            );
         }
 
         bookmark = getResult[0];
     } catch (e) {
         console.error('error creating bookmark', e);
-        throw new Error(e);
+        throw e;
     }
 
     return {
@@ -50,7 +52,7 @@ const listBookmarks = async (accountID) => {
         [bookmarks] = await BookmarkRepository.listBookmarks(accountID);
     } catch (e) {
         console.error('error listing bookmarks', e);
-        throw new Error(e);
+        throw e;
     }
 
     return {
@@ -63,7 +65,7 @@ const deleteBookmark = async (bookmarkID, accountID) => {
         await BookmarkRepository.deleteBookmark(bookmarkID, accountID);
     } catch (e) {
         console.error('error deleting bookmark', e);
-        throw new Error(e);
+        throw e;
     }
 
     return;

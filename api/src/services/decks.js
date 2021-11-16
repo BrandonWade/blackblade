@@ -27,7 +27,7 @@ const createDeck = async (accountID, name, visibility, notes) => {
         deckPublicID = publicIDsResult?.[0]?.deck_public_id || 0;
         accountPublicID = publicIDsResult?.[0]?.account_public_id || 0;
         if (!deckPublicID || !accountPublicID) {
-            throw `error getting public ids for deck ${deckID}`;
+            throw new Error(`error getting public ids for deck ${deckID}`);
         }
     } catch (e) {
         console.error('error creating deck', e);
@@ -58,7 +58,7 @@ const saveDeck = async (
         const deckID = deckIDResult?.[0]?.id || 0;
         const deckAccountID = deckIDResult?.[0]?.account_id || 0;
         if (!deckID || !deckAccountID) {
-            throw `error getting deck with public id ${publicID}`;
+            throw new Error(`error getting deck with public id ${publicID}`);
         }
 
         if (deckAccountID !== accountID) {
@@ -94,7 +94,7 @@ const saveDeck = async (
             cards,
         );
         if (!saveResult) {
-            throw `error saving deck with public id ${publicID}`;
+            throw new Error(`error saving deck with public id ${publicID}`);
         }
 
         // Now that it's been saved, return the updated deck info

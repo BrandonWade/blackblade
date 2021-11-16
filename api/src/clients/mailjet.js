@@ -13,7 +13,9 @@ const send = async (email, message) => {
     } catch (e) {
         const statusCode = e?.response?.statusCode || 0;
         const text = e?.response?.error?.text || '';
-        throw `error occurred while sending email to ${email} with status ${statusCode} and text ${text}`;
+        throw new Error(
+            `error occurred while sending email to ${email} with status ${statusCode} and text ${text}`,
+        );
     }
 
     return true;

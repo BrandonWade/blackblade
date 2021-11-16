@@ -1,6 +1,7 @@
 import AccountRepository from '../repositories/accounts';
 import AccountService from './accounts';
-import { hashValue } from '../helpers/hash';
+import EmailService from './email';
+import { hashValue, compareValues } from '../helpers/hash';
 import generateToken from '../helpers/tokens';
 
 jest.mock('../repositories/accounts');

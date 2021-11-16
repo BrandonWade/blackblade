@@ -22,7 +22,7 @@ const registerAccount = async (email, password) => {
         } catch (e) {
             if (!(e instanceof AlreadyExistsError)) {
                 console.error('error registering account', e);
-                throw new Error(e);
+                throw e;
             }
         }
 
@@ -37,7 +37,7 @@ const activateAccount = async (token) => {
         await AccountRepository.activateAccount(token);
     } catch (e) {
         console.error('error activating account', e);
-        throw new Error(e);
+        throw e;
     }
 
     return true;
@@ -55,7 +55,7 @@ const requestPasswordReset = async (email) => {
         await EmailService.sendPasswordResetEmail(email, passwordResetToken);
     } catch (e) {
         console.error('error requesting password reset', e);
-        throw new Error(e);
+        throw e;
     }
 
     return true;
@@ -68,7 +68,7 @@ const resetPassword = async (token, password) => {
         await AccountRepository.resetPassword(token, passwordHash);
     } catch (e) {
         console.error('error resetting password', e);
-        throw new Error(e);
+        throw e;
     }
 
     return true;
@@ -98,7 +98,7 @@ const verifyAccount = async (email, password) => {
         return [account.id, account.public_id];
     } catch (e) {
         console.error('error verifying account', e);
-        throw new Error(e);
+        throw e;
     }
 };
 
