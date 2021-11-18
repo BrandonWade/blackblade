@@ -73,4 +73,28 @@ describe('Account Service', () => {
             ).rejects.toThrow();
         });
     });
+
+    describe('activateAccount', () => {
+        test('throws an error if one occurred while activating an account', async () => {
+            const token = 'testtoken';
+
+            AccountRepository.activateAccount.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountService.activateAccount(token),
+            ).rejects.toThrow();
+        });
+
+        test('returns true if the account was successfully activated', async () => {
+            const token = 'testtoken';
+
+            AccountRepository.activateAccount.mockResolvedValue();
+
+            const output = await AccountService.activateAccount(token);
+
+            expect(output).toBe(true);
+        });
+    });
 });
