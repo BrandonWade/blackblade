@@ -140,4 +140,32 @@ describe('Account Service', () => {
             expect(output).toBe(true);
         });
     });
+
+    describe('resetPassword', () => {
+        test('throws an error if one occured while resetting an account password', async () => {
+            const token = 'testtoken';
+            const password = 'testpassword123';
+
+            hashValue.mockResolvedValue('testhashvalue');
+            AccountRepository.resetPassword.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountService.resetPassword(token, password),
+            ).rejects.toThrow();
+        });
+
+        test('returns true if the password was successfully reset', async () => {
+            const token = 'testtoken';
+            const password = 'testpassword123';
+
+            hashValue.mockResolvedValue('testhashvalue');
+            AccountRepository.resetPassword.mockResolvedValue();
+
+            const output = await AccountService.resetPassword(token, password);
+
+            expect(output).toBe(true);
+        });
+    });
 });
