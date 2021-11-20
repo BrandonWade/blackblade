@@ -97,4 +97,47 @@ describe('Account Service', () => {
             expect(output).toBe(true);
         });
     });
+
+    describe('requestPasswordReset', () => {
+        test('throws an error if one occurred while creating an activation token', async () => {
+            const email = 'test@test.com';
+
+            generateToken.mockResolvedValue('testtokenvalue');
+            AccountRepository.createPasswordResetToken.mockImplementation(
+                () => {
+                    throw new Error();
+                },
+            );
+
+            await expect(() =>
+                AccountService.requestPasswordReset(email),
+            ).rejects.toThrow();
+        });
+
+        test('throws an error if one occurred while sending a password reset email', async () => {
+            const email = 'test@test.com';
+
+            generateToken.mockResolvedValue('testtokenvalue');
+            AccountRepository.createPasswordResetToken.mockResolvedValue();
+            EmailService.sendPasswordResetEmail.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountService.requestPasswordReset(email),
+            ).rejects.toThrow();
+        });
+
+        test('returns true if the password reset was successfully requested', async () => {
+            const email = 'test@test.com';
+
+            generateToken.mockResolvedValue('testtokenvalue');
+            AccountRepository.createPasswordResetToken.mockResolvedValue();
+            EmailService.sendPasswordResetEmail.mockResolvedValue();
+
+            const output = await AccountService.requestPasswordReset(email);
+
+            expect(output).toBe(true);
+        });
+    });
 });
