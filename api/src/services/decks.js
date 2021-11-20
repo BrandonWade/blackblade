@@ -51,8 +51,6 @@ const saveDeck = async (
     lastUpdatedAt,
     overwrite,
 ) => {
-    let updatedDeck;
-
     try {
         const [deckIDResult] = await DeckRepository.getDeckByPublicID(publicID);
         const deckID = deckIDResult?.[0]?.id || 0;
