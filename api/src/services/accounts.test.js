@@ -4,11 +4,15 @@ import EmailService from './email';
 import { hashValue, compareValues } from '../helpers/hash';
 import generateToken from '../helpers/tokens';
 import AlreadyExistsError from '../errors/already_exists';
+import NotFoundError from '../errors/not_found';
+import UnauthorizedError from '../errors/unauthorized';
+import NotActivatedError from '../errors/not_activated';
 
 jest.mock('../repositories/accounts');
 jest.mock('../services/email');
 jest.mock('../helpers/hash');
 jest.mock('../helpers/tokens');
+jest.spyOn(AccountService, 'registerAccount');
 
 describe('Account Service', () => {
     describe('registerAccount', () => {
@@ -166,6 +170,70 @@ describe('Account Service', () => {
             const output = await AccountService.resetPassword(token, password);
 
             expect(output).toBe(true);
+        });
+    });
+
+    describe('verifyAccount', () => {
+        test('throws an error if one occured while retrieving the account with the given email', async () => {
+            const email = 'test@test.com';
+            const password = 'testpassword123';
+
+            AccountRepository.getAccountByEmail.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountService.verifyAccount(email, password),
+            ).rejects.toThrow();
+        });
+
+        test('throws an error if the account with the given email could not be found', async () => {
+            const email = 'test@test.com';
+            const password = 'testpassword123';
+
+            AccountRepository.getAccountByEmail.mockImplementation(() => {
+                throw new NotFoundError();
+            });
+
+            await expect(() =>
+                AccountService.verifyAccount(email, password),
+            ).rejects.toThrow(NotFoundError);
+        });
+
+        test('throws an error if the hash for the provided password does not match the password hash on the account with the given email', async () => {
+            const email = 'test@test.com';
+            const password = 'testpassword123';
+            const account = {
+                id: 123,
+                public_id: 456,
+                is_activated: true,
+                password_hash: 'testhashvalue',
+            };
+
+            AccountRepository.getAccountByEmail.mockResolvedValue(account);
+            compareValues.mockResolvedValue(false);
+
+            await expect(() =>
+                AccountService.verifyAccount(email, password),
+            ).rejects.toThrow(UnauthorizedError);
+        });
+
+        test('throws an error if the account with the given email is not activated and one occurred while attempting to register the account as new', async () => {
+            const email = 'test@test.com';
+            const password = 'testpassword123';
+            const account = {
+                id: 123,
+                public_id: 456,
+                is_activated: true,
+                password_hash: 'testhashvalue',
+            };
+
+            AccountRepository.getAccountByEmail.mockResolvedValue(account);
+            compareValues.mockResolvedValue(false);
+
+            await expect(() =>
+                AccountService.verifyAccount(email, password),
+            ).rejects.toThrow(UnauthorizedError);
         });
     });
 });
