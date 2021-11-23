@@ -12,9 +12,12 @@ jest.mock('../repositories/accounts');
 jest.mock('../services/email');
 jest.mock('../helpers/hash');
 jest.mock('../helpers/tokens');
-jest.spyOn(AccountService, 'registerAccount');
 
 describe('Account Service', () => {
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
+
     describe('registerAccount', () => {
         test('returns true if the account already exists and is activated', async () => {
             const email = 'test@test.com';
@@ -232,6 +235,27 @@ describe('Account Service', () => {
             await expect(() =>
                 AccountService.verifyAccount(email, password),
             ).rejects.toThrow(UnauthorizedError);
+        });
+
+        test('throws an error if the account with the given email is not activated', async () => {
+            const email = 'test@test.com';
+            const password = 'testpassword123';
+            const account = {
+                id: 123,
+                public_id: 456,
+                is_activated: false,
+                password_hash: 'testhashvalue',
+            };
+
+            AccountRepository.getAccountByEmail.mockResolvedValue(account);
+            compareValues.mockResolvedValue(true);
+            jest.spyOn(AccountService, 'registerAccount').mockImplementation(
+                () => {},
+            );
+
+            await expect(() =>
+                AccountService.verifyAccount(email, password),
+            ).rejects.toThrow(NotActivatedError);
         });
 
         test('returns the id and public id for the account if the account was verified successfully', async () => {
