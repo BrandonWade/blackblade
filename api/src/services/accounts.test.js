@@ -191,9 +191,7 @@ describe('Account Service', () => {
             const email = 'test@test.com';
             const password = 'testpassword123';
 
-            AccountRepository.getAccountByEmail.mockImplementation(() => {
-                throw new NotFoundError();
-            });
+            AccountRepository.getAccountByEmail.mockResolvedValue(null);
 
             await expect(() =>
                 AccountService.verifyAccount(email, password),
@@ -234,6 +232,24 @@ describe('Account Service', () => {
             await expect(() =>
                 AccountService.verifyAccount(email, password),
             ).rejects.toThrow(UnauthorizedError);
+        });
+
+        test('returns the id and public id for the account if the account was verified successfully', async () => {
+            const email = 'test@test.com';
+            const password = 'testpassword123';
+            const account = {
+                id: 123,
+                public_id: 456,
+                is_activated: true,
+                password_hash: 'testhashvalue',
+            };
+
+            AccountRepository.getAccountByEmail.mockResolvedValue(account);
+            compareValues.mockResolvedValue(true);
+
+            const output = await AccountService.verifyAccount(email, password);
+
+            expect(output).toEqual([account.id, account.public_id]);
         });
     });
 });
