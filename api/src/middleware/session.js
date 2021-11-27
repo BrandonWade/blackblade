@@ -5,7 +5,7 @@ import cookieOptions, { DURATION_ONE_WEEK } from '../helpers/cookies';
 
 const sessionSecret = process.env.SESSION_SECRET || '';
 if (!sessionSecret) {
-    throw 'session secret not loaded';
+    throw new Error('session secret not loaded');
 }
 
 const sessionStore = MySQLStore(session);

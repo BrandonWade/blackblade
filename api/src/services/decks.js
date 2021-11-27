@@ -20,7 +20,7 @@ const createDeck = async (accountID, name, visibility, notes) => {
         );
         const deckID = createResult?.insertId || 0;
         if (!deckID) {
-            throw 'error inserting new deck row';
+            throw new Error('error inserting new deck row');
         }
 
         const [publicIDsResult] = await DeckRepository.getPublicIDsByID(deckID);
