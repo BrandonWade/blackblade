@@ -67,7 +67,7 @@ const saveDeck = async (
 
         // Check this deck for edit conflicts
         if (!overwrite) {
-            const deckLastUpdatedAt = deckIDResult[0].last_updated_at;
+            const deckLastUpdatedAt = parseISO(deckIDResult[0].last_updated_at);
 
             // Compare last_updated_at from DB against provided last_updated_at
             if (compareAsc(deckLastUpdatedAt, parseISO(lastUpdatedAt)) === 1) {
@@ -94,9 +94,6 @@ const saveDeck = async (
         if (!saveResult) {
             throw new Error(`error saving deck with public id ${publicID}`);
         }
-
-        // Now that it's been saved, return the updated deck info
-        return getDeck(publicID, accountID);
     } catch (e) {
         console.error('error saving deck', e);
         throw e;

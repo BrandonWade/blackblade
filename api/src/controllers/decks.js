@@ -38,7 +38,7 @@ const saveDeck = async (req, res) => {
     let updatedDeck;
 
     try {
-        updatedDeck = await DeckService.saveDeck(
+        await DeckService.saveDeck(
             accountID,
             publicID,
             name,
@@ -49,6 +49,7 @@ const saveDeck = async (req, res) => {
             lastUpdatedAt,
             overwrite,
         );
+        updatedDeck = await DeckService.getDeck(publicID, accountID);
     } catch (e) {
         if (e instanceof UnauthorizedError) {
             return res.status(StatusCodes.UNAUTHORIZED).json({

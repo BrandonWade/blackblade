@@ -1,4 +1,4 @@
-import EmailService from '../services/email';
+import EmailService from './email';
 import MailjetClient from '../clients/mailjet';
 
 jest.mock('../clients/mailjet');

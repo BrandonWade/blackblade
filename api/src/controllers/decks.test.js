@@ -201,7 +201,8 @@ describe('Deck Controller', () => {
                 cards: [],
             };
 
-            DeckService.saveDeck.mockResolvedValue(result);
+            DeckService.saveDeck.mockResolvedValue();
+            DeckService.getDeck.mockResolvedValue(result);
 
             await saveDeck(req, res);
 
