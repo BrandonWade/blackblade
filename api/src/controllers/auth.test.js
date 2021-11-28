@@ -80,7 +80,7 @@ describe('Auth Controller', () => {
 
             await login(req, res);
 
-            expect(res.status).toHaveBeenCalledWith(StatusCodes.OK);
+            expect(res.status).toHaveBeenCalledWith(StatusCodes.UNAUTHORIZED);
             expect(res.json).toHaveBeenCalledWith({
                 message: {
                     type: 'info',
