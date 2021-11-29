@@ -249,9 +249,6 @@ describe('Account Service', () => {
 
             AccountRepository.getAccountByEmail.mockResolvedValue(account);
             compareValues.mockResolvedValue(true);
-            jest.spyOn(AccountService, 'registerAccount').mockImplementation(
-                () => {},
-            );
 
             await expect(() =>
                 AccountService.verifyAccount(email, password),

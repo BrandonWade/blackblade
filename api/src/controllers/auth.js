@@ -28,6 +28,8 @@ const login = async (req, res) => {
                 message: errorMessage('Invalid email or password.'),
             });
         } else if (e instanceof NotActivatedError) {
+            await AccountService.registerAccount(email, password);
+
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 message: infoMessage(
                     `We've sent a link to ${email}. To complete registration, please check your inbox.`,

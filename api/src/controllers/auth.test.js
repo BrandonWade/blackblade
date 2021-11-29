@@ -77,6 +77,7 @@ describe('Auth Controller', () => {
             AccountService.verifyAccount.mockImplementation(() => {
                 throw new NotActivatedError();
             });
+            AccountService.registerAccount.mockImplementation(() => {});
 
             await login(req, res);
 

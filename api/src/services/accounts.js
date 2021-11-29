@@ -91,7 +91,6 @@ const verifyAccount = async (email, password) => {
         }
 
         if (account?.id && !account.is_activated) {
-            await registerAccount(email, password);
             throw new NotActivatedError('account is not activated');
         }
 
