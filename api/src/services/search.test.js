@@ -125,6 +125,24 @@ describe('Search Service', () => {
             expect(output.pages).toBe(2);
             expect(output.results).toEqual(results);
         });
+
+        test('gracefully handles no search criteria being provided', async () => {
+            const totalResults = 0;
+            const results = [];
+
+            SearchRepository.getTotalResults.mockResolvedValue([
+                {
+                    total_results: totalResults,
+                },
+            ]);
+            SearchRepository.getCardsByProperties.mockResolvedValue(results);
+
+            const output = await SearchService.searchCards();
+
+            expect(output.total_results).toBe(totalResults);
+            expect(output.pages).toBe(0);
+            expect(output.results).toEqual(results);
+        });
     });
 
     describe('getCardByID', () => {

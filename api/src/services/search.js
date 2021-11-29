@@ -1,6 +1,6 @@
 import NotFoundError from '../errors/not_found';
 import SearchRepository from '../repositories/search';
-import parseTypesFromString from '../helpers/selectedTypes';
+import { parseTypesFromString, parseValuesFromObject } from '../helpers/search';
 
 const pageSize = 60;
 
@@ -8,11 +8,9 @@ const searchCards = async (params = {}) => {
     const nameTokens = params?.name?.split(/\s+/) || [];
     const textTokens = params?.text?.split(/\s+/) || [];
     const selectedTypeTokens = parseTypesFromString(params?.selectedTypes);
-    const colors = Object.keys(params?.colors).filter((c) => params?.colors[c]);
+    const colors = parseValuesFromObject(params?.colors);
     const selectedSetTokens = params?.selectedSets?.split(/,/) || [];
-    const rarities = Object.keys(params?.rarities).filter(
-        (r) => params?.rarities[r],
-    );
+    const rarities = parseValuesFromObject(params?.rarities);
     const flavorTextTokens = params?.flavorText?.split(/\s+/) || [];
     let totalResults;
     let results;

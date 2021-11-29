@@ -1,4 +1,4 @@
-export default function parseTypesFromString(typeString = '') {
+export function parseTypesFromString(typeString = '') {
     if (typeString.length === 0) {
         return [];
     }
@@ -18,4 +18,8 @@ export default function parseTypesFromString(typeString = '') {
             isNegated: false,
         };
     });
+}
+
+export function parseValuesFromObject(obj = {}) {
+    return Object.keys(obj).filter((k) => obj[k]);
 }
