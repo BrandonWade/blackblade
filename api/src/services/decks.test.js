@@ -2,6 +2,7 @@ import DeckService from './decks';
 import DeckRepository from '../repositories/decks';
 import UnauthorizedError from '../errors/unauthorized';
 import NewerVersionError from '../errors/newer_version';
+import NotFoundError from '../errors/not_found';
 import getColorString from '../helpers/colors';
 
 jest.mock('../repositories/decks');
@@ -453,6 +454,33 @@ describe('Deck Service', () => {
                     overwrite,
                 ),
             ).rejects.toThrow(NewerVersionError);
+        });
+    });
+
+    describe('getDeck', () => {
+        test('returns an error if one occurred while retrieving the deck with the given public id', async () => {
+            const accountID = 456;
+            const publicID = 1234567890;
+
+            DeckRepository.getDeckByPublicID.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckService.getDeck(publicID, accountID),
+            ).rejects.toThrow();
+        });
+
+        test('returns a not found error if exactly one deck was not retrieved with the given public id', async () => {
+            const accountID = 456;
+            const publicID = 1234567890;
+            const deckResult = [];
+
+            DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
+
+            await expect(() =>
+                DeckService.getDeck(publicID, accountID),
+            ).rejects.toThrow(NotFoundError);
         });
     });
 });
