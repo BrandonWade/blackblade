@@ -458,7 +458,7 @@ describe('Deck Service', () => {
     });
 
     describe('getDeck', () => {
-        test('returns an error if one occurred while retrieving the deck with the given public id', async () => {
+        test('throws an error if one occurred while retrieving the deck with the given public id', async () => {
             const accountID = 456;
             const publicID = 1234567890;
 
@@ -471,7 +471,7 @@ describe('Deck Service', () => {
             ).rejects.toThrow();
         });
 
-        test('returns a not found error if exactly one deck was not retrieved with the given public id', async () => {
+        test('throws a not found error if exactly one deck was not retrieved with the given public id', async () => {
             const accountID = 456;
             const publicID = 1234567890;
             const deckResult = [];
@@ -481,6 +481,117 @@ describe('Deck Service', () => {
             await expect(() =>
                 DeckService.getDeck(publicID, accountID),
             ).rejects.toThrow(NotFoundError);
+        });
+
+        test('throws an error if one occurred while retrieving the cards from the deck with the given public id', async () => {
+            const accountID = 456;
+            const publicID = 1234567890;
+            const deckResult = [
+                {
+                    account_public_id: 456,
+                    id: 123,
+                    public_id: publicID,
+                    account_id: 678,
+                    name: 'test name',
+                    visibility: 'private',
+                    notes: 'test notes 123',
+                    deck_size: 0,
+                    maybeboard_size: 0,
+                    colors: '',
+                    last_updated_at: '2021-01-01T00:00:00.000Z',
+                },
+            ];
+
+            DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
+
+            await expect(() =>
+                DeckService.getDeck(publicID, accountID),
+            ).rejects.toThrow(UnauthorizedError);
+        });
+
+        test('throws an unauthorized error if the user does not have permission to view the deck with the given public id', async () => {
+            const accountID = 456;
+            const publicID = 1234567890;
+            const deckResult = [
+                {
+                    account_public_id: 456,
+                    id: 123,
+                    public_id: publicID,
+                    account_id: accountID,
+                    name: 'test name',
+                    visibility: 'private',
+                    notes: 'test notes 123',
+                    deck_size: 0,
+                    maybeboard_size: 0,
+                    colors: '',
+                    last_updated_at: '2021-01-01T00:00:00.000Z',
+                },
+            ];
+
+            DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
+            DeckRepository.getDeckCardsByPublicID.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckService.getDeck(publicID, accountID),
+            ).rejects.toThrow();
+        });
+
+        test('returns the deck with the given public id', async () => {
+            const accountID = 456;
+            const publicID = 1234567890;
+            const accountPublicID = 456;
+            const name = 'test name';
+            const visibility = 'private';
+            const notes = 'test notes 123';
+            const lastUpdatedAt = '2021-01-01T00:00:00.000Z';
+            const deckResult = [
+                {
+                    account_public_id: accountPublicID,
+                    id: 123,
+                    public_id: publicID,
+                    account_id: accountID,
+                    name,
+                    visibility,
+                    notes,
+                    deck_size: 0,
+                    maybeboard_size: 0,
+                    colors: '',
+                    last_updated_at: lastUpdatedAt,
+                },
+            ];
+            const cardsResult = [
+                {
+                    card_id: 789,
+                    count: 2,
+                    selection_type: 'automatic',
+                    location: 'deck',
+                    name: 'test card',
+                    set_name: 'test set 1',
+                    set_code: 'code1',
+                    cmc: 2.0,
+                    collector_number: 321,
+                    faces_json: '{}',
+                    layout: 'normal',
+                    sets_json: '{}',
+                },
+            ];
+
+            DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
+            DeckRepository.getDeckCardsByPublicID.mockResolvedValue([
+                cardsResult,
+            ]);
+
+            const output = await DeckService.getDeck(publicID, accountID);
+
+            expect(output.deck_public_id).toBe(publicID);
+            expect(output.account_public_id).toBe(accountPublicID);
+            expect(output.name).toBe(name);
+            expect(output.visibility).toBe(visibility);
+            expect(output.notes).toBe(notes);
+            expect(output.cards).toEqual(cardsResult);
+            expect(output.last_updated_at).toBe(lastUpdatedAt);
         });
     });
 });

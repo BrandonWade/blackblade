@@ -139,7 +139,6 @@ const getDeckCardsByPublicID = async (publicID) => {
         k.count,
         k.selection_type,
         k.location,
-        c.id card_id,
         c.name,
         c.set_name,
         c.set_code,
