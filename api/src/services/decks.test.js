@@ -594,4 +594,37 @@ describe('Deck Service', () => {
             expect(output.last_updated_at).toBe(lastUpdatedAt);
         });
     });
+
+    describe('listDecks', () => {
+        test('throws an error if one occurred while retrieving the list of decks with the given account id', async () => {
+            const accountID = 456;
+
+            DeckRepository.listDecks.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckService.listDecks(accountID),
+            ).rejects.toThrow();
+        });
+
+        test('returns the list of decks with the given account id', async () => {
+            const accountID = 456;
+            const decks = [
+                {
+                    public_id: 1234567890,
+                    name: 'test deck',
+                    deck_size: 10,
+                    maybeboard_size: 5,
+                    colors: '{C}',
+                },
+            ];
+
+            DeckRepository.listDecks.mockResolvedValue([decks]);
+
+            const output = await DeckService.listDecks(accountID);
+
+            expect(output.decks).toEqual(decks);
+        });
+    });
 });
