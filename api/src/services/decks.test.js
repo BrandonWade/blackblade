@@ -77,7 +77,9 @@ describe('Deck Service', () => {
             const publicIDsResult = [];
 
             DeckRepository.createDeck.mockResolvedValue(createResult);
-            DeckRepository.getPublicIDsByID.mockImplementation(publicIDsResult);
+            DeckRepository.getPublicIDsByID.mockResolvedValue([
+                publicIDsResult,
+            ]);
 
             await expect(() =>
                 DeckService.createDeck(accountID, name, visibility, notes),
@@ -89,6 +91,8 @@ describe('Deck Service', () => {
             const name = 'test name';
             const visibility = 'private';
             const notes = 'test notes 123';
+            const deckPublicID = 9999;
+            const accountPublicID = 8888;
             const createResult = [
                 {
                     insertId: 987,
@@ -96,17 +100,25 @@ describe('Deck Service', () => {
             ];
             const publicIDsResult = [
                 {
-                    deck_public_id: 3456,
-                    account_public_id: 8765,
+                    deck_public_id: deckPublicID,
+                    account_public_id: accountPublicID,
                 },
             ];
 
             DeckRepository.createDeck.mockResolvedValue(createResult);
-            DeckRepository.getPublicIDsByID.mockImplementation(publicIDsResult);
+            DeckRepository.getPublicIDsByID.mockResolvedValue([
+                publicIDsResult,
+            ]);
 
-            await expect(() =>
-                DeckService.createDeck(accountID, name, visibility, notes),
-            ).rejects.toThrow();
+            const output = await DeckService.createDeck(
+                accountID,
+                name,
+                visibility,
+                notes,
+            );
+
+            expect(output.deck_public_id).toBe(deckPublicID);
+            expect(output.account_public_id).toBe(accountPublicID);
         });
     });
 
@@ -363,13 +375,13 @@ describe('Deck Service', () => {
                 },
             ];
             const lastUpdatedAt = '2021-01-01T00:00:00.000Z';
-            const overwrite = false;
+            const overwrite = true;
             const deckIDResult = [
                 [
                     {
                         id: 444,
                         account_id: 123,
-                        last_updated_at: '2021-01-02T00:00:00.000Z',
+                        last_updated_at: '2021-01-01T00:00:00.000Z',
                     },
                 ],
             ];
@@ -392,7 +404,7 @@ describe('Deck Service', () => {
                     lastUpdatedAt,
                     overwrite,
                 ),
-            ).rejects.toThrow(NewerVersionError);
+            ).rejects.toThrow();
         });
 
         test('throws an error if saving the deck was not successful', async () => {
@@ -432,7 +444,7 @@ describe('Deck Service', () => {
                     {
                         id: 444,
                         account_id: 123,
-                        last_updated_at: '2021-01-02T00:00:00.000Z',
+                        last_updated_at: '2021-01-01T00:00:00.000Z',
                     },
                 ],
             ];
@@ -453,7 +465,68 @@ describe('Deck Service', () => {
                     lastUpdatedAt,
                     overwrite,
                 ),
-            ).rejects.toThrow(NewerVersionError);
+            ).rejects.toThrow();
+        });
+
+        test('returns nothing if the deck was successfully saved', async () => {
+            const accountID = 123;
+            const publicID = 456;
+            const name = 'test name';
+            const visibility = 'private';
+            const notes = 'test notes 123';
+            const deck = [
+                {
+                    card_id: 111,
+                    cmc: 2.0,
+                    name: 'test name',
+                    set_name: 'test set name',
+                    set_code: 'test',
+                    faces_json: '{}',
+                    layout: 'test_layout',
+                    sets_json: '{}',
+                },
+            ];
+            const maybeboard = [
+                {
+                    card_id: 222,
+                    cmc: 3.0,
+                    name: 'test name 2',
+                    set_name: 'test set name 2',
+                    set_code: 'test2',
+                    faces_json: '{}',
+                    layout: 'test_layout_2',
+                    sets_json: '{}',
+                },
+            ];
+            const lastUpdatedAt = '2021-01-01T00:00:00.000Z';
+            const overwrite = false;
+            const deckIDResult = [
+                [
+                    {
+                        id: 444,
+                        account_id: 123,
+                        last_updated_at: '2021-01-01T00:00:00.000Z',
+                    },
+                ],
+            ];
+
+            DeckRepository.getDeckByPublicID.mockResolvedValue(deckIDResult);
+            getColorString.mockResolvedValue('{W}{U}{B}{R}{G}');
+            DeckRepository.saveDeck.mockResolvedValue({});
+
+            const output = await DeckService.saveDeck(
+                accountID,
+                publicID,
+                name,
+                visibility,
+                notes,
+                deck,
+                maybeboard,
+                lastUpdatedAt,
+                overwrite,
+            );
+
+            expect(output).toBe();
         });
     });
 
