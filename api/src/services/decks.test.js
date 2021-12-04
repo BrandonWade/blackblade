@@ -651,4 +651,57 @@ describe('Deck Service', () => {
             expect(output).toEqual();
         });
     });
+
+    describe('exportDeck', () => {
+        test('throws an error if one occurred while retrieving the deck with the given public id', async () => {
+            const publicID = 123;
+            const accountID = 456;
+
+            DeckRepository.getDeckByPublicID.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckService.exportDeck(publicID, accountID),
+            ).rejects.toThrow();
+        });
+
+        test('throws a not found error if there is not exactly one deck found with the given public id', async () => {
+            const publicID = 123;
+            const accountID = 456;
+            const deckResult = [];
+
+            DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
+
+            await expect(() =>
+                DeckService.exportDeck(publicID, accountID),
+            ).rejects.toThrow(NotFoundError);
+        });
+
+        test('throws an unauthorized error if the user does not have permission to export the deck with the given public id', async () => {
+            const publicID = 123;
+            const accountID = 456;
+            const deckResult = [
+                {
+                    account_public_id: 456,
+                    id: 123,
+                    public_id: publicID,
+                    account_id: 678,
+                    name: 'test name',
+                    visibility: 'private',
+                    notes: 'test notes 123',
+                    deck_size: 0,
+                    maybeboard_size: 0,
+                    colors: '',
+                    last_updated_at: '2021-01-01T00:00:00.000Z',
+                },
+            ];
+
+            DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
+
+            await expect(() =>
+                DeckService.exportDeck(publicID, accountID),
+            ).rejects.toThrow(UnauthorizedError);
+        });
+    });
 });
