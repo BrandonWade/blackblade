@@ -627,4 +627,28 @@ describe('Deck Service', () => {
             expect(output.decks).toEqual(decks);
         });
     });
+
+    describe('deleteDeck', () => {
+        test('throws an error if one occurred while deleting the deck with the given public id', async () => {
+            const publicID = 123;
+
+            DeckRepository.deleteDeckByPublicID.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckService.deleteDeck(publicID),
+            ).rejects.toThrow();
+        });
+
+        test('returns nothing if the deck was successfully deleted', async () => {
+            const publicID = 123;
+
+            DeckRepository.deleteDeckByPublicID.mockResolvedValue();
+
+            const output = await DeckService.deleteDeck(publicID);
+
+            expect(output).toEqual();
+        });
+    });
 });
