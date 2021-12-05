@@ -1,3 +1,4 @@
+import { EOL } from 'os';
 import DeckService from './decks';
 import DeckRepository from '../repositories/decks';
 import UnauthorizedError from '../errors/unauthorized';
@@ -775,6 +776,82 @@ describe('Deck Service', () => {
             await expect(() =>
                 DeckService.exportDeck(publicID, accountID),
             ).rejects.toThrow(UnauthorizedError);
+        });
+
+        test('throws an error if one occurred while attempting to retrieve the data needed to export the deck with the given public id', async () => {
+            const publicID = 123;
+            const accountID = 456;
+            const deckResult = [
+                {
+                    account_public_id: 456,
+                    id: 123,
+                    public_id: publicID,
+                    account_id: accountID,
+                    name: 'test name',
+                    visibility: 'private',
+                    notes: 'test notes 123',
+                    deck_size: 0,
+                    maybeboard_size: 0,
+                    colors: '',
+                    last_updated_at: '2021-01-01T00:00:00.000Z',
+                },
+            ];
+
+            DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
+            DeckRepository.exportDeckByPublicID.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckService.exportDeck(publicID, accountID),
+            ).rejects.toThrow();
+        });
+
+        test('returns the export for the deck with the given public id', async () => {
+            const publicID = 123;
+            const accountID = 456;
+            const deckResult = [
+                {
+                    account_public_id: 456,
+                    id: 123,
+                    public_id: publicID,
+                    account_id: accountID,
+                    name: 'test name',
+                    visibility: 'private',
+                    notes: 'test notes 123',
+                    deck_size: 0,
+                    maybeboard_size: 0,
+                    colors: '',
+                    last_updated_at: '2021-01-01T00:00:00.000Z',
+                },
+            ];
+            const exportResult = [
+                {
+                    count: 2,
+                    name: 'test name',
+                    set_code: 'test1',
+                    collector_number: 12345,
+                    selection_type: 'automatic',
+                },
+                {
+                    count: 4,
+                    name: 'test name 2',
+                    set_code: 'test2',
+                    collector_number: 54321,
+                    selection_type: 'manual',
+                },
+            ];
+            const expected =
+                '2 test name' + EOL + '4 test name 2 [TEST2] 54321';
+
+            DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
+            DeckRepository.exportDeckByPublicID.mockResolvedValue([
+                exportResult,
+            ]);
+
+            const output = await DeckService.exportDeck(publicID, accountID);
+
+            expect(output).toEqual(expected);
         });
     });
 });
