@@ -376,7 +376,7 @@ describe('Deck Service', () => {
                 },
             ];
             const lastUpdatedAt = '2021-01-01T00:00:00.000Z';
-            const overwrite = true;
+            const overwrite = false;
             const deckIDResult = [
                 [
                     {
@@ -467,6 +467,67 @@ describe('Deck Service', () => {
                     overwrite,
                 ),
             ).rejects.toThrow();
+        });
+
+        test('returns nothing if the deck was successfully overwritten', async () => {
+            const accountID = 123;
+            const publicID = 456;
+            const name = 'test name';
+            const visibility = 'private';
+            const notes = 'test notes 123';
+            const deck = [
+                {
+                    card_id: 111,
+                    cmc: 2.0,
+                    name: 'test name',
+                    set_name: 'test set name',
+                    set_code: 'test',
+                    faces_json: '{}',
+                    layout: 'test_layout',
+                    sets_json: '{}',
+                },
+            ];
+            const maybeboard = [
+                {
+                    card_id: 222,
+                    cmc: 3.0,
+                    name: 'test name 2',
+                    set_name: 'test set name 2',
+                    set_code: 'test2',
+                    faces_json: '{}',
+                    layout: 'test_layout_2',
+                    sets_json: '{}',
+                },
+            ];
+            const lastUpdatedAt = '2021-01-01T00:00:00.000Z';
+            const overwrite = true;
+            const deckIDResult = [
+                [
+                    {
+                        id: 444,
+                        account_id: 123,
+                        last_updated_at: '2021-01-01T00:00:00.000Z',
+                    },
+                ],
+            ];
+
+            DeckRepository.getDeckByPublicID.mockResolvedValue(deckIDResult);
+            getColorString.mockResolvedValue('{W}{U}{B}{R}{G}');
+            DeckRepository.saveDeck.mockResolvedValue({});
+
+            const output = await DeckService.saveDeck(
+                accountID,
+                publicID,
+                name,
+                visibility,
+                notes,
+                deck,
+                maybeboard,
+                lastUpdatedAt,
+                overwrite,
+            );
+
+            expect(output).toBe();
         });
 
         test('returns nothing if the deck was successfully saved', async () => {

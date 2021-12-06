@@ -53,7 +53,7 @@ jobs:
                   name: Run API tests
                   command: |
                       cd api
-                      npm run test
+                      npm run test:production
     build:
         machine: true
         steps:
