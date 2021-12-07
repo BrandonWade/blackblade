@@ -35,3 +35,12 @@ export function sessionMock() {
 
     return session;
 }
+
+export function mailjetMock() {
+    const mailjet = {};
+
+    mailjet.post = jest.fn().mockReturnValue(mailjet);
+    mailjet.request = jest.fn().mockReturnValue(mailjet);
+
+    return mailjet;
+}

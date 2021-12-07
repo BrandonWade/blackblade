@@ -1,7 +1,7 @@
 import * as mailjet from 'node-mailjet';
 
 const send = async (email, message) => {
-    const client = mailjet.connect(
+    const client = await mailjet.connect(
         process.env.MAILJET_PUBLIC_KEY,
         process.env.MAILJET_PRIVATE_KEY,
     );
