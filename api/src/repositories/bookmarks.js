@@ -1,6 +1,6 @@
 import { connection } from '../db';
 
-const createBookmark = async (cardID, accountID) => {
+const createBookmark = async (accountID, cardID) => {
     return connection.query(
         `INSERT INTO bookmarks (
             card_id,
@@ -29,7 +29,7 @@ const getBookmark = async (bookmarkID) => {
     );
 };
 
-const getBookmarkByCardID = async (cardID, accountID) => {
+const getBookmarkByCardID = async (accountID, cardID) => {
     return connection.query(
         `SELECT
         b.id,
@@ -63,7 +63,7 @@ const listBookmarks = async (accountID) => {
     );
 };
 
-const deleteBookmark = async (bookmarkID, accountID) => {
+const deleteBookmark = async (accountID, bookmarkID) => {
     return connection.query(
         `DELETE b
         FROM bookmarks b

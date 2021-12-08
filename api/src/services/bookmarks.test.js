@@ -23,8 +23,8 @@ describe('Bookmark Service', () => {
                 bookmarks,
             ]);
             const { created, bookmark } = await BookmarkService.createBookmark(
-                cardID,
                 accountID,
+                cardID,
             );
 
             expect(created).toBe(false);
@@ -39,7 +39,7 @@ describe('Bookmark Service', () => {
             BookmarkRepository.createBookmark.mockResolvedValue([]);
 
             await expect(() =>
-                BookmarkService.createBookmark(cardID, accountID),
+                BookmarkService.createBookmark(accountID, cardID),
             ).rejects.toThrow();
         });
 
@@ -58,7 +58,7 @@ describe('Bookmark Service', () => {
             });
 
             await expect(() =>
-                BookmarkService.createBookmark(cardID, accountID),
+                BookmarkService.createBookmark(accountID, cardID),
             ).rejects.toThrow();
         });
 
@@ -96,7 +96,7 @@ describe('Bookmark Service', () => {
             ]);
 
             await expect(() =>
-                BookmarkService.createBookmark(cardID, accountID),
+                BookmarkService.createBookmark(accountID, cardID),
             ).rejects.toThrow();
         });
 
@@ -122,8 +122,8 @@ describe('Bookmark Service', () => {
             BookmarkRepository.getBookmark.mockResolvedValue([[bookmark]]);
 
             const output = await BookmarkService.createBookmark(
-                cardID,
                 accountID,
+                cardID,
             );
 
             expect(output.created).toBe(true);
@@ -178,26 +178,26 @@ describe('Bookmark Service', () => {
 
     describe('deleteBookmark', () => {
         test('throws an error if one occurred while deleting the bookmark', async () => {
-            const bookmarkID = 123;
             const accountID = 1;
+            const bookmarkID = 123;
 
             BookmarkRepository.deleteBookmark.mockImplementation(() => {
                 throw new Error();
             });
 
             await expect(() =>
-                BookmarkService.deleteBookmark(bookmarkID, accountID),
+                BookmarkService.deleteBookmark(accountID, bookmarkID),
             ).rejects.toThrow();
         });
 
         test('returns nothing if the bookmark was successfully deleted', async () => {
-            const bookmarkID = 123;
             const accountID = 1;
+            const bookmarkID = 123;
 
             BookmarkRepository.deleteBookmark.mockResolvedValue();
             const output = await BookmarkService.deleteBookmark(
-                bookmarkID,
                 accountID,
+                bookmarkID,
             );
 
             expect(output).toEqual();

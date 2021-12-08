@@ -10,7 +10,7 @@ const createBookmark = async (req, res) => {
     let result;
 
     try {
-        result = await BookmarkService.createBookmark(cardID, accountID);
+        result = await BookmarkService.createBookmark(accountID, cardID);
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: errorMessage(
@@ -49,7 +49,7 @@ const deleteBookmark = async (req, res) => {
     const { bookmarkID } = req.params;
 
     try {
-        await BookmarkService.deleteBookmark(bookmarkID, accountID);
+        await BookmarkService.deleteBookmark(accountID, bookmarkID);
     } catch (e) {
         if (e instanceof UnauthorizedError) {
             return res.status(StatusCodes.UNAUTHORIZED).json({

@@ -49,7 +49,7 @@ const saveDeck = async (req, res) => {
             lastUpdatedAt,
             overwrite,
         );
-        updatedDeck = await DeckService.getDeck(publicID, accountID);
+        updatedDeck = await DeckService.getDeck(accountID, publicID);
     } catch (e) {
         if (e instanceof UnauthorizedError) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
@@ -81,7 +81,7 @@ const getDeck = async (req, res) => {
     let deck;
 
     try {
-        deck = await DeckService.getDeck(publicID, accountID);
+        deck = await DeckService.getDeck(accountID, publicID);
     } catch (e) {
         if (e instanceof NotFoundError || e instanceof UnauthorizedError) {
             return res.status(StatusCodes.NOT_FOUND).send();
@@ -119,7 +119,7 @@ const deleteDeck = async (req, res) => {
     const { publicID } = req.params;
 
     try {
-        await DeckService.deleteDeck(publicID, accountID);
+        await DeckService.deleteDeck(accountID, publicID);
     } catch (e) {
         if (e instanceof UnauthorizedError) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
@@ -151,7 +151,7 @@ const exportDeck = async (req, res) => {
     let deckExport;
 
     try {
-        deckExport = await DeckService.exportDeck(publicID, accountID);
+        deckExport = await DeckService.exportDeck(accountID, publicID);
     } catch (e) {
         if (e instanceof UnauthorizedError) {
             return res.status(StatusCodes.UNAUTHORIZED).json({

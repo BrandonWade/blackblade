@@ -602,7 +602,7 @@ describe('Deck Service', () => {
             });
 
             await expect(() =>
-                DeckService.getDeck(publicID, accountID),
+                DeckService.getDeck(accountID, publicID),
             ).rejects.toThrow();
         });
 
@@ -614,7 +614,7 @@ describe('Deck Service', () => {
             DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
 
             await expect(() =>
-                DeckService.getDeck(publicID, accountID),
+                DeckService.getDeck(accountID, publicID),
             ).rejects.toThrow(NotFoundError);
         });
 
@@ -640,7 +640,7 @@ describe('Deck Service', () => {
             DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
 
             await expect(() =>
-                DeckService.getDeck(publicID, accountID),
+                DeckService.getDeck(accountID, publicID),
             ).rejects.toThrow(UnauthorizedError);
         });
 
@@ -669,7 +669,7 @@ describe('Deck Service', () => {
             });
 
             await expect(() =>
-                DeckService.getDeck(publicID, accountID),
+                DeckService.getDeck(accountID, publicID),
             ).rejects.toThrow();
         });
 
@@ -718,7 +718,7 @@ describe('Deck Service', () => {
                 cardsResult,
             ]);
 
-            const output = await DeckService.getDeck(publicID, accountID);
+            const output = await DeckService.getDeck(accountID, publicID);
 
             expect(output.deck_public_id).toBe(publicID);
             expect(output.account_public_id).toBe(accountPublicID);
@@ -797,7 +797,7 @@ describe('Deck Service', () => {
             });
 
             await expect(() =>
-                DeckService.exportDeck(publicID, accountID),
+                DeckService.exportDeck(accountID, publicID),
             ).rejects.toThrow();
         });
 
@@ -809,7 +809,7 @@ describe('Deck Service', () => {
             DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
 
             await expect(() =>
-                DeckService.exportDeck(publicID, accountID),
+                DeckService.exportDeck(accountID, publicID),
             ).rejects.toThrow(NotFoundError);
         });
 
@@ -835,7 +835,7 @@ describe('Deck Service', () => {
             DeckRepository.getDeckByPublicID.mockResolvedValue([deckResult]);
 
             await expect(() =>
-                DeckService.exportDeck(publicID, accountID),
+                DeckService.exportDeck(accountID, publicID),
             ).rejects.toThrow(UnauthorizedError);
         });
 
@@ -864,7 +864,7 @@ describe('Deck Service', () => {
             });
 
             await expect(() =>
-                DeckService.exportDeck(publicID, accountID),
+                DeckService.exportDeck(accountID, publicID),
             ).rejects.toThrow();
         });
 
@@ -910,7 +910,7 @@ describe('Deck Service', () => {
                 exportResult,
             ]);
 
-            const output = await DeckService.exportDeck(publicID, accountID);
+            const output = await DeckService.exportDeck(accountID, publicID);
 
             expect(output).toEqual(expected);
         });

@@ -1,13 +1,13 @@
 import BookmarkRepository from '../repositories/bookmarks';
 
-const createBookmark = async (cardID, accountID) => {
+const createBookmark = async (accountID, cardID) => {
     let bookmark;
 
     try {
         // Check if the bookmark already exists
         const [existsResult] = await BookmarkRepository.getBookmarkByCardID(
-            cardID,
             accountID,
+            cardID,
         );
         if (existsResult?.length === 1 && existsResult?.[0]?.id) {
             return {
@@ -18,8 +18,8 @@ const createBookmark = async (cardID, accountID) => {
 
         // If it doesn't, create a new one and return it
         const [createResult] = await BookmarkRepository.createBookmark(
-            cardID,
             accountID,
+            cardID,
         );
         const bookmarkID = createResult?.insertId || 0;
         if (!bookmarkID) {
@@ -60,9 +60,9 @@ const listBookmarks = async (accountID) => {
     };
 };
 
-const deleteBookmark = async (bookmarkID, accountID) => {
+const deleteBookmark = async (accountID, bookmarkID) => {
     try {
-        await BookmarkRepository.deleteBookmark(bookmarkID, accountID);
+        await BookmarkRepository.deleteBookmark(accountID, bookmarkID);
     } catch (e) {
         console.error('error deleting bookmark', e);
         throw e;

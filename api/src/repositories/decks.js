@@ -172,7 +172,7 @@ const listDecks = async (accountID) => {
     );
 };
 
-const deleteDeckByPublicID = async (publicID, accountID) => {
+const deleteDeckByPublicID = async (accountID, publicID) => {
     return connection.query(
         `DELETE d
         FROM decks d

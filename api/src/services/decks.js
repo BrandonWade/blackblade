@@ -100,7 +100,7 @@ const saveDeck = async (
     }
 };
 
-const getDeck = async (publicID, accountID) => {
+const getDeck = async (accountID, publicID) => {
     let deck;
     let cards;
 
@@ -151,9 +151,9 @@ const listDecks = async (accountID) => {
     };
 };
 
-const deleteDeck = async (publicID, accountID) => {
+const deleteDeck = async (accountID, publicID) => {
     try {
-        await DeckRepository.deleteDeckByPublicID(publicID, accountID);
+        await DeckRepository.deleteDeckByPublicID(accountID, publicID);
     } catch (e) {
         console.error('error deleting deck', e);
         throw e;
@@ -162,7 +162,7 @@ const deleteDeck = async (publicID, accountID) => {
     return;
 };
 
-const exportDeck = async (publicID, accountID) => {
+const exportDeck = async (accountID, publicID) => {
     let deckExport;
 
     const formatRow = (
