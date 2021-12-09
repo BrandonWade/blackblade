@@ -17,8 +17,6 @@ const send = async (email, message) => {
             `error occurred while sending email to ${email} with status ${statusCode} and text ${text}`,
         );
     }
-
-    return true;
 };
 
 export default {

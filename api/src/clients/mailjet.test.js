@@ -62,7 +62,7 @@ describe('Mailjet Client', () => {
             ).rejects.toThrow();
         });
 
-        test('returns true if the email was successfully sent', async () => {
+        test('returns if the email was successfully sent', async () => {
             const mailjetConnection = mailjetMock();
             const email = 'test@test.com';
             const message = {
@@ -81,15 +81,9 @@ describe('Mailjet Client', () => {
 
             mailjet.connect.mockResolvedValue(mailjetConnection);
 
-            const output = await MailjetClient.send(email, message);
-
-            expect(mailjetConnection.post).toHaveBeenCalledWith('send', {
-                version: 'v3.1',
-            });
-            expect(mailjetConnection.request).toHaveBeenCalledWith({
-                Messages: [message],
-            });
-            expect(output).toBe(true);
+            await expect(() =>
+                MailjetClient.send(email, message),
+            ).not.toThrow();
         });
     });
 });

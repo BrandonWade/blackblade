@@ -28,8 +28,6 @@ const registerAccount = async (email, password) => {
 
         await EmailService.sendAccountActivationEmail(email, activationToken);
     }
-
-    return true;
 };
 
 const activateAccount = async (token) => {
@@ -39,8 +37,6 @@ const activateAccount = async (token) => {
         console.error('error activating account', e);
         throw e;
     }
-
-    return true;
 };
 
 const requestPasswordReset = async (email) => {
@@ -57,8 +53,6 @@ const requestPasswordReset = async (email) => {
         console.error('error requesting password reset', e);
         throw e;
     }
-
-    return true;
 };
 
 const resetPassword = async (token, password) => {
@@ -70,8 +64,6 @@ const resetPassword = async (token, password) => {
         console.error('error resetting password', e);
         throw e;
     }
-
-    return true;
 };
 
 const verifyAccount = async (email, password) => {

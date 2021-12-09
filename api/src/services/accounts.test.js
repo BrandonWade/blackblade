@@ -19,7 +19,7 @@ describe('Account Service', () => {
     });
 
     describe('registerAccount', () => {
-        test('returns true if the account already exists and is activated', async () => {
+        test('returns if the account already exists and is activated', async () => {
             const email = 'test@test.com';
             const password = 'testpassword123';
             const account = {
@@ -30,15 +30,12 @@ describe('Account Service', () => {
             hashValue.mockResolvedValue('testhashvalue');
             generateToken.mockResolvedValue('testtokenvalue');
 
-            const output = await AccountService.registerAccount(
-                email,
-                password,
-            );
-
-            expect(output).toBe(true);
+            await expect(() =>
+                AccountService.registerAccount(email, password),
+            ).not.toThrow();
         });
 
-        test('returns true if the account has already been registered but not activated', async () => {
+        test('returns if the account has already been registered but not activated', async () => {
             const email = 'test@test.com';
             const password = 'testpassword123';
             const account = {
@@ -53,12 +50,9 @@ describe('Account Service', () => {
             });
             EmailService.sendAccountActivationEmail.mockResolvedValue();
 
-            const output = await AccountService.registerAccount(
-                email,
-                password,
-            );
-
-            expect(output).toBe(true);
+            await expect(() =>
+                AccountService.registerAccount(email, password),
+            ).not.toThrow();
         });
 
         test('throws an error if one occurred while registering a new account', async () => {
@@ -94,14 +88,14 @@ describe('Account Service', () => {
             ).rejects.toThrow();
         });
 
-        test('returns true if the account was successfully activated', async () => {
+        test('returns if the account was successfully activated', async () => {
             const token = 'testtoken';
 
             AccountRepository.activateAccount.mockResolvedValue();
 
-            const output = await AccountService.activateAccount(token);
-
-            expect(output).toBe(true);
+            await expect(() =>
+                AccountService.activateAccount(token),
+            ).not.toThrow();
         });
     });
 
@@ -135,16 +129,16 @@ describe('Account Service', () => {
             ).rejects.toThrow();
         });
 
-        test('returns true if the password reset was successfully requested', async () => {
+        test('returns if the password reset was successfully requested', async () => {
             const email = 'test@test.com';
 
             generateToken.mockResolvedValue('testtokenvalue');
             AccountRepository.createPasswordResetToken.mockResolvedValue();
             EmailService.sendPasswordResetEmail.mockResolvedValue();
 
-            const output = await AccountService.requestPasswordReset(email);
-
-            expect(output).toBe(true);
+            await expect(() =>
+                AccountService.requestPasswordReset(email),
+            ).not.toThrow();
         });
     });
 
@@ -163,16 +157,16 @@ describe('Account Service', () => {
             ).rejects.toThrow();
         });
 
-        test('returns true if the password was successfully reset', async () => {
+        test('returns if the password was successfully reset', async () => {
             const token = 'testtoken';
             const password = 'testpassword123';
 
             hashValue.mockResolvedValue('testhashvalue');
             AccountRepository.resetPassword.mockResolvedValue();
 
-            const output = await AccountService.resetPassword(token, password);
-
-            expect(output).toBe(true);
+            await expect(() =>
+                AccountService.resetPassword(token, password),
+            ).not.toThrow();
         });
     });
 

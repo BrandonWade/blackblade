@@ -20,8 +20,6 @@ const sendAccountActivationEmail = async (email, token) => {
     };
 
     await MailjetClient.send(email, message);
-
-    return true;
 };
 
 const sendPasswordResetEmail = async (email, token) => {
@@ -42,8 +40,6 @@ const sendPasswordResetEmail = async (email, token) => {
     };
 
     await MailjetClient.send(email, message);
-
-    return true;
 };
 
 export default {
