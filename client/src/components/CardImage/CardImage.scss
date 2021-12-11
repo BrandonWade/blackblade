@@ -6,14 +6,19 @@
 
     &-imageContainer {
         position: relative;
+        width: 100%;
+        max-width: fit-content;
     }
 
     &-imageFront,
     &-imageBack {
-        height: 45rem;
         border-radius: 1.5rem;
         box-shadow: var(--box-shadow);
         backface-visibility: hidden;
+        background-color: var(--color-primary-light);
+        width: 100%;
+        height: auto;
+        aspect-ratio: 61 / 85;
     }
 
     &--canFlip {

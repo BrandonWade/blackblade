@@ -23,6 +23,11 @@
         }
     }
 
+    &-cardImage {
+        height: 45rem;
+        min-width: fit-content;
+    }
+
     &-secondaryContent {
         display: flex;
         justify-content: center;

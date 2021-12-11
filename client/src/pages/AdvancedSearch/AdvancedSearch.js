@@ -107,7 +107,7 @@ export default function AdvancedSearch() {
                         descriptionClassName='AdvancedSearch-description'
                         label='Text'
                         value={text}
-                        description='Any words that appear in the card text.'
+                        description='Any words or symbols that appear in the card text.'
                         onChange={onChangeText}
                         actionButton={
                             <Button className='AdvancedSearch-addSymbol' onClick={onShowSymbolKey}>
