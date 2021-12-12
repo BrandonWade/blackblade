@@ -55,7 +55,7 @@ export default function Card() {
             <BackgroundMessage showMessage={isEmpty(card)}>
                 <CardImagePreview />
                 <div className='Card-mainContent'>
-                    <CardImage imageClassName='Card-cardImage' card={card} />
+                    <CardImage card={card} />
                     <div className='Card-facesContainer'>
                         {cardFaces?.map(face => {
                             return <CardFaceDetails key={face.face_id} face={face} />;
