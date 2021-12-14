@@ -127,7 +127,11 @@ export default function CardImage({ imageClassName = '', card = {}, isSelected =
         );
 
         if (isLink) {
-            return <Link to={`/cards/${cardID}`}>{images}</Link>;
+            return (
+                <Link className='CardImage-link' to={`/cards/${cardID}`}>
+                    {images}
+                </Link>
+            );
         }
 
         return (
