@@ -21,7 +21,7 @@
         background-color: var(--color-primary-light);
         width: 100%;
         height: auto;
-        aspect-ratio: 61 / 85;
+        aspect-ratio: 61 / 85; // This is the simplified ratio of width / height for Magic: The Gathering cards
     }
 
     &--canFlip {

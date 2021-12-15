@@ -24,8 +24,12 @@
     }
 
     &-cardImage {
+        width: auto;
+    }
+
+    &-image {
         height: 45rem;
-        min-width: fit-content;
+        width: auto;
     }
 
     &-secondaryContent {

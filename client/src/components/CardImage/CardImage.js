@@ -7,7 +7,15 @@ import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate, StarEmpty, StarFilled } from '../Icons';
 import './CardImage.scss';
 
-export default function CardImage({ imageClassName = '', card = {}, isSelected = false, isLink = false, isCompact = false, onClick = () => {} }) {
+export default function CardImage({
+    className = '',
+    imageClassName = '',
+    card = {},
+    isSelected = false,
+    isLink = false,
+    isCompact = false,
+    onClick = () => {},
+}) {
     const cardID = card?.card_id;
     const name = card?.name;
     const setName = card?.set_name;
@@ -135,7 +143,7 @@ export default function CardImage({ imageClassName = '', card = {}, isSelected =
         }
 
         return (
-            <div className='CardImage-imageContainer' onClick={onImageClick}>
+            <div className={`CardImage-imageContainer ${className}`} onClick={onImageClick}>
                 {images}
             </div>
         );
