@@ -1,0 +1,176 @@
+.AdvancedSearch {
+    display: flex;
+    justify-content: center;
+    padding: 4rem 2rem;
+
+    @media only screen and (max-width: 52.125em) {
+        padding: 1.5rem;
+    }
+
+    &-content {
+        width: 80%;
+
+        @media only screen and (max-width: 52.125em) {
+            width: 100%;
+        }
+    }
+
+    &-form {
+        @media only screen and (max-width: 52.125em) {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+
+    &-formRow {
+        border-bottom: var(--line-transparent);
+
+        @media only screen and (max-width: 52.125em) {
+            border-bottom: none;
+        }
+
+        &.FormField {
+            margin-bottom: 0;
+            padding: 1.5rem 0;
+
+            @media only screen and (max-width: 52.125em) {
+                margin-bottom: 2rem;
+                padding: 0;
+            }
+        }
+    }
+
+    &-label {
+        width: 10%;
+        font-size: 1.6rem;
+        margin-right: 2rem;
+
+        @media only screen and (max-width: 52.125em) {
+            display: block;
+            font-size: 1.4rem;
+            width: 100%;
+            margin-right: 0;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    &-addSymbol {
+        margin-left: 1rem;
+
+        @media only screen and (max-width: 52.125em) {
+            font-size: 1.3rem;
+        }
+    }
+
+    &-input {
+        max-width: 50rem;
+        font-size: 1.6rem;
+        padding: 0.75rem;
+
+        &--small {
+            max-width: 15rem;
+            padding-right: 3rem;
+        }
+
+        @media only screen and (max-width: 52.125em) {
+            padding: 0.75rem;
+        }
+    }
+
+    &-description {
+        margin-top: 0.75rem;
+        font-size: 1.2rem;
+    }
+
+    &-checkbox {
+        width: auto;
+        margin-right: 1rem;
+
+        @media only screen and (max-width: 75em) {
+            &:not(:first-child) {
+                margin-top: 0.5rem;
+            }
+        }
+    }
+
+    &-select {
+        font-size: 1.6rem;
+
+        @media only screen and (max-width: 52.125em) {
+            padding: 0.75rem 3rem 0.75rem 0.75rem;
+        }
+    }
+
+    &-footer {
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        background-color: var(--color-primary);
+        display: flex;
+    }
+
+    &-searchButton,
+    &-resetButton {
+        display: inline-block;
+        margin: 1.5rem 0;
+
+        @media only screen and (max-width: 52.125em) {
+            display: inline-flex;
+            justify-content: center;
+            width: 100%;
+        }
+    }
+
+    &-resetButton {
+        margin-left: 2rem;
+    }
+}
+
+.ColorOptions {
+    width: 100%;
+    max-width: 75rem;
+
+    &-manaSymbol {
+        position: relative;
+        top: 0.3rem;
+        margin-right: 0.5rem;
+
+        @media only screen and (max-width: 52.125em) {
+            margin-right: 0.75rem;
+
+            & > .CardSymbol {
+                width: 1.65rem;
+                height: 1.65rem;
+            }
+        }
+    }
+
+    &-matchTypeSection {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    &-matchType {
+        margin-top: 2.5rem;
+        max-width: 20rem;
+
+        @media only screen and (max-width: 52.125em) {
+            margin-top: 1rem;
+        }
+    }
+}
+
+.StatRow {
+    display: flex;
+
+    & > .AdvancedSearch-select {
+        margin-right: 1rem;
+        min-width: 22rem;
+    }
+}
+
+.RarityOptions {
+    width: 100%;
+    max-width: 50rem;
+}
