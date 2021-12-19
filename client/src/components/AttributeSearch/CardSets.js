@@ -1,12 +1,12 @@
 import { useEffect, useContext } from 'react';
 import useCardSets from '../../hooks/useCardSets';
-import AdvancedSearchContext from '../../contexts/AdvancedSearch';
+import AttributeSearchContext from '../../contexts/AttributeSearch';
 import SearchContext from '../../contexts/Search';
 import { MultiSelectField } from '../../components/Select';
 
 export default function CardSets() {
     const { getCardSets } = useCardSets();
-    const { cardSets, setCardSets } = useContext(AdvancedSearchContext);
+    const { cardSets, setCardSets } = useContext(AttributeSearchContext);
     const { selectedSets, addSet, removeSet } = useContext(SearchContext);
 
     useEffect(() => {
@@ -62,10 +62,10 @@ export default function CardSets() {
 
     return (
         <MultiSelectField
-            rowClassName='AdvancedSearch-formRow'
-            labelClassName='AdvancedSearch-label'
-            className='AdvancedSearch-select'
-            descriptionClassName='AdvancedSearch-description'
+            rowClassName='AttributeSearch-formRow'
+            labelClassName='AttributeSearch-label'
+            className='AttributeSearch-select'
+            descriptionClassName='AttributeSearch-description'
             label='Sets'
             description='Each card must be in one or more of the selected sets.'
             selectedOptions={getFormattedSelectedSets()}

@@ -24,7 +24,7 @@ function StatRow({ stat = '', comparator = '==', value = 0, setStat = () => {} }
 
     return (
         <div className='StatRow'>
-            <Select className='AdvancedSearch-select' value={comparator} onChange={onChangeComparator}>
+            <Select className='AttributeSearch-select' value={comparator} onChange={onChangeComparator}>
                 <option value='=='>Equal to</option>
                 <option value='!='>Not equal to</option>
                 <option value='<'>Less than</option>
@@ -33,7 +33,7 @@ function StatRow({ stat = '', comparator = '==', value = 0, setStat = () => {} }
                 <option value='>='>Greater than or equal to</option>
             </Select>
             <NumberInputField
-                className='AdvancedSearch-input AdvancedSearch-input--small'
+                className='AttributeSearch-input AttributeSearch-input--small'
                 value={value}
                 onChange={onChangeValue}
                 onIncrement={onIncrement}

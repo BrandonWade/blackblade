@@ -1,12 +1,12 @@
 import { useContext, useEffect } from 'react';
 import useCardTypes from '../../hooks/useCardTypes';
-import AdvancedSearchContext from '../../contexts/AdvancedSearch';
+import AttributeSearchContext from '../../contexts/AttributeSearch';
 import SearchContext from '../../contexts/Search';
 import { MultiSelectField } from '../../components/Select';
 
 export default function CardTypes() {
     const { getCardTypes } = useCardTypes();
-    const { cardTypes, setCardTypes } = useContext(AdvancedSearchContext);
+    const { cardTypes, setCardTypes } = useContext(AttributeSearchContext);
     const { selectedTypes, addType, removeType, negateType } = useContext(SearchContext);
 
     useEffect(() => {
@@ -67,10 +67,10 @@ export default function CardTypes() {
 
     return (
         <MultiSelectField
-            rowClassName='AdvancedSearch-formRow'
-            labelClassName='AdvancedSearch-label'
-            className='AdvancedSearch-select'
-            descriptionClassName='AdvancedSearch-description'
+            rowClassName='AttributeSearch-formRow'
+            labelClassName='AttributeSearch-label'
+            className='AttributeSearch-select'
+            descriptionClassName='AttributeSearch-description'
             label='Types'
             isNegatable={true}
             description='Each card will contain all chosen types marked with IS, and will not contain any marked with NOT.'

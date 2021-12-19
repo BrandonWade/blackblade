@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import AdvancedSearchContext from '../../contexts/AdvancedSearch';
+import AttributeSearchContext from '../../contexts/AttributeSearch';
 
-export default function AdvancedSearchProvider({ children = [] }) {
+export default function AttributeSearchProvider({ children = [] }) {
     const [cardTypes, setCardTypes] = useState([]);
     const [cardSets, setCardSets] = useState([]);
 
@@ -12,5 +12,5 @@ export default function AdvancedSearchProvider({ children = [] }) {
         setCardSets,
     };
 
-    return <AdvancedSearchContext.Provider value={props}>{children}</AdvancedSearchContext.Provider>;
+    return <AttributeSearchContext.Provider value={props}>{children}</AttributeSearchContext.Provider>;
 }

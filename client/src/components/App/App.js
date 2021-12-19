@@ -6,7 +6,7 @@ import ExportDeckDialogProvider from '../../providers/ExportDeckDialog';
 import BookmarkListProvider from '../../providers/BookmarkList';
 import DeckListProvider from '../../providers/DeckList';
 import DeckBuilderProvider from '../../providers/DeckBuilder';
-import AdvancedSearchProvider from '../../providers/AdvancedSearch';
+import AttributeSearchProvider from '../../providers/AttributeSearch';
 import SearchProvider from '../../providers/Search';
 import CardProvider from '../../providers/Card';
 import Router from '../Router';
@@ -22,13 +22,13 @@ export default function App() {
                             <BookmarkListProvider>
                                 <DeckListProvider>
                                     <DeckBuilderProvider>
-                                        <AdvancedSearchProvider>
+                                        <AttributeSearchProvider>
                                             <SearchProvider>
                                                 <CardProvider>
                                                     <Router />
                                                 </CardProvider>
                                             </SearchProvider>
-                                        </AdvancedSearchProvider>
+                                        </AttributeSearchProvider>
                                     </DeckBuilderProvider>
                                 </DeckListProvider>
                             </BookmarkListProvider>

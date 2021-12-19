@@ -39,6 +39,7 @@
         display: none;
         width: 100%;
         height: calc(100% - var(--tab-strip-titles-height));
+        overflow-y: auto;
 
         @media only screen and (max-width: 37.5em) {
             height: calc(100% - var(--tab-strip-titles-height-compact));

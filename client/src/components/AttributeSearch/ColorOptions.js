@@ -34,35 +34,35 @@ function ColorOptions() {
     return (
         <div className='ColorOptions'>
             <FieldGroup>
-                <Checkbox className='AdvancedSearch-checkbox' value={colors['white']} onClick={onChangeWhite}>
+                <Checkbox className='AttributeSearch-checkbox' value={colors['white']} onClick={onChangeWhite}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{W}'] }} />
                     White
                 </Checkbox>
-                <Checkbox className='AdvancedSearch-checkbox' value={colors['blue']} onClick={onChangeBlue}>
+                <Checkbox className='AttributeSearch-checkbox' value={colors['blue']} onClick={onChangeBlue}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{U}'] }} />
                     Blue
                 </Checkbox>
-                <Checkbox className='AdvancedSearch-checkbox' value={colors['black']} onClick={onChangeBlack}>
+                <Checkbox className='AttributeSearch-checkbox' value={colors['black']} onClick={onChangeBlack}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{B}'] }} />
                     Black
                 </Checkbox>
-                <Checkbox className='AdvancedSearch-checkbox' value={colors['red']} onClick={onChangeRed}>
+                <Checkbox className='AttributeSearch-checkbox' value={colors['red']} onClick={onChangeRed}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{R}'] }} />
                     Red
                 </Checkbox>
-                <Checkbox className='AdvancedSearch-checkbox' value={colors['green']} onClick={onChangeGreen}>
+                <Checkbox className='AttributeSearch-checkbox' value={colors['green']} onClick={onChangeGreen}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{G}'] }} />
                     Green
                 </Checkbox>
-                <Checkbox className='AdvancedSearch-checkbox' value={colors['colorless']} onClick={onChangeColorless}>
+                <Checkbox className='AttributeSearch-checkbox' value={colors['colorless']} onClick={onChangeColorless}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{C}'] }} />
                     Colorless
                 </Checkbox>
             </FieldGroup>
             <SelectField
                 rowClassName='ColorOptions-matchTypeSection'
-                className='AdvancedSearch-select ColorOptions-matchType'
-                descriptionClassName='AdvancedSearch-description'
+                className='AttributeSearch-select ColorOptions-matchType'
+                descriptionClassName='AttributeSearch-description'
                 value={matchType}
                 description={renderColorMatchDescription()}
                 onChange={onChangeMatchType}

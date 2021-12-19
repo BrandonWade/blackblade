@@ -15,16 +15,16 @@ function RarityOptions() {
 
     return (
         <FieldGroup className='RarityOptions'>
-            <Checkbox className='AdvancedSearch-checkbox' value={rarities['common']} onClick={onChangeCommon}>
+            <Checkbox className='AttributeSearch-checkbox' value={rarities['common']} onClick={onChangeCommon}>
                 Common
             </Checkbox>
-            <Checkbox className='AdvancedSearch-checkbox' value={rarities['uncommon']} onClick={onChangeUncommon}>
+            <Checkbox className='AttributeSearch-checkbox' value={rarities['uncommon']} onClick={onChangeUncommon}>
                 Uncommon
             </Checkbox>
-            <Checkbox className='AdvancedSearch-checkbox' value={rarities['rare']} onClick={onChangeRare}>
+            <Checkbox className='AttributeSearch-checkbox' value={rarities['rare']} onClick={onChangeRare}>
                 Rare
             </Checkbox>
-            <Checkbox className='AdvancedSearch-checkbox' value={rarities['mythic']} onClick={onChangeMythic}>
+            <Checkbox className='AttributeSearch-checkbox' value={rarities['mythic']} onClick={onChangeMythic}>
                 Mythic Rare
             </Checkbox>
         </FieldGroup>

@@ -10,9 +10,9 @@ import CardSets from './CardSets';
 import ColorOptions from './ColorOptions';
 import RarityOptions from './RarityOptions';
 import StatRow from './StatRow';
-import './AdvancedSearch.scss';
+import './AttributeSearch.scss';
 
-export default function AdvancedSearch() {
+export default function AttributeSearch() {
     const { searchResultsRedirect } = useDisplayResults();
     const { showConfirmDialog } = useConfirmDialog();
     const {
@@ -85,41 +85,41 @@ export default function AdvancedSearch() {
     };
 
     return (
-        <div className='AdvancedSearch'>
-            <div className='AdvancedSearch-content'>
-                <form className='AdvancedSearch-form' onSubmit={onSubmit}>
+        <div className='AttributeSearch'>
+            <div className='AttributeSearch-content'>
+                <form className='AttributeSearch-form' onSubmit={onSubmit}>
                     <SymbolKey visible={symbolKeyVisible} onInsertSymbols={onInsertSymbols} onClose={onHideSymbolKey} />
                     <InputField
-                        rowClassName='AdvancedSearch-formRow'
-                        labelClassName='AdvancedSearch-label'
-                        className='AdvancedSearch-input'
-                        descriptionClassName='AdvancedSearch-description'
+                        rowClassName='AttributeSearch-formRow'
+                        labelClassName='AttributeSearch-label'
+                        className='AttributeSearch-input'
+                        descriptionClassName='AttributeSearch-description'
                         label='Name'
                         value={name}
                         description='Any words that appear in the name of the card.'
                         onChange={onChangeName}
                     />
                     <InputField
-                        rowClassName='AdvancedSearch-formRow'
-                        labelClassName='AdvancedSearch-label'
-                        className='AdvancedSearch-input'
-                        descriptionClassName='AdvancedSearch-description'
+                        rowClassName='AttributeSearch-formRow'
+                        labelClassName='AttributeSearch-label'
+                        className='AttributeSearch-input'
+                        descriptionClassName='AttributeSearch-description'
                         label='Text'
                         value={text}
                         description='Any words or symbols that appear in the card text.'
                         onChange={onChangeText}
                         actionButton={
-                            <Button className='AdvancedSearch-addSymbol' onClick={onShowSymbolKey}>
+                            <Button className='AttributeSearch-addSymbol' onClick={onShowSymbolKey}>
                                 Add Symbol
                             </Button>
                         }
                     />
                     <CardTypes />
-                    <ColorOptions labelClassName='AdvancedSearch-label' label='Colors' rowClassName='AdvancedSearch-formRow' />
+                    <ColorOptions labelClassName='AttributeSearch-label' label='Colors' rowClassName='AttributeSearch-formRow' />
                     <CardSets />
                     <StatRow
-                        rowClassName='AdvancedSearch-formRow'
-                        labelClassName='AdvancedSearch-label'
+                        rowClassName='AttributeSearch-formRow'
+                        labelClassName='AttributeSearch-label'
                         label='CMC'
                         stat='cmc'
                         comparator={cmc.comparator}
@@ -127,8 +127,8 @@ export default function AdvancedSearch() {
                         setStat={setStat}
                     />
                     <StatRow
-                        rowClassName='AdvancedSearch-formRow'
-                        labelClassName='AdvancedSearch-label'
+                        rowClassName='AttributeSearch-formRow'
+                        labelClassName='AttributeSearch-label'
                         label='Power'
                         stat='power'
                         comparator={power.comparator}
@@ -136,8 +136,8 @@ export default function AdvancedSearch() {
                         setStat={setStat}
                     />
                     <StatRow
-                        rowClassName='AdvancedSearch-formRow'
-                        labelClassName='AdvancedSearch-label'
+                        rowClassName='AttributeSearch-formRow'
+                        labelClassName='AttributeSearch-label'
                         label='Toughness'
                         stat='toughness'
                         comparator={toughness.comparator}
@@ -145,8 +145,8 @@ export default function AdvancedSearch() {
                         setStat={setStat}
                     />
                     <StatRow
-                        rowClassName='AdvancedSearch-formRow'
-                        labelClassName='AdvancedSearch-label'
+                        rowClassName='AttributeSearch-formRow'
+                        labelClassName='AttributeSearch-label'
                         label='Loyalty'
                         stat='loyalty'
                         comparator={loyalty.comparator}
@@ -154,27 +154,27 @@ export default function AdvancedSearch() {
                         setStat={setStat}
                     />
                     <RarityOptions
-                        rowClassName='AdvancedSearch-formRow'
-                        labelClassName='AdvancedSearch-label'
-                        descriptionClassName='AdvancedSearch-description'
+                        rowClassName='AttributeSearch-formRow'
+                        labelClassName='AttributeSearch-label'
+                        descriptionClassName='AttributeSearch-description'
                         label='Rarities'
                         description='Each card must be one or more of the selected rarities.'
                     />
                     <InputField
-                        rowClassName='AdvancedSearch-formRow'
-                        labelClassName='AdvancedSearch-label'
-                        className='AdvancedSearch-input'
-                        descriptionClassName='AdvancedSearch-description'
+                        rowClassName='AttributeSearch-formRow'
+                        labelClassName='AttributeSearch-label'
+                        className='AttributeSearch-input'
+                        descriptionClassName='AttributeSearch-description'
                         label='Flavor Text'
                         value={flavorText}
                         description='Any words that appear in the flavor text of the card.'
                         onChange={onChangeFlavorText}
                     />
-                    <div className='AdvancedSearch-footer'>
-                        <Button className='AdvancedSearch-searchButton' type='submit' onClick={onSubmit}>
+                    <div className='AttributeSearch-footer'>
+                        <Button className='AttributeSearch-searchButton' type='submit' onClick={onSubmit}>
                             Search
                         </Button>
-                        <Button className='AdvancedSearch-resetButton' onClick={onResetClick}>
+                        <Button className='AttributeSearch-resetButton' onClick={onResetClick}>
                             Reset
                         </Button>
                     </div>

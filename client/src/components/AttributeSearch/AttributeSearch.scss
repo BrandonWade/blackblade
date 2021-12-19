@@ -1,18 +1,8 @@
-.AdvancedSearch {
-    display: flex;
-    justify-content: center;
-    padding: 4rem 2rem;
+.AttributeSearch {
+    padding: 1.5rem 3rem;
 
     @media only screen and (max-width: 52.125em) {
         padding: 1.5rem;
-    }
-
-    &-content {
-        width: 80%;
-
-        @media only screen and (max-width: 52.125em) {
-            width: 100%;
-        }
     }
 
     &-form {
@@ -164,7 +154,7 @@
 .StatRow {
     display: flex;
 
-    & > .AdvancedSearch-select {
+    & > .AttributeSearch-select {
         margin-right: 1rem;
         min-width: 22rem;
     }
