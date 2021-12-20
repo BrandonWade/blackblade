@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react';
-import useDisplayResults from '../../hooks/useDisplayResults';
 import useConfirmDialog from '../../hooks/useConfirmDialog';
 import SearchContext from '../../contexts/Search';
 import { InputField } from '../../components/Input';
@@ -12,8 +11,7 @@ import RarityOptions from './RarityOptions';
 import StatRow from './StatRow';
 import './AttributeSearch.scss';
 
-export default function AttributeSearch() {
-    const { searchResultsRedirect } = useDisplayResults();
+export default function AttributeSearch({ onSearch = () => {} }) {
     const { showConfirmDialog } = useConfirmDialog();
     const {
         name,
@@ -63,7 +61,7 @@ export default function AttributeSearch() {
     const onSubmit = e => {
         e.preventDefault();
 
-        searchResultsRedirect({
+        onSearch({
             name,
             text,
             selectedTypes,

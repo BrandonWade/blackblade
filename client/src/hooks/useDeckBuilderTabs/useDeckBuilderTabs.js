@@ -1,16 +1,16 @@
-import AttributeSearch from '../../components/AttributeSearch';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
+import DeckBuilderSearchResults from '../../components/DeckBuilderSearchResults';
 import DeckPreview from '../../components/DeckPreview';
 
 export default function useDeckBuilderTabs() {
     return [
         {
             title: 'Search Cards',
-            content: <AttributeSearch />,
+            content: <DeckBuilderSearch />,
         },
         {
             title: 'Search Results',
-            content: <DeckBuilderSearch />,
+            content: <DeckBuilderSearchResults />,
         },
         {
             title: 'Deck Preview',
