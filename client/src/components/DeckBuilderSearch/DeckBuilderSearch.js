@@ -1,11 +1,13 @@
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
+import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
 import AttributeSearch from '../AttributeSearch';
 import './DeckBuilderSearch.scss';
 
 export default function DeckBuilderSearch() {
     const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
+    const { selectTabByID } = useDeckBuilderTabs();
 
     const onSearch = async ({
         name,
@@ -38,6 +40,7 @@ export default function DeckBuilderSearch() {
             page,
         });
         displayResults(response, true);
+        selectTabByID('search_results');
     };
 
     return (

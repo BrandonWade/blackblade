@@ -23,7 +23,7 @@ import './DeckBuilder.scss';
 export default function DeckBuilder() {
     const { publicID } = useParams();
     const debouncedPersistDeck = useDebouncedPersistDeck();
-    const deckBuilderTabs = useDeckBuilderTabs();
+    const { getDeckBuilderTabs } = useDeckBuilderTabs();
     const { isDeckUnmodified } = useIsDeckUnmodified();
     const { loadDeck } = useLoadDeck();
     const { accountPublicID } = useContext(AuthContext);
@@ -68,7 +68,7 @@ export default function DeckBuilder() {
             <div className='DeckBuilder-displayPanel'>
                 <BackgroundMessage showMessage={!deckExists}>
                     {ownsDeck ? (
-                        <TabStrip tabs={deckBuilderTabs} selectedTabIndex={selectedTabIndex} setSelectedTabIndex={setSelectedTabIndex} />
+                        <TabStrip tabs={getDeckBuilderTabs()} selectedTabIndex={selectedTabIndex} setSelectedTabIndex={setSelectedTabIndex} />
                     ) : (
                         <DeckPreview />
                     )}
