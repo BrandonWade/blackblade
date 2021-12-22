@@ -1,10 +1,31 @@
+import { useContext } from 'react';
 import useDisplayResults from '../../hooks/useDisplayResults';
+import SearchContext from '../../contexts/Search';
 import HeaderPage from '../../components/HeaderPage';
 import AttributeSearch from '../../components/AttributeSearch';
 import './AdvancedSearch.scss';
 
 export default function AdvancedSearch() {
     const { searchResultsRedirect } = useDisplayResults();
+    const {
+        name,
+        setName,
+        text,
+        setText,
+        selectedTypes,
+        colors,
+        matchType,
+        selectedSets,
+        cmc,
+        power,
+        toughness,
+        loyalty,
+        setStat,
+        rarities,
+        flavorText,
+        setFlavorText,
+        resetSearchCriteria,
+    } = useContext(SearchContext);
 
     const onSearch = ({
         name,
@@ -40,7 +61,26 @@ export default function AdvancedSearch() {
 
     return (
         <HeaderPage className='AdvancedSearch'>
-            <AttributeSearch onSearch={onSearch} />
+            <AttributeSearch
+                name={name}
+                setName={setName}
+                text={text}
+                setText={setText}
+                selectedTypes={selectedTypes}
+                colors={colors}
+                matchType={matchType}
+                selectedSets={selectedSets}
+                cmc={cmc}
+                power={power}
+                toughness={toughness}
+                loyalty={loyalty}
+                setStat={setStat}
+                rarities={rarities}
+                flavorText={flavorText}
+                setFlavorText={setFlavorText}
+                resetSearchCriteria={resetSearchCriteria}
+                onSearch={onSearch}
+            />
         </HeaderPage>
     );
 }

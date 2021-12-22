@@ -19,8 +19,6 @@ import {
     UPDATE_UNMODIFIED_STATE,
     SET_MAYBEBOARD_MODE,
     SET_DECK_EXISTS,
-    SET_NAME,
-    SET_PAGE,
     SET_TOTAL_RESULTS,
     SET_SEARCH_RESULTS,
     SET_NUMBER_OF_PAGES,
@@ -54,8 +52,6 @@ export default function DeckBuilderProvider({ children = [] }) {
     const updateUnmodifiedState = () => dispatch({ type: UPDATE_UNMODIFIED_STATE });
     const setMaybeboardMode = maybeboardMode => dispatch({ type: SET_MAYBEBOARD_MODE, maybeboardMode });
     const setDeckExists = deckExists => dispatch({ type: SET_DECK_EXISTS, deckExists });
-    const setName = name => dispatch({ type: SET_NAME, name });
-    const setPage = page => dispatch({ type: SET_PAGE, page });
     const setTotalResults = totalResults => dispatch({ type: SET_TOTAL_RESULTS, totalResults });
     const setSearchResults = searchResults => dispatch({ type: SET_SEARCH_RESULTS, searchResults });
     const setNumberOfPages = numberOfPages => dispatch({ type: SET_NUMBER_OF_PAGES, numberOfPages });
@@ -87,8 +83,6 @@ export default function DeckBuilderProvider({ children = [] }) {
         updateUnmodifiedState,
         setMaybeboardMode,
         setDeckExists,
-        setName,
-        setPage,
         setTotalResults,
         setSearchResults,
         setNumberOfPages,

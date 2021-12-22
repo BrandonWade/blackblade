@@ -18,8 +18,6 @@ import {
     UPDATE_UNMODIFIED_STATE,
     SET_MAYBEBOARD_MODE,
     SET_DECK_EXISTS,
-    SET_NAME,
-    SET_PAGE,
     SET_TOTAL_RESULTS,
     SET_SEARCH_RESULTS,
     SET_NUMBER_OF_PAGES,
@@ -223,18 +221,6 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
             return {
                 ...state,
                 maybeboardMode: action.maybeboardMode,
-            };
-
-        case SET_NAME:
-            return {
-                ...state,
-                name: action.name,
-            };
-
-        case SET_PAGE:
-            return {
-                ...state,
-                page: action.page,
             };
 
         case SET_TOTAL_RESULTS:

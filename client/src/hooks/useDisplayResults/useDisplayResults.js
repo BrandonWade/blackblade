@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import useSearch from '../useSearch';
 import SearchContext from '../../contexts/Search';
-import DeckBuilderContext from '../../contexts/DeckBuilder';
+import DeckBuilderSearchContext from '../../contexts/DeckBuilderSearch';
 
 export default function useDisplayResults() {
     const history = useHistory();
@@ -13,7 +13,7 @@ export default function useDisplayResults() {
         setTotalResults: setDeckBuilderTotalResults,
         setSearchResults: setDeckBuilderSearchResults,
         setNumberOfPages: setDeckBuilderNumberOfPages,
-    } = useContext(DeckBuilderContext);
+    } = useContext(DeckBuilderSearchContext);
 
     const cardRedirect = (card = {}) => {
         history.replace(`/cards/${card.card_id}`);

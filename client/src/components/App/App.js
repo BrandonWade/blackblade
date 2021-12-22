@@ -5,6 +5,7 @@ import CardImagePreviewProvider from '../../providers/CardImagePreview';
 import ExportDeckDialogProvider from '../../providers/ExportDeckDialog';
 import BookmarkListProvider from '../../providers/BookmarkList';
 import DeckListProvider from '../../providers/DeckList';
+import DeckBuilderSearchProvider from '../../providers/DeckBuilderSearch';
 import DeckBuilderProvider from '../../providers/DeckBuilder';
 import AttributeSearchProvider from '../../providers/AttributeSearch';
 import SearchProvider from '../../providers/Search';
@@ -21,15 +22,17 @@ export default function App() {
                         <ExportDeckDialogProvider>
                             <BookmarkListProvider>
                                 <DeckListProvider>
-                                    <DeckBuilderProvider>
-                                        <AttributeSearchProvider>
-                                            <SearchProvider>
-                                                <CardProvider>
-                                                    <Router />
-                                                </CardProvider>
-                                            </SearchProvider>
-                                        </AttributeSearchProvider>
-                                    </DeckBuilderProvider>
+                                    <DeckBuilderSearchProvider>
+                                        <DeckBuilderProvider>
+                                            <AttributeSearchProvider>
+                                                <SearchProvider>
+                                                    <CardProvider>
+                                                        <Router />
+                                                    </CardProvider>
+                                                </SearchProvider>
+                                            </AttributeSearchProvider>
+                                        </DeckBuilderProvider>
+                                    </DeckBuilderSearchProvider>
                                 </DeckListProvider>
                             </BookmarkListProvider>
                         </ExportDeckDialogProvider>

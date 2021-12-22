@@ -47,7 +47,7 @@ export default function DeckBuilderSearchResults() {
                 paginatorClassName='DeckBuilderSearchResults-paginator'
                 gridClassName='DeckBuilderSearchResults-grid'
                 redirect={false}
-                deckBuilder={true}
+                deckBuilderSearch={true}
                 onSelectResult={onSelectResult}
             />
         </div>

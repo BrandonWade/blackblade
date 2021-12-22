@@ -1,6 +1,5 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import useConfirmDialog from '../../hooks/useConfirmDialog';
-import SearchContext from '../../contexts/Search';
 import { InputField } from '../../components/Input';
 import Button from '../../components/Button';
 import SymbolKey from '../../components/SymbolKey';
@@ -11,27 +10,27 @@ import RarityOptions from './RarityOptions';
 import StatRow from './StatRow';
 import './AttributeSearch.scss';
 
-export default function AttributeSearch({ onSearch = () => {} }) {
+export default function AttributeSearch({
+    name,
+    setName,
+    text,
+    setText,
+    selectedTypes,
+    colors,
+    matchType,
+    selectedSets,
+    cmc,
+    power,
+    toughness,
+    loyalty,
+    setStat,
+    rarities,
+    flavorText,
+    setFlavorText,
+    resetSearchCriteria,
+    onSearch = () => {},
+}) {
     const { showConfirmDialog } = useConfirmDialog();
-    const {
-        name,
-        setName,
-        text,
-        setText,
-        selectedTypes,
-        colors,
-        matchType,
-        selectedSets,
-        cmc,
-        power,
-        toughness,
-        loyalty,
-        setStat,
-        rarities,
-        flavorText,
-        setFlavorText,
-        resetSearchCriteria,
-    } = useContext(SearchContext);
     const [symbolKeyVisible, setSymbolKeyVisible] = useState(false);
 
     const onChangeName = e => {
