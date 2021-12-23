@@ -1,12 +1,8 @@
-import { useContext } from 'react';
 import withFormField from '../../hocs/withFormField';
-import SearchContext from '../../contexts/Search';
 import FieldGroup from '../../components/FieldGroup';
 import Checkbox from '../../components/Checkbox';
 
-function RarityOptions() {
-    const { rarities, setRarities } = useContext(SearchContext);
-
+function RarityOptions({ rarities = {}, setRarities = () => {} }) {
     const onChangeCommon = () => onChangeRarity('common');
     const onChangeUncommon = () => onChangeRarity('uncommon');
     const onChangeRare = () => onChangeRarity('rare');

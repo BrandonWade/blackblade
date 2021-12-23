@@ -10,17 +10,33 @@ import './SearchResults.scss';
 
 export default function SearchResults({ location }) {
     const {
+        name,
         setName,
+        text,
         setText,
+        selectedTypes,
         setSelectedTypes,
+        colors,
         setColors,
         setColorless,
+        matchType,
         setMatchType,
+        selectedSets,
         setSelectedSets,
+        cmc,
+        power,
+        toughness,
+        loyalty,
         setStat,
+        rarities,
         setRarities,
+        flavorText,
         setFlavorText,
+        page,
         setPage,
+        totalResults,
+        searchResults,
+        numberOfPages,
     } = useContext(SearchContext);
     const { searchCards } = useSearch();
     const { cardRedirect, displayResults } = useDisplayResults();
@@ -118,7 +134,28 @@ export default function SearchResults({ location }) {
 
     return (
         <HeaderPage className='SearchResults'>
-            <PaginatedResults gridClassName='SearchResults-grid' isLink={true} redirect={true} deckBuilderSearch={false} />
+            <PaginatedResults
+                gridClassName='SearchResults-grid'
+                isLink={true}
+                redirect={true}
+                name={name}
+                text={text}
+                selectedTypes={selectedTypes}
+                colors={colors}
+                matchType={matchType}
+                selectedSets={selectedSets}
+                cmc={cmc}
+                power={power}
+                toughness={toughness}
+                loyalty={loyalty}
+                rarities={rarities}
+                flavorText={flavorText}
+                page={page}
+                totalResults={totalResults}
+                searchResults={searchResults}
+                numberOfPages={numberOfPages}
+                setPage={setPage}
+            />
         </HeaderPage>
     );
 }

@@ -1,13 +1,11 @@
 import { useContext, useEffect } from 'react';
 import useCardTypes from '../../hooks/useCardTypes';
 import AttributeSearchContext from '../../contexts/AttributeSearch';
-import SearchContext from '../../contexts/Search';
 import { MultiSelectField } from '../../components/Select';
 
-export default function CardTypes() {
+export default function CardTypes({ selectedTypes = [], addType = () => {}, removeType = () => {}, negateType = () => {} }) {
     const { getCardTypes } = useCardTypes();
     const { cardTypes, setCardTypes } = useContext(AttributeSearchContext);
-    const { selectedTypes, addType, removeType, negateType } = useContext(SearchContext);
 
     useEffect(() => {
         const fetchCardTypes = async () => {

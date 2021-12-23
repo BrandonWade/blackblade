@@ -13,15 +13,24 @@ export default function AdvancedSearch() {
         text,
         setText,
         selectedTypes,
+        addType,
+        removeType,
+        negateType,
         colors,
+        setColors,
+        setColorless,
         matchType,
+        setMatchType,
         selectedSets,
+        addSet,
+        removeSet,
         cmc,
         power,
         toughness,
         loyalty,
         setStat,
         rarities,
+        setRarities,
         flavorText,
         setFlavorText,
         resetSearchCriteria,
@@ -67,15 +76,24 @@ export default function AdvancedSearch() {
                 text={text}
                 setText={setText}
                 selectedTypes={selectedTypes}
+                addType={addType}
+                removeType={removeType}
+                negateType={negateType}
                 colors={colors}
+                setColors={setColors}
+                setColorless={setColorless}
                 matchType={matchType}
+                setMatchType={setMatchType}
                 selectedSets={selectedSets}
+                addSet={addSet}
+                removeSet={removeSet}
                 cmc={cmc}
                 power={power}
                 toughness={toughness}
                 loyalty={loyalty}
                 setStat={setStat}
                 rarities={rarities}
+                setRarities={setRarities}
                 flavorText={flavorText}
                 setFlavorText={setFlavorText}
                 resetSearchCriteria={resetSearchCriteria}

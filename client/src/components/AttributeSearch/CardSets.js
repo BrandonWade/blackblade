@@ -1,13 +1,11 @@
 import { useEffect, useContext } from 'react';
 import useCardSets from '../../hooks/useCardSets';
 import AttributeSearchContext from '../../contexts/AttributeSearch';
-import SearchContext from '../../contexts/Search';
 import { MultiSelectField } from '../../components/Select';
 
-export default function CardSets() {
+export default function CardSets({ selectedSets = [], addSet = () => {}, removeSet = () => {} }) {
     const { getCardSets } = useCardSets();
     const { cardSets, setCardSets } = useContext(AttributeSearchContext);
-    const { selectedSets, addSet, removeSet } = useContext(SearchContext);
 
     useEffect(() => {
         const fetchCardSets = async () => {

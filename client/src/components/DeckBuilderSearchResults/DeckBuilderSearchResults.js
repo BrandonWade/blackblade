@@ -1,11 +1,31 @@
 import { useContext } from 'react';
 import { parseIntFallback } from '../../helpers/parse';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
+import DeckBuilderSearchContext from '../../contexts/DeckBuilderSearch';
 import PaginatedResults from '../../components/PaginatedResults';
 import './DeckBuilderSearchResults.scss';
 
 export default function DeckBuilderSearchResults() {
     const { deckCards, setDeckCards, maybeboardCards, setMaybeboardCards, maybeboardMode } = useContext(DeckBuilderContext);
+    const {
+        name,
+        text,
+        selectedTypes,
+        colors,
+        matchType,
+        selectedSets,
+        cmc,
+        power,
+        toughness,
+        loyalty,
+        rarities,
+        flavorText,
+        page,
+        totalResults,
+        searchResults,
+        numberOfPages,
+        setPage,
+    } = useContext(DeckBuilderSearchContext);
 
     const onSelectResult = (e, card) => {
         const location = maybeboardMode ? 'maybeboard' : 'deck';
@@ -47,7 +67,23 @@ export default function DeckBuilderSearchResults() {
                 paginatorClassName='DeckBuilderSearchResults-paginator'
                 gridClassName='DeckBuilderSearchResults-grid'
                 redirect={false}
-                deckBuilderSearch={true}
+                name={name}
+                text={text}
+                selectedTypes={selectedTypes}
+                colors={colors}
+                matchType={matchType}
+                selectedSets={selectedSets}
+                cmc={cmc}
+                power={power}
+                toughness={toughness}
+                loyalty={loyalty}
+                rarities={rarities}
+                flavorText={flavorText}
+                page={page}
+                totalResults={totalResults}
+                searchResults={searchResults}
+                numberOfPages={numberOfPages}
+                setPage={setPage}
                 onSelectResult={onSelectResult}
             />
         </div>

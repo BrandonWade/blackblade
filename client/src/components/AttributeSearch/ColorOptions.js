@@ -1,14 +1,10 @@
-import { useContext } from 'react';
 import withFormField from '../../hocs/withFormField';
-import SearchContext from '../../contexts/Search';
 import symbolMap from '../../hooks/useSymbols/symbolMap';
 import FieldGroup from '../../components/FieldGroup';
 import Checkbox from '../../components/Checkbox';
 import { SelectField } from '../../components/Select';
 
-function ColorOptions() {
-    const { colors, setColors, setColorless, matchType, setMatchType } = useContext(SearchContext);
-
+function ColorOptions({ colors = {}, setColors = () => {}, setColorless = () => {}, matchType = '', setMatchType = () => {} }) {
     const onChangeWhite = () => onChangeColors('white');
     const onChangeBlue = () => onChangeColors('blue');
     const onChangeBlack = () => onChangeColors('black');

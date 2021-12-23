@@ -11,23 +11,32 @@ import StatRow from './StatRow';
 import './AttributeSearch.scss';
 
 export default function AttributeSearch({
-    name,
-    setName,
-    text,
-    setText,
-    selectedTypes,
-    colors,
-    matchType,
-    selectedSets,
-    cmc,
-    power,
-    toughness,
-    loyalty,
-    setStat,
-    rarities,
-    flavorText,
-    setFlavorText,
-    resetSearchCriteria,
+    name = '',
+    setName = () => {},
+    text = '',
+    setText = () => {},
+    selectedTypes = [],
+    addType = () => {},
+    removeType = () => {},
+    negateType = () => {},
+    colors = {},
+    setColors = () => {},
+    setColorless = () => {},
+    matchType = '',
+    setMatchType = () => {},
+    selectedSets = [],
+    addSet = () => {},
+    removeSet = () => {},
+    cmc = {},
+    power = {},
+    toughness = {},
+    loyalty = {},
+    setStat = () => {},
+    rarities = {},
+    setRarities = () => {},
+    flavorText = '',
+    setFlavorText = () => {},
+    resetSearchCriteria = () => {},
     onSearch = () => {},
 }) {
     const { showConfirmDialog } = useConfirmDialog();
@@ -111,9 +120,18 @@ export default function AttributeSearch({
                             </Button>
                         }
                     />
-                    <CardTypes />
-                    <ColorOptions labelClassName='AttributeSearch-label' label='Colors' rowClassName='AttributeSearch-formRow' />
-                    <CardSets />
+                    <CardTypes selectedTypes={selectedTypes} addType={addType} removeType={removeType} negateType={negateType} />
+                    <ColorOptions
+                        labelClassName='AttributeSearch-label'
+                        label='Colors'
+                        rowClassName='AttributeSearch-formRow'
+                        colors={colors}
+                        setColors={setColors}
+                        setColorless={setColorless}
+                        matchType={matchType}
+                        setMatchType={setMatchType}
+                    />
+                    <CardSets selectedSets={selectedSets} addSet={addSet} removeSet={removeSet} />
                     <StatRow
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
@@ -156,6 +174,8 @@ export default function AttributeSearch({
                         descriptionClassName='AttributeSearch-description'
                         label='Rarities'
                         description='Each card must be one or more of the selected rarities.'
+                        rarities={rarities}
+                        setRarities={setRarities}
                     />
                     <InputField
                         rowClassName='AttributeSearch-formRow'
