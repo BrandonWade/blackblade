@@ -36,21 +36,7 @@ export default function AdvancedSearch() {
         resetSearchCriteria,
     } = useContext(SearchContext);
 
-    const onSearch = ({
-        name,
-        text,
-        selectedTypes,
-        colors,
-        matchType,
-        selectedSets,
-        cmc,
-        power,
-        toughness,
-        loyalty,
-        rarities,
-        flavorText,
-        page = 1,
-    }) => {
+    const onSearch = ({ name, text, selectedTypes, colors, matchType, selectedSets, cmc, power, toughness, loyalty, rarities, flavorText }) => {
         searchResultsRedirect({
             name,
             text,
@@ -64,7 +50,7 @@ export default function AdvancedSearch() {
             loyalty,
             rarities,
             flavorText,
-            page,
+            page: 1,
         });
     };
 

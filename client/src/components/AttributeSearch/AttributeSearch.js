@@ -82,7 +82,6 @@ export default function AttributeSearch({
             loyalty,
             rarities,
             flavorText,
-            page: 1,
         });
     };
 

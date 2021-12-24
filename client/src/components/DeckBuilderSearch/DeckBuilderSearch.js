@@ -36,7 +36,6 @@ export default function DeckBuilderSearch() {
         setRarities,
         flavorText,
         setFlavorText,
-        page,
         setPage,
         setSearchResults,
         setNumberOfPages,
@@ -61,7 +60,7 @@ export default function DeckBuilderSearch() {
             loyalty,
             rarities,
             flavorText,
-            page,
+            page: 1,
         });
         displayResults(response, setSearchResults, setNumberOfPages, setTotalResults);
         selectTabByID('search_results');
