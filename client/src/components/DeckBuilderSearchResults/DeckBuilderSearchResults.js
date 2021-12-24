@@ -22,8 +22,11 @@ export default function DeckBuilderSearchResults() {
         flavorText,
         page,
         totalResults,
+        setTotalResults,
         searchResults,
+        setSearchResults,
         numberOfPages,
+        setNumberOfPages,
         setPage,
     } = useContext(DeckBuilderSearchContext);
 
@@ -81,8 +84,11 @@ export default function DeckBuilderSearchResults() {
                 flavorText={flavorText}
                 page={page}
                 totalResults={totalResults}
+                setTotalResults={setTotalResults}
                 searchResults={searchResults}
+                setSearchResults={setSearchResults}
                 numberOfPages={numberOfPages}
+                setNumberOfPages={setNumberOfPages}
                 setPage={setPage}
                 onSelectResult={onSelectResult}
             />

@@ -12,23 +12,26 @@ export default function PaginatedResults({
     onSelectResult = () => {},
     isLink = false,
     redirect = true,
-    name,
-    text,
-    selectedTypes,
-    colors,
-    matchType,
-    selectedSets,
-    cmc,
-    power,
-    toughness,
-    loyalty,
-    rarities,
-    flavorText,
-    page,
-    totalResults,
-    searchResults,
-    numberOfPages,
-    setPage,
+    name = '',
+    text = '',
+    selectedTypes = [],
+    colors = {},
+    matchType = '',
+    selectedSets = [],
+    cmc = {},
+    power = {},
+    toughness = {},
+    loyalty = {},
+    rarities = {},
+    flavorText = '',
+    page = 1,
+    setPage = () => {},
+    totalResults = 0,
+    setTotalResults = () => {},
+    searchResults = [],
+    setSearchResults = () => {},
+    numberOfPages = 0,
+    setNumberOfPages = () => {},
 }) {
     const { searchCards } = useSearch();
     const { searchResultsRedirect, displayResults } = useDisplayResults();
@@ -66,7 +69,7 @@ export default function PaginatedResults({
                 flavorText,
                 page,
             });
-            displayResults(response, true);
+            displayResults(response, setSearchResults, setNumberOfPages, setTotalResults);
         }
     };
 

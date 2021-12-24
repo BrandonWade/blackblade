@@ -38,6 +38,9 @@ export default function DeckBuilderSearch() {
         setFlavorText,
         page,
         setPage,
+        setSearchResults,
+        setNumberOfPages,
+        setTotalResults,
         resetSearchCriteria,
     } = useContext(DeckBuilderSearchContext);
 
@@ -60,7 +63,7 @@ export default function DeckBuilderSearch() {
             flavorText,
             page,
         });
-        displayResults(response, true);
+        displayResults(response, setSearchResults, setNumberOfPages, setTotalResults);
         selectTabByID('search_results');
     };
 

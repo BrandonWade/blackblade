@@ -35,8 +35,11 @@ export default function SearchResults({ location }) {
         page,
         setPage,
         totalResults,
+        setTotalResults,
         searchResults,
+        setSearchResults,
         numberOfPages,
+        setNumberOfPages,
     } = useContext(SearchContext);
     const { searchCards } = useSearch();
     const { cardRedirect, displayResults } = useDisplayResults();
@@ -77,7 +80,7 @@ export default function SearchResults({ location }) {
             if (response?.totalResults === 1) {
                 cardRedirect(response.results[0]);
             } else {
-                displayResults(response);
+                displayResults(response, setSearchResults, setNumberOfPages, setTotalResults);
             }
         };
 
@@ -152,8 +155,11 @@ export default function SearchResults({ location }) {
                 flavorText={flavorText}
                 page={page}
                 totalResults={totalResults}
+                setTotalResults={setTotalResults}
                 searchResults={searchResults}
+                setSearchResults={setSearchResults}
                 numberOfPages={numberOfPages}
+                setNumberOfPages={setNumberOfPages}
                 setPage={setPage}
             />
         </HeaderPage>
