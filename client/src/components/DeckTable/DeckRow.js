@@ -59,8 +59,8 @@ export default function DeckRow({ card = {}, count = 0, sectionType = '' }) {
 
     const renderSelectArtButton = () => {
         return ownsDeck ? (
-            <td className='DeckTable-selectArt' onClick={onSelectArt}>
-                <Images className='DeckTable-selectArtIcon' altText='Select card art' />
+            <td className='DeckTable-selectArt' title='Select card art' onClick={onSelectArt}>
+                <Images className='DeckTable-selectArtIcon' />
             </td>
         ) : (
             <td className='DeckTable-spacer' />
@@ -68,22 +68,24 @@ export default function DeckRow({ card = {}, count = 0, sectionType = '' }) {
     };
 
     const renderSwitchSectionButton = () => {
-        return ownsDeck ? (
-            <td className='DeckTable-switchSection' onClick={onSwitchSection}>
-                {isMaybeboardSection ? (
-                    <ArrowUp className='DeckTable-switchSectionIcon' altText='Move to deck' />
-                ) : (
-                    <ArrowDown className='DeckTable-switchSectionIcon' altText='Move to maybeboard' />
-                )}
+        if (!ownsDeck) {
+            return <td className='DeckTable-spacer' />;
+        }
+
+        return isMaybeboardSection ? (
+            <td className='DeckTable-switchSection' title='Move to deck' onClick={onSwitchSection}>
+                <ArrowUp className='DeckTable-switchSectionIcon' />
             </td>
         ) : (
-            <td className='DeckTable-spacer' />
+            <td className='DeckTable-switchSection' title='Move to maybeboard' onClick={onSwitchSection}>
+                <ArrowDown className='DeckTable-switchSectionIcon' />
+            </td>
         );
     };
 
     const renderRemoveButton = () => {
         return ownsDeck ? (
-            <td className='DeckTable-remove' onClick={onRemoveCard}>
+            <td className='DeckTable-remove' title='Remove card' onClick={onRemoveCard}>
                 &#x2715;
             </td>
         ) : (
