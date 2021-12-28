@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import SearchContext from '../../contexts/Search';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import useMenuItems from '../../hooks/useMenuItems';
-import { Documents } from '../Icons';
+import { Shuffle } from '../Icons';
 import Logo from '../Logo';
 import Input from '../Input';
 import Menu from '../Menu';
@@ -46,7 +46,7 @@ export default function HeaderPage({ children = [], className = '' }) {
                     )}
                 </div>
                 <Link className='HeaderPage-randomCard' to='/random'>
-                    <Documents className='HeaderPage-randomIcon' />
+                    <Shuffle className='HeaderPage-randomIcon' />
                 </Link>
                 <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
             </div>

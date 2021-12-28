@@ -109,11 +109,16 @@
             display: inline-flex;
             justify-content: center;
             width: 100%;
+            margin: 1rem 0;
         }
     }
 
     &-resetButton {
         margin-left: 2rem;
+
+        @media only screen and (max-width: 52.125em) {
+            margin-left: 1.25rem;
+        }
     }
 }
 
