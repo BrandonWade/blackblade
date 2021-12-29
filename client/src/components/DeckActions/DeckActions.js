@@ -1,16 +1,19 @@
 import { useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { shuffle } from 'lodash';
 import useDecks from '../../hooks/useDecks';
 import usePersistDeck from '../../hooks/usePersistDeck';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
+import DrawHandContextDialogContext from '../../contexts/DrawHandDialog';
+import { inflateDeck } from '../../helpers/deck';
 import DeckActionButton from './DeckActionButton';
-import { Pencil, Export } from '../Icons';
+import { Pencil, Documents, Export } from '../Icons';
 import './DeckActions.scss';
 
-export default function DeckActions() {
+export default function DeckActions({ deckExists = false }) {
     const { publicID } = useParams();
     const history = useHistory();
     const { exportDeck } = useDecks();
@@ -19,12 +22,22 @@ export default function DeckActions() {
     const { accountPublicID } = useContext(AuthContext);
     const { deckAccountPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt } =
         useContext(DeckBuilderContext);
-    const { setDeckExport, setVisible } = useContext(ExportDeckDialogContext);
+    const { setDeckExport, setVisible: setExportDeckDialogVisible } = useContext(ExportDeckDialogContext);
+    const { setHand, setVisible: setDrawHandDialogVisible } = useContext(DrawHandContextDialogContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
     const hasCards = deckCards.length > 0 || maybeboardCards.length > 0;
 
     const onEditDeck = () => {
         history.push(`/decks/${publicID}/edit`);
+    };
+
+    const onDrawHand = () => {
+        const deck = inflateDeck(deckCards);
+        const shuffledDeck = shuffle(deck);
+        const cardsToDraw = Math.min(shuffledDeck.length, 7);
+
+        setHand(shuffledDeck.slice(0, cardsToDraw));
+        setDrawHandDialogVisible(true);
     };
 
     const onExportDeck = async () => {
@@ -39,7 +52,7 @@ export default function DeckActions() {
         }
 
         setDeckExport(response.deckExport);
-        setVisible(true);
+        setExportDeckDialogVisible(true);
     };
 
     return (
@@ -47,6 +60,10 @@ export default function DeckActions() {
             <DeckActionButton visible={ownsDeck} onClick={onEditDeck}>
                 <Pencil />
                 <span className='DeckActions-buttonLabel'>Edit Deck</span>
+            </DeckActionButton>
+            <DeckActionButton visible={deckExists} onClick={onDrawHand}>
+                <Documents />
+                <span className='DeckActions-buttonLabel'>Draw Hand</span>
             </DeckActionButton>
             <DeckActionButton visible={hasCards} onClick={onExportDeck}>
                 <Export />

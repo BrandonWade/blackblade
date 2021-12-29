@@ -14,3 +14,17 @@ export function trimCards(cards, location) {
         location,
     }));
 }
+
+// Covert counts on cards in an array into actual cards in the array
+export function inflateDeck(cards) {
+    let deck = [];
+
+    // Create copies of the card equal to the count on each card
+    cards.forEach(card => {
+        for (let i = 0; i < card.count; i++) {
+            deck = deck.concat(card);
+        }
+    });
+
+    return deck;
+}

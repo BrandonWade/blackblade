@@ -9,6 +9,7 @@ import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import HeaderPage from '../../components/HeaderPage';
 import CardArtSelector from '../../components/CardArtSelector';
+import DrawHandDialog from '../../components/DrawHandDialog';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
 import CardImagePreview from '../../components/CardImagePreview';
 import TabStrip from '../../components/TabStrip';
@@ -63,6 +64,7 @@ export default function DeckBuilder() {
     return (
         <HeaderPage className='DeckBuilder'>
             <CardArtSelector />
+            <DrawHandDialog />
             <ExportDeckDialog />
             <CardImagePreview />
             <div className='DeckBuilder-displayPanel'>
@@ -80,7 +82,7 @@ export default function DeckBuilder() {
                         {deckExists ? <div className='DeckBuilder-name'>{deckName}</div> : null}
                         {deckExists && ownsDeck ? <SaveIndicator /> : null}
                     </div>
-                    <DeckActions />
+                    <DeckActions deckExists={deckExists} />
                 </div>
                 <div className='DeckBuilder-tableContainer'>
                     <DeckStats deck={deckCards} />
