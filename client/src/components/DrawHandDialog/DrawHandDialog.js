@@ -4,8 +4,6 @@ import DrawHandDialogContext from '../../contexts/DrawHandDialog';
 import Backdrop from '../Backdrop';
 import Panel from '../Panel';
 import CardGrid from '../CardGrid';
-import { NumberInputField } from '../NumberInput';
-import Button from '../Button';
 import './DrawHandDialog.scss';
 
 export default function DrawHandDialog() {
@@ -22,10 +20,6 @@ export default function DrawHandDialog() {
                     &#x2715;
                 </div>
                 <div className='DrawHandDialog-hand'>
-                    <div className='DrawHandDialog-formWrapper'>
-                        <NumberInputField className='DrawHandDialog-handSize' label='Hand size' />
-                        <Button>Draw</Button>
-                    </div>
                     <CardGrid className='DrawHandDialog-cardGrid' cards={hand} />
                 </div>
             </Panel>
