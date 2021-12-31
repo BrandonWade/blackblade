@@ -1,14 +1,12 @@
 import { useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { shuffle } from 'lodash';
 import useDecks from '../../hooks/useDecks';
 import usePersistDeck from '../../hooks/usePersistDeck';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
+import useDrawHand from '../../hooks/useDrawHand/useDrawHand';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
-import DrawHandContextDialogContext from '../../contexts/DrawHandDialog';
-import { inflateDeck } from '../../helpers/deck';
 import DeckActionButton from './DeckActionButton';
 import { Pencil, Documents, Export } from '../Icons';
 import './DeckActions.scss';
@@ -19,11 +17,11 @@ export default function DeckActions({ deckExists = false }) {
     const { exportDeck } = useDecks();
     const { persistDeckWithConfirmation } = usePersistDeck();
     const { isDeckUnmodified } = useIsDeckUnmodified();
+    const { drawHand } = useDrawHand();
     const { accountPublicID } = useContext(AuthContext);
     const { deckAccountPublicID, deckName, deckVisibility, deckNotes, deckCards, maybeboardCards, deckLastUpdatedAt } =
         useContext(DeckBuilderContext);
-    const { setDeckExport, setVisible: setExportDeckDialogVisible } = useContext(ExportDeckDialogContext);
-    const { setHand, setVisible: setDrawHandDialogVisible } = useContext(DrawHandContextDialogContext);
+    const { setDeckExport, setVisible } = useContext(ExportDeckDialogContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
     const hasCards = deckCards.length > 0 || maybeboardCards.length > 0;
 
@@ -32,12 +30,7 @@ export default function DeckActions({ deckExists = false }) {
     };
 
     const onDrawHand = () => {
-        const deck = inflateDeck(deckCards);
-        const shuffledDeck = shuffle(deck);
-        const cardsToDraw = Math.min(shuffledDeck.length, 7);
-
-        setHand(shuffledDeck.slice(0, cardsToDraw));
-        setDrawHandDialogVisible(true);
+        drawHand();
     };
 
     const onExportDeck = async () => {
@@ -52,7 +45,7 @@ export default function DeckActions({ deckExists = false }) {
         }
 
         setDeckExport(response.deckExport);
-        setExportDeckDialogVisible(true);
+        setVisible(true);
     };
 
     return (

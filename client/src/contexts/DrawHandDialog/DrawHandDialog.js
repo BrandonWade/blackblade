@@ -1,8 +1,9 @@
 import { createContext } from 'react';
 
 export const initialState = {
-    visible: false,
+    handSize: 7,
     hand: [],
+    visible: false,
 };
 
 export default createContext(initialState);

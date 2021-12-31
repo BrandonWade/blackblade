@@ -14,10 +14,10 @@ export default function CardGrid({
         <div className={`CardGrid ${className}`}>
             {heading ? <h3 className='CardGrid-heading'>{heading}</h3> : null}
             <div className={`CardGrid-content ${gridClassName}`}>
-                {cards.map(card => {
+                {cards.map((card, i) => {
                     return (
                         <CardImage
-                            key={card.card_id}
+                            key={i}
                             imageClassName='CardGrid-image'
                             card={card}
                             isSelected={card.card_id === currentCardID}
