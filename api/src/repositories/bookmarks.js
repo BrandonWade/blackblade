@@ -14,7 +14,7 @@ const createBookmark = async (accountID, cardID) => {
     );
 };
 
-const getBookmark = async (bookmarkID) => {
+const getBookmark = async (accountID, bookmarkID) => {
     return connection.query(
         `SELECT
         b.id,
@@ -23,9 +23,10 @@ const getBookmark = async (bookmarkID) => {
         c.name
         FROM bookmarks b
         INNER JOIN cards c ON c.id = b.card_id
-        WHERE b.id = ?
+        WHERE b.account_id = ?
+        AND b.id = ?
     `,
-        [bookmarkID],
+        [accountID, bookmarkID],
     );
 };
 

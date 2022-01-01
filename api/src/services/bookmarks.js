@@ -26,7 +26,10 @@ const createBookmark = async (accountID, cardID) => {
             throw new Error('error inserting new bookmark row');
         }
 
-        const [getResult] = await BookmarkRepository.getBookmark(bookmarkID);
+        const [getResult] = await BookmarkRepository.getBookmark(
+            accountID,
+            bookmarkID,
+        );
         if (getResult?.length !== 1 || !getResult?.[0]?.id) {
             throw new Error(
                 `error getting created bookmark with id ${bookmarkID}`,
