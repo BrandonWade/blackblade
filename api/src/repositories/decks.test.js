@@ -61,4 +61,128 @@ describe('Deck Repository', () => {
             ).not.toThrow();
         });
     });
+
+    describe('getDeckByPublicID', () => {
+        test('throws an error if one occurred while retrieving the deck with the given public id', async () => {
+            const publicID = 'abcdef1234567890';
+
+            connection.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckRepository.getDeckByPublicID(publicID),
+            ).rejects.toThrow();
+        });
+
+        test('returns if no error occurred', async () => {
+            const publicID = 'abcdef1234567890';
+
+            connection.query.mockResolvedValue();
+
+            await expect(() =>
+                DeckRepository.getDeckByPublicID(publicID),
+            ).not.toThrow();
+        });
+    });
+
+    describe('getDeckCardsByPublicID', () => {
+        test('throws an error if one occurred while retrieving the deck cards associated with the given public id', async () => {
+            const publicID = 'abcdef1234567890';
+
+            connection.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckRepository.getDeckCardsByPublicID(publicID),
+            ).rejects.toThrow();
+        });
+
+        test('returns if no error occurred', async () => {
+            const publicID = 'abcdef1234567890';
+
+            connection.query.mockResolvedValue();
+
+            await expect(() =>
+                DeckRepository.getDeckCardsByPublicID(publicID),
+            ).not.toThrow();
+        });
+    });
+
+    describe('listDecks', () => {
+        test('throws an error if one occurred while retrieving the deck list for the given account id', async () => {
+            const accountID = 123;
+
+            connection.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckRepository.listDecks(accountID),
+            ).rejects.toThrow();
+        });
+
+        test('returns if no error occurred', async () => {
+            const accountID = 123;
+
+            connection.query.mockResolvedValue();
+
+            await expect(() =>
+                DeckRepository.listDecks(accountID),
+            ).not.toThrow();
+        });
+    });
+
+    describe('deleteDeckByPublicID', () => {
+        test('throws an error if one occurred while retrieving the deck with the given public id', async () => {
+            const accountID = 123;
+            const publicID = 'abcdef1234567890';
+
+            connection.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckRepository.deleteDeckByPublicID(accountID, publicID),
+            ).rejects.toThrow();
+        });
+
+        test('returns if no error occurred', async () => {
+            const accountID = 123;
+            const publicID = 'abcdef1234567890';
+
+            connection.query.mockResolvedValue();
+
+            await expect(() =>
+                DeckRepository.deleteDeckByPublicID(accountID, publicID),
+            ).not.toThrow();
+        });
+    });
+
+    describe('exportDeckByPublicID', () => {
+        test('throws an error if one occurred while retrieving the deck with the given public id', async () => {
+            const accountID = 123;
+            const publicID = 'abcdef1234567890';
+
+            connection.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                DeckRepository.exportDeckByPublicID(publicID),
+            ).rejects.toThrow();
+        });
+
+        test('returns if no error occurred', async () => {
+            const accountID = 123;
+            const publicID = 'abcdef1234567890';
+
+            connection.query.mockResolvedValue();
+
+            await expect(() =>
+                DeckRepository.exportDeckByPublicID(publicID),
+            ).not.toThrow();
+        });
+    });
 });
