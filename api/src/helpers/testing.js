@@ -44,3 +44,15 @@ export function mailjetMock() {
 
     return mailjet;
 }
+
+export function transactionMock() {
+    const tx = {};
+
+    tx.beginTransaction = jest.fn().mockReturnValue(tx);
+    tx.query = jest.fn().mockReturnValue(tx);
+    tx.commit = jest.fn().mockReturnValue(tx);
+    tx.rollback = jest.fn().mockReturnValue(tx);
+    tx.release = jest.fn().mockReturnValue(tx);
+
+    return tx;
+}
