@@ -62,7 +62,7 @@ const saveDeck = async (
         // Only run if there are any cards in the deck to save
         if (cards.length) {
             await tx.query(
-                `INSERT INTO deck_cards(
+                `INSERT INTO deck_cards (
                     deck_id,
                     card_id,
                     count,

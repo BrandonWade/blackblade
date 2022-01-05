@@ -46,7 +46,7 @@ const registerAccount = async (email, passwordHash, activationToken) => {
         }
 
         const [tokenResults] = await tx.query(
-            `INSERT INTO account_activation_tokens(
+            `INSERT INTO account_activation_tokens (
                 account_id,
                 activation_token
             ) VALUES (
@@ -164,7 +164,7 @@ const createPasswordResetToken = async (email, token) => {
 
         const accountID = accountResults[0].id;
         const [insertResults] = await tx.query(
-            `INSERT INTO account_password_reset_tokens(
+            `INSERT INTO account_password_reset_tokens (
                 account_id,
                 reset_token,
                 expires_at

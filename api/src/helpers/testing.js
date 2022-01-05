@@ -56,3 +56,10 @@ export function transactionMock() {
 
     return tx;
 }
+
+export class DatabaseErrorMock extends Error {
+    constructor({ message = '', code = '' }) {
+        super(message);
+        this.code = code;
+    }
+}
