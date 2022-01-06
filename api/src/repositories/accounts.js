@@ -141,7 +141,7 @@ const activateAccount = async (activationToken) => {
     return success;
 };
 
-const createPasswordResetToken = async (email, token) => {
+const createPasswordResetToken = async (email, passwordResetToken) => {
     let success = false;
 
     const tx = await connection.getConnection();
@@ -174,7 +174,7 @@ const createPasswordResetToken = async (email, token) => {
                 DATE_ADD(NOW(), INTERVAL 1 HOUR)
             )
         `,
-            [accountID, token],
+            [accountID, passwordResetToken],
         );
         if (!insertResults?.insertId) {
             throw new Error(
