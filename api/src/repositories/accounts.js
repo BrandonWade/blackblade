@@ -182,7 +182,7 @@ const createPasswordResetToken = async (email, passwordResetToken) => {
             );
         }
 
-        const insertID = insertResults?.insertId;
+        const insertID = insertResults.insertId;
         await tx.query(
             `UPDATE account_password_reset_tokens p
             SET p.status = 'disabled'

@@ -325,4 +325,129 @@ describe('Account Repository', () => {
             expect(tx.release).toHaveBeenCalled();
         });
     });
+
+    describe('createPasswordResetToken', () => {
+        test('throws an error if one occurred while retrieving the account with the provided email address', async () => {
+            const email = 'test@test.com';
+            const resetToken = 'testresettoken123456';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            connection.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountRepository.createPasswordResetToken(email, resetToken),
+            ).rejects.toThrow();
+            expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.commit).not.toHaveBeenCalled();
+            expect(tx.rollback).toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+
+        test('throws a not found error if the account with the provided email address could not be found', async () => {
+            const email = 'test@test.com';
+            const resetToken = 'testresettoken123456';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            connection.query.mockResolvedValue([[]]);
+
+            await expect(() =>
+                AccountRepository.createPasswordResetToken(email, resetToken),
+            ).rejects.toThrow(NotFoundError);
+            expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.commit).not.toHaveBeenCalled();
+            expect(tx.rollback).toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+
+        test('throws an error if one occurred while inserting the password reset token for the account with the provided email address', async () => {
+            const email = 'test@test.com';
+            const resetToken = 'testresettoken123456';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            connection.query.mockResolvedValue([[{ id: 123 }]]);
+            tx.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountRepository.createPasswordResetToken(email, resetToken),
+            ).rejects.toThrow();
+            expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.query).toHaveBeenCalledTimes(1);
+            expect(tx.commit).not.toHaveBeenCalled();
+            expect(tx.rollback).toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+
+        test('throws an error if the password reset token could not be inserted', async () => {
+            const email = 'test@test.com';
+            const resetToken = 'testresettoken123456';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            connection.query.mockResolvedValue([[{ id: 123 }]]);
+            tx.query.mockResolvedValue([{}]);
+
+            await expect(() =>
+                AccountRepository.createPasswordResetToken(email, resetToken),
+            ).rejects.toThrow();
+            expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.query).toHaveBeenCalledTimes(1);
+            expect(tx.commit).not.toHaveBeenCalled();
+            expect(tx.rollback).toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+
+        test('throws an error if one occurred while disabling existing pending password reset tokens for the account with the provided email address', async () => {
+            const email = 'test@test.com';
+            const resetToken = 'testresettoken123456';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            connection.query.mockResolvedValue([[{ id: 123 }]]);
+            tx.query
+                .mockResolvedValueOnce([{ insertId: 987 }])
+                .mockImplementationOnce(() => {
+                    throw new Error();
+                });
+
+            await expect(() =>
+                AccountRepository.createPasswordResetToken(email, resetToken),
+            ).rejects.toThrow();
+            expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.query).toHaveBeenCalledTimes(2);
+            expect(tx.commit).not.toHaveBeenCalled();
+            expect(tx.rollback).toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+
+        test('returns true if the password reset token was successfully created', async () => {
+            const email = 'test@test.com';
+            const resetToken = 'testresettoken123456';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            connection.query.mockResolvedValue([[{ id: 123 }]]);
+            tx.query
+                .mockResolvedValueOnce([{ insertId: 987 }])
+                .mockResolvedValueOnce([{ insertId: 654 }]);
+
+            const output = await AccountRepository.createPasswordResetToken(
+                email,
+                resetToken,
+            );
+
+            expect(output).toBe(true);
+            expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.query).toHaveBeenCalledTimes(2);
+            expect(tx.commit).toHaveBeenCalled();
+            expect(tx.rollback).not.toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+    });
 });
