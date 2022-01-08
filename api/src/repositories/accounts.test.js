@@ -3,6 +3,7 @@ import { transactionMock, DatabaseErrorMock } from '../helpers/testing';
 import { connection } from '../db';
 import AlreadyExistsError from '../errors/already_exists';
 import NotFoundError from '../errors/not_found';
+import UnauthorizedError from '../errors/unauthorized';
 
 jest.mock('../db');
 
@@ -444,6 +445,106 @@ describe('Account Repository', () => {
 
             expect(output).toBe(true);
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.query).toHaveBeenCalledTimes(2);
+            expect(tx.commit).toHaveBeenCalled();
+            expect(tx.rollback).not.toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+    });
+
+    describe('resetPassword', () => {
+        test('throws an error if one occurred while updating the password for the account associated with the given password reset token', async () => {
+            const resetToken = 'testresettoken123456';
+            const passwordHash = 'testpasswordhash1234123123';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            tx.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountRepository.resetPassword(resetToken, passwordHash),
+            ).rejects.toThrow();
+            expect(tx.query).toHaveBeenCalledTimes(1);
+            expect(tx.commit).not.toHaveBeenCalled();
+            expect(tx.rollback).toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+
+        test('throws an error if the password could not be updated for the account associated with the given password reset token', async () => {
+            const resetToken = 'testresettoken123456';
+            const passwordHash = 'testpasswordhash1234123123';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            tx.query.mockReturnValue([{}]);
+
+            await expect(() =>
+                AccountRepository.resetPassword(resetToken, passwordHash),
+            ).rejects.toThrow(UnauthorizedError);
+            expect(tx.query).toHaveBeenCalledTimes(1);
+            expect(tx.commit).not.toHaveBeenCalled();
+            expect(tx.rollback).toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+
+        test('throws an error if one occurred while marking the given password reset token as used', async () => {
+            const resetToken = 'testresettoken123456';
+            const passwordHash = 'testpasswordhash1234123123';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            tx.query
+                .mockResolvedValueOnce([{ affectedRows: 1 }])
+                .mockImplementationOnce(() => {
+                    throw new Error();
+                });
+
+            await expect(() =>
+                AccountRepository.resetPassword(resetToken, passwordHash),
+            ).rejects.toThrow();
+            expect(tx.query).toHaveBeenCalledTimes(2);
+            expect(tx.commit).not.toHaveBeenCalled();
+            expect(tx.rollback).toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+
+        test('throws an error if the given password reset token could not be marked as used', async () => {
+            const resetToken = 'testresettoken123456';
+            const passwordHash = 'testpasswordhash1234123123';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            tx.query
+                .mockResolvedValueOnce([{ affectedRows: 1 }])
+                .mockResolvedValueOnce([{}]);
+
+            await expect(() =>
+                AccountRepository.resetPassword(resetToken, passwordHash),
+            ).rejects.toThrow(NotFoundError);
+            expect(tx.query).toHaveBeenCalledTimes(2);
+            expect(tx.commit).not.toHaveBeenCalled();
+            expect(tx.rollback).toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+
+        test('returns true if the password was successfully reset', async () => {
+            const resetToken = 'testresettoken123456';
+            const passwordHash = 'testpasswordhash1234123123';
+
+            const tx = transactionMock();
+            connection.getConnection.mockResolvedValue(tx);
+            tx.query
+                .mockResolvedValueOnce([{ affectedRows: 1 }])
+                .mockResolvedValueOnce([{ affectedRows: 1 }]);
+
+            const output = await AccountRepository.resetPassword(
+                resetToken,
+                passwordHash,
+            );
+
+            expect(output).toBe(true);
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).toHaveBeenCalled();
             expect(tx.rollback).not.toHaveBeenCalled();

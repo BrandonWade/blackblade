@@ -206,7 +206,7 @@ const createPasswordResetToken = async (email, passwordResetToken) => {
     return success;
 };
 
-const resetPassword = async (token, passwordHash) => {
+const resetPassword = async (passwordResetToken, passwordHash) => {
     let success = false;
 
     const tx = await connection.getConnection();
@@ -222,11 +222,11 @@ const resetPassword = async (token, passwordHash) => {
             AND TIMESTAMPDIFF(MINUTE, CURRENT_TIMESTAMP, t.expires_at) >= 0
             AND TIMESTAMPDIFF(MINUTE, CURRENT_TIMESTAMP, t.expires_at) <= 60
         `,
-            [passwordHash, token],
+            [passwordHash, passwordResetToken],
         );
         if (accountResult?.affectedRows !== 1) {
             throw new UnauthorizedError(
-                `reset token ${token} expired or invalid`,
+                `reset token ${passwordResetToken} expired or invalid`,
             );
         }
 
@@ -235,11 +235,12 @@ const resetPassword = async (token, passwordHash) => {
             SET t.status = 'used'
             WHERE t.reset_token = ?
         `,
-            [token],
+            [passwordResetToken],
         );
-
         if (tokenResult?.affectedRows !== 1) {
-            throw new NotFoundError(`could not find reset token ${token}`);
+            throw new NotFoundError(
+                `could not find reset token ${passwordResetToken}`,
+            );
         }
 
         await tx.commit();
