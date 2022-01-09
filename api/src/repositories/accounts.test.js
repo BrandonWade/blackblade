@@ -551,4 +551,38 @@ describe('Account Repository', () => {
             expect(tx.release).toHaveBeenCalled();
         });
     });
+
+    describe('getAccountByEmail', () => {
+        test('throws an error if one occurred while updating retrieving the account with the given email address', async () => {
+            const email = 'test@test.com';
+
+            connection.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountRepository.getAccountByEmail(email),
+            ).rejects.toThrow();
+        });
+
+        test('returns the account with the given email address if found', async () => {
+            const email = 'test@test.com';
+
+            connection.query.mockResolvedValue([[{ email }]]);
+
+            const output = await AccountRepository.getAccountByEmail(email);
+
+            expect(output).toEqual({ email });
+        });
+
+        test('returns null if the account with the given email address could not be found', async () => {
+            const email = 'test@test.com';
+
+            connection.query.mockResolvedValue([[]]);
+
+            const output = await AccountRepository.getAccountByEmail(email);
+
+            expect(output).toBe(null);
+        });
+    });
 });
