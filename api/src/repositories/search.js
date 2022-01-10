@@ -6,7 +6,7 @@ import {
     addColorlessCondition,
     addStatCondition,
     addInCondition,
-} from './helpers';
+} from '../helpers/search';
 
 const getCardsByProperties = (
     nameTokens,
