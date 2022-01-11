@@ -85,6 +85,28 @@ describe('Account Repository', () => {
             expect(tx.release).toHaveBeenCalled();
         });
 
+        test('throws an error if an account with the provided email address was not successfully inserted', async () => {
+            const email = 'test@test.com';
+            const passwordHash = 'testpasswordhash1234123123';
+            const activationToken = 'testactivationtoken123456';
+
+            const tx = transactionMock();
+            tx.query.mockResolvedValueOnce([[]]).mockResolvedValue([{}]);
+            connection.getConnection.mockResolvedValue(tx);
+
+            await expect(() =>
+                AccountRepository.registerAccount(
+                    email,
+                    passwordHash,
+                    activationToken,
+                ),
+            ).rejects.toThrow();
+            expect(tx.query).toHaveBeenCalledTimes(2);
+            expect(tx.commit).not.toHaveBeenCalled();
+            expect(tx.rollback).toHaveBeenCalled();
+            expect(tx.release).toHaveBeenCalled();
+        });
+
         test('throws an error if one occurred while inserting the activation token for a new account with the provided email address', async () => {
             const email = 'test@test.com';
             const passwordHash = 'testpasswordhash1234123123';

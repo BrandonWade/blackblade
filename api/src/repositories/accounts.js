@@ -40,9 +40,13 @@ const registerAccount = async (email, passwordHash, activationToken) => {
             )`,
                 [email, passwordHash],
             );
-            if (insertResult?.insertId) {
-                accountID = insertResult.insertId;
+            if (!insertResult?.insertId) {
+                throw new Error(
+                    `error creating account row for email ${email}`,
+                );
             }
+
+            accountID = insertResult.insertId;
         }
 
         const [tokenResults] = await tx.query(
