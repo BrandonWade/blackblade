@@ -31,6 +31,7 @@ describe('Account Repository', () => {
                     activationToken,
                 ),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(1);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -55,6 +56,7 @@ describe('Account Repository', () => {
                     activationToken,
                 ),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -79,6 +81,7 @@ describe('Account Repository', () => {
                     activationToken,
                 ),
             ).rejects.toThrow(AlreadyExistsError);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -101,6 +104,7 @@ describe('Account Repository', () => {
                     activationToken,
                 ),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -128,6 +132,7 @@ describe('Account Repository', () => {
                     activationToken,
                 ),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(3);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -154,6 +159,7 @@ describe('Account Repository', () => {
                     activationToken,
                 ),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -179,6 +185,7 @@ describe('Account Repository', () => {
                     activationToken,
                 ),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(3);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -204,6 +211,7 @@ describe('Account Repository', () => {
             );
 
             expect(output).toBe(true);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(3);
             expect(tx.commit).toHaveBeenCalled();
             expect(tx.rollback).not.toHaveBeenCalled();
@@ -225,6 +233,7 @@ describe('Account Repository', () => {
                 AccountRepository.activateAccount(activationToken),
             ).rejects.toThrow();
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
             expect(tx.release).toHaveBeenCalled();
@@ -241,6 +250,7 @@ describe('Account Repository', () => {
                 AccountRepository.activateAccount(activationToken),
             ).rejects.toThrow(NotFoundError);
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
             expect(tx.release).toHaveBeenCalled();
@@ -260,6 +270,7 @@ describe('Account Repository', () => {
                 AccountRepository.activateAccount(activationToken),
             ).rejects.toThrow();
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(1);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -278,6 +289,7 @@ describe('Account Repository', () => {
                 AccountRepository.activateAccount(activationToken),
             ).rejects.toThrow(NotFoundError);
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(1);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -300,6 +312,7 @@ describe('Account Repository', () => {
                 AccountRepository.activateAccount(activationToken),
             ).rejects.toThrow();
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -320,6 +333,7 @@ describe('Account Repository', () => {
                 AccountRepository.activateAccount(activationToken),
             ).rejects.toThrow(NotFoundError);
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -342,6 +356,7 @@ describe('Account Repository', () => {
 
             expect(output).toBe(true);
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).toHaveBeenCalled();
             expect(tx.rollback).not.toHaveBeenCalled();
@@ -364,6 +379,7 @@ describe('Account Repository', () => {
                 AccountRepository.createPasswordResetToken(email, resetToken),
             ).rejects.toThrow();
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
             expect(tx.release).toHaveBeenCalled();
@@ -381,6 +397,7 @@ describe('Account Repository', () => {
                 AccountRepository.createPasswordResetToken(email, resetToken),
             ).rejects.toThrow(NotFoundError);
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
             expect(tx.release).toHaveBeenCalled();
@@ -401,6 +418,7 @@ describe('Account Repository', () => {
                 AccountRepository.createPasswordResetToken(email, resetToken),
             ).rejects.toThrow();
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(1);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -420,6 +438,7 @@ describe('Account Repository', () => {
                 AccountRepository.createPasswordResetToken(email, resetToken),
             ).rejects.toThrow();
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(1);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -443,6 +462,7 @@ describe('Account Repository', () => {
                 AccountRepository.createPasswordResetToken(email, resetToken),
             ).rejects.toThrow();
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -467,6 +487,7 @@ describe('Account Repository', () => {
 
             expect(output).toBe(true);
             expect(connection.query).toHaveBeenCalledTimes(1);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).toHaveBeenCalled();
             expect(tx.rollback).not.toHaveBeenCalled();
@@ -488,6 +509,7 @@ describe('Account Repository', () => {
             await expect(() =>
                 AccountRepository.resetPassword(resetToken, passwordHash),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(1);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -505,6 +527,7 @@ describe('Account Repository', () => {
             await expect(() =>
                 AccountRepository.resetPassword(resetToken, passwordHash),
             ).rejects.toThrow(UnauthorizedError);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(1);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -526,6 +549,7 @@ describe('Account Repository', () => {
             await expect(() =>
                 AccountRepository.resetPassword(resetToken, passwordHash),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -545,6 +569,7 @@ describe('Account Repository', () => {
             await expect(() =>
                 AccountRepository.resetPassword(resetToken, passwordHash),
             ).rejects.toThrow(NotFoundError);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -567,6 +592,7 @@ describe('Account Repository', () => {
             );
 
             expect(output).toBe(true);
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).toHaveBeenCalled();
             expect(tx.rollback).not.toHaveBeenCalled();

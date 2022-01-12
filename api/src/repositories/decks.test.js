@@ -94,6 +94,7 @@ describe('Deck Repository', () => {
                     cards,
                 ),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(1);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -127,6 +128,7 @@ describe('Deck Repository', () => {
                 cards,
             );
 
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).toHaveBeenCalled();
             expect(tx.rollback).not.toHaveBeenCalled();
@@ -178,6 +180,7 @@ describe('Deck Repository', () => {
                     cards,
                 ),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(2);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -231,6 +234,7 @@ describe('Deck Repository', () => {
                     cards,
                 ),
             ).rejects.toThrow();
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(3);
             expect(tx.commit).not.toHaveBeenCalled();
             expect(tx.rollback).toHaveBeenCalled();
@@ -278,6 +282,7 @@ describe('Deck Repository', () => {
                 cards,
             );
 
+            expect(tx.beginTransaction).toHaveBeenCalled();
             expect(tx.query).toHaveBeenCalledTimes(3);
             expect(tx.commit).toHaveBeenCalled();
             expect(tx.rollback).not.toHaveBeenCalled();
@@ -386,7 +391,6 @@ describe('Deck Repository', () => {
 
     describe('exportDeckByPublicID', () => {
         test('throws an error if one occurred while retrieving the deck with the given public id', async () => {
-            const accountID = 123;
             const publicID = 'abcdef1234567890';
 
             connection.query.mockImplementation(() => {
@@ -399,7 +403,6 @@ describe('Deck Repository', () => {
         });
 
         test('returns if no error occurred', async () => {
-            const accountID = 123;
             const publicID = 'abcdef1234567890';
 
             connection.query.mockResolvedValue();
