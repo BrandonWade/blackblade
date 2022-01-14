@@ -25,7 +25,7 @@ const getCardsByProperties = (
     page = null,
     pageSize = null,
 ) => {
-    const subquery = builder
+    const subquery = builder()
         .select('oracle_id')
         .max('released_at AS released_at')
         .from('cards AS c')
@@ -46,7 +46,7 @@ const getCardsByProperties = (
     addInCondition(subquery, rarities, 'c.rarity');
     addLikeCondition(subquery, flavorTextTokens, 'f.flavor_text');
 
-    const query = builder
+    const query = builder()
         .select(
             'c.id AS card_id',
             'c.cmc',
@@ -101,7 +101,7 @@ const getTotalResults = (
         flavorTextTokens,
     ).as('b');
 
-    return builder.count('* AS total_results').from(query);
+    return builder().count('* AS total_results').from(query);
 };
 
 const getCardByID = async (id) => {

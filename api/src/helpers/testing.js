@@ -57,6 +57,23 @@ export function transactionMock() {
     return tx;
 }
 
+export function builderMock() {
+    const builder = {};
+
+    builder.select = jest.fn().mockReturnValue(builder);
+    builder.max = jest.fn().mockReturnValue(builder);
+    builder.from = jest.fn().mockReturnValue(builder);
+    builder.innerJoin = jest.fn().mockReturnValue(builder);
+    builder.groupBy = jest.fn().mockReturnValue(builder);
+    builder.as = jest.fn().mockReturnValue(builder);
+    builder.joinRaw = jest.fn().mockReturnValue(builder);
+    builder.orderBy = jest.fn().mockReturnValue(builder);
+    builder.limit = jest.fn().mockReturnValue(builder);
+    builder.offset = jest.fn().mockReturnValue(builder);
+
+    return builder;
+}
+
 export class DatabaseErrorMock extends Error {
     constructor({ message = '', code = '' }) {
         super(message);
