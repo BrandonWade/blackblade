@@ -154,6 +154,56 @@ describe('Search Repository', () => {
         });
     });
 
+    describe('getTotalResults', () => {
+        test('throws an error if one occurred while adding the count clause', () => {
+            const nameTokens = [];
+            const textTokens = [];
+            const typeTokens = [];
+            const colors = [];
+            const colorless = [];
+            const matchType = 'exact';
+            const setTokens = [];
+            const cmc = 0;
+            const power = 0;
+            const toughness = 0;
+            const loyalty = 0;
+            const rarities = [];
+            const flavorTextTokens = [];
+
+            const bm = builderMock();
+            builder
+                .mockResolvedValueOnce(bm)
+                .mockResolvedValueOnce(bm)
+                .mockImplementationOnce(() => {
+                    throw new Error();
+                });
+            addLikeCondition.mockImplementation();
+            addNegatableLikeCondition.mockImplementation();
+            addColorConditions.mockImplementation();
+            addColorlessCondition.mockImplementation();
+            addStatCondition.mockImplementation();
+            addInCondition.mockImplementation();
+
+            expect(() =>
+                SearchRepository.getTotalResults(
+                    nameTokens,
+                    textTokens,
+                    typeTokens,
+                    colors,
+                    colorless,
+                    matchType,
+                    setTokens,
+                    cmc,
+                    power,
+                    toughness,
+                    loyalty,
+                    rarities,
+                    flavorTextTokens,
+                ),
+            ).toThrow();
+        });
+    });
+
     describe('getCardByID', () => {
         test('throws an error if one occurred while retrieving the card with the provided id', async () => {
             const cardID = 123;

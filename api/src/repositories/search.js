@@ -175,8 +175,8 @@ const getCardSets = async () => {
 };
 
 export default {
-    getTotalResults,
     getCardsByProperties,
+    getTotalResults,
     getCardByID,
     getRandomCard,
     getCardTypes,

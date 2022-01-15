@@ -70,6 +70,7 @@ export function builderMock() {
     builder.orderBy = jest.fn().mockReturnValue(builder);
     builder.limit = jest.fn().mockReturnValue(builder);
     builder.offset = jest.fn().mockReturnValue(builder);
+    builder.count = jest.fn().mockReturnValue(builder);
 
     return builder;
 }
