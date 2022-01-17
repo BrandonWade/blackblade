@@ -70,38 +70,8 @@ const getCardsByProperties = (
     return query;
 };
 
-const getTotalResults = (
-    nameTokens,
-    textTokens,
-    typeTokens,
-    colors,
-    colorless,
-    matchType,
-    setTokens,
-    cmc,
-    power,
-    toughness,
-    loyalty,
-    rarities,
-    flavorTextTokens,
-) => {
-    const query = getCardsByProperties(
-        nameTokens,
-        textTokens,
-        typeTokens,
-        colors,
-        colorless,
-        matchType,
-        setTokens,
-        cmc,
-        power,
-        toughness,
-        loyalty,
-        rarities,
-        flavorTextTokens,
-    ).as('b');
-
-    return builder().count('* AS total_results').from(query);
+const getTotalResults = (query) => {
+    return builder().count('* AS total_results').from(query.as('b'));
 };
 
 const getCardByID = async (id) => {

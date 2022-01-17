@@ -16,23 +16,7 @@ const searchCards = async (params = {}) => {
     let results;
 
     try {
-        [totalResults] = await SearchRepository.getTotalResults(
-            nameTokens,
-            textTokens,
-            selectedTypeTokens,
-            colors,
-            params?.colorless,
-            params?.matchType,
-            selectedSetTokens,
-            params?.cmc,
-            params?.power,
-            params?.toughness,
-            params?.loyalty,
-            rarities,
-            flavorTextTokens,
-        );
-
-        results = await SearchRepository.getCardsByProperties(
+        const query = SearchRepository.getCardsByProperties(
             nameTokens,
             textTokens,
             selectedTypeTokens,
@@ -49,6 +33,9 @@ const searchCards = async (params = {}) => {
             params?.page,
             pageSize,
         );
+
+        results = await query;
+        [totalResults] = await SearchRepository.getTotalResults(query);
     } catch (e) {
         console.error('error searching cards', e);
         throw e;
