@@ -5,8 +5,7 @@
         "start": "nodemon",
         "dev": "babel-node ./src/bin/www",
         "build": "babel ./src --out-dir dist",
-        "test": "jest",
-        "test:production": "jest --silent --verbose"
+        "test": "jest"
     },
     "dependencies": {
         "bcrypt": "^5.0.0",
@@ -36,7 +35,7 @@
     },
     "jest": {
         "setupFiles": [
-            "<rootDir>/src/tests.js"
+            "<rootDir>/src/testsetup.js"
         ]
     }
 }
