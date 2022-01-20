@@ -1,20 +1,11 @@
-import crypto from 'crypto';
 import generateToken from './tokens';
 
-jest.mock('crypto');
-
 describe('Token Helpers', () => {
-    afterEach(() => {
-        jest.resetAllMocks();
-    });
-
     describe('generateToken', () => {
-        test('throws an error if one occurred while generating the token', async () => {
-            crypto.randomBytes.mockImplementation(() => {
-                throw new Error();
-            });
+        test('returns the generated token', async () => {
+            const output = generateToken();
 
-            expect(() => generateToken()).toThrow();
+            expect(output.length).toBe(64);
         });
     });
 });
