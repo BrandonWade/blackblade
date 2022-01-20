@@ -70,7 +70,7 @@ describe('Account Repository', () => {
 
             const tx = transactionMock();
             tx.query.mockResolvedValueOnce([[]]).mockImplementationOnce(() => {
-                throw new DatabaseErrorMock({ code: 'ER_DUP_ENTRY' });
+                throw new DatabaseErrorMock('', 'ER_DUP_ENTRY');
             });
             connection.getConnection.mockResolvedValue(tx);
 

@@ -76,7 +76,7 @@ export function builderMock() {
 }
 
 export class DatabaseErrorMock extends Error {
-    constructor({ message = '', code = '' }) {
+    constructor(message, code) {
         super(message);
         this.code = code;
     }

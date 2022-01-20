@@ -1,4 +1,4 @@
-const message = (type = 'info', text = '') => {
+const message = (type, text) => {
     return {
         type,
         text,
