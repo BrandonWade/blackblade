@@ -1,6 +1,6 @@
 import SearchRepository from '../repositories/search';
 import { connection, builder } from '../db';
-import { builderMock } from '../helpers/testing';
+import { builderMock } from '../testing/helpers';
 import {
     addLikeCondition,
     addNegatableLikeCondition,

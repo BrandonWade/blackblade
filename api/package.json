@@ -35,7 +35,13 @@
     },
     "jest": {
         "setupFiles": [
-            "<rootDir>/src/testsetup.js"
+            "<rootDir>/src/testing/setup.js"
+        ],
+        "coveragePathIgnorePatterns": [
+            "/node_modules/",
+            "<rootDir>/src/testing/",
+            "<rootDir>/src/db/",
+            "<rootDir>/src/app.js"
         ]
     }
 }

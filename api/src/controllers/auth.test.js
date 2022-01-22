@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import NotActivatedError from '../errors/not_activated';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
-import { requestMock, responseMock, sessionMock } from '../helpers/testing';
+import { requestMock, responseMock, sessionMock } from '../testing/helpers';
 import cookieOptions, { DURATION_ONE_WEEK } from '../helpers/cookies';
 import AccountService from '../services/accounts';
 import { csrf, login, logout } from './auth';

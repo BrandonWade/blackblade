@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
-import { requestMock, responseMock } from '../helpers/testing';
+import { requestMock, responseMock } from '../testing/helpers';
 import cookieOptions, { DURATION_ONE_HOUR } from '../helpers/cookies';
 import AccountService from '../services/accounts';
 import {

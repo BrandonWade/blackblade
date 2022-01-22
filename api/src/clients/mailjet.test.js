@@ -1,6 +1,6 @@
 import * as mailjet from 'node-mailjet';
 import MailjetClient from '../clients/mailjet';
-import { mailjetMock } from '../helpers/testing';
+import { mailjetMock } from '../testing/helpers';
 
 jest.mock('node-mailjet');
 

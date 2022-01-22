@@ -1,5 +1,5 @@
 import DeckRepository from '../repositories/decks';
-import { transactionMock } from '../helpers/testing';
+import { transactionMock } from '../testing/helpers';
 import { connection } from '../db';
 
 jest.mock('../db');

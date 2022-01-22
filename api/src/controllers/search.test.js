@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import NotFoundError from '../errors/not_found';
-import { requestMock, responseMock } from '../helpers/testing';
+import { requestMock, responseMock } from '../testing/helpers';
 import SearchService from '../services/search';
 import {
     searchCards,

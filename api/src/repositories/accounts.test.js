@@ -1,5 +1,5 @@
 import AccountRepository from '../repositories/accounts';
-import { transactionMock, DatabaseErrorMock } from '../helpers/testing';
+import { transactionMock, DatabaseErrorMock } from '../testing/helpers';
 import { connection } from '../db';
 import AlreadyExistsError from '../errors/already_exists';
 import NotFoundError from '../errors/not_found';

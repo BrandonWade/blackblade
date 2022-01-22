@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
-import { requestMock, responseMock } from '../helpers/testing';
+import { requestMock, responseMock } from '../testing/helpers';
 import BookmarkService from '../services/bookmarks';
 import { createBookmark, listBookmarks, deleteBookmark } from './bookmarks';
 

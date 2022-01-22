@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import NotFoundError from '../errors/not_found';
 import UnauthorizedError from '../errors/unauthorized';
 import NewerVersionError from '../errors/newer_version';
-import { requestMock, responseMock } from '../helpers/testing';
+import { requestMock, responseMock } from '../testing/helpers';
 import DeckService from '../services/decks';
 import {
     createDeck,
