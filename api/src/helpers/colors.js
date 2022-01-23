@@ -31,40 +31,19 @@ export default function getColorString(deck = []) {
         }
     });
 
-    return generateColorString(colors);
-}
+    // Ensure the symbols appear in a consistent order in the string
+    const sortOrder = {
+        '{W}': 1,
+        '{U}': 2,
+        '{B}': 3,
+        '{R}': 4,
+        '{G}': 5,
+        '{C}': 6,
+        '{S}': 7,
+    };
 
-// Generating the string verbosely like this ensures the resulting symbol string is always in the same order
-function generateColorString(colors) {
-    let colorList = [];
-
-    if (colors['{W}']) {
-        colorList = colorList.concat('{W}');
-    }
-
-    if (colors['{U}']) {
-        colorList = colorList.concat('{U}');
-    }
-
-    if (colors['{B}']) {
-        colorList = colorList.concat('{B}');
-    }
-
-    if (colors['{R}']) {
-        colorList = colorList.concat('{R}');
-    }
-
-    if (colors['{G}']) {
-        colorList = colorList.concat('{G}');
-    }
-
-    if (colors['{C}']) {
-        colorList = colorList.concat('{C}');
-    }
-
-    if (colors['{S}']) {
-        colorList = colorList.concat('{S}');
-    }
-
-    return colorList.join('');
+    return Object.keys(colors)
+        .filter((color) => colors[color])
+        .sort((a, b) => sortOrder[a] - sortOrder[b])
+        .join('');
 }
