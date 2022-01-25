@@ -1,4 +1,10 @@
-import { parseTypesFromString, parseValuesFromObject } from './search';
+import {
+    parseTypesFromString,
+    parseValuesFromObject,
+    addLikeCondition,
+    addNegatableLikeCondition,
+} from './search';
+import { builderMock } from '../testing/helpers';
 
 describe('Search Helpers', () => {
     describe('parseTypesFromString', () => {
@@ -47,6 +53,70 @@ describe('Search Helpers', () => {
             const output = parseValuesFromObject();
 
             expect(output).toEqual([]);
+        });
+    });
+
+    describe('addLikeCondition', () => {
+        test('adds a where condition for each of the provided parameters for the specified field', async () => {
+            const bm = builderMock();
+            const params = ['test1', 'test2'];
+            const field = 'test_field';
+
+            addLikeCondition(bm, params, field);
+
+            expect(bm.where).toHaveBeenCalledTimes(params.length);
+            expect(bm.where).toHaveBeenNthCalledWith(
+                1,
+                field,
+                'like',
+                '%test1%',
+            );
+            expect(bm.where).toHaveBeenNthCalledWith(
+                2,
+                field,
+                'like',
+                '%test2%',
+            );
+        });
+    });
+
+    describe('addNegatableLikeCondition', () => {
+        test('adds a where condition for each of the provided parameters for the specified field', async () => {
+            const bm = builderMock();
+            const params = [
+                {
+                    key: 'Type1',
+                    isNegated: true,
+                },
+                {
+                    key: 'Type2',
+                    isNegated: false,
+                },
+                {
+                    key: 'Type3',
+                    isNegated: true,
+                },
+            ];
+            const key = 'key';
+            const field = 'test_field';
+
+            addNegatableLikeCondition(bm, params, key, field);
+
+            expect(bm.where).toHaveBeenCalledTimes(1);
+            expect(bm.whereNot).toHaveBeenCalledTimes(2);
+            expect(bm.where).toHaveBeenCalledWith(field, 'like', '%Type2%');
+            expect(bm.whereNot).toHaveBeenNthCalledWith(
+                1,
+                field,
+                'like',
+                '%Type1%',
+            );
+            expect(bm.whereNot).toHaveBeenNthCalledWith(
+                2,
+                field,
+                'like',
+                '%Type3%',
+            );
         });
     });
 });

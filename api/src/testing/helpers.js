@@ -71,6 +71,11 @@ export function builderMock() {
     builder.limit = jest.fn().mockReturnValue(builder);
     builder.offset = jest.fn().mockReturnValue(builder);
     builder.count = jest.fn().mockReturnValue(builder);
+    builder.where = jest.fn().mockReturnValue(builder);
+    builder.whereNot = jest.fn().mockReturnValue(builder);
+    builder.whereIn = jest.fn().mockReturnValue(builder);
+    builder.orWhere = jest.fn().mockReturnValue(builder);
+    builder.andWhere = jest.fn().mockReturnValue(builder);
 
     return builder;
 }
