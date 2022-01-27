@@ -3,6 +3,7 @@ import {
     parseValuesFromObject,
     addLikeCondition,
     addNegatableLikeCondition,
+    addInCondition,
 } from './search';
 import { builderMock } from '../testing/helpers';
 
@@ -117,6 +118,41 @@ describe('Search Helpers', () => {
                 'like',
                 '%Type3%',
             );
+        });
+    });
+
+    describe('addInCondition', () => {
+        test('returns if the provided list of parameters is empty', async () => {
+            const bm = builderMock();
+            const params = [];
+            const field = 'test_field';
+
+            addInCondition(bm, params, field);
+
+            expect(bm.whereIn).not.toHaveBeenCalled();
+        });
+
+        test('adds a where in condition using the provided parameters for the specified field', async () => {
+            const bm = builderMock();
+            const params = [
+                {
+                    key: 'Type1',
+                    isNegated: true,
+                },
+                {
+                    key: 'Type2',
+                    isNegated: false,
+                },
+                {
+                    key: 'Type3',
+                    isNegated: true,
+                },
+            ];
+            const field = 'test_field';
+
+            addInCondition(bm, params, field);
+
+            expect(bm.whereIn).toHaveBeenCalledWith(field, params);
         });
     });
 });
