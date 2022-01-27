@@ -4,6 +4,7 @@ import {
     addLikeCondition,
     addNegatableLikeCondition,
     addInCondition,
+    addColorConditions,
 } from './search';
 import { builderMock } from '../testing/helpers';
 
@@ -153,6 +154,72 @@ describe('Search Helpers', () => {
             addInCondition(bm, params, field);
 
             expect(bm.whereIn).toHaveBeenCalledWith(field, params);
+        });
+    });
+
+    describe.only('addColorConditions', () => {
+        test('returns if the provided color list or match type are empty', async () => {
+            const bm = builderMock();
+            const colors = [];
+            const matchType = '';
+
+            addColorConditions(bm, colors, matchType);
+
+            expect(bm.where).not.toHaveBeenCalled();
+            expect(bm.orWhere).not.toHaveBeenCalled();
+            expect(bm.andWhere).not.toHaveBeenCalled();
+        });
+
+        test('adds a where true condition for each provided color and where false for each color that was not provided', async () => {
+            const bm = builderMock();
+            const colors = ['B'];
+            const matchType = 'exact';
+
+            addColorConditions(bm, colors, matchType);
+
+            expect(bm.where).toHaveBeenCalledTimes(5);
+            expect(bm.where).toHaveBeenCalledWith('is_black', '=', true);
+            expect(bm.where).toHaveBeenCalledWith('is_white', '=', false);
+            expect(bm.where).toHaveBeenCalledWith('is_blue', '=', false);
+            expect(bm.where).toHaveBeenCalledWith('is_green', '=', false);
+            expect(bm.where).toHaveBeenCalledWith('is_red', '=', false);
+        });
+
+        test('adds a where true condition for each provided color', async () => {
+            const bm = builderMock();
+            const colors = ['B'];
+            const matchType = 'at_least';
+
+            addColorConditions(bm, colors, matchType);
+
+            expect(bm.where).toHaveBeenCalledTimes(1);
+            expect(bm.where).toHaveBeenCalledWith('is_black', '=', true);
+        });
+
+        test.skip('adds a where true condition for each provided color', async () => {
+            const bm = builderMock();
+            const colors = ['B', 'U'];
+            const matchType = 'at_most';
+
+            addColorConditions(bm, colors, matchType);
+
+            // TODO: Need a special builder mock to handle .where and .orWhere cases that accept a function
+
+            expect(bm.orWhere).toHaveBeenCalledTimes(3);
+            expect(bm.orWhere).toHaveBeenCalledWith('is_black', '=', true);
+            expect(bm.orWhere).toHaveBeenCalledWith('is_blue', '=', true);
+
+            expect(bm.andWhere).toHaveBeenCalledTimes(5);
+            expect(bm.andWhere).toHaveBeenCalledWith('is_white', '=', false);
+            expect(bm.andWhere).toHaveBeenCalledWith('is_blue', '=', false);
+            expect(bm.andWhere).toHaveBeenCalledWith('is_black', '=', false);
+            expect(bm.andWhere).toHaveBeenCalledWith('is_red', '=', false);
+            expect(bm.andWhere).toHaveBeenCalledWith('is_green', '=', false);
+
+            expect(bm.where).toHaveBeenCalledTimes(4);
+            expect(bm.where).toHaveBeenCalledWith('is_white', '=', false);
+            expect(bm.where).toHaveBeenCalledWith('is_green', '=', false);
+            expect(bm.where).toHaveBeenCalledWith('is_red', '=', false);
         });
     });
 });

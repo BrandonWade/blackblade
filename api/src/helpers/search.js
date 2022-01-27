@@ -74,6 +74,8 @@ export function addColorConditions(builder, colors, matchType) {
             colors.forEach((color) =>
                 builder.orWhere(colorMap[color], '=', true),
             );
+
+            // Include colorless cards in the results
             builder.orWhere((builder) => {
                 Object.values(colorMap).forEach((color) =>
                     builder.andWhere(color, '=', false),
