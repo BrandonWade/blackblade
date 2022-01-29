@@ -6,6 +6,7 @@ import {
     addInCondition,
     addColorConditions,
     addColorlessCondition,
+    addStatCondition,
 } from './search';
 import { builderMock } from '../testing/helpers';
 
@@ -273,6 +274,36 @@ describe('Search Helpers', () => {
             addColorlessCondition(bm, colorless, matchType);
 
             expect(bm.where).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('addStatCondition', () => {
+        test('returns if the stat is empty, missing a comparator, or the value is empty', async () => {
+            const bm = builderMock();
+            const stat = {};
+            const field = '';
+
+            addStatCondition(bm, stat, field);
+
+            expect(bm.where).not.toHaveBeenCalled();
+        });
+
+        test('adds a where value for the provided field using the specified comparator and value', async () => {
+            const bm = builderMock();
+            const stat = {
+                comparator: '>=',
+                value: 0,
+            };
+            const field = 'cmc';
+
+            addStatCondition(bm, stat, field);
+
+            expect(bm.where).toHaveBeenCalledTimes(1);
+            expect(bm.where).toHaveBeenCalledWith(
+                field,
+                stat.comparator,
+                stat.value,
+            );
         });
     });
 });
