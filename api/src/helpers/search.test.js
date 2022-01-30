@@ -198,25 +198,40 @@ describe('Search Helpers', () => {
             expect(bm.where).toHaveBeenCalledWith('is_black', '=', true);
         });
 
-        test('adds a where true condition for each provided color', async () => {
+        test('adds a where true condition for each provided color and also includes colorless cards', async () => {
             const bm = builderMock();
             const colors = ['B', 'U'];
             const matchType = 'at_most';
 
+            // Knex uses lambdas for grouping WHERE clauses. These snippets ensure that
+            // the logic within those lambas is run as a part of the tests.
+            bm.where.mockImplementation((val) => {
+                if (typeof val === 'function') {
+                    val(bm);
+                } else {
+                    return bm;
+                }
+            });
+            bm.orWhere.mockImplementation((val) => {
+                if (typeof val === 'function') {
+                    val(bm);
+                } else {
+                    return bm;
+                }
+            });
+
             addColorConditions(bm, colors, matchType);
 
-            // TODO: Need a special builder mock to handle .where and .orWhere cases that accept a function
+            expect(bm.orWhere).toHaveBeenCalledTimes(3);
+            expect(bm.orWhere).toHaveBeenCalledWith('is_black', '=', true);
+            expect(bm.orWhere).toHaveBeenCalledWith('is_blue', '=', true);
 
-            // expect(bm.orWhere).toHaveBeenCalledTimes(3);
-            // expect(bm.orWhere).toHaveBeenCalledWith('is_black', '=', true);
-            // expect(bm.orWhere).toHaveBeenCalledWith('is_blue', '=', true);
-
-            // expect(bm.andWhere).toHaveBeenCalledTimes(5);
-            // expect(bm.andWhere).toHaveBeenCalledWith('is_white', '=', false);
-            // expect(bm.andWhere).toHaveBeenCalledWith('is_blue', '=', false);
-            // expect(bm.andWhere).toHaveBeenCalledWith('is_black', '=', false);
-            // expect(bm.andWhere).toHaveBeenCalledWith('is_red', '=', false);
-            // expect(bm.andWhere).toHaveBeenCalledWith('is_green', '=', false);
+            expect(bm.andWhere).toHaveBeenCalledTimes(5);
+            expect(bm.andWhere).toHaveBeenCalledWith('is_white', '=', false);
+            expect(bm.andWhere).toHaveBeenCalledWith('is_blue', '=', false);
+            expect(bm.andWhere).toHaveBeenCalledWith('is_black', '=', false);
+            expect(bm.andWhere).toHaveBeenCalledWith('is_red', '=', false);
+            expect(bm.andWhere).toHaveBeenCalledWith('is_green', '=', false);
 
             expect(bm.where).toHaveBeenCalledTimes(4);
             expect(bm.where).toHaveBeenCalledWith('is_white', '=', false);
@@ -286,6 +301,20 @@ describe('Search Helpers', () => {
             addStatCondition(bm, stat, field);
 
             expect(bm.where).not.toHaveBeenCalled();
+        });
+
+        test('adds a where value for the provided field using a single equals if the specified comparator is equals', async () => {
+            const bm = builderMock();
+            const stat = {
+                comparator: '==',
+                value: 0,
+            };
+            const field = 'cmc';
+
+            addStatCondition(bm, stat, field);
+
+            expect(bm.where).toHaveBeenCalledTimes(1);
+            expect(bm.where).toHaveBeenCalledWith(field, '=', stat.value);
         });
 
         test('adds a where value for the provided field using the specified comparator and value', async () => {

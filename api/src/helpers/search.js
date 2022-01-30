@@ -69,7 +69,7 @@ export function addColorConditions(builder, colors, matchType) {
         );
     } else if (matchType === 'at_least') {
         colors.forEach((color) => builder.where(colorMap[color], '=', true));
-    } else if (matchType === 'at_most') {
+    } else {
         builder.where((builder) => {
             colors.forEach((color) =>
                 builder.orWhere(colorMap[color], '=', true),
