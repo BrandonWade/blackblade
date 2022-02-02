@@ -71,6 +71,11 @@ export default function Card() {
                                     <Button className='Card-externalButton'>Buy on TCGPlayer</Button>
                                 </Link>
                             ) : null}
+                            {card?.scryfall_uri ? (
+                                <Link className='Card-externalLink' to={card?.scryfall_uri}>
+                                    <Button className='Card-externalButton'>View on Scryfall</Button>
+                                </Link>
+                            ) : null}
                         </div>
                     </div>
                 </div>

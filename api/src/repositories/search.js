@@ -79,6 +79,7 @@ const getCardByID = async (id) => {
         `SELECT
         c.id card_id,
         c.tcgplayer_id,
+        c.scryfall_uri,
         c.layout,
         c.name,
         c.set_name,
@@ -100,6 +101,7 @@ const getRandomCard = async () => {
         `SELECT
         a.card_id,
         a.tcgplayer_id,
+        a.scryfall_uri,
         a.name,
         a.set_name,
         a.set_code,
@@ -111,6 +113,7 @@ const getRandomCard = async () => {
             SELECT
             c.id card_id,
             c.tcgplayer_id,
+            c.scryfall_uri,
             c.name,
             c.set_name,
             c.set_code,
