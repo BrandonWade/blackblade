@@ -11,6 +11,8 @@ import CardFaceDetails from '../../components/CardFaceDetails';
 import CardSets from '../../components/CardSets';
 import CardRulings from '../../components/CardRulings';
 import CardImagePreview from '../../components/CardImagePreview';
+import Link from '../../components/Link';
+import Button from '../../components/Button';
 import './Card.scss';
 
 export default function Card() {
@@ -61,7 +63,16 @@ export default function Card() {
                             return <CardFaceDetails key={face.face_id} face={face} />;
                         })}
                     </div>
-                    <CardSets cardSets={card?.sets_json} currentCardID={cardID} />
+                    <div>
+                        <CardSets cardSets={card?.sets_json} currentCardID={cardID} />
+                        <div className='Card-externalSites'>
+                            {card?.tcgplayer_id ? (
+                                <Link className='Card-externalLink' to={`https://shop.tcgplayer.com/product/productsearch?id=${card?.tcgplayer_id}`}>
+                                    <Button className='Card-externalButton'>Buy on TCGPlayer</Button>
+                                </Link>
+                            ) : null}
+                        </div>
+                    </div>
                 </div>
                 <div className='Card-secondaryContent'>
                     <CardRulings rulings={card?.rulings_json} />
