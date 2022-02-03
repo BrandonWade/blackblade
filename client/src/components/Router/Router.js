@@ -22,6 +22,7 @@ import DeckList from '../../pages/DeckList';
 import DeckEditor from '../../pages/DeckEditor';
 import DeckBuilder from '../../pages/DeckBuilder';
 import About from '../../pages/About';
+import Account from '../../pages/Account';
 
 export default function Router() {
     const { getCSRFToken } = useAuth();
@@ -70,6 +71,7 @@ export default function Router() {
                     <Route path='/about' component={About} />
                     <Route path='/advanced' component={AdvancedSearch} />
                     <Route path='/random' component={Random} />
+                    <Route path='/account' component={Account} />
                     <Route path='/cards/search' exact component={SearchResults} />
                     <Route path='/cards/:id' component={Card} />
                     <AuthenticatedRoute path='/decks' exact component={DeckList} />
