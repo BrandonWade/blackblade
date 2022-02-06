@@ -1,4 +1,21 @@
 .Account {
+    padding: 2rem 3rem;
+
+    &-section {
+        display: flex;
+        align-items: center;
+    }
+
+    &-sectionLabel {
+        font-size: 1.6rem;
+        margin-right: 2rem;
+        text-align: center;
+    }
+
+    &-changePasswordForm {
+        width: 100%;
+    }
+
     &-inputRow {
         flex-direction: column;
         align-items: flex-start;

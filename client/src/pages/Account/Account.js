@@ -35,35 +35,38 @@ export default function Account() {
     return (
         <HeaderPage className='Account'>
             <div className='Account-content'>
-                <form className='Account-changePasswordForm' onSubmit={onChangePassword}>
-                    <InputField
-                        label='Current Password'
-                        rowClassName='Account-inputRow'
-                        labelClassName='Account-inputLabel'
-                        className='Account-input'
-                        value={currentPassword}
-                        onChange={onChangeCurrentPassword}
-                    />
-                    <PasswordInputField
-                        label='New Password'
-                        rowClassName='Account-inputRow'
-                        labelClassName='Account-inputLabel'
-                        className='Account-input'
-                        value={newPassword}
-                        onChange={onChangeNewPassword}
-                    />
-                    <PasswordInputField
-                        label='Confirm Password'
-                        rowClassName='Account-inputRow'
-                        labelClassName='Account-inputLabel'
-                        className='Account-input'
-                        value={confirmPassword}
-                        onChange={onChangeConfirmPassword}
-                    />
-                    <Button className='Account-changePasswordButton' type='submit' disabled={!isFormValid} onClick={onChangePassword}>
-                        Change Password
-                    </Button>
-                </form>
+                <section className='Account-section'>
+                    <label className='Account-sectionLabel'>Change Password</label>
+                    <form className='Account-changePasswordForm' onSubmit={onChangePassword}>
+                        <InputField
+                            label='Current Password'
+                            rowClassName='Account-inputRow'
+                            labelClassName='Account-inputLabel'
+                            className='Account-input'
+                            value={currentPassword}
+                            onChange={onChangeCurrentPassword}
+                        />
+                        <PasswordInputField
+                            label='New Password'
+                            rowClassName='Account-inputRow'
+                            labelClassName='Account-inputLabel'
+                            className='Account-input'
+                            value={newPassword}
+                            onChange={onChangeNewPassword}
+                        />
+                        <PasswordInputField
+                            label='Confirm Password'
+                            rowClassName='Account-inputRow'
+                            labelClassName='Account-inputLabel'
+                            className='Account-input'
+                            value={confirmPassword}
+                            onChange={onChangeConfirmPassword}
+                        />
+                        <Button className='Account-changePasswordButton' type='submit' disabled={!isFormValid} onClick={onChangePassword}>
+                            Change Password
+                        </Button>
+                    </form>
+                </section>
             </div>
         </HeaderPage>
     );
