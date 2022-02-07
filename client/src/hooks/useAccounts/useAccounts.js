@@ -36,7 +36,26 @@ export default function useAccounts() {
     };
 
     const resetPassword = async (password = '', confirmPassword = '') => {
-        const response = await fetchJSON('/api/accounts/password', 'POST', { password, confirm_password: confirmPassword });
+        const response = await fetchJSON('/api/accounts/password/reset', 'POST', { password, confirm_password: confirmPassword });
+
+        switch (response.status) {
+            case 200:
+                return {
+                    success: true,
+                };
+            default:
+                return {
+                    success: false,
+                };
+        }
+    };
+
+    const changePassword = async (currentPassword = '', newPassword = '', confirmPassword = '') => {
+        const response = await fetchJSON('/api/accounts/password/change', 'POST', {
+            current_password: currentPassword,
+            new_password: newPassword,
+            confirm_password: confirmPassword,
+        });
 
         switch (response.status) {
             case 200:
@@ -54,5 +73,6 @@ export default function useAccounts() {
         register,
         requestPasswordReset,
         resetPassword,
+        changePassword,
     };
 }

@@ -36,6 +36,11 @@ accounts.get(
     validate('/password/forgot'),
     passwordResetRedirect,
 );
-accounts.post('/password', resetPasswordValidators, validate(), resetPassword);
+accounts.post(
+    '/password/reset',
+    resetPasswordValidators,
+    validate(),
+    resetPassword,
+);
 
 export default accounts;
