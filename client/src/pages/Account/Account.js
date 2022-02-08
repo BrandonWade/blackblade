@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useValidation from '../../hooks/useValidation';
+import useAccounts from '../../hooks/useAccounts';
 import HeaderPage from '../../components/HeaderPage';
 import { PasswordInputField } from '../../components/PasswordInput';
 import { InputField } from '../../components/Input';
@@ -11,6 +12,7 @@ export default function Account() {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } = useValidation();
+    const { changePassword } = useAccounts();
     const passwordLengthValid = isPasswordLengthValid(newPassword);
     const passwordValidCharsOnly = doesPasswordContainValidChars(newPassword);
     const passwordsMatch = doPasswordsMatch(newPassword, confirmPassword);
@@ -28,8 +30,13 @@ export default function Account() {
         setConfirmPassword(e.target.value);
     };
 
-    const onChangePassword = () => {
-        // TODO: Implement me
+    const onChangePassword = async e => {
+        e.preventDefault();
+
+        const response = await changePassword(currentPassword, newPassword, confirmPassword);
+        if (!response.success) {
+            return;
+        }
     };
 
     return (
@@ -38,11 +45,12 @@ export default function Account() {
                 <section className='Account-section'>
                     <label className='Account-sectionLabel'>Change Password</label>
                     <form className='Account-changePasswordForm' onSubmit={onChangePassword}>
-                        <InputField
+                        <PasswordInputField
                             label='Current Password'
                             rowClassName='Account-inputRow'
                             labelClassName='Account-inputLabel'
                             className='Account-input'
+                            hideStrength={true}
                             value={currentPassword}
                             onChange={onChangeCurrentPassword}
                         />
