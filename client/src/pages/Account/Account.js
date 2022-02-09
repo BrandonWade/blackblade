@@ -3,7 +3,6 @@ import useValidation from '../../hooks/useValidation';
 import useAccounts from '../../hooks/useAccounts';
 import HeaderPage from '../../components/HeaderPage';
 import { PasswordInputField } from '../../components/PasswordInput';
-import { InputField } from '../../components/Input';
 import Button from '../../components/Button';
 import './Account.scss';
 
@@ -43,7 +42,7 @@ export default function Account() {
         <HeaderPage className='Account'>
             <div className='Account-content'>
                 <section className='Account-section'>
-                    <label className='Account-sectionLabel'>Change Password</label>
+                    <h3 className='Account-sectionHeading'>Change Password</h3>
                     <form className='Account-changePasswordForm' onSubmit={onChangePassword}>
                         <PasswordInputField
                             label='Current Password'
