@@ -142,12 +142,19 @@ const changePassword = async (req, res) => {
             newPassword,
         );
     } catch (e) {
-        // TODO: Handle additional cases
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            message: errorMessage(
-                'An error occurred while changing your password.',
-            ),
-        });
+        if (e instanceof UnauthorizedError) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                message: errorMessage(
+                    'Your current password is incorrect. Please try again.',
+                ),
+            });
+        } else {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: errorMessage(
+                    'An error occurred while changing your password.',
+                ),
+            });
+        }
     }
 
     return res.status(StatusCodes.OK).json({

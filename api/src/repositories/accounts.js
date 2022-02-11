@@ -277,10 +277,15 @@ const getAccountByEmail = async (email) => {
     return null;
 };
 
+const changePassword = async (accountID, passwordHash) => {
+    // TODO: Implement me
+};
+
 export default {
     registerAccount,
     activateAccount,
     createPasswordResetToken,
     resetPassword,
     getAccountByEmail,
+    changePassword,
 };
