@@ -131,10 +131,35 @@ const resetPassword = async (req, res) => {
     return res.status(StatusCodes.OK).send();
 };
 
+const changePassword = async (req, res) => {
+    const { accountID } = req.session;
+    const { currentPassword, newPassword } = req.body;
+
+    try {
+        await AccountService.changePassword(
+            accountID,
+            currentPassword,
+            newPassword,
+        );
+    } catch (e) {
+        // TODO: Handle additional cases
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            message: errorMessage(
+                'An error occurred while changing your password.',
+            ),
+        });
+    }
+
+    return res.status(StatusCodes.OK).json({
+        message: successMessage('Your password was changed successfully.'),
+    });
+};
+
 export {
     registerAccount,
     activateAccount,
     requestPasswordReset,
     passwordResetRedirect,
     resetPassword,
+    changePassword,
 };

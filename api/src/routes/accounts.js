@@ -6,6 +6,7 @@ import {
     requestPasswordResetValidators,
     passwordResetRedirectValidators,
     resetPasswordValidators,
+    changePasswordValidators,
 } from '../validators/accounts';
 import {
     registerAccount,
@@ -13,6 +14,7 @@ import {
     requestPasswordReset,
     passwordResetRedirect,
     resetPassword,
+    changePassword,
 } from '../controllers/accounts';
 
 const accounts = express.Router();
@@ -41,6 +43,12 @@ accounts.post(
     resetPasswordValidators,
     validate(),
     resetPassword,
+);
+accounts.post(
+    '/password/change',
+    changePasswordValidators,
+    validate(),
+    changePassword,
 );
 
 export default accounts;

@@ -34,6 +34,7 @@ const activateAccountValidators = [activationTokenValid];
 const requestPasswordResetValidators = [emailValid];
 const passwordResetRedirectValidators = [passwordResetTokenValid];
 const resetPasswordValidators = [passwordValid, passwordResetTokenCookieValid];
+const changePasswordValidators = []; // TODO: Implement me
 
 export {
     registerUserValidators,
@@ -41,4 +42,5 @@ export {
     requestPasswordResetValidators,
     passwordResetRedirectValidators,
     resetPasswordValidators,
+    changePasswordValidators,
 };

@@ -93,10 +93,20 @@ const verifyAccount = async (email, password) => {
     }
 };
 
+const changePassword = async (accountID, password) => {
+    try {
+        // TODO: Implement me
+    } catch (e) {
+        console.error('error changing password', e);
+        throw e;
+    }
+};
+
 export default {
     registerAccount,
     activateAccount,
     requestPasswordReset,
     resetPassword,
     verifyAccount,
+    changePassword,
 };
