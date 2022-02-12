@@ -277,8 +277,34 @@ const getAccountByEmail = async (email) => {
     return null;
 };
 
+const getAccountByID = async (id) => {
+    const [results] = await connection.query(
+        `SELECT
+        a.*
+        FROM accounts a
+        WHERE a.id = ?
+    `,
+        [id],
+    );
+
+    if (results.length === 1) {
+        return results[0];
+    }
+
+    return null;
+};
+
 const changePassword = async (accountID, passwordHash) => {
-    // TODO: Implement me
+    const [results] = await connection.query(
+        `UPDATE accounts a
+        SET a.password_hash = ?
+        WHERE a.id = ?
+    `,
+        [passwordHash, accountID],
+    );
+    if (results?.affectedRows !== 1) {
+        throw new Error(`unable to update account ${accountID}`);
+    }
 };
 
 export default {
@@ -287,5 +313,6 @@ export default {
     createPasswordResetToken,
     resetPassword,
     getAccountByEmail,
+    getAccountByID,
     changePassword,
 };

@@ -77,7 +77,6 @@ const verifyAccount = async (email, password) => {
             password,
             account.password_hash.toString(),
         );
-
         if (!passwordsMatch) {
             throw new UnauthorizedError('passwords do not match');
         }
@@ -93,9 +92,24 @@ const verifyAccount = async (email, password) => {
     }
 };
 
-const changePassword = async (accountID, password) => {
+const changePassword = async (accountID, currentPassword, newPassword) => {
     try {
-        // TODO: Implement me
+        const account = await AccountRepository.getAccountByID(accountID);
+        if (!account) {
+            throw new NotFoundError(`account with id ${accountID} not found`);
+        }
+
+        const passwordsMatch = await compareValues(
+            currentPassword,
+            account.password_hash.toString(),
+        );
+        if (!passwordsMatch) {
+            throw new UnauthorizedError('passwords do not match');
+        }
+
+        const newPasswordHash = await hashValue(newPassword);
+
+        await AccountRepository.changePassword(accountID, newPasswordHash);
     } catch (e) {
         console.error('error changing password', e);
         throw e;

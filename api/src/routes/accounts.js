@@ -44,11 +44,11 @@ accounts.post(
     validate(),
     resetPassword,
 );
-accounts.post(
-    '/password/change',
-    changePasswordValidators,
-    validate(),
-    changePassword,
-);
+// accounts.post(
+//     '/password/change',
+//     changePasswordValidators,
+//     validate(),
+//     changePassword,
+// );
 
 export default accounts;

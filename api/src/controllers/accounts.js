@@ -133,7 +133,8 @@ const resetPassword = async (req, res) => {
 
 const changePassword = async (req, res) => {
     const { accountID } = req.session;
-    const { currentPassword, newPassword } = req.body;
+    const { current_password: currentPassword, new_password: newPassword } =
+        req.body;
 
     try {
         await AccountService.changePassword(
@@ -142,8 +143,14 @@ const changePassword = async (req, res) => {
             newPassword,
         );
     } catch (e) {
-        if (e instanceof UnauthorizedError) {
-            return res.status(StatusCodes.UNAUTHORIZED).json({
+        if (e instanceof NotFoundError) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                message: errorMessage(
+                    'We were unable to reset your password. Please logout and back in then try again.',
+                ),
+            });
+        } else if (e instanceof UnauthorizedError) {
+            return res.status(StatusCodes.FORBIDDEN).json({
                 message: errorMessage(
                     'Your current password is incorrect. Please try again.',
                 ),
