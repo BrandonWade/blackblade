@@ -1,5 +1,12 @@
 import { body, param, cookie } from 'express-validator';
 
+const passwordFieldValid = (fieldName) => {
+    return body(fieldName)
+        .exists()
+        .isLength({ min: 15, max: 50 })
+        .matches(/^[\w\!\@\#\$\%\^\&\*]+$/);
+};
+
 const passwordsMatch = (password, { req }) => {
     const confirmPassword = req.body['confirm_password'];
 
@@ -11,11 +18,10 @@ const passwordsMatch = (password, { req }) => {
 };
 
 const emailValid = body('email').exists().isEmail();
-const passwordValid = body('password')
-    .exists()
-    .isLength({ min: 15, max: 50 })
-    .matches(/^[\w\!\@\#\$\%\^\&\*]+$/)
-    .custom(passwordsMatch);
+const passwordValid = passwordFieldValid('password').custom(passwordsMatch);
+const currentPasswordValid = passwordFieldValid('current_password');
+const newPasswordValid =
+    passwordFieldValid('new_password').custom(passwordsMatch);
 const activationTokenValid = param('activationToken')
     .exists()
     .isLength(64)
@@ -34,7 +40,7 @@ const activateAccountValidators = [activationTokenValid];
 const requestPasswordResetValidators = [emailValid];
 const passwordResetRedirectValidators = [passwordResetTokenValid];
 const resetPasswordValidators = [passwordValid, passwordResetTokenCookieValid];
-const changePasswordValidators = []; // TODO: Implement me
+const changePasswordValidators = [currentPasswordValid, newPasswordValid];
 
 export {
     registerUserValidators,

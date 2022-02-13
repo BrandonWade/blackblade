@@ -12,10 +12,14 @@ export default function Account() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } = useValidation();
     const { changePassword } = useAccounts();
-    const passwordLengthValid = isPasswordLengthValid(newPassword);
-    const passwordValidCharsOnly = doesPasswordContainValidChars(newPassword);
+    const currentPasswordLengthValid = isPasswordLengthValid(currentPassword);
+    const currentPasswordValidCharsOnly = doesPasswordContainValidChars(currentPassword);
+    const newPasswordLengthValid = isPasswordLengthValid(newPassword);
+    const newPasswordValidCharsOnly = doesPasswordContainValidChars(newPassword);
     const passwordsMatch = doPasswordsMatch(newPassword, confirmPassword);
-    const isFormValid = passwordLengthValid && passwordValidCharsOnly && passwordsMatch;
+    const currentPasswordValid = currentPasswordLengthValid && currentPasswordValidCharsOnly;
+    const newPasswordValid = newPasswordLengthValid && newPasswordValidCharsOnly && passwordsMatch;
+    const isFormValid = currentPasswordValid && newPasswordValid;
 
     const onChangeCurrentPassword = e => {
         setCurrentPassword(e.target.value);
