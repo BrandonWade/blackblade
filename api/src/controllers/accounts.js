@@ -6,10 +6,10 @@ import cookieOptions, { DURATION_ONE_HOUR } from '../helpers/cookies';
 import { errorMessage, successMessage, infoMessage } from '../helpers/messages';
 
 const registerAccount = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, newPassword } = req.body;
 
     try {
-        await AccountService.registerAccount(email, password);
+        await AccountService.registerAccount(email, newPassword);
     } catch (e) {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             message: errorMessage(
@@ -93,10 +93,10 @@ const passwordResetRedirect = async (req, res) => {
 
 const resetPassword = async (req, res) => {
     const { prt: token } = req.cookies;
-    const { password } = req.body;
+    const { newPassword } = req.body;
 
     try {
-        await AccountService.resetPassword(token, password);
+        await AccountService.resetPassword(token, newPassword);
     } catch (e) {
         if (e instanceof UnauthorizedError) {
             return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
@@ -133,8 +133,7 @@ const resetPassword = async (req, res) => {
 
 const changePassword = async (req, res) => {
     const { accountID } = req.session;
-    const { current_password: currentPassword, new_password: newPassword } =
-        req.body;
+    const { currentPassword, newPassword } = req.body;
 
     try {
         await AccountService.changePassword(

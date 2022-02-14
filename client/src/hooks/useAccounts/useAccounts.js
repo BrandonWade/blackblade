@@ -3,8 +3,8 @@ import useFetch from '../useFetch';
 export default function useAccounts() {
     const { fetchJSON } = useFetch();
 
-    const register = async (email = '', password = '', confirmPassword = '') => {
-        const response = await fetchJSON('/api/accounts', 'POST', { email, password, confirm_password: confirmPassword });
+    const register = async (email = '', newPassword = '', confirmPassword = '') => {
+        const response = await fetchJSON('/api/accounts', 'POST', { email, newPassword, confirmPassword });
 
         switch (response.status) {
             case 200:
@@ -35,8 +35,8 @@ export default function useAccounts() {
         }
     };
 
-    const resetPassword = async (password = '', confirmPassword = '') => {
-        const response = await fetchJSON('/api/accounts/password/reset', 'POST', { password, confirm_password: confirmPassword });
+    const resetPassword = async (newPassword = '', confirmPassword = '') => {
+        const response = await fetchJSON('/api/accounts/password/reset', 'POST', { newPassword, confirmPassword });
 
         switch (response.status) {
             case 200:
@@ -52,9 +52,9 @@ export default function useAccounts() {
 
     const changePassword = async (currentPassword = '', newPassword = '', confirmPassword = '') => {
         const response = await fetchJSON('/api/accounts/password/change', 'POST', {
-            current_password: currentPassword,
-            new_password: newPassword,
-            confirm_password: confirmPassword,
+            currentPassword,
+            newPassword,
+            confirmPassword,
         });
 
         switch (response.status) {

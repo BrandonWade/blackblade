@@ -8,7 +8,7 @@ const passwordFieldValid = (fieldName) => {
 };
 
 const passwordsMatch = (password, { req }) => {
-    const confirmPassword = req.body['confirm_password'];
+    const confirmPassword = req.body['confirmPassword'];
 
     if (password !== confirmPassword) {
         throw new Error('password and confirm password do not match');
@@ -18,10 +18,9 @@ const passwordsMatch = (password, { req }) => {
 };
 
 const emailValid = body('email').exists().isEmail();
-const passwordValid = passwordFieldValid('password').custom(passwordsMatch);
-const currentPasswordValid = passwordFieldValid('current_password');
 const newPasswordValid =
-    passwordFieldValid('new_password').custom(passwordsMatch);
+    passwordFieldValid('newPassword').custom(passwordsMatch);
+const currentPasswordValid = passwordFieldValid('currentPassword');
 const activationTokenValid = param('activationToken')
     .exists()
     .isLength(64)
@@ -35,11 +34,14 @@ const passwordResetTokenCookieValid = cookie('prt')
     .isLength(64)
     .matches(/^[0-9a-f]+$/);
 
-const registerUserValidators = [emailValid, passwordValid];
+const registerUserValidators = [emailValid, newPasswordValid];
 const activateAccountValidators = [activationTokenValid];
 const requestPasswordResetValidators = [emailValid];
 const passwordResetRedirectValidators = [passwordResetTokenValid];
-const resetPasswordValidators = [passwordValid, passwordResetTokenCookieValid];
+const resetPasswordValidators = [
+    newPasswordValid,
+    passwordResetTokenCookieValid,
+];
 const changePasswordValidators = [currentPasswordValid, newPasswordValid];
 
 export {
