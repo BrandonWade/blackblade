@@ -42,7 +42,28 @@ const sendPasswordResetEmail = async (email, token) => {
     await MailjetClient.send(email, message);
 };
 
+const sendPasswordChangedEmail = async (email) => {
+    const link = `${domain}/password/forgot`;
+
+    const message = {
+        From: {
+            Email: 'accounts@blackblade.ca',
+            Name: 'Blackblade',
+        },
+        To: [
+            {
+                Email: email,
+            },
+        ],
+        Subject: 'Password Changed',
+        HTMLPart: `Your password was recently changed. If you did not request this, please visit <a href="${link}">${link}</a> to reset your password immediately.`,
+    };
+
+    await MailjetClient.send(email, message);
+};
+
 export default {
     sendAccountActivationEmail,
     sendPasswordResetEmail,
+    sendPasswordChangedEmail,
 };

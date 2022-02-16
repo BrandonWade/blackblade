@@ -110,6 +110,8 @@ const changePassword = async (accountID, currentPassword, newPassword) => {
         const newPasswordHash = await hashValue(newPassword);
 
         await AccountRepository.changePassword(accountID, newPasswordHash);
+
+        await EmailService.sendPasswordChangedEmail(account.email);
     } catch (e) {
         console.error('error changing password', e);
         throw e;
