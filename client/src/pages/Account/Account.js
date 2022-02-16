@@ -3,6 +3,7 @@ import useValidation from '../../hooks/useValidation';
 import useAccounts from '../../hooks/useAccounts';
 import HeaderPage from '../../components/HeaderPage';
 import { PasswordInputField } from '../../components/PasswordInput';
+import ValidationRow from '../../components/ValidationRow';
 import Button from '../../components/Button';
 import './Account.scss';
 
@@ -73,6 +74,11 @@ export default function Account() {
                             value={confirmPassword}
                             onChange={onChangeConfirmPassword}
                         />
+                        <div className='Account-validationRules'>
+                            <ValidationRow valid={newPasswordLengthValid} description='Password is between 15 and 50 characters' />
+                            <ValidationRow valid={newPasswordValidCharsOnly} description='Password only contains letters, numbers, and !@#$%^&*' />
+                            <ValidationRow valid={passwordsMatch} description='Passwords match' />
+                        </div>
                         <Button className='Account-changePasswordButton' type='submit' disabled={!isFormValid} onClick={onChangePassword}>
                             Change Password
                         </Button>
