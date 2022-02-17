@@ -71,7 +71,7 @@ export default function Router() {
                     <Route path='/about' component={About} />
                     <Route path='/advanced' component={AdvancedSearch} />
                     <Route path='/random' component={Random} />
-                    {/* <Route path='/account' component={Account} /> */}
+                    <AuthenticatedRoute path='/account' component={Account} />
                     <Route path='/cards/search' exact component={SearchResults} />
                     <Route path='/cards/:id' component={Card} />
                     <AuthenticatedRoute path='/decks' exact component={DeckList} />

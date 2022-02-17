@@ -48,6 +48,13 @@ export default function useMenuItems() {
             renderOnHome: false,
         },
         {
+            text: 'Account',
+            to: '/account',
+            renderInHeader: authenticated,
+            renderInPanelMenu: authenticated,
+            renderOnHome: false,
+        },
+        {
             text: 'Login',
             to: '/login',
             renderInHeader: !authenticated,
