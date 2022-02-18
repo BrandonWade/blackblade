@@ -143,7 +143,7 @@ describe('Account Service', () => {
     });
 
     describe('resetPassword', () => {
-        test('throws an error if one occured while resetting an account password', async () => {
+        test('throws an error if one occurred while resetting an account password', async () => {
             const token = 'testtoken';
             const password = 'testpassword123';
 
@@ -265,6 +265,115 @@ describe('Account Service', () => {
             const output = await AccountService.verifyAccount(email, password);
 
             expect(output).toEqual([account.id, account.public_id]);
+        });
+    });
+
+    describe('changePassword', () => {
+        test('throws an error if one occurred while retrieving the account with the given id', async () => {
+            const accountID = 12345;
+            const currentPassword = 'testpassword123';
+            const newPassword = 'testpassword456';
+
+            AccountRepository.getAccountByID.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountService.changePassword(
+                    accountID,
+                    currentPassword,
+                    newPassword,
+                ),
+            ).rejects.toThrow();
+        });
+
+        test('throws a not found error if the account with the given id could not be found', async () => {
+            const accountID = 12345;
+            const currentPassword = 'testpassword123';
+            const newPassword = 'testpassword456';
+
+            AccountRepository.getAccountByID.mockImplementation();
+
+            await expect(() =>
+                AccountService.changePassword(
+                    accountID,
+                    currentPassword,
+                    newPassword,
+                ),
+            ).rejects.toThrow(NotFoundError);
+        });
+
+        test('throws an unauthorized error if the provided current password does not match the password for the account with the given id', async () => {
+            const accountID = 12345;
+            const currentPassword = 'testpassword123';
+            const newPassword = 'testpassword456';
+            const account = {
+                password_hash: 'testhashvalue',
+            };
+
+            AccountRepository.getAccountByID.mockResolvedValue(account);
+            compareValues.mockImplementation(false);
+
+            await expect(() =>
+                AccountService.changePassword(
+                    accountID,
+                    currentPassword,
+                    newPassword,
+                ),
+            ).rejects.toThrow(UnauthorizedError);
+        });
+
+        test('throws an error if one occurred while updating the password for the account with the given id', async () => {
+            const accountID = 12345;
+            const currentPassword = 'testpassword123';
+            const newPassword = 'testpassword456';
+            const currentPasswordHash = 'testcurrenthashvalue';
+            const newPasswordHash = 'testnewhashvalue';
+            const account = {
+                password_hash: currentPasswordHash,
+            };
+
+            AccountRepository.getAccountByID.mockResolvedValue(account);
+            compareValues.mockResolvedValue(true);
+            hashValue.mockResolvedValue(newPasswordHash);
+            AccountRepository.changePassword.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountService.changePassword(
+                    accountID,
+                    currentPassword,
+                    newPassword,
+                ),
+            ).rejects.toThrow();
+        });
+
+        test('throws an error if one occurred while sending the password changed email', async () => {
+            const accountID = 12345;
+            const currentPassword = 'testpassword123';
+            const newPassword = 'testpassword456';
+            const currentPasswordHash = 'testcurrenthashvalue';
+            const newPasswordHash = 'testnewhashvalue';
+            const account = {
+                password_hash: currentPasswordHash,
+            };
+
+            AccountRepository.getAccountByID.mockResolvedValue(account);
+            compareValues.mockResolvedValue(true);
+            hashValue.mockResolvedValue(newPasswordHash);
+            AccountRepository.changePassword.mockResolvedValue();
+            EmailService.sendPasswordChangedEmail.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountService.changePassword(
+                    accountID,
+                    currentPassword,
+                    newPassword,
+                ),
+            ).rejects.toThrow();
         });
     });
 });

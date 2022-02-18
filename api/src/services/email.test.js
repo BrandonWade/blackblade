@@ -17,12 +17,23 @@ describe('Email Service', () => {
     });
 
     describe('sendPasswordResetEmail', () => {
-        test('returns after sending the account activation email', async () => {
+        test('returns after sending the password reset email', async () => {
             const email = 'test@test.com';
             const token = 'testtoken';
 
             MailjetClient.send.mockImplementation(() => {});
             await EmailService.sendPasswordResetEmail(email, token);
+
+            expect(MailjetClient.send).toHaveBeenCalled();
+        });
+    });
+
+    describe('sendPasswordChangedEmail', () => {
+        test('returns after sending the password changed email', async () => {
+            const email = 'test@test.com';
+
+            MailjetClient.send.mockImplementation(() => {});
+            await EmailService.sendPasswordChangedEmail(email);
 
             expect(MailjetClient.send).toHaveBeenCalled();
         });
