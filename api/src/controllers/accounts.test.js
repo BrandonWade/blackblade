@@ -10,6 +10,7 @@ import {
     requestPasswordReset,
     passwordResetRedirect,
     resetPassword,
+    changePassword,
 } from './accounts';
 
 jest.mock('../services/accounts');
@@ -326,6 +327,112 @@ describe('Accounts Controller', () => {
             expect(res.cookie).toHaveBeenCalledWith(...result);
             expect(res.status).toHaveBeenCalledWith(StatusCodes.OK);
             expect(res.send).toHaveBeenCalled();
+        });
+    });
+
+    describe('changePassword', () => {
+        test('returns an error if the logged in account could not be found', async () => {
+            const body = {
+                currentPassword: 'testpassword1234',
+                newPassword: 'testpassword5678',
+            };
+            const session = {
+                accountID: 123456,
+            };
+            const req = requestMock({ body, session });
+            const res = responseMock();
+            const result = {
+                message: {
+                    type: 'error',
+                    text: 'We were unable to reset your password. Please logout and back in then try again.',
+                },
+            };
+            AccountService.changePassword.mockImplementation(() => {
+                throw new NotFoundError();
+            });
+
+            await changePassword(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(StatusCodes.NOT_FOUND);
+            expect(res.json).toHaveBeenCalledWith(result);
+        });
+
+        test('returns an error if the current password does not match the password for the logged in account', async () => {
+            const body = {
+                currentPassword: 'testpassword1234',
+                newPassword: 'testpassword5678',
+            };
+            const session = {
+                accountID: 123456,
+            };
+            const req = requestMock({ body, session });
+            const res = responseMock();
+            const result = {
+                message: {
+                    type: 'error',
+                    text: 'Your current password is incorrect. Please try again.',
+                },
+            };
+            AccountService.changePassword.mockImplementation(() => {
+                throw new UnauthorizedError();
+            });
+
+            await changePassword(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(StatusCodes.FORBIDDEN);
+            expect(res.json).toHaveBeenCalledWith(result);
+        });
+
+        test('returns an error if one occurred while changing the account password', async () => {
+            const body = {
+                currentPassword: 'testpassword1234',
+                newPassword: 'testpassword5678',
+            };
+            const session = {
+                accountID: 123456,
+            };
+            const req = requestMock({ body, session });
+            const res = responseMock();
+            const result = {
+                message: {
+                    type: 'error',
+                    text: 'An error occurred while changing your password.',
+                },
+            };
+            AccountService.changePassword.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await changePassword(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(
+                StatusCodes.INTERNAL_SERVER_ERROR,
+            );
+            expect(res.json).toHaveBeenCalledWith(result);
+        });
+
+        test('returns a message indicating the account password was successfully changed', async () => {
+            const body = {
+                currentPassword: 'testpassword1234',
+                newPassword: 'testpassword5678',
+            };
+            const session = {
+                accountID: 123456,
+            };
+            const req = requestMock({ body, session });
+            const res = responseMock();
+            const result = {
+                message: {
+                    type: 'success',
+                    text: 'Your password was changed successfully.',
+                },
+            };
+            AccountService.changePassword.mockResolvedValue(result);
+
+            await changePassword(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(StatusCodes.OK);
+            expect(res.json).toHaveBeenCalledWith(result);
         });
     });
 });

@@ -601,7 +601,7 @@ describe('Account Repository', () => {
     });
 
     describe('getAccountByEmail', () => {
-        test('throws an error if one occurred while updating retrieving the account with the given email address', async () => {
+        test('throws an error if one occurred while retrieving the account with the given email address', async () => {
             const email = 'test@test.com';
 
             connection.query.mockImplementation(() => {
@@ -631,6 +631,80 @@ describe('Account Repository', () => {
             const output = await AccountRepository.getAccountByEmail(email);
 
             expect(output).toBe(null);
+        });
+    });
+
+    describe('getAccountByID', () => {
+        test('throws an error if one occurred while retrieving the account with the given id', async () => {
+            const accountID = 123456;
+
+            connection.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountRepository.getAccountByID(accountID),
+            ).rejects.toThrow();
+        });
+
+        test('returns the account with the given id if found', async () => {
+            const accountID = 123456;
+
+            connection.query.mockResolvedValue([[{ accountID }]]);
+
+            const output = await AccountRepository.getAccountByID(accountID);
+
+            expect(output).toEqual({ accountID });
+        });
+
+        test('returns null if the account with the given email address could not be found', async () => {
+            const accountID = 123456;
+
+            connection.query.mockResolvedValue([[]]);
+
+            const output = await AccountRepository.getAccountByID(accountID);
+
+            expect(output).toBe(null);
+        });
+    });
+
+    describe('changePassword', () => {
+        test('throws an error if one occurred while updating the password for the account with the given id', async () => {
+            const accountID = 123456;
+            const passwordHash = 'testpasswordhash1234123123';
+
+            connection.query.mockImplementation(() => {
+                throw new Error();
+            });
+
+            await expect(() =>
+                AccountRepository.changePassword(accountID, passwordHash),
+            ).rejects.toThrow();
+        });
+
+        test('throws an error if the account with the given id could not be found', async () => {
+            const accountID = 123456;
+            const passwordHash = 'testpasswordhash1234123123';
+
+            connection.query.mockResolvedValue([[{}]]);
+
+            await expect(() =>
+                AccountRepository.changePassword(accountID, passwordHash),
+            ).rejects.toThrow();
+        });
+
+        test('returns if the password for the account with the given id was successfully updated', async () => {
+            const accountID = 123456;
+            const passwordHash = 'testpasswordhash1234123123';
+
+            connection.query.mockResolvedValue([{ affectedRows: 1 }]);
+
+            const output = await AccountRepository.changePassword(
+                accountID,
+                passwordHash,
+            );
+
+            expect(output).toBe(undefined);
         });
     });
 });
