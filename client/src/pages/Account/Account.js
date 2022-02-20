@@ -43,6 +43,10 @@ export default function Account() {
         }
     };
 
+    const onDeleteAccount = () => {
+        // TODO: Implement me
+    };
+
     return (
         <HeaderPage className='Account'>
             <div className='Account-content'>
@@ -83,6 +87,18 @@ export default function Account() {
                             Change Password
                         </Button>
                     </form>
+                </section>
+                <section className='Account-section'>
+                    <h3 className='Account-sectionHeading'>Delete Account</h3>
+                    <div className='Account-deleteAccount'>
+                        <p className='Account-deleteAccountDescription'>
+                            If you decide you no longer want to use Blackblade, you can permanently delete your account. Please note that this cannot
+                            be undone, and that it will take approximately 60 days for your data to be completely removed from our system.
+                        </p>
+                        <Button className='Account-deleteAccountButton' onClick={onDeleteAccount}>
+                            Delete Account
+                        </Button>
+                    </div>
                 </section>
             </div>
         </HeaderPage>

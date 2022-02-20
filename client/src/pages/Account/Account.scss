@@ -42,4 +42,19 @@
     &-changePasswordButton {
         margin-top: 2rem;
     }
+
+    &-deleteAccountDescription {
+        max-width: 50rem;
+        font-size: 1.4rem;
+    }
+
+    &-deleteAccountButton {
+        border-color: var(--color-error-light);
+        background-color: var(--color-error);
+        margin-top: 2rem;
+
+        &:hover.Button {
+            background-color: var(--color-error-light);
+        }
+    }
 }
