@@ -32,6 +32,15 @@ export default function About() {
                     </p>
                 </section>
                 <section className='About-section'>
+                    <h3 className='About-sectionHeading'>Data & Privacy</h3>
+                    <p className='About-sectionText'>
+                        Your data is your own. We only collect the minimum amount of information about you necessary to provide service. We will never
+                        use this information to track you or advertise to you, and we will never sell this information. If you decide that you no
+                        longer wish to use the service, you may permanently delete your account and all associated data from the Account page. Please
+                        note that it will take approximately 60 days for your data to be completely removed from our system.
+                    </p>
+                </section>
+                <section className='About-section'>
                     <h3 className='About-sectionHeading'>Source Code</h3>
                     <p className='About-sectionText'>
                         Blackblade is open source. You can find the code for the website{' '}
