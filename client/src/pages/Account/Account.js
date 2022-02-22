@@ -92,8 +92,9 @@ export default function Account() {
                     <h3 className='Account-sectionHeading'>Delete Account</h3>
                     <div className='Account-deleteAccount'>
                         <p className='Account-deleteAccountDescription'>
-                            If you decide you no longer want to use Blackblade, you can permanently delete your account. Please note that this cannot
-                            be undone, and that it will take approximately 60 days for your data to be completely removed from our system.
+                            If you decide you no longer want to use Blackblade, you can permanently delete your account and all of your data. Please
+                            note that this cannot be undone, and that it will take a minimum of 60 days for your data to be completely removed from
+                            our system.
                         </p>
                         <Button className='Account-deleteAccountButton' onClick={onDeleteAccount}>
                             Delete Account
