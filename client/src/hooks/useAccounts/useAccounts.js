@@ -69,10 +69,26 @@ export default function useAccounts() {
         }
     };
 
+    const deleteAccount = async () => {
+        const response = await fetchJSON('/api/accounts', 'DELETE');
+
+        switch (response.status) {
+            case 200:
+                return {
+                    success: true,
+                };
+            default:
+                return {
+                    success: false,
+                };
+        }
+    };
+
     return {
         register,
         requestPasswordReset,
         resetPassword,
         changePassword,
+        deleteAccount,
     };
 }
