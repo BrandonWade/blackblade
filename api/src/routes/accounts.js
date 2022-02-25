@@ -15,6 +15,7 @@ import {
     passwordResetRedirect,
     resetPassword,
     changePassword,
+    deleteAccount,
 } from '../controllers/accounts';
 
 const accounts = express.Router();
@@ -50,5 +51,6 @@ accounts.post(
     validate(),
     changePassword,
 );
+// accounts.delete('/', deleteAccount);
 
 export default accounts;

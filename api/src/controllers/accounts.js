@@ -168,6 +168,31 @@ const changePassword = async (req, res) => {
     });
 };
 
+const deleteAccount = async (req, res) => {
+    const { accountID } = req.session;
+    const { currentPassword } = req.body;
+
+    try {
+        await AccountService.deleteAccount(accountID, currentPassword);
+    } catch (e) {
+        // TODO: Handle
+    }
+
+    const message = successMessage(
+        'Your account has been successfully deleted. Please note that it will take at least 60 days for your data to be completely removed from our systems.',
+    );
+    res.cookie(
+        'rm',
+        JSON.stringify(message),
+        cookieOptions({ maxAge: DURATION_ONE_HOUR }),
+    );
+    req.session.destroy();
+    res.clearCookie('sid');
+    res.clearCookie('apid');
+
+    return res.status(StatusCodes.NO_CONTENT).send();
+};
+
 export {
     registerAccount,
     activateAccount,
@@ -175,4 +200,5 @@ export {
     passwordResetRedirect,
     resetPassword,
     changePassword,
+    deleteAccount,
 };

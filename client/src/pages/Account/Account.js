@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import useValidation from '../../hooks/useValidation';
 import useAccounts from '../../hooks/useAccounts';
 import HeaderPage from '../../components/HeaderPage';
@@ -11,8 +12,9 @@ export default function Account() {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const history = useHistory();
     const { isPasswordLengthValid, doesPasswordContainValidChars, doPasswordsMatch } = useValidation();
-    const { changePassword } = useAccounts();
+    const { changePassword, deleteAccount } = useAccounts();
     const currentPasswordLengthValid = isPasswordLengthValid(currentPassword);
     const currentPasswordValidCharsOnly = doesPasswordContainValidChars(currentPassword);
     const newPasswordLengthValid = isPasswordLengthValid(newPassword);
@@ -43,8 +45,13 @@ export default function Account() {
         }
     };
 
-    const onDeleteAccount = () => {
-        // TODO: Implement me
+    const onDeleteAccount = async () => {
+        const response = await deleteAccount();
+        if (!response.success) {
+            return;
+        }
+
+        history.push('/logout');
     };
 
     return (

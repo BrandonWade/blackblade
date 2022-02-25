@@ -118,6 +118,10 @@ const changePassword = async (accountID, currentPassword, newPassword) => {
     }
 };
 
+const deleteAccount = async (accountID, currentPassword) => {
+    // TODO: Implement
+};
+
 export default {
     registerAccount,
     activateAccount,
@@ -125,4 +129,5 @@ export default {
     resetPassword,
     verifyAccount,
     changePassword,
+    deleteAccount,
 };

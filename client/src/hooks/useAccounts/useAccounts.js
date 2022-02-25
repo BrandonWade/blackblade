@@ -73,7 +73,7 @@ export default function useAccounts() {
         const response = await fetchJSON('/api/accounts', 'DELETE');
 
         switch (response.status) {
-            case 200:
+            case 204:
                 return {
                     success: true,
                 };
