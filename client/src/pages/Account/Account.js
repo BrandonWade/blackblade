@@ -95,7 +95,7 @@ export default function Account() {
                         </Button>
                     </form>
                 </section>
-                <section className='Account-section'>
+                {/* <section className='Account-section'>
                     <h3 className='Account-sectionHeading'>Delete Account</h3>
                     <div className='Account-deleteAccount'>
                         <p className='Account-deleteAccountDescription'>
@@ -107,7 +107,7 @@ export default function Account() {
                             Delete Account
                         </Button>
                     </div>
-                </section>
+                </section> */}
             </div>
         </HeaderPage>
     );

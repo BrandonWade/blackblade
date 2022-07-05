@@ -35,16 +35,16 @@ export default function About() {
                         updated weekly, and are in no way a guarantee or a promise - they are only intended to be used as a loose guideline.
                     </p>
                 </section>
-                <section className='About-section'>
+                {/* <section className='About-section'>
                     <h3 className='About-sectionHeading'>Data & Privacy</h3>
                     <p className='About-sectionText'>
-                        Your data is your own. We strongly believe in privacy and therefore only collect the minimum amount of information about you
-                        necessary to provide service. We will never use this information to track you or advertise to you, and we will never sell this
-                        information. If you decide that you no longer wish to use the service, you may permanently delete your account and all of your
-                        data from {authenticated ? <Link to='/account'>this page</Link> : 'the Account page'}. Please note that it will take a minimum
-                        of 60 days for your data to be completely removed from our system.
+                        Your data is your own. We strongly believe in the right to privacy and therefore only collect the minimum amount of
+                        information about you necessary to provide service. We will never use this information to track you or advertise to you, and
+                        we will never sell this information. If you decide that you no longer wish to use the service, you may permanently delete your
+                        account and all of your data from {authenticated ? <Link to='/account'>this page</Link> : 'the Account page'}. Please note
+                        that it will take a minimum of 60 days for your data to be completely removed from our system.
                     </p>
-                </section>
+                </section> */}
                 <section className='About-section'>
                     <h3 className='About-sectionHeading'>Source Code</h3>
                     <p className='About-sectionText'>
