@@ -185,7 +185,7 @@ const downloadDeck = async (req, res) => {
     let deck;
 
     try {
-        deck = await DeckService.exportDeck(publicID, accountID);
+        deck = await DeckService.exportDeck(accountID, publicID);
     } catch (e) {
         if (e instanceof UnauthorizedError) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
