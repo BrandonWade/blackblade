@@ -1,12 +1,36 @@
 .Account {
-    padding: 2rem 3rem;
+    padding: 3rem;
 
-    @media only screen and (max-width: 52.125em) {
+    @media only screen and (max-width: 37.5em) {
         padding: 1.5rem;
     }
 
+    &-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     &-section {
-        margin-bottom: 5rem;
+        width: 40vw;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background-color: var(--color-primary-dark);
+        border: var(--line);
+
+        @media only screen and (max-width: 75em) {
+            width: 60vw;
+        }
+
+        @media only screen and (max-width: 52.125em) {
+            width: 80vw;
+        }
+
+        @media only screen and (max-width: 37.5em) {
+            width: 100%;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
     }
 
     &-sectionHeading {
