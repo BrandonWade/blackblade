@@ -30,12 +30,14 @@ const searchCards = async (params = {}) => {
             params?.loyalty,
             rarities,
             flavorTextTokens,
+        );
+
+        results = await SearchRepository.getPaginatedResults(
+            query.clone(),
             params?.page,
             pageSize,
         );
-
-        results = await query;
-        [totalResults] = await SearchRepository.getTotalResults(query);
+        [totalResults] = await SearchRepository.getTotalResults(query.clone());
     } catch (e) {
         console.error('error searching cards', e);
         throw e;

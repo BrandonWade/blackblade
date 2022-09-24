@@ -76,6 +76,7 @@ export function builderMock() {
     builder.whereIn = jest.fn().mockReturnValue(builder);
     builder.orWhere = jest.fn().mockReturnValue(builder);
     builder.andWhere = jest.fn().mockReturnValue(builder);
+    builder.clone = jest.fn().mockReturnValue(builder);
 
     return builder;
 }

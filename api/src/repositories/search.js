@@ -22,8 +22,6 @@ const getCardsByProperties = (
     loyalty,
     rarities,
     flavorTextTokens,
-    page = null,
-    pageSize = null,
 ) => {
     const subquery = builder()
         .select('oracle_id')
@@ -63,6 +61,10 @@ const getCardsByProperties = (
         .groupBy('c.oracle_id', 'c.released_at')
         .orderBy('c.name');
 
+    return query;
+};
+
+const getPaginatedResults = (query, page = null, pageSize = null) => {
     if (page !== null && pageSize !== null) {
         query.limit(pageSize).offset((page - 1) * pageSize);
     }
@@ -152,6 +154,7 @@ const getCardSets = async () => {
 
 export default {
     getCardsByProperties,
+    getPaginatedResults,
     getTotalResults,
     getCardByID,
     getRandomCard,

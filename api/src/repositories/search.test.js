@@ -102,21 +102,10 @@ describe('Search Repository', () => {
             expect(bm.limit).not.toHaveBeenCalled();
             expect(bm.offset).not.toHaveBeenCalled();
         });
+    });
 
+    describe('getPaginatedResults', () => {
         test('returns after setting the limit and offset using the provided values', () => {
-            const nameTokens = [];
-            const textTokens = [];
-            const typeTokens = [];
-            const colors = [];
-            const colorless = [];
-            const matchType = 'exact';
-            const setTokens = [];
-            const cmc = 0;
-            const power = 0;
-            const toughness = 0;
-            const loyalty = 0;
-            const rarities = [];
-            const flavorTextTokens = [];
             const page = 1;
             const pageSize = 60;
 
@@ -130,25 +119,8 @@ describe('Search Repository', () => {
             addInCondition.mockImplementation();
 
             expect(() =>
-                SearchRepository.getCardsByProperties(
-                    nameTokens,
-                    textTokens,
-                    typeTokens,
-                    colors,
-                    colorless,
-                    matchType,
-                    setTokens,
-                    cmc,
-                    power,
-                    toughness,
-                    loyalty,
-                    rarities,
-                    flavorTextTokens,
-                    page,
-                    pageSize,
-                ),
+                SearchRepository.getPaginatedResults(bm, page, pageSize),
             ).not.toThrow();
-            expect(bm.select).toHaveBeenCalledTimes(2);
             expect(bm.limit).toHaveBeenCalledTimes(1);
             expect(bm.offset).toHaveBeenCalledTimes(1);
         });
