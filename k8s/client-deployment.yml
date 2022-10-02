@@ -15,5 +15,12 @@ spec:
             containers:
                 - name: blackblade-client
                   image: brandonwade/blackblade-client:latest
+                  resources:
+                      requests:
+                          memory: '50Mi'
+                          cpu: '25m'
+                      limits:
+                          memory: '100Mi'
+                          cpu: '50m'
                   ports:
                       - containerPort: 8200
