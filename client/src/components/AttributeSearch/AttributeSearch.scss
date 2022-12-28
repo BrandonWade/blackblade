@@ -104,6 +104,7 @@
     &-resetButton {
         display: inline-block;
         margin: 1.5rem 0;
+        font-weight: 500;
 
         @media only screen and (max-width: 52.125em) {
             display: inline-flex;
