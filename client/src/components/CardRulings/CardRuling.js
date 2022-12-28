@@ -4,8 +4,8 @@ import CardSection from '../CardSection';
 export default function CardRuling({ comment = '', publishedAt = '' }) {
     return (
         <CardSection className='CardRulings-ruling'>
-            <div className='CardSection-rowItem CardRulings-comment' dangerouslySetInnerHTML={{ __html: useSymbols(comment) }} />
-            <div className='CardSection-rowItem CardRulings-publishedAt'>{publishedAt}</div>
+            <div className='CardRulings-publishedAt'>{publishedAt}</div>
+            <div className='CardRulings-comment' dangerouslySetInnerHTML={{ __html: useSymbols(comment) }} />
         </CardSection>
     );
 }

@@ -1,9 +1,8 @@
 .CardRulings {
     width: 70%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-row-gap: 1.5rem;
-    grid-column-gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
     border-top: var(--line-transparent);
     margin-top: 4rem;
     padding: 2.5rem 0;
@@ -12,21 +11,19 @@
         width: 100%;
         padding: 1.5rem;
         margin-top: 0rem;
-        grid-template-columns: repeat(2, 1fr);
     }
 
     @media only screen and (max-width: 37.5em) {
         padding: 1.5rem;
         margin-top: 0rem;
-        grid-template-columns: repeat(1, 1fr);
-        justify-items: center;
     }
 
     &-ruling {
         display: flex;
-        flex-direction: column;
+        column-gap: 2rem;
         background-color: var(--color-primary-dark);
         width: 100%;
+        padding: 1rem;
     }
 
     &-comment {
