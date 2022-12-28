@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
-import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
+import DeckBuilderContext from '../../contexts/DeckBuilder';
 import DeckBuilderSearchContext from '../../contexts/DeckBuilderSearch';
 import AttributeSearch from '../AttributeSearch';
 import './DeckBuilderSearch.scss';
@@ -9,7 +9,7 @@ import './DeckBuilderSearch.scss';
 export default function DeckBuilderSearch() {
     const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
-    const { selectTabByID } = useDeckBuilderTabs();
+    const { setSelectedTab } = useContext(DeckBuilderContext);
     const {
         name,
         setName,
@@ -63,7 +63,7 @@ export default function DeckBuilderSearch() {
             page: 1,
         });
         displayResults(response, setSearchResults, setNumberOfPages, setTotalResults);
-        selectTabByID('search_results');
+        setSelectedTab('search_results');
     };
 
     return (

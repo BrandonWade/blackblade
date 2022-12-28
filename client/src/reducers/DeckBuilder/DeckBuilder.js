@@ -23,7 +23,7 @@ import {
     SET_NUMBER_OF_PAGES,
     MOVE_TO_DECK,
     MOVE_TO_MAYBEBOARD,
-    SET_SELECTED_TAB_INDEX,
+    SET_SELECTED_TAB,
     SHOW_CARD_ART_SELECTOR,
     HIDE_CARD_ART_SELECTOR,
     SET_IS_SAVING,
@@ -315,10 +315,10 @@ export default function DeckBuilderReducer(state = {}, action = {}) {
             };
         }
 
-        case SET_SELECTED_TAB_INDEX: {
+        case SET_SELECTED_TAB: {
             return {
                 ...state,
-                selectedTabIndex: action.index,
+                selectedTab: action.id,
             };
         }
         case SHOW_CARD_ART_SELECTOR: {

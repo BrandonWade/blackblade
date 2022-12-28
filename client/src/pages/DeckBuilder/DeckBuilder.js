@@ -1,6 +1,5 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useDeckBuilderTabs from '../../hooks/useDeckBuilderTabs';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import useLoadDeck from '../../hooks/useLoadDeck';
 import useDebouncedPersistDeck from '../../hooks/useDebouncedPersistDeck';
@@ -12,7 +11,7 @@ import CardArtSelector from '../../components/CardArtSelector';
 import DrawHandDialog from '../../components/DrawHandDialog';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
 import CardImagePreview from '../../components/CardImagePreview';
-import TabStrip from '../../components/TabStrip';
+import DeckBuilderTabs from '../../components/DeckBuilderTabs';
 import BackgroundMessage from '../../components/BackgroundMessage';
 import DeckPreview from '../../components/DeckPreview';
 import SaveIndicator from '../../components/SaveIndicator';
@@ -24,7 +23,6 @@ import './DeckBuilder.scss';
 export default function DeckBuilder() {
     const { publicID } = useParams();
     const debouncedPersistDeck = useDebouncedPersistDeck();
-    const { getDeckBuilderTabs } = useDeckBuilderTabs();
     const { isDeckUnmodified } = useIsDeckUnmodified();
     const { loadDeck } = useLoadDeck();
     const { accountPublicID } = useContext(AuthContext);
@@ -36,8 +34,8 @@ export default function DeckBuilder() {
         deckCards,
         maybeboardCards,
         deckLastUpdatedAt,
-        selectedTabIndex,
-        setSelectedTabIndex,
+        selectedTab,
+        setSelectedTab,
         maybeboardMode,
         setMaybeboardMode,
         deckExists,
@@ -69,11 +67,7 @@ export default function DeckBuilder() {
             <CardImagePreview />
             <div className='DeckBuilder-displayPanel'>
                 <BackgroundMessage showMessage={!deckExists}>
-                    {ownsDeck ? (
-                        <TabStrip tabs={getDeckBuilderTabs()} selectedTabIndex={selectedTabIndex} setSelectedTabIndex={setSelectedTabIndex} />
-                    ) : (
-                        <DeckPreview />
-                    )}
+                    {ownsDeck ? <DeckBuilderTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} /> : <DeckPreview />}
                 </BackgroundMessage>
             </div>
             <div className='DeckBuilder-deckPanel'>
