@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import DeckBuilderTabTitle from './DeckBuilderTabTitle';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
 import DeckBuilderSearchResults from '../../components/DeckBuilderSearchResults';
@@ -5,12 +6,14 @@ import DeckPreview from '../../components/DeckPreview';
 import './DeckBuilderTabs.scss';
 
 export default function DeckBuilderTabs({ selectedTab = '', setSelectedTab = () => {} }) {
+    const tabContentRef = useRef();
+
     const renderTabContent = () => {
         switch (selectedTab) {
             case 'search_cards':
                 return <DeckBuilderSearch />;
             case 'search_results':
-                return <DeckBuilderSearchResults />;
+                return <DeckBuilderSearchResults forwardRef={tabContentRef} />;
             case 'deck_preview':
                 return <DeckPreview />;
         }
@@ -28,7 +31,9 @@ export default function DeckBuilderTabs({ selectedTab = '', setSelectedTab = () 
                 />
                 <DeckBuilderTabTitle id='deck_preview' title='Deck Preview' isSelected={selectedTab === 'deck_preview'} onClick={setSelectedTab} />
             </div>
-            <div className='DeckBuilderTabs-content'>{renderTabContent()}</div>
+            <div ref={tabContentRef} className='DeckBuilderTabs-content'>
+                {renderTabContent()}
+            </div>
         </div>
     );
 }

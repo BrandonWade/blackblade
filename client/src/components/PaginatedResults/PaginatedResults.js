@@ -6,6 +6,7 @@ import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
 export default function PaginatedResults({
+    forwardRef = null,
     className = '',
     paginatorClassName = '',
     gridClassName = '',
@@ -76,6 +77,10 @@ export default function PaginatedResults({
     const onPageChange = page => {
         setPage(page);
         fetchResults(page);
+
+        if (forwardRef?.current) {
+            forwardRef.current.scroll({ top: 0 });
+        }
     };
 
     return (

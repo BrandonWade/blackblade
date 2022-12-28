@@ -5,7 +5,7 @@ import DeckBuilderSearchContext from '../../contexts/DeckBuilderSearch';
 import PaginatedResults from '../../components/PaginatedResults';
 import './DeckBuilderSearchResults.scss';
 
-export default function DeckBuilderSearchResults() {
+export default function DeckBuilderSearchResults({ forwardRef = null }) {
     const { deckCards, setDeckCards, maybeboardCards, setMaybeboardCards, maybeboardMode } = useContext(DeckBuilderContext);
     const {
         name,
@@ -66,6 +66,7 @@ export default function DeckBuilderSearchResults() {
     return (
         <div className='DeckBuilderSearchResults'>
             <PaginatedResults
+                forwardRef={forwardRef}
                 className='DeckBuilderSearchResults-results'
                 paginatorClassName='DeckBuilderSearchResults-paginator'
                 gridClassName='DeckBuilderSearchResults-grid'
