@@ -49,16 +49,39 @@ export default function CardTypes({ selectedTypes = [], addType = () => {}, remo
 
     const renderFilteredTypes = () => {
         const setOfSelectedTypes = new Set(selectedTypes.map(t => t.type));
-        const filteredTypes = cardTypes.filter(t => !setOfSelectedTypes.has(t.type));
+        const setOfCommonTypes = new Set(['Artifact', 'Creature', 'Enchantment', 'Instant', 'Land', 'Planeswalker', 'Sorcery', 'Tribal']);
+        const commonTypeObjects = [];
+        const remainingTypeObjects = [];
+
+        cardTypes.forEach(cardType => {
+            if (setOfSelectedTypes.has(cardType.type)) {
+                return;
+            }
+
+            if (setOfCommonTypes.has(cardType.type)) {
+                commonTypeObjects.push(cardType);
+            } else {
+                remainingTypeObjects.push(cardType);
+            }
+        });
 
         return (
             <>
                 <option value=''>Choose a card type</option>
-                {filteredTypes.map(t => (
-                    <option key={t.id} value={t.type}>
-                        {t.type}
-                    </option>
-                ))}
+                <optgroup label='Common Types'>
+                    {commonTypeObjects.map(t => (
+                        <option key={t.id} value={t.type}>
+                            {t.type}
+                        </option>
+                    ))}
+                </optgroup>
+                <optgroup label='Remaining Types'>
+                    {remainingTypeObjects.map(t => (
+                        <option key={t.id} value={t.type}>
+                            {t.type}
+                        </option>
+                    ))}
+                </optgroup>
             </>
         );
     };
