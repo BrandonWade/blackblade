@@ -10,12 +10,13 @@ export default function DeckBuilderTabs({ selectedTab = '', setSelectedTab = () 
 
     const renderTabContent = () => {
         switch (selectedTab) {
-            case 'search_cards':
-                return <DeckBuilderSearch />;
-            case 'search_results':
-                return <DeckBuilderSearchResults forwardRef={tabContentRef} />;
             case 'deck_preview':
                 return <DeckPreview />;
+            case 'search_results':
+                return <DeckBuilderSearchResults forwardRef={tabContentRef} />;
+            case 'search_cards':
+            default:
+                return <DeckBuilderSearch />;
         }
     };
 
