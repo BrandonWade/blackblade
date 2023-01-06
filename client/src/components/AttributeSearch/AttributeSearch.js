@@ -134,7 +134,7 @@ export default function AttributeSearch({
                     <StatRow
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
-                        label='CMC'
+                        label='Mana Value'
                         stat='cmc'
                         comparator={cmc.comparator}
                         value={cmc.value}

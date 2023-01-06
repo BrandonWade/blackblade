@@ -36,11 +36,18 @@
         margin-top: 2rem;
     }
 
+    &-externalLink {
+        display: block;
+
+        &:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+    }
+
     &-externalButton {
         width: 100%;
         display: flex;
         justify-content: center;
-        margin-bottom: 0.5rem;
     }
 
     &-secondaryContent {
