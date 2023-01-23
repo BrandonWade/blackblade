@@ -49,7 +49,20 @@ export default function CardTypes({ selectedTypes = [], addType = () => {}, remo
 
     const renderFilteredTypes = () => {
         const setOfSelectedTypes = new Set(selectedTypes.map(t => t.type));
-        const setOfCommonTypes = new Set(['Artifact', 'Creature', 'Enchantment', 'Instant', 'Land', 'Planeswalker', 'Sorcery', 'Tribal']);
+        const setOfCommonTypes = new Set([
+            'Artifact',
+            'Aura',
+            'Creature',
+            'Emblem',
+            'Enchantment',
+            'Equipment',
+            'Instant',
+            'Land',
+            'Planeswalker',
+            'Sorcery',
+            'Token',
+            'Tribal',
+        ]);
         const commonTypeObjects = [];
         const remainingTypeObjects = [];
 
