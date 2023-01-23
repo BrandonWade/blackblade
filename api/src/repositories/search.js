@@ -137,7 +137,8 @@ const getRandomCard = async () => {
 const getCardTypes = async () => {
     return await connection.query(
         `SELECT *
-        FROM types;
+        FROM types
+        ORDER BY type;
     `,
         [],
     );
@@ -146,7 +147,8 @@ const getCardTypes = async () => {
 const getCardSets = async () => {
     return await connection.query(
         `SELECT *
-        FROM sets;
+        FROM sets
+        ORDER BY set_name;
     `,
         [],
     );
