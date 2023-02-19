@@ -19,7 +19,7 @@ export default function useAuth() {
     };
 
     const login = async (email = '', password = '') => {
-        const response = await fetchJSON('/api/login', 'POST', { email, password });
+        const response = await fetchJSON('/api/login', 'POST', { email: email.trim(), password: password.trim() });
 
         switch (response.status) {
             case 200:
