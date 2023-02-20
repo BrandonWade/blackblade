@@ -1,7 +1,7 @@
 .SymbolKey {
     &-content {
         width: 90vw;
-        max-width: 40rem;
+        max-width: 37.5rem;
         background-color: var(--color-primary);
     }
 
@@ -22,7 +22,9 @@
         margin-bottom: 0.5rem;
     }
 
-    &-symbolListContainer {
+    &-symbolGrid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
         max-height: 25rem;
         overflow-y: scroll;
         margin-bottom: 1.5rem;
@@ -31,49 +33,35 @@
         background-color: var(--color-primary-light);
     }
 
-    &-symbolList {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    &-symbolRow {
-        padding: 0.75rem;
-        display: flex;
-        align-items: center;
-        border-bottom: var(--line);
+    &-symbolGridItem {
+        padding: 1rem;
         cursor: pointer;
 
-        @media only screen and (max-width: 37.5em) {
-            padding: 1rem;
+        &:hover {
+            background-color: var(--color-primary-lighter);
+        }
+
+        &:not(:nth-child(5n)) {
+            border-right: var(--line);
+        }
+
+        &:not(:nth-last-child(-n + 3)) {
+            border-bottom: var(--line);
         }
     }
 
-    &-symbolImage {
+    &-image {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
         flex: 1;
         text-align: right;
-        margin-right: 0.25rem;
 
         & > .CardSymbol {
             @media only screen and (max-width: 37.5em) {
                 width: 1.6rem;
                 height: 1.6rem;
             }
-        }
-    }
-
-    &-symbolText {
-        flex: 1;
-        font-size: 1.5rem;
-        line-height: 1.5rem;
-        margin-left: 0.25rem;
-        padding-bottom: 0.25rem;
-
-        @media only screen and (max-width: 37.5em) {
-            font-size: 1.8rem;
-            line-height: 1.8rem;
         }
     }
 

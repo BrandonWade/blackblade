@@ -3,7 +3,7 @@ import useSymbols from '../../hooks/useSymbols';
 import symbolMap from '../../hooks/useSymbols/symbolMap';
 import Backdrop from '../Backdrop';
 import Panel from '../Panel';
-import SymbolRow from './SymbolRow';
+import SymbolGridItem from './SymbolGridItem';
 import { InputField } from '../Input';
 import Button from '../Button';
 import './SymbolKey.scss';
@@ -35,12 +35,10 @@ export default function SymbolKey({ visible = false, onInsertSymbols = () => {},
                     &#x2715;
                 </div>
                 <p className='SymbolKey-description'>Select one or more symbols from the list below:</p>
-                <div className='SymbolKey-symbolListContainer'>
-                    <div className='SymbolKey-symbolList'>
-                        {Object.entries(symbolMap).map(symbol => {
-                            return <SymbolRow key={symbol[0]} image={symbol[1]} text={symbol[0]} onClick={onAddSymbol} />;
-                        })}
-                    </div>
+                <div className='SymbolKey-symbolGrid'>
+                    {Object.entries(symbolMap).map(symbol => {
+                        return <SymbolGridItem key={symbol[0]} image={symbol[1]} text={symbol[0]} onClick={onAddSymbol} />;
+                    })}
                 </div>
                 <div className='SymbolKey-inputContainer'>
                     <InputField
