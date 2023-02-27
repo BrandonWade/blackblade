@@ -1,7 +1,6 @@
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import Paginator from '../../components/Paginator';
-import BackgroundMessage, { NO_RESULTS } from '../../components/BackgroundMessage';
 import CardGrid from '../CardGrid';
 import './PaginatedResults.scss';
 
@@ -92,9 +91,7 @@ export default function PaginatedResults({
                 page={page}
                 onPageChange={onPageChange}
             />
-            <BackgroundMessage showMessage={searchResults.length === 0} type={NO_RESULTS}>
-                <CardGrid gridClassName={gridClassName} cards={searchResults} isLink={isLink} onClick={onSelectResult} />
-            </BackgroundMessage>
+            <CardGrid gridClassName={gridClassName} cards={searchResults} isLink={isLink} onClick={onSelectResult} />
         </div>
     );
 }

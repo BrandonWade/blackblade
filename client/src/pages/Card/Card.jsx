@@ -1,11 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { isEmpty } from 'lodash';
 import useSearch from '../../hooks/useSearch';
 import CardContext from '../../contexts/Card';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
 import HeaderPage from '../../components/HeaderPage';
-import BackgroundMessage from '../../components/BackgroundMessage';
 import CardImage from '../../components/CardImage';
 import CardFaceDetails from '../../components/CardFaceDetails';
 import CardSets from '../../components/CardSets';
@@ -54,35 +52,33 @@ export default function Card() {
 
     return (
         <HeaderPage className='Card'>
-            <BackgroundMessage showMessage={isEmpty(card)}>
-                <CardImagePreview />
-                <div className='Card-mainContent'>
-                    <CardImage className='Card-cardImage' imageClassName='Card-image' card={card} />
-                    <div className='Card-facesContainer'>
-                        {cardFaces?.map(face => {
-                            return <CardFaceDetails key={face.face_id} face={face} />;
-                        })}
-                    </div>
-                    <div>
-                        <CardSets cardSets={card?.sets_json} currentCardID={cardID} />
-                        <div className='Card-externalSites'>
-                            {card?.tcgplayer_id ? (
-                                <Link className='Card-externalLink' to={`https://shop.tcgplayer.com/product/productsearch?id=${card?.tcgplayer_id}`}>
-                                    <Button className='Card-externalButton'>Buy on TCGPlayer</Button>
-                                </Link>
-                            ) : null}
-                            {card?.scryfall_uri ? (
-                                <Link className='Card-externalLink' to={card?.scryfall_uri}>
-                                    <Button className='Card-externalButton'>View on Scryfall</Button>
-                                </Link>
-                            ) : null}
-                        </div>
+            <CardImagePreview />
+            <div className='Card-mainContent'>
+                <CardImage className='Card-cardImage' imageClassName='Card-image' card={card} />
+                <div className='Card-facesContainer'>
+                    {cardFaces?.map(face => {
+                        return <CardFaceDetails key={face.face_id} face={face} />;
+                    })}
+                </div>
+                <div>
+                    <CardSets cardSets={card?.sets_json} currentCardID={cardID} />
+                    <div className='Card-externalSites'>
+                        {card?.tcgplayer_id ? (
+                            <Link className='Card-externalLink' to={`https://shop.tcgplayer.com/product/productsearch?id=${card?.tcgplayer_id}`}>
+                                <Button className='Card-externalButton'>Buy on TCGPlayer</Button>
+                            </Link>
+                        ) : null}
+                        {card?.scryfall_uri ? (
+                            <Link className='Card-externalLink' to={card?.scryfall_uri}>
+                                <Button className='Card-externalButton'>View on Scryfall</Button>
+                            </Link>
+                        ) : null}
                     </div>
                 </div>
-                <div className='Card-secondaryContent'>
-                    <CardRulings rulings={card?.rulings_json} />
-                </div>
-            </BackgroundMessage>
+            </div>
+            <div className='Card-secondaryContent'>
+                <CardRulings rulings={card?.rulings_json} />
+            </div>
         </HeaderPage>
     );
 }
