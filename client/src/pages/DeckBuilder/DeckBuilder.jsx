@@ -12,7 +12,6 @@ import DrawHandDialog from '../../components/DrawHandDialog';
 import ExportDeckDialog from '../../components/ExportDeckDialog';
 import CardImagePreview from '../../components/CardImagePreview';
 import DeckBuilderTabs from '../../components/DeckBuilderTabs';
-import BackgroundMessage from '../../components/BackgroundMessage';
 import DeckPreview from '../../components/DeckPreview';
 import SaveIndicator from '../../components/SaveIndicator';
 import DeckActions from '../../components/DeckActions';
@@ -66,9 +65,7 @@ export default function DeckBuilder() {
             <ExportDeckDialog />
             <CardImagePreview />
             <div className='DeckBuilder-displayPanel'>
-                <BackgroundMessage showMessage={!deckExists}>
-                    {ownsDeck ? <DeckBuilderTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} /> : <DeckPreview />}
-                </BackgroundMessage>
+                {ownsDeck ? <DeckBuilderTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} /> : <DeckPreview />}
             </div>
             <div className='DeckBuilder-deckPanel'>
                 <div className='DeckBuilder-deckInfo'>
