@@ -54,12 +54,13 @@
     }
 
     &-input {
+        min-width: 8rem;
         max-width: 50rem;
         font-size: 1.6rem;
         padding: 0.75rem;
 
         &--small {
-            max-width: 15rem;
+            max-width: 10rem;
             padding-right: 3rem;
         }
 
@@ -159,6 +160,7 @@
 
 .StatRow {
     display: flex;
+    align-items: center;
 
     & > .AttributeSearch-select {
         margin-right: 1rem;
