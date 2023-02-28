@@ -3,4 +3,9 @@
     border: var(--line);
     border-radius: var(--border-radius);
     background-color: var(--color-primary-light);
+
+    &--loading {
+        width: 100%;
+        height: 2rem;
+    }
 }

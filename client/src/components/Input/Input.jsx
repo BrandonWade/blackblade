@@ -1,9 +1,12 @@
+import PropTypes from 'prop-types';
 import withFormField from '../../hocs/withFormField';
+import LoadingSkeleton from '../LoadingSkeleton';
 import './Input.scss';
 
-export default function Input({
-    type = 'text',
+function Input({
     className = '',
+    loading = false,
+    type = 'text',
     placeholder = '',
     name = '',
     value = '',
@@ -11,6 +14,10 @@ export default function Input({
     autoComplete = '',
     onChange = () => {},
 }) {
+    if (loading) {
+        return <LoadingSkeleton className={`Input--loading ${className}`} />;
+    }
+
     return (
         <input
             type={type}
@@ -24,5 +31,19 @@ export default function Input({
         />
     );
 }
+
+Input.propTypes = {
+    className: PropTypes.string,
+    loading: PropTypes.bool,
+    type: PropTypes.string,
+    placeholder: PropTypes.string,
+    name: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    maxLength: PropTypes.number,
+    autoComplete: PropTypes.string,
+    onChange: PropTypes.func,
+};
+
+export default Input;
 
 export const InputField = withFormField(Input);
