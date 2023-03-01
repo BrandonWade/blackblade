@@ -32,14 +32,14 @@
     }
 
     &-label {
-        width: 12%;
+        width: 10rem;
         font-size: 1.6rem;
         margin-right: 2rem;
 
         @media only screen and (max-width: 52.125em) {
             display: block;
             font-size: 1.4rem;
-            width: 100%;
+            width: 15rem;
             margin-right: 0;
             margin-bottom: 0.5rem;
         }
@@ -68,11 +68,6 @@
         @media only screen and (max-width: 52.125em) {
             padding: 0.75rem;
         }
-    }
-
-    &-description {
-        margin-top: 0.75rem;
-        font-size: 1.2rem;
     }
 
     &-checkbox {

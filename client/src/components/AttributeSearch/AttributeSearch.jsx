@@ -98,7 +98,6 @@ export default function AttributeSearch({
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         className='AttributeSearch-input'
-                        descriptionClassName='AttributeSearch-description'
                         label='Name'
                         value={name}
                         description='Any words that appear in the name of the card.'
@@ -108,7 +107,6 @@ export default function AttributeSearch({
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         className='AttributeSearch-input'
-                        descriptionClassName='AttributeSearch-description'
                         label='Text'
                         value={text}
                         description='Any words or symbols that appear in the card text.'
@@ -170,7 +168,6 @@ export default function AttributeSearch({
                     <RarityOptions
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
-                        descriptionClassName='AttributeSearch-description'
                         label='Rarities'
                         description='Each card must be one or more of the selected rarities.'
                         rarities={rarities}
@@ -180,7 +177,6 @@ export default function AttributeSearch({
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         className='AttributeSearch-input'
-                        descriptionClassName='AttributeSearch-description'
                         label='Flavor Text'
                         value={flavorText}
                         description='Any words that appear in the flavor text of the card.'

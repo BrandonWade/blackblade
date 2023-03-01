@@ -58,7 +58,6 @@ function ColorOptions({ colors = {}, setColors = () => {}, setColorless = () => 
             <SelectField
                 rowClassName='ColorOptions-matchTypeSection'
                 className='AttributeSearch-select ColorOptions-matchType'
-                descriptionClassName='AttributeSearch-description'
                 value={matchType}
                 description={renderColorMatchDescription()}
                 onChange={onChangeMatchType}
