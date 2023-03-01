@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import LoadingSkeleton from '../LoadingSkeleton';
 import './Button.scss';
 
-function Button({ className = '', loading = false, type = 'button', disabled = false, children = [], onClick = () => {} }) {
+function Button({ className = '', loading = false, children = [], type = 'button', disabled = false, onClick = () => {} }) {
     if (loading) {
-        return <LoadingSkeleton className='Button--loading' />;
+        return <LoadingSkeleton className={`Button--loading ${className}`} />;
     }
 
     return (
@@ -17,9 +17,9 @@ function Button({ className = '', loading = false, type = 'button', disabled = f
 Button.propTypes = {
     className: PropTypes.string,
     loading: PropTypes.bool,
+    children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
     type: PropTypes.oneOf(['submit', 'reset', 'button']),
     disabled: PropTypes.bool,
-    children: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.string]),
     onClick: PropTypes.func,
 };
 

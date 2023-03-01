@@ -1,3 +1,4 @@
+import LoadingSkeleton from '../../components/LoadingSkeleton';
 import './withFormField.scss';
 
 export default function withFormField(BaseComponent) {
@@ -7,11 +8,26 @@ export default function withFormField(BaseComponent) {
             labelClassName = '',
             className = '',
             descriptionClassName = '',
+            loading = false,
             label = '',
             children = [],
             description = '',
             actionButton = null,
         } = props;
+
+        if (loading) {
+            return (
+                <div className={`FormField ${rowClassName}`}>
+                    {label && <LoadingSkeleton className={`FormField-label--loading ${labelClassName}`} />}
+                    <div className='FormField-verticalWrapper'>
+                        <div className='FormField-horizontalWrapper'>
+                            <BaseComponent {...props} loading={loading} className={`FormField-component--loading ${className}`} />
+                        </div>
+                        {description && <LoadingSkeleton className={`FormField-description--loading ${descriptionClassName}`} />}
+                    </div>
+                </div>
+            );
+        }
 
         return (
             <div className={`FormField ${rowClassName}`}>
