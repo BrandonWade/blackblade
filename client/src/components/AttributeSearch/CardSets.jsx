@@ -63,7 +63,6 @@ export default function CardSets({ selectedSets = [], addSet = () => {}, removeS
             rowClassName='AttributeSearch-formRow'
             labelClassName='AttributeSearch-label'
             className='AttributeSearch-select'
-            descriptionClassName='AttributeSearch-description'
             label='Sets'
             description='Each card must be in one or more of the selected sets.'
             selectedOptions={getFormattedSelectedSets()}

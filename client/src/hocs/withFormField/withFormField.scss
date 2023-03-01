@@ -41,15 +41,18 @@
         &--loading {
             width: 10rem;
             height: 2rem;
-            margin: 1.25rem 0 0.25rem;
         }
     }
 
     &-description {
+        margin-top: 0.75rem;
+        font-size: 1.2rem;
+
         &--loading {
             width: 100%;
             max-width: 50rem;
             height: 1.25rem;
+            margin-top: 0.5rem;
         }
     }
 }

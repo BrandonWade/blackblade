@@ -104,7 +104,6 @@ export default function CardTypes({ selectedTypes = [], addType = () => {}, remo
             rowClassName='AttributeSearch-formRow'
             labelClassName='AttributeSearch-label'
             className='AttributeSearch-select'
-            descriptionClassName='AttributeSearch-description'
             label='Types'
             isNegatable={true}
             description='Each card will contain all chosen types marked with IS, and will not contain any marked with NOT.'
