@@ -15,6 +15,13 @@
         }
     }
 
+    &-label {
+        &--loading {
+            width: 10rem;
+            height: 2rem;
+        }
+    }
+
     &-verticalWrapper {
         width: 100%;
         display: flex;
@@ -30,5 +37,19 @@
     &-component {
         width: 100%;
         flex: 1;
+
+        &--loading {
+            width: 10rem;
+            height: 2rem;
+            margin: 1.25rem 0 0.25rem;
+        }
+    }
+
+    &-description {
+        &--loading {
+            width: 100%;
+            max-width: 50rem;
+            height: 1.25rem;
+        }
     }
 }

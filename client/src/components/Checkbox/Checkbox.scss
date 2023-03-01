@@ -1,4 +1,9 @@
 .Checkbox {
+    &--loading {
+        min-width: 10rem;
+        height: 2rem;
+    }
+
     &-label {
         display: block;
         position: relative;
