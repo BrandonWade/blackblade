@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import usePersistDeck from '../../hooks/usePersistDeck';
@@ -9,9 +10,10 @@ import DeckBuilderContext from '../../contexts/DeckBuilder';
 import ExportDeckDialogContext from '../../contexts/ExportDeckDialog';
 import DeckActionButton from './DeckActionButton';
 import { Pencil, Documents, Export } from '../Icons';
+import LoadingSkeleton from '../LoadingSkeleton';
 import './DeckActions.scss';
 
-export default function DeckActions({ deckExists = false }) {
+function DeckActions({ loading = false, deckExists = false }) {
     const { publicID } = useParams();
     const history = useHistory();
     const { exportDeck } = useDecks();
@@ -24,6 +26,16 @@ export default function DeckActions({ deckExists = false }) {
     const { setDeckExport, setVisible } = useContext(ExportDeckDialogContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
     const hasCards = deckCards.length > 0 || maybeboardCards.length > 0;
+
+    if (loading) {
+        return (
+            <div className='DeckActions'>
+                {new Array(3).fill().map((_, i) => (
+                    <LoadingSkeleton key={i} className='DeckActions-buttonLabel--loading' />
+                ))}
+            </div>
+        );
+    }
 
     const onEditDeck = () => {
         history.push(`/decks/${publicID}/edit`);
@@ -65,3 +77,10 @@ export default function DeckActions({ deckExists = false }) {
         </div>
     );
 }
+
+DeckActions.propTypes = {
+    loading: PropTypes.bool,
+    deckExists: PropTypes.bool,
+};
+
+export default DeckActions;
