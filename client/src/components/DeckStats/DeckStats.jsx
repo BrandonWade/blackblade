@@ -1,9 +1,21 @@
+import PropTypes from 'prop-types';
 import { sumBy, sum, head, sortBy } from 'lodash';
 import { parseIntFallback, parseFloatFallback } from '../../helpers/parse';
+import LoadingSkeleton from '../LoadingSkeleton';
 import './DeckStats.scss';
 
-export default function DeckStats({ deck = [] }) {
+function DeckStats({ loading = false, deck = [] }) {
     let stats = [];
+
+    if (loading) {
+        return (
+            <div className='DeckStats DeckStats--loading'>
+                {new Array(6).fill().map((_, i) => (
+                    <LoadingSkeleton key={i} className='DeckStats-statBlock DeckStats-statBlock--loading' />
+                ))}
+            </div>
+        );
+    }
 
     const estimatedPrice = () => {
         const price = sumBy(deck, card => {
@@ -179,3 +191,10 @@ export default function DeckStats({ deck = [] }) {
         </div>
     );
 }
+
+DeckStats.propTypes = {
+    loading: PropTypes.bool,
+    deck: PropTypes.array,
+};
+
+export default DeckStats;

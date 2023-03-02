@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import useIsDeckUnmodified from '../../hooks/useIsDeckUnmodified';
 import useLoadDeck from '../../hooks/useLoadDeck';
@@ -17,9 +18,10 @@ import SaveIndicator from '../../components/SaveIndicator';
 import DeckActions from '../../components/DeckActions';
 import DeckStats from '../../components/DeckStats';
 import DeckTable from '../../components/DeckTable';
+import DeckBuilderName from './DeckBuilderName';
 import './DeckBuilder.scss';
 
-export default function DeckBuilder() {
+function DeckBuilder({ loading = false }) {
     const { publicID } = useParams();
     const debouncedPersistDeck = useDebouncedPersistDeck();
     const { isDeckUnmodified } = useIsDeckUnmodified();
@@ -70,7 +72,7 @@ export default function DeckBuilder() {
             <div className='DeckBuilder-deckPanel'>
                 <div className='DeckBuilder-deckInfo'>
                     <div className='DeckBuilder-nameBar'>
-                        {deckExists ? <div className='DeckBuilder-name'>{deckName}</div> : null}
+                        {deckExists && <DeckBuilderName loading={loading} name={deckName} />}
                         {deckExists && ownsDeck ? <SaveIndicator /> : null}
                     </div>
                     <DeckActions deckExists={deckExists} />
@@ -88,3 +90,9 @@ export default function DeckBuilder() {
         </HeaderPage>
     );
 }
+
+DeckBuilder.propTypes = {
+    loading: PropTypes.bool,
+};
+
+export default DeckBuilder;
