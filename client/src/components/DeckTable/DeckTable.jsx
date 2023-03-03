@@ -1,15 +1,27 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import useCardGroups from '../../hooks/useCardGroups';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import DeckSection from './DeckSection';
 import './DeckTable.scss';
 
-export default function DeckTable({ deckCards = [], maybeboardCards = [], maybeboardMode = false, setMaybeboardMode = () => {} }) {
+function DeckTable({ loading = false, deckCards = [], maybeboardCards = [], maybeboardMode = false, setMaybeboardMode = () => {} }) {
     const { creatures, spells, land } = useCardGroups(deckCards);
     const { accountPublicID } = useContext(AuthContext);
     const { deckAccountPublicID } = useContext(DeckBuilderContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
+
+    if (loading) {
+        return (
+            <table className='DeckTable-deck'>
+                <DeckSection loading={loading} />
+                <DeckSection loading={loading} />
+                <DeckSection loading={loading} />
+                <DeckSection loading={loading} />
+            </table>
+        );
+    }
 
     const toggleMaybeboardMode = () => {
         setMaybeboardMode(ownsDeck && !maybeboardMode);
@@ -38,3 +50,13 @@ export default function DeckTable({ deckCards = [], maybeboardCards = [], maybeb
         </table>
     );
 }
+
+DeckTable.propTypes = {
+    loading: PropTypes.bool,
+    deckCards: PropTypes.array,
+    maybeboardCards: PropTypes.array,
+    maybeboardMode: PropTypes.bool,
+    setMaybeboardMode: PropTypes.func,
+};
+
+export default DeckTable;
