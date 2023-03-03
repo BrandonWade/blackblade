@@ -73,7 +73,7 @@ function DeckBuilder({ loading = false }) {
                 <div className='DeckBuilder-deckInfo'>
                     <div className='DeckBuilder-nameBar'>
                         {deckExists && <DeckBuilderName loading={loading} name={deckName} />}
-                        {deckExists && ownsDeck ? <SaveIndicator /> : null}
+                        {deckExists && ownsDeck && !loading ? <SaveIndicator /> : null}
                     </div>
                     <DeckActions deckExists={deckExists} />
                 </div>

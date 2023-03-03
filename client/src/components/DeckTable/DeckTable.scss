@@ -8,6 +8,24 @@
         &--active {
             background-color: var(--color-highlight);
         }
+
+        &--loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    &-heading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        &--loading {
+            width: 80%;
+            height: 2rem;
+        }
     }
 
     &-maybeboardHeading {
@@ -17,6 +35,19 @@
     &-cardRow {
         border-bottom: var(--line);
         background-color: var(--color-primary-dark);
+
+        &--loading {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    &-cardRowContent {
+        &--loading {
+            width: 60%;
+            height: 1.75rem;
+            margin: 0.5rem;
+        }
     }
 
     &-deck {

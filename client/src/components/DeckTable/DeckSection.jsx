@@ -1,6 +1,9 @@
+import PropTypes from 'prop-types';
 import DeckRow from './DeckRow';
+import LoadingSkeleton from '../LoadingSkeleton';
 
-export default function DeckSection({
+function DeckSection({
+    loading = false,
     cards = [],
     heading = '',
     type = '',
@@ -9,6 +12,21 @@ export default function DeckSection({
     headingClassName = '',
     onHeadingClick = () => {},
 }) {
+    if (loading) {
+        return (
+            <tbody className={`DeckTable-section ${className}`}>
+                <tr className='DeckTable-headingRow DeckTable-headingRow--loading'>
+                    <th colSpan='100%' className={`DeckTable-heading ${headingClassName}`} onClick={onHeadingClick}>
+                        <LoadingSkeleton className='DeckTable-heading--loading' />
+                    </th>
+                </tr>
+                {new Array(4).fill().map((_, i) => (
+                    <DeckRow key={i} loading={loading} />
+                ))}
+            </tbody>
+        );
+    }
+
     return visible ? (
         <tbody className={`DeckTable-section ${className}`}>
             <tr className='DeckTable-headingRow'>
@@ -22,3 +40,16 @@ export default function DeckSection({
         </tbody>
     ) : null;
 }
+
+DeckSection.propTypes = {
+    loading: PropTypes.bool,
+    cards: PropTypes.array,
+    heading: PropTypes.string,
+    type: PropTypes.string,
+    visible: PropTypes.bool,
+    className: PropTypes.string,
+    headingClassName: PropTypes.string,
+    onHeadingClick: PropTypes.func,
+};
+
+export default DeckSection;

@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import CardContext from '../../contexts/Card';
 import AuthContext from '../../contexts/Auth';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
@@ -6,8 +7,9 @@ import DeckRowManaCost from './DeckRowManaCost';
 import DeckRowName from './DeckRowName';
 import Input from '../Input';
 import { Images, ArrowUp, ArrowDown } from '../Icons';
+import LoadingSkeleton from '../LoadingSkeleton';
 
-export default function DeckRow({ card = {}, count = 0, sectionType = '' }) {
+function DeckRow({ loading = false, card = {}, count = 0, sectionType = '' }) {
     const { accountPublicID } = useContext(AuthContext);
     const { setCard } = useContext(CardContext);
     const {
@@ -21,9 +23,19 @@ export default function DeckRow({ card = {}, count = 0, sectionType = '' }) {
         showCardArtSelector,
     } = useContext(DeckBuilderContext);
     const ownsDeck = accountPublicID === deckAccountPublicID;
-    const inDeck = card.location === 'deck';
+    const inDeck = card?.location === 'deck';
     const isMaybeboardSection = sectionType === 'maybeboard';
-    const [frontImage, backImage] = card?.faces_json?.map(face => face.image);
+    const [frontImage, backImage] = (card?.faces_json || [])?.map(face => face.image);
+
+    if (loading) {
+        return (
+            <tr className='DeckTable-cardRow'>
+                <td className='DeckTable-cardRow--loading'>
+                    <LoadingSkeleton className='DeckTable-cardRowContent--loading' />
+                </td>
+            </tr>
+        );
+    }
 
     const onCountChange = e => {
         const updateCardCount = inDeck ? updateDeckCardCount : updateMaybeboardCardCount;
@@ -94,7 +106,7 @@ export default function DeckRow({ card = {}, count = 0, sectionType = '' }) {
     };
 
     return (
-        <tr key={card.card_id} className='DeckTable-cardRow'>
+        <tr className='DeckTable-cardRow'>
             {renderCardCount()}
             {renderSelectArtButton()}
             {renderSwitchSectionButton()}
@@ -121,3 +133,12 @@ export default function DeckRow({ card = {}, count = 0, sectionType = '' }) {
         </tr>
     );
 }
+
+DeckRow.propTypes = {
+    loading: PropTypes.bool,
+    card: PropTypes.object,
+    count: PropTypes.number,
+    sectionType: PropTypes.string,
+};
+
+export default DeckRow;
