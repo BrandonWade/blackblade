@@ -15,5 +15,10 @@
     &-name {
         display: flex;
         align-items: center;
+
+        &--loading {
+            width: 75%;
+            height: 2rem;
+        }
     }
 }
