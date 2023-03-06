@@ -1,15 +1,18 @@
 import { useState, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import useBookmarks from '../../hooks/useBookmarks';
 import AuthContext from '../../contexts/Auth';
 import BookmarkListContext from '../../contexts/BookmarkList';
 import Button from '../Button';
 import { RotateCW, RotateCCW, FlipRotate, StarEmpty, StarFilled } from '../Icons';
+import LoadingSkeleton from '../LoadingSkeleton';
 import './CardImage.scss';
 
-export default function CardImage({
+function CardImage({
     className = '',
     imageClassName = '',
+    loading = false,
     card = {},
     isSelected = false,
     isLink = false,
@@ -38,7 +41,11 @@ export default function CardImage({
     const rotateCCWClassName = `${canRotateCCW ? 'CardImage--canRotate' : ''} ${rotatedCCW ? 'CardImage-imageFront--rotatedCCW' : ''}`;
     const transformClassName = `${canTransform ? 'CardImage--canTransform' : ''} ${transformed ? 'CardImage-imageFront--transformed' : ''}`;
     const transformBackClassName = `CardImage--canTransform ${transformed ? 'CardImage-imageBack--transformed' : ''}`;
-    const [front, back] = cardFaces;
+    const [front, back] = cardFaces || [];
+
+    if (loading) {
+        return <LoadingSkeleton className='CardImage--loading' />;
+    }
 
     useEffect(() => {
         setFlipped(false);
@@ -218,3 +225,16 @@ export default function CardImage({
         </div>
     );
 }
+
+CardImage.propTypes = {
+    className: PropTypes.string,
+    imageClassName: PropTypes.string,
+    loading: PropTypes.bool,
+    card: PropTypes.object,
+    isSelected: PropTypes.bool,
+    isLink: PropTypes.bool,
+    isCompact: PropTypes.bool,
+    onClick: PropTypes.func,
+};
+
+export default CardImage;
