@@ -17,10 +17,6 @@
             background-color: #2f3334;
             cursor: pointer;
         }
-
-        &.CardSection-rowItem {
-            padding: 0;
-        }
     }
 
     &-rowContent {
@@ -28,7 +24,20 @@
         height: 100%;
         display: flex;
         justify-content: space-between;
-        padding: 1rem;
+    }
+
+    &-name {
+        &--loading {
+            width: 60%;
+            height: 1.75rem;
+        }
+    }
+
+    &-cost {
+        &--loading {
+            width: 15%;
+            height: 1.75rem;
+        }
     }
 
     &-selectedSet {
