@@ -1,11 +1,26 @@
+import PropTypes from 'prop-types';
 import CardSection from '../CardSection';
 import CardSet from './CardSet';
 import './CardSets.scss';
 
-export default function CardSets({ cardSets = [], currentCardID = 0 }) {
+function CardSets({ loading = false, cardSets = [], currentCardID = 0 }) {
+    if (loading) {
+        return (
+            <CardSection className='CardSets'>
+                <div className='CardSets-list'>
+                    <CardSet loading={loading} />
+                    <CardSet loading={loading} />
+                    <CardSet loading={loading} />
+                    <CardSet loading={loading} />
+                    <CardSet loading={loading} />
+                </div>
+            </CardSection>
+        );
+    }
+
     return cardSets.length > 0 ? (
         <CardSection className='CardSets'>
-            <ul className='CardSets-list'>
+            <div className='CardSets-list'>
                 {cardSets.map(set => {
                     return (
                         <CardSet
@@ -20,7 +35,15 @@ export default function CardSets({ cardSets = [], currentCardID = 0 }) {
                         />
                     );
                 })}
-            </ul>
+            </div>
         </CardSection>
     ) : null;
 }
+
+CardSets.propTypes = {
+    loading: PropTypes.bool,
+    cardSets: PropTypes.array,
+    currentCardID: PropTypes.number,
+};
+
+export default CardSets;
