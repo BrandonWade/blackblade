@@ -44,7 +44,11 @@ function CardImage({
     const [front, back] = cardFaces || [];
 
     if (loading) {
-        return <LoadingSkeleton className='CardImage--loading' />;
+        return (
+            <div className='CardImage'>
+                <LoadingSkeleton className='CardImage--loading' />
+            </div>
+        );
     }
 
     useEffect(() => {
