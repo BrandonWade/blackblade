@@ -1,18 +1,6 @@
 .CardRulings {
-    width: 75%;
-    border-top: var(--line-transparent);
-    margin-top: 4rem;
-    padding: 2.5rem 0;
-
-    @media only screen and (max-width: 75em) {
-        width: 100%;
-        margin: 0;
-        padding: 1.5rem;
-    }
-
-    &-rulingsContainer {
-        overflow: hidden;
-    }
+    width: 100%;
+    overflow: hidden;
 
     &-ruling {
         display: flex;
@@ -26,10 +14,25 @@
         }
     }
 
+    &-publishedAt {
+        font-size: 1.2rem;
+
+        &--loading {
+            width: 10%;
+            min-width: 6rem;
+            height: 1.5rem;
+        }
+    }
+
     &-comment {
         flex: 1;
         font-size: 1.3rem;
         word-break: break-word;
+
+        &--loading {
+            width: 100%;
+            height: 1.5rem;
+        }
 
         & > .CardSymbol {
             width: 1.4rem;
@@ -37,9 +40,5 @@
             position: relative;
             top: 0.2rem;
         }
-    }
-
-    &-publishedAt {
-        font-size: 1.2rem;
     }
 }

@@ -53,7 +53,7 @@ export default function Card() {
     return (
         <HeaderPage className='Card'>
             <CardImagePreview />
-            <div className='Card-mainContent'>
+            <div className='Card-content'>
                 <CardImage className='Card-cardImage' imageClassName='Card-image' card={card} />
                 <div className='Card-facesContainer'>
                     {cardFaces?.map(face => {
@@ -75,9 +75,7 @@ export default function Card() {
                         ) : null}
                     </div>
                 </div>
-            </div>
-            <div className='Card-secondaryContent'>
-                <CardRulings rulings={card?.rulings_json} />
+                <CardRulings className='Card-rulings' rulings={card?.rulings_json} />
             </div>
         </HeaderPage>
     );

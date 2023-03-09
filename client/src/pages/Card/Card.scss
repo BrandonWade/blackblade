@@ -1,21 +1,22 @@
 .Card {
-    &-mainContent {
+    &-content {
         display: grid;
-        grid-template-columns: max-content 25% 20%;
-        grid-column-gap: 2rem;
+        grid-template-columns: auto 25% 20%;
+        column-gap: 2rem;
+        row-gap: 2rem;
         justify-content: center;
         align-items: start;
         padding: 1.5rem;
         background-color: var(--color-primary);
 
         @media only screen and (max-width: 75em) {
-            grid-template-columns: max-content 35% 25%;
+            grid-template-columns: auto 35% 25%;
         }
 
         @media only screen and (max-width: 56.25em) {
             height: auto;
             grid-template-columns: none;
-            grid-row-gap: 2rem;
+            row-gap: 2rem;
         }
 
         @media only screen and (max-width: 37.5em) {
@@ -50,8 +51,17 @@
         justify-content: center;
     }
 
-    &-secondaryContent {
-        display: flex;
-        justify-content: center;
+    &-rulings {
+        max-width: 75vw;
+        grid-column: 1 / 4;
+
+        @media only screen and (max-width: 75em) {
+            max-width: 100vw;
+        }
+
+        @media only screen and (max-width: 56.25em) {
+            grid-column: initial;
+            grid-row: initial;
+        }
     }
 }
