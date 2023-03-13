@@ -38,6 +38,11 @@
         &:hover {
             background-color: var(--color-primary-lighter);
         }
+
+        &--loading {
+            width: 100%;
+            height: 10.5rem;
+        }
     }
 
     &-delete {

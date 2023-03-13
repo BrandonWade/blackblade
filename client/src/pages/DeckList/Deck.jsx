@@ -1,8 +1,15 @@
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import useSymbols from '../../hooks/useSymbols';
+import LoadingSkeleton from '../../components/LoadingSkeleton';
 
-export default function Deck({ publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colors = '', removeDeck = () => {} }) {
+function Deck({ loading = false, publicID = '', name = '', deckSize = 0, maybeboardSize = 0, colors = '', removeDeck = () => {} }) {
     const history = useHistory();
+
+    if (loading) {
+        return <LoadingSkeleton className='DeckList-deck--loading' />;
+    }
+
     const getSizeText = () => {
         const maybeboardText = maybeboardSize ? ` + ${maybeboardSize}` : '';
         const suffix = deckSize + maybeboardSize === 1 ? ' card' : ' cards';
@@ -29,3 +36,15 @@ export default function Deck({ publicID = '', name = '', deckSize = 0, maybeboar
         </div>
     );
 }
+
+Deck.propTypes = {
+    loading: PropTypes.bool,
+    publicID: PropTypes.string,
+    name: PropTypes.string,
+    deckSize: PropTypes.number,
+    maybeboardSize: PropTypes.number,
+    colors: PropTypes.string,
+    removeDeck: PropTypes.func,
+};
+
+export default Deck;

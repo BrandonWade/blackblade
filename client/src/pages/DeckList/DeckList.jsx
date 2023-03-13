@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import useDecks from '../../hooks/useDecks';
 import useConfirmDialog from '../../hooks/useConfirmDialog';
@@ -8,11 +9,28 @@ import HeaderPage from '../../components/HeaderPage';
 import Deck from './Deck';
 import './DeckList.scss';
 
-export default function DeckList() {
+function DeckList({ loading = false }) {
     const { listDecks, deleteDeck } = useDecks();
     const { showConfirmDialog } = useConfirmDialog();
     const { deckList, setDeckList } = useContext(DeckListContext);
     const { deckPublicID, resetDeckBuilder } = useContext(DeckBuilderContext);
+
+    if (loading) {
+        return (
+            <HeaderPage className='DeckList'>
+                <div className='DeckList-content'>
+                    <div className='DeckList-list'>
+                        <Deck loading={loading} />
+                        <Deck loading={loading} />
+                        <Deck loading={loading} />
+                        <Deck loading={loading} />
+                        <Deck loading={loading} />
+                        <Deck loading={loading} />
+                    </div>
+                </div>
+            </HeaderPage>
+        );
+    }
 
     useEffect(() => {
         const fetchDeckList = async () => {
@@ -69,3 +87,9 @@ export default function DeckList() {
         </HeaderPage>
     );
 }
+
+PropTypes.propTypes = {
+    loading: PropTypes.bool,
+};
+
+export default DeckList;
