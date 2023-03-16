@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import useSearch from '../../hooks/useSearch';
 import CardContext from '../../contexts/Card';
 import CardImagePreviewContext from '../../contexts/CardImagePreview';
@@ -13,13 +14,34 @@ import Link from '../../components/Link';
 import Button from '../../components/Button';
 import './Card.scss';
 
-export default function Card() {
+function Card({ loading = false }) {
     const { id } = useParams();
     const { getCardByID } = useSearch();
     const { card, setCard } = useContext(CardContext);
     const { setVisible } = useContext(CardImagePreviewContext);
     const cardID = parseInt(id);
     const cardFaces = card?.faces_json || [];
+
+    if (loading) {
+        return (
+            <HeaderPage className='Card'>
+                <div className='Card-content'>
+                    <CardImage loading={loading} className='Card-cardImage' imageClassName='Card-image--loading' />
+                    <div className='Card-facesContainer'>
+                        <CardFaceDetails loading={loading} />
+                    </div>
+                    <div>
+                        <CardSets loading={loading} />
+                        <div className='Card-externalSites'>
+                            <Button loading={loading} className='Card-externalLink Card-externalButton' />
+                            <Button loading={loading} className='Card-externalLink Card-externalButton' />
+                        </div>
+                    </div>
+                    <CardRulings loading={loading} className='Card-rulings' />
+                </div>
+            </HeaderPage>
+        );
+    }
 
     useEffect(() => {
         return () => {
@@ -80,3 +102,9 @@ export default function Card() {
         </HeaderPage>
     );
 }
+
+Card.propTypes = {
+    loading: PropTypes.bool,
+};
+
+export default Card;

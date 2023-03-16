@@ -31,6 +31,11 @@
     &-image {
         height: 45rem;
         width: auto;
+
+        &--loading {
+            height: 45rem;
+            width: 32rem;
+        }
     }
 
     &-externalSites {

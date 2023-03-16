@@ -1,7 +1,9 @@
+import PropTypes from 'prop-types';
 import CardImage from '../CardImage';
 import './CardGrid.scss';
 
-export default function CardGrid({
+function CardGrid({
+    loading = false,
     className = '',
     gridClassName = '',
     heading = '',
@@ -10,6 +12,20 @@ export default function CardGrid({
     isLink = false,
     onClick = () => {},
 }) {
+    if (loading) {
+        return (
+            <div className='CardGrid'>
+                <div className={`CardGrid-content ${gridClassName}`}>
+                    <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
+                    <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
+                    <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
+                    <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
+                    <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className={`CardGrid ${className}`}>
             {heading ? <h3 className='CardGrid-heading'>{heading}</h3> : null}
@@ -31,3 +47,16 @@ export default function CardGrid({
         </div>
     );
 }
+
+CardGrid.propTypes = {
+    loading: PropTypes.bool,
+    className: PropTypes.string,
+    gridClassName: PropTypes.string,
+    heading: PropTypes.string,
+    cards: PropTypes.array,
+    currentCardID: PropTypes.number,
+    isLink: PropTypes.bool,
+    onClick: PropTypes.func,
+};
+
+export default CardGrid;

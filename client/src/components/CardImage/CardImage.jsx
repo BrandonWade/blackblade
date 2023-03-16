@@ -10,9 +10,9 @@ import LoadingSkeleton from '../LoadingSkeleton';
 import './CardImage.scss';
 
 function CardImage({
+    loading = false,
     className = '',
     imageClassName = '',
-    loading = false,
     card = {},
     isSelected = false,
     isLink = false,
@@ -46,7 +46,7 @@ function CardImage({
     if (loading) {
         return (
             <div className='CardImage'>
-                <LoadingSkeleton className='CardImage--loading' />
+                <LoadingSkeleton className={imageClassName} />
             </div>
         );
     }
@@ -231,9 +231,9 @@ function CardImage({
 }
 
 CardImage.propTypes = {
+    loading: PropTypes.bool,
     className: PropTypes.string,
     imageClassName: PropTypes.string,
-    loading: PropTypes.bool,
     card: PropTypes.object,
     isSelected: PropTypes.bool,
     isLink: PropTypes.bool,

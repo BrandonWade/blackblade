@@ -36,11 +36,6 @@
         transition: transform 1.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    &--loading {
-        height: 45rem;
-        width: 32.5rem;
-    }
-
     &-imageFront {
         &--flipped {
             transform: rotate(180deg);
