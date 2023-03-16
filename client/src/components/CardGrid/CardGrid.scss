@@ -40,5 +40,11 @@
     &-image {
         border-radius: 1rem;
         cursor: pointer;
+
+        &--loading {
+            height: auto;
+            width: 100%;
+            aspect-ratio: 61 / 85;
+        }
     }
 }
