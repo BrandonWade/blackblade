@@ -1,22 +1,23 @@
 import { useRef } from 'react';
+import PropTypes from 'prop-types';
 import DeckBuilderTabTitle from './DeckBuilderTabTitle';
 import DeckBuilderSearch from '../../components/DeckBuilderSearch';
 import DeckBuilderSearchResults from '../../components/DeckBuilderSearchResults';
 import DeckPreview from '../../components/DeckPreview';
 import './DeckBuilderTabs.scss';
 
-export default function DeckBuilderTabs({ selectedTab = '', setSelectedTab = () => {} }) {
+function DeckBuilderTabs({ loading = false, selectedTab = '', setSelectedTab = () => {} }) {
     const tabContentRef = useRef();
 
     const renderTabContent = () => {
         switch (selectedTab) {
             case 'deck_preview':
-                return <DeckPreview />;
+                return <DeckPreview loading={loading} />;
             case 'search_results':
-                return <DeckBuilderSearchResults forwardRef={tabContentRef} />;
+                return <DeckBuilderSearchResults loading={loading} forwardRef={tabContentRef} />;
             case 'search_cards':
             default:
-                return <DeckBuilderSearch />;
+                return <DeckBuilderSearch loading={loading} />;
         }
     };
 
@@ -38,3 +39,11 @@ export default function DeckBuilderTabs({ selectedTab = '', setSelectedTab = () 
         </div>
     );
 }
+
+DeckBuilderTabs.propTypes = {
+    loading: PropTypes.bool,
+    selectedTab: PropTypes.string,
+    setSelectedTab: PropTypes.func,
+};
+
+export default DeckBuilderTabs;

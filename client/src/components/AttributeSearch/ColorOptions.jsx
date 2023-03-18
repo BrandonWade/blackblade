@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import withFormField from '../../hocs/withFormField';
 import symbolMap from '../../hooks/useSymbols/symbolMap';
 import FieldGroup from '../../components/FieldGroup';
 import Checkbox from '../../components/Checkbox';
 import { SelectField } from '../../components/Select';
 
-function ColorOptions({ colors = {}, setColors = () => {}, setColorless = () => {}, matchType = '', setMatchType = () => {} }) {
+function ColorOptions({ loading = false, colors = {}, setColors = () => {}, setColorless = () => {}, matchType = '', setMatchType = () => {} }) {
     const onChangeWhite = () => onChangeColors('white');
     const onChangeBlue = () => onChangeColors('blue');
     const onChangeBlack = () => onChangeColors('black');
@@ -30,32 +31,33 @@ function ColorOptions({ colors = {}, setColors = () => {}, setColorless = () => 
     return (
         <div className='ColorOptions'>
             <FieldGroup>
-                <Checkbox className='AttributeSearch-checkbox' value={colors['white']} onClick={onChangeWhite}>
+                <Checkbox loading={loading} className='AttributeSearch-checkbox' value={colors['white']} onClick={onChangeWhite}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{W}'] }} />
                     White
                 </Checkbox>
-                <Checkbox className='AttributeSearch-checkbox' value={colors['blue']} onClick={onChangeBlue}>
+                <Checkbox loading={loading} className='AttributeSearch-checkbox' value={colors['blue']} onClick={onChangeBlue}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{U}'] }} />
                     Blue
                 </Checkbox>
-                <Checkbox className='AttributeSearch-checkbox' value={colors['black']} onClick={onChangeBlack}>
+                <Checkbox loading={loading} className='AttributeSearch-checkbox' value={colors['black']} onClick={onChangeBlack}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{B}'] }} />
                     Black
                 </Checkbox>
-                <Checkbox className='AttributeSearch-checkbox' value={colors['red']} onClick={onChangeRed}>
+                <Checkbox loading={loading} className='AttributeSearch-checkbox' value={colors['red']} onClick={onChangeRed}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{R}'] }} />
                     Red
                 </Checkbox>
-                <Checkbox className='AttributeSearch-checkbox' value={colors['green']} onClick={onChangeGreen}>
+                <Checkbox loading={loading} className='AttributeSearch-checkbox' value={colors['green']} onClick={onChangeGreen}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{G}'] }} />
                     Green
                 </Checkbox>
-                <Checkbox className='AttributeSearch-checkbox' value={colors['colorless']} onClick={onChangeColorless}>
+                <Checkbox loading={loading} className='AttributeSearch-checkbox' value={colors['colorless']} onClick={onChangeColorless}>
                     <span className='ColorOptions-manaSymbol' dangerouslySetInnerHTML={{ __html: symbolMap['{C}'] }} />
                     Colorless
                 </Checkbox>
             </FieldGroup>
             <SelectField
+                loading={loading}
                 rowClassName='ColorOptions-matchTypeSection'
                 className='AttributeSearch-select ColorOptions-matchType'
                 value={matchType}
@@ -69,5 +71,14 @@ function ColorOptions({ colors = {}, setColors = () => {}, setColorless = () => 
         </div>
     );
 }
+
+ColorOptions.propTypes = {
+    loading: PropTypes.bool,
+    colors: PropTypes.object,
+    setColors: PropTypes.func,
+    setColorless: PropTypes.func,
+    matchType: PropTypes.string,
+    setMatchType: PropTypes.func,
+};
 
 export default withFormField(ColorOptions);

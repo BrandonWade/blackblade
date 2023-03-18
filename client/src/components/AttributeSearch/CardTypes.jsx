@@ -1,9 +1,10 @@
 import { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import useCardTypes from '../../hooks/useCardTypes';
 import AttributeSearchContext from '../../contexts/AttributeSearch';
 import { MultiSelectField } from '../../components/Select';
 
-export default function CardTypes({ selectedTypes = [], addType = () => {}, removeType = () => {}, negateType = () => {} }) {
+function CardTypes({ loading = false, selectedTypes = [], addType = () => {}, removeType = () => {}, negateType = () => {} }) {
     const { getCardTypes } = useCardTypes();
     const { cardTypes, setCardTypes } = useContext(AttributeSearchContext);
 
@@ -101,6 +102,7 @@ export default function CardTypes({ selectedTypes = [], addType = () => {}, remo
 
     return (
         <MultiSelectField
+            loading={loading}
             rowClassName='AttributeSearch-formRow'
             labelClassName='AttributeSearch-label'
             className='AttributeSearch-select'
@@ -116,3 +118,13 @@ export default function CardTypes({ selectedTypes = [], addType = () => {}, remo
         </MultiSelectField>
     );
 }
+
+CardTypes.propTypes = {
+    loading: PropTypes.bool,
+    selectedTypes: PropTypes.array,
+    addType: PropTypes.func,
+    removeType: PropTypes.func,
+    negateType: PropTypes.func,
+};
+
+export default CardTypes;
