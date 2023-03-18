@@ -4,7 +4,7 @@ import withFormField from '../../hocs/withFormField';
 import Select from '../../components/Select';
 import { NumberInputField } from '../../components/NumberInput';
 
-function StatRow({ loading = false, stat = '', comparator = '==', value = 0, setStat = () => {} }) {
+function StatRow({ loading = false, stat = '', comparator = '==', value = '', setStat = () => {} }) {
     const onChangeComparator = e => {
         setStat(stat, e.target.value, value);
     };
@@ -49,7 +49,7 @@ StatRow.propTypes = {
     loading: PropTypes.bool,
     stat: PropTypes.string,
     comparator: PropTypes.string,
-    value: PropTypes.number,
+    value: PropTypes.string,
     setStat: PropTypes.func,
 };
 
