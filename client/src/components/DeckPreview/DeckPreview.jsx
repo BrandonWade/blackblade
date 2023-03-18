@@ -1,12 +1,24 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import useCardGroups from '../../hooks/useCardGroups';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import CardGrid from '../CardGrid';
 import './DeckPreview.scss';
 
-export default function DeckPreview() {
+function DeckPreview({ loading = false }) {
     const { deckCards, maybeboardCards } = useContext(DeckBuilderContext);
     const { creatures, spells, land } = useCardGroups(deckCards);
+
+    if (loading) {
+        return (
+            <div className='DeckPreview'>
+                <CardGrid loading={loading} className='DeckPreview-cardGrid' heading='Creatures' />
+                <CardGrid loading={loading} className='DeckPreview-cardGrid' heading='Spells' />
+                <CardGrid loading={loading} className='DeckPreview-cardGrid' heading='Land' />
+                <CardGrid loading={loading} className='DeckPreview-cardGrid' heading='Maybeboard' />
+            </div>
+        );
+    }
 
     return (
         <div className='DeckPreview'>
@@ -17,3 +29,9 @@ export default function DeckPreview() {
         </div>
     );
 }
+
+DeckPreview.propTypes = {
+    loading: PropTypes.bool,
+};
+
+export default DeckPreview;

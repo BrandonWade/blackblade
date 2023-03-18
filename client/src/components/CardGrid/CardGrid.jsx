@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import CardImage from '../CardImage';
+import LoadingSkeleton from '../LoadingSkeleton';
 import './CardGrid.scss';
 
 function CardGrid({
@@ -14,8 +15,14 @@ function CardGrid({
 }) {
     if (loading) {
         return (
-            <div className='CardGrid'>
+            <div className={`CardGrid ${className}`}>
+                {heading ? <LoadingSkeleton className='CardGrid-heading CardGrid-heading--loading' /> : null}
                 <div className={`CardGrid-content ${gridClassName}`}>
+                    <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
+                    <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
+                    <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
+                    <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
+                    <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
                     <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
                     <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
                     <CardImage loading={loading} imageClassName='CardGrid-image--loading' />
