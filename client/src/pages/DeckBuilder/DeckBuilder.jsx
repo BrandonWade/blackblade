@@ -67,7 +67,11 @@ function DeckBuilder({ loading = false }) {
             <ExportDeckDialog />
             <CardImagePreview />
             <div className='DeckBuilder-displayPanel'>
-                {ownsDeck ? <DeckBuilderTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} /> : <DeckPreview />}
+                {ownsDeck ? (
+                    <DeckBuilderTabs loading={loading} selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+                ) : (
+                    <DeckPreview loading={loading} />
+                )}
             </div>
             <div className='DeckBuilder-deckPanel'>
                 <div className='DeckBuilder-deckInfo'>
@@ -75,11 +79,12 @@ function DeckBuilder({ loading = false }) {
                         {deckExists && <DeckBuilderName loading={loading} name={deckName} />}
                         {deckExists && ownsDeck && !loading ? <SaveIndicator /> : null}
                     </div>
-                    <DeckActions deckExists={deckExists} />
+                    <DeckActions loading={loading} deckExists={deckExists} />
                 </div>
                 <div className='DeckBuilder-tableContainer'>
-                    <DeckStats deck={deckCards} />
+                    <DeckStats loading={loading} deck={deckCards} />
                     <DeckTable
+                        loading={loading}
                         deckCards={deckCards}
                         maybeboardCards={maybeboardCards}
                         maybeboardMode={maybeboardMode}

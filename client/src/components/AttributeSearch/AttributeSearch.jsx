@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import useConfirmDialog from '../../hooks/useConfirmDialog';
 import { InputField } from '../../components/Input';
 import Button from '../../components/Button';
@@ -10,7 +11,8 @@ import RarityOptions from './RarityOptions';
 import StatRow from './StatRow';
 import './AttributeSearch.scss';
 
-export default function AttributeSearch({
+function AttributeSearch({
+    loading = false,
     name = '',
     setName = () => {},
     text = '',
@@ -95,6 +97,7 @@ export default function AttributeSearch({
                 <form className='AttributeSearch-form' onSubmit={onSubmit}>
                     <SymbolKey visible={symbolKeyVisible} onInsertSymbols={onInsertSymbols} onClose={onHideSymbolKey} />
                     <InputField
+                        loading={loading}
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         className='AttributeSearch-input'
@@ -104,6 +107,7 @@ export default function AttributeSearch({
                         onChange={onChangeName}
                     />
                     <InputField
+                        loading={loading}
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         className='AttributeSearch-input'
@@ -117,8 +121,9 @@ export default function AttributeSearch({
                             </Button>
                         }
                     />
-                    <CardTypes selectedTypes={selectedTypes} addType={addType} removeType={removeType} negateType={negateType} />
+                    <CardTypes loading={loading} selectedTypes={selectedTypes} addType={addType} removeType={removeType} negateType={negateType} />
                     <ColorOptions
+                        loading={loading}
                         labelClassName='AttributeSearch-label'
                         label='Colors'
                         rowClassName='AttributeSearch-formRow'
@@ -128,8 +133,9 @@ export default function AttributeSearch({
                         matchType={matchType}
                         setMatchType={setMatchType}
                     />
-                    <CardSets selectedSets={selectedSets} addSet={addSet} removeSet={removeSet} />
+                    <CardSets loading={loading} selectedSets={selectedSets} addSet={addSet} removeSet={removeSet} />
                     <StatRow
+                        loading={loading}
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         label='Mana Value'
@@ -139,6 +145,7 @@ export default function AttributeSearch({
                         setStat={setStat}
                     />
                     <StatRow
+                        loading={loading}
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         label='Power'
@@ -148,6 +155,7 @@ export default function AttributeSearch({
                         setStat={setStat}
                     />
                     <StatRow
+                        loading={loading}
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         label='Toughness'
@@ -157,6 +165,7 @@ export default function AttributeSearch({
                         setStat={setStat}
                     />
                     <StatRow
+                        loading={loading}
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         label='Loyalty'
@@ -166,6 +175,7 @@ export default function AttributeSearch({
                         setStat={setStat}
                     />
                     <RarityOptions
+                        loading={loading}
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         label='Rarities'
@@ -174,6 +184,7 @@ export default function AttributeSearch({
                         setRarities={setRarities}
                     />
                     <InputField
+                        loading={loading}
                         rowClassName='AttributeSearch-formRow'
                         labelClassName='AttributeSearch-label'
                         className='AttributeSearch-input'
@@ -183,10 +194,10 @@ export default function AttributeSearch({
                         onChange={onChangeFlavorText}
                     />
                     <div className='AttributeSearch-footer'>
-                        <Button className='AttributeSearch-searchButton' type='submit' onClick={onSubmit}>
+                        <Button loading={loading} className='AttributeSearch-searchButton' type='submit' onClick={onSubmit}>
                             Search
                         </Button>
-                        <Button className='AttributeSearch-resetButton' onClick={onResetClick}>
+                        <Button loading={loading} className='AttributeSearch-resetButton' onClick={onResetClick}>
                             Reset
                         </Button>
                     </div>
@@ -195,3 +206,36 @@ export default function AttributeSearch({
         </div>
     );
 }
+
+AttributeSearch.propTypes = {
+    loading: PropTypes.bool,
+    name: PropTypes.string,
+    setName: PropTypes.func,
+    text: PropTypes.string,
+    setText: PropTypes.func,
+    selectedTypes: PropTypes.array,
+    addType: PropTypes.func,
+    removeType: PropTypes.func,
+    negateType: PropTypes.func,
+    colors: PropTypes.object,
+    setColors: PropTypes.func,
+    setColorless: PropTypes.func,
+    matchType: PropTypes.string,
+    setMatchType: PropTypes.func,
+    selectedSets: PropTypes.array,
+    addSet: PropTypes.func,
+    removeSet: PropTypes.func,
+    cmc: PropTypes.object,
+    power: PropTypes.object,
+    toughness: PropTypes.object,
+    loyalty: PropTypes.object,
+    setStat: PropTypes.func,
+    rarities: PropTypes.object,
+    setRarities: PropTypes.func,
+    flavorText: PropTypes.string,
+    setFlavorText: PropTypes.func,
+    resetSearchCriteria: PropTypes.func,
+    onSearch: PropTypes.func,
+};
+
+export default AttributeSearch;

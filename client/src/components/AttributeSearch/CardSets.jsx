@@ -1,9 +1,10 @@
 import { useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import useCardSets from '../../hooks/useCardSets';
 import AttributeSearchContext from '../../contexts/AttributeSearch';
 import { MultiSelectField } from '../../components/Select';
 
-export default function CardSets({ selectedSets = [], addSet = () => {}, removeSet = () => {} }) {
+function CardSets({ loading = false, selectedSets = [], addSet = () => {}, removeSet = () => {} }) {
     const { getCardSets } = useCardSets();
     const { cardSets, setCardSets } = useContext(AttributeSearchContext);
 
@@ -60,6 +61,7 @@ export default function CardSets({ selectedSets = [], addSet = () => {}, removeS
 
     return (
         <MultiSelectField
+            loading={loading}
             rowClassName='AttributeSearch-formRow'
             labelClassName='AttributeSearch-label'
             className='AttributeSearch-select'
@@ -73,3 +75,12 @@ export default function CardSets({ selectedSets = [], addSet = () => {}, removeS
         </MultiSelectField>
     );
 }
+
+CardSets.propTypes = {
+    loading: PropTypes.bool,
+    selectedSets: PropTypes.array,
+    addSet: PropTypes.func,
+    removeSet: PropTypes.func,
+};
+
+export default CardSets;

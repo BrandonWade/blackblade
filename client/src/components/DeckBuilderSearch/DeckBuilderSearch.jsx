@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import useSearch from '../../hooks/useSearch';
 import useDisplayResults from '../../hooks/useDisplayResults';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
@@ -6,7 +7,7 @@ import DeckBuilderSearchContext from '../../contexts/DeckBuilderSearch';
 import AttributeSearch from '../AttributeSearch';
 import './DeckBuilderSearch.scss';
 
-export default function DeckBuilderSearch() {
+function DeckBuilderSearch({ loading = false }) {
     const { searchCards } = useSearch();
     const { displayResults } = useDisplayResults();
     const { setSelectedTab } = useContext(DeckBuilderContext);
@@ -69,6 +70,7 @@ export default function DeckBuilderSearch() {
     return (
         <div className='DeckBuilderSearch'>
             <AttributeSearch
+                loading={loading}
                 name={name}
                 setName={setName}
                 text={text}
@@ -100,3 +102,9 @@ export default function DeckBuilderSearch() {
         </div>
     );
 }
+
+DeckBuilderSearch.propTypes = {
+    loading: PropTypes.bool,
+};
+
+export default DeckBuilderSearch;

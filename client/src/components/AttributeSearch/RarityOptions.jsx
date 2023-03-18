@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import withFormField from '../../hocs/withFormField';
 import FieldGroup from '../../components/FieldGroup';
 import Checkbox from '../../components/Checkbox';
 
-function RarityOptions({ rarities = {}, setRarities = () => {} }) {
+function RarityOptions({ loading = false, rarities = {}, setRarities = () => {} }) {
     const onChangeCommon = () => onChangeRarity('common');
     const onChangeUncommon = () => onChangeRarity('uncommon');
     const onChangeRare = () => onChangeRarity('rare');
@@ -11,20 +12,26 @@ function RarityOptions({ rarities = {}, setRarities = () => {} }) {
 
     return (
         <FieldGroup className='RarityOptions'>
-            <Checkbox className='AttributeSearch-checkbox' value={rarities['common']} onClick={onChangeCommon}>
+            <Checkbox loading={loading} className='AttributeSearch-checkbox' value={rarities['common']} onClick={onChangeCommon}>
                 Common
             </Checkbox>
-            <Checkbox className='AttributeSearch-checkbox' value={rarities['uncommon']} onClick={onChangeUncommon}>
+            <Checkbox loading={loading} className='AttributeSearch-checkbox' value={rarities['uncommon']} onClick={onChangeUncommon}>
                 Uncommon
             </Checkbox>
-            <Checkbox className='AttributeSearch-checkbox' value={rarities['rare']} onClick={onChangeRare}>
+            <Checkbox loading={loading} className='AttributeSearch-checkbox' value={rarities['rare']} onClick={onChangeRare}>
                 Rare
             </Checkbox>
-            <Checkbox className='AttributeSearch-checkbox' value={rarities['mythic']} onClick={onChangeMythic}>
+            <Checkbox loading={loading} className='AttributeSearch-checkbox' value={rarities['mythic']} onClick={onChangeMythic}>
                 Mythic Rare
             </Checkbox>
         </FieldGroup>
     );
 }
+
+RarityOptions.propTypes = {
+    loading: PropTypes.bool,
+    rarities: PropTypes.object,
+    setRarities: PropTypes.func,
+};
 
 export default withFormField(RarityOptions);
