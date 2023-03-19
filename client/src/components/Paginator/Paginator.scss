@@ -16,15 +16,26 @@
 
     &-buttonGroup {
         display: flex;
+        padding: 0.5rem 0.25rem;
 
-        .Button {
-            @media only screen and (max-width: 37.5em) {
-                font-size: 1.35rem;
-                padding: 0.5rem;
+        @media only screen and (max-width: 75em) {
+            &:nth-of-type(1) {
+                order: 2;
+            }
+
+            &:nth-last-of-type(1) {
+                order: 3;
             }
         }
+    }
 
-        .Button:not(:last-child) {
+    &-button {
+        @media only screen and (max-width: 37.5em) {
+            font-size: 1.35rem;
+            padding: 0.5rem;
+        }
+
+        &:not(:last-child) {
             margin-right: 3rem;
 
             @media only screen and (max-width: 75em) {
@@ -35,15 +46,25 @@
                 margin-right: 1rem;
             }
         }
-    }
 
-    @media only screen and (max-width: 75em) {
-        &-buttonGroup:nth-of-type(1) {
-            order: 2;
-        }
+        &--loading {
+            width: 8rem;
 
-        &-buttonGroup:nth-last-of-type(1) {
-            order: 3;
+            @media only screen and (max-width: 37.5em) {
+                width: 6rem;
+            }
+
+            &:not(:last-child) {
+                margin-right: 3rem;
+
+                @media only screen and (max-width: 75em) {
+                    margin-right: 2rem;
+                }
+
+                @media only screen and (max-width: 37.5em) {
+                    margin-right: 1rem;
+                }
+            }
         }
     }
 
@@ -90,11 +111,19 @@
         }
     }
 
-    &-infoBlock:not(:last-child) {
-        margin-right: 4rem;
+    &-infoBlock {
+        &:not(:last-child) {
+            margin-right: 4rem;
 
-        @media only screen and (max-width: 37.5em) {
-            margin-right: 0;
+            @media only screen and (max-width: 37.5em) {
+                margin-right: 0;
+            }
+        }
+
+        &--loading {
+            width: 20%;
+            height: 2rem;
+            min-width: 10rem;
         }
     }
 }

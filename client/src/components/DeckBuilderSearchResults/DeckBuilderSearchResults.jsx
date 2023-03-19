@@ -1,11 +1,12 @@
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { parseIntFallback } from '../../helpers/parse';
 import DeckBuilderContext from '../../contexts/DeckBuilder';
 import DeckBuilderSearchContext from '../../contexts/DeckBuilderSearch';
 import PaginatedResults from '../../components/PaginatedResults';
 import './DeckBuilderSearchResults.scss';
 
-export default function DeckBuilderSearchResults({ forwardRef = null }) {
+function DeckBuilderSearchResults({ loading = false, forwardRef = null }) {
     const { deckCards, setDeckCards, maybeboardCards, setMaybeboardCards, maybeboardMode } = useContext(DeckBuilderContext);
     const {
         name,
@@ -67,6 +68,7 @@ export default function DeckBuilderSearchResults({ forwardRef = null }) {
         <div className='DeckBuilderSearchResults'>
             <PaginatedResults
                 forwardRef={forwardRef}
+                loading={loading}
                 className='DeckBuilderSearchResults-results'
                 paginatorClassName='DeckBuilderSearchResults-paginator'
                 gridClassName='DeckBuilderSearchResults-grid'
@@ -96,3 +98,10 @@ export default function DeckBuilderSearchResults({ forwardRef = null }) {
         </div>
     );
 }
+
+DeckBuilderSearchResults.propTypes = {
+    loading: PropTypes.bool,
+    forwardRef: PropTypes.object,
+};
+
+export default DeckBuilderSearchResults;
