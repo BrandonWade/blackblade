@@ -1,9 +1,8 @@
-FROM node:15-alpine AS builder
+FROM node:19-alpine AS builder
 WORKDIR /app
 
 COPY package.json .
 COPY package-lock.json .
-COPY ./public ./public
 COPY ./src ./src
 
 RUN npm install
