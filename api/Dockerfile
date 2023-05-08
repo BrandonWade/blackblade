@@ -10,10 +10,10 @@ RUN npm install
 RUN npm run build
 
 
-FROM node:15-alpine
+FROM node:19-alpine
 WORKDIR /app
 
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/build ./build
 
 CMD ["node", "./dist/bin/www.js"]

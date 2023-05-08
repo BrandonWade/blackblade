@@ -3,6 +3,7 @@ WORKDIR /app
 
 COPY package.json .
 COPY package-lock.json .
+COPY ./index.html ./index.html
 COPY ./src ./src
 
 RUN npm install
