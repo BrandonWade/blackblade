@@ -3,6 +3,8 @@ WORKDIR /app
 
 COPY package.json .
 COPY package-lock.json .
+COPY ./index.html ./index.html
+COPY ./vite.config.js ./vite.config.js
 COPY ./src ./src
 
 RUN npm install
