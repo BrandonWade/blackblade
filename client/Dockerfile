@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 COPY ./index.html ./index.html
+COPY ./favicon.ico ./favicon.ico
 COPY ./vite.config.js ./vite.config.js
 COPY ./src ./src
 

@@ -40,7 +40,7 @@ services:
             - /app/node_modules
             - ./client:/app
         environment:
-            - CI=true
+            - VITE_BLACKBLADE_DOMAIN=${VITE_BLACKBLADE_DOMAIN:?err}
 networks:
     default:
         external:

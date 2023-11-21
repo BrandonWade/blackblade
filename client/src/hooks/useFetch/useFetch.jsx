@@ -21,7 +21,7 @@ export default function useFetch() {
             options['body'] = JSON.stringify(body);
         }
 
-        const response = await fetch(url, options);
+        const response = await fetch(`${import.meta.env.VITE_BLACKBLADE_DOMAIN}${url}`, options);
         let data = {};
 
         try {
