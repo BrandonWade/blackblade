@@ -1,4 +1,4 @@
-# [blackblade](https://blackblade.ca) [![Blackblade](https://circleci.com/gh/BrandonWade/blackblade.svg?style=shield)](https://github.com/BrandonWade/blackblade)
+# blackblade [![Blackblade](https://circleci.com/gh/BrandonWade/blackblade.svg?style=shield)](https://github.com/BrandonWade/blackblade)
 
 A project to learn about modern React and to use it to build a site for working with Magic: The Gathering cards.
 
